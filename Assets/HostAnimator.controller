@@ -51,7 +51,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: AttackLeft_Nosedman_S
+  m_Name: AttackLeft
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -125,7 +125,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Hit_Nosedman_S
+  m_Name: Hit
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -151,7 +151,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GunRight_Nosedman_S
+  m_Name: GunRight
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -199,7 +199,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Death_Nosedman_S
+  m_Name: Death
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -226,7 +226,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Rage_Nosedman_S
+  m_Name: Rage
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -251,7 +251,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: HostrAnimator
+  m_Name: HostAnimator
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Blend
@@ -259,7 +259,7 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -324,7 +324,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Run_Nosedman_S
+  m_Name: Run
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -416,7 +416,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Def_Nosedman_S
+  m_Name: Def
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -471,28 +471,28 @@ AnimatorStateMachine:
     m_Position: {x: 570, y: -90, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 9131012583184973325}
-    m_Position: {x: 800, y: -90, z: 0}
+    m_Position: {x: 820, y: -90, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2766238477530115126}
-    m_Position: {x: 970, y: 200, z: 0}
+    m_Position: {x: 800, y: 220, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8611205601102162907}
-    m_Position: {x: 710, y: 190, z: 0}
+    m_Position: {x: 690, y: 270, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3953574523894265813}
     m_Position: {x: 690, y: -150, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4226318689878451700}
-    m_Position: {x: 500, y: 200, z: 0}
+    m_Position: {x: 560, y: 220, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7712569732530440786}
-    m_Position: {x: 440, y: 110, z: 0}
+    m_Position: {x: 380, y: 60, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1594136407020514242}
-    m_Position: {x: 940, y: 30, z: 0}
+    m_Position: {x: 920, y: 20, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3858687762932546450}
-    m_Position: {x: 450, y: 30, z: 0}
+    m_Position: {x: 380, y: 0, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: -9180875220546038406}
@@ -508,8 +508,8 @@ AnimatorStateMachine:
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 700, y: 30, z: 0}
-  m_EntryPosition: {x: 200, y: 120, z: 0}
-  m_ExitPosition: {x: 1050, y: 120, z: 0}
+  m_EntryPosition: {x: 420, y: 140, z: 0}
+  m_ExitPosition: {x: 1020, y: 220, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: -7712569732530440786}
 --- !u!1102 &9131012583184973325
@@ -519,7 +519,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: AttackRight_Nosedman_S
+  m_Name: AttackRight
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
