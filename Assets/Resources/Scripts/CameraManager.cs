@@ -14,8 +14,17 @@ public class CameraManager : MonoBehaviour
     int mul = 25;//카메라 회전 배율
     Vector3 cameraVec;
 
+    private void Start()
+    {
+        
+    }
+
+    public int fly = 40;
+
     private void Update()
     {
+        cameraParent.transform.position = Vector3.up * fly + (cameraTarget1.transform.position + cameraTarget2.transform.position) / 2f;
+
         //카메라 위치 관리
         cameraVec = mul * new Vector3(Mathf.Sin(Mathf.PI * rot / 360), 0, Mathf.Cos(Mathf.PI * rot / 360));
         cameraObj.position = cameraParent.position + cameraVec;
