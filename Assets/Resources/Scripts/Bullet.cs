@@ -6,26 +6,30 @@ public class Bullet : MonoBehaviour
 {
     [Header("총알의 최대 수명")]
     public float maxTime;
+    [Header("총알의 충돌 수명")]
+    public float colTime;
     float curTime = 0f;
-
     [Header("총알의 피해량")]
     public int bulletDamage;
-
     [Header("총알의 속도")]
     public float bulletSpeed;
+    [Header("총알의 충돌 영역")]
+    public Collider bulletCollider;
 
     [Header("총알의 주인")]
     public ParentAgent bulletHost;
+    [Header("총알 주인이 속한 팀")]
+    public Creature.TeamEnum curTeamEnum;
 
     public enum BulletMoveEnum
     {
-       Tracer, Canon
+       Melee, Tracer, Canon
     }
-    [Header("총알의 이동")]
+    [Header("총알의 이동 방식")]
     public BulletMoveEnum curBulletMoveEnum;
 
-    [Header("히트 이펙트")]
-    public string hitStr;
+    [Header("사라질 때, 사용할 이펙트")]
+    public string endStr;
 
     public GameManager gameManager;
     ObjectManager objectManager;
@@ -36,6 +40,7 @@ public class Bullet : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         if (curBulletMoveEnum == BulletMoveEnum.Canon) 
             rigid.useGravity = true;
+        bulletCollider = GetComponent<Collider>();
     }
 
     private void Update()
@@ -43,57 +48,40 @@ public class Bullet : MonoBehaviour
         curTime += Time.deltaTime;
         if (curTime > maxTime)
         {
-            bulletOff();
+            gameObject.SetActive(false);
+        }
+        else if(curTime > colTime)
+        {
+            bulletCollider.enabled = false;
         }
     }
 
     #region 총알 활성 동기화
-    public void bulletOnRPC()
+    public void BulletOn(ParentAgent _parentAgent)
     {
-        //게임오브젝트 활성화
-        gameObject.SetActive(true);
+        //부모 설정
+        bulletHost = _parentAgent;
+        curTeamEnum = bulletHost.creature.curTeamEnum;
         //회전 초기화
         //transform.rotation = Quaternion.identity;
         //시간 동기화
         curTime = 0f;
+        //충돌 영역 활성화
+        bulletCollider.enabled = true;
+        //게임오브젝트 활성화
+        gameObject.SetActive(true);
     }
     #endregion
 
-    #region 총알 비활성 동기화
-    public void bulletOff()//칼에 맞았거나, 자연소멸했거나
-    {
-
-        //게임오브젝트 비활성화
-        gameObject.SetActive(false);
-        //-1: 플레이어가 총알에 맞은 경우
-        // 0: 자연 소멸한 경우
-        //+1: 플레이어가 칼로 총알을 파괴한 경우
-        /*
-        if (isHit)//종료 이펙트 출력
-        {
-            GameObject hit = gameManager.CreateObj(hitStr, GameManager.PoolTypes.BulletType);
-            Effect hitEffect = hit.GetComponent<Effect>();
-
-            if (PhotonNetwork.InRoom)
-            {
-                if (PhotonNetwork.IsMasterClient)
-                    hitEffect.photonView.RPC("effectOnRPC", RpcTarget.AllBuffered, transform.position);
-            }
-            else if (!PhotonNetwork.InRoom)
-            {
-                hitEffect.effectOnRPC(transform.position);
-            }
-        }
-        */
-
-    }
-    #endregion
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.transform.CompareTag("Outline")) //맵 밖으로 나가지면 종료
         {
-            bulletOff();
+            if (curBulletMoveEnum != BulletMoveEnum.Melee) 
+            {
+                gameObject.SetActive(true);
+            }
         }
     }
 }

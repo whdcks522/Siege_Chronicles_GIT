@@ -5,20 +5,24 @@ using UnityEngine;
 public class ObjectManager : MonoBehaviour
 {
 
-    //1. 총알 리스트
+    //총알 리스트
     string[] bulletNames = { "Infantry_A_Slash" };
     //총알 주소가 저장될 곳
     List<GameObject>[] bulletPools;
+    [Header("총알을 저장할 폴더")]
+    public Transform bulletFolder;
 
-    //4. 이펙트 리스트(2가 강한 폭발, 6이 약한 폭발),3은 안씀
+    //이펙트 리스트
     string[] effectNames = { "Explosion 2", "Explosion 3", "Explosion 6", "Explosion 2_Cure", "Explosion 2_PowerUp",
                                 "Text 52_Creature", "Text 52_Player", "congratulation 9"};
     //이펙트 주소가 저장될 곳
     List<GameObject>[] effectPools;
+    [Header("이펙트를 저장할 폴더")]
+    public Transform effectFolder;
 
-    //7. 적 리스트
+    //적 리스트
     string[] creatureNames = { "Infantry_A", "shooter_A"};
-    //이펙트 주소가 저장될 곳
+    //적 주소가 저장될 곳
     List<GameObject>[] creaturePools;
 
     public enum PoolTypes
@@ -28,12 +32,12 @@ public class ObjectManager : MonoBehaviour
 
     private void Awake()
     {
-        //1. 총알 풀 초기화
+        //총알 풀 초기화
         bulletPools = new List<GameObject>[bulletNames.Length];
         for (int index = 0; index < bulletNames.Length; index++)//풀 하나하나 초기화
             bulletPools[index] = new List<GameObject>();
 
-        //4. 이펙트 풀 초기화(4개씩 수정)
+        //이펙트 풀 초기화(4개씩 수정)
         effectPools = new List<GameObject>[effectNames.Length];
         for (int index = 0; index < effectNames.Length; index++)//풀 하나하나 초기화
             effectPools[index] = new List<GameObject>();
@@ -88,7 +92,8 @@ public class ObjectManager : MonoBehaviour
             switch (poolTypes)
             {
                 case PoolTypes.BulletPool:
-                    
+                    path = "Bullet/" + tmpNames[index]; // 서브 폴더명을 포함하여 경로 설정
+                    tmpGameObject = Instantiate(Resources.Load<GameObject>(path), Vector3.zero, Quaternion.identity);
                     break;
                 case PoolTypes.EffectPool:
                     

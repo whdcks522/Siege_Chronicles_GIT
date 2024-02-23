@@ -45,7 +45,7 @@ public class Creature : MonoBehaviour
     public enum CreatureMoveEnum {Idle, Run, LeftSpin, RightSpin }//머신러닝으로 취할수 있는 행동
     public CreatureMoveEnum curCreatureMoveEnum;
 
-    public enum TeamEnum { Blue, Red }//머신러닝으로 취할수 있는 행동
+    public enum TeamEnum { None, Blue, Red }//머신러닝으로 취할수 있는 행동
     public TeamEnum curTeamEnum;
 
     //생명체의 상태 목록
@@ -134,7 +134,7 @@ public class Creature : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Bomb"))//폭탄과 충돌했을 때
+        if (other.gameObject.CompareTag("Bullet"))//폭탄과 충돌했을 때
         {
             //int damage = other.gameObject.GetComponent<Bomb>().bombDmg;
             //피격 처리

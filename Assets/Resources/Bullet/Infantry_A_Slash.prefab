@@ -11,9 +11,11 @@ GameObject:
   - component: {fileID: 1041126755279568644}
   - component: {fileID: 6359294137932803462}
   - component: {fileID: 1205837206348942882}
-  m_Layer: 0
+  - component: {fileID: 2377350996307044321}
+  - component: {fileID: 3920584867422586876}
+  m_Layer: 8
   m_Name: Infantry_A_Slash
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!198 &6359294137932803462
 ParticleSystem:
@@ -4907,3 +4909,47 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &2377350996307044321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3536692737643162957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39d7777aa57d16941af8bd7f6040a3c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxTime: 1.7
+  colTime: 0.7
+  bulletDamage: 10
+  bulletSpeed: 0
+  bulletHost: {fileID: 0}
+  bulletCollider: {fileID: 0}
+  curBulletMoveEnum: 0
+  endStr: 
+  gameManager: {fileID: 0}
+--- !u!136 &3920584867422586876
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3536692737643162957}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Height: 4
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0}

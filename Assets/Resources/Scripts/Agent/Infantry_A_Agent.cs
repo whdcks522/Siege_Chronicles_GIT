@@ -82,9 +82,17 @@ public class Infantry_A_Agent : ParentAgent
                             if (r == 0) anim.SetTrigger("isAttackLeft");
                             else if (r == 1) anim.SetTrigger("isAttackRight");
 
-                            //참격 생성
+                            //주황색 참격 생성
                             GameObject slash = objectManager.CreateObj("Infantry_A_Slash", ObjectManager.PoolTypes.BulletPool);
-                            slash.transform.forward = transform.forward;
+                            Bullet slash_bullet = slash.GetComponent<Bullet>();
+                            slash_bullet.BulletOn(this);
+                            //이동
+                            slash.transform.position = transform.position + transform.forward + Vector3.up * 3;
+                            //회전
+ 
+                            slash.transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x + 90,
+                                transform.rotation.eulerAngles.y - 180, transform.rotation.eulerAngles.z - 90);
+
                         }
                         else AddReward(-0.5f);
                     }
