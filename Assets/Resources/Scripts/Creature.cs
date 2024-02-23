@@ -36,8 +36,8 @@ public class Creature : MonoBehaviour
     Rigidbody rigid;
     Animator anim;
 
-    public enum CreatureMove {Idle, Run, LeftSpin, RightSpin }//머신러닝으로 취할수 있는 행동
-    public CreatureMove curCreatureMove;
+    public enum CreatureMoveEnum {Idle, Run, LeftSpin, RightSpin }//머신러닝으로 취할수 있는 행동
+    public CreatureMoveEnum curCreatureMoveEnum;
 
     public enum TeamEnum { Blue, Red }//머신러닝으로 취할수 있는 행동
     public TeamEnum curTeamEnum;
@@ -83,22 +83,22 @@ public class Creature : MonoBehaviour
     #region 물리 동작
     private void FixedUpdate()
     {
-        switch (curCreatureMove) 
+        switch (curCreatureMoveEnum) 
         {
-            case CreatureMove.Idle://멈추기
+            case CreatureMoveEnum.Idle://멈추기
                 moveVec = new Vector3(0, rigid.velocity.y, 0);
                 rigid.velocity = moveVec;
 
                 anim.SetBool("isIdle", true);
                 break;
-            case CreatureMove.Run://달리기
+            case CreatureMoveEnum.Run://달리기
                 moveVec = new Vector3(0, rigid.velocity.y, 0) + Vector3.forward * runSpd;
                 rigid.velocity = moveVec.normalized * runSpd;
                 rigid.angularVelocity = Vector3.zero;
 
                 anim.SetBool("isRun", true);
                 break;
-            case CreatureMove.LeftSpin:
+            case CreatureMoveEnum.LeftSpin:
                 moveVec = transform.rotation.eulerAngles;
                 // 왼쪽으로 조금 회전합니다 (여기서는 y축 값만 조정합니다)
                 moveVec.y -= rotSpd * Time.deltaTime;
@@ -107,7 +107,7 @@ public class Creature : MonoBehaviour
 
                 anim.SetBool("isIdle", true);
                 break;
-            case CreatureMove.RightSpin:
+            case CreatureMoveEnum.RightSpin:
                 moveVec = transform.rotation.eulerAngles;
                 // 왼쪽으로 조금 회전합니다 (여기서는 y축 값만 조정합니다)
                 moveVec.y += rotSpd * Time.deltaTime;
@@ -159,7 +159,7 @@ public class Creature : MonoBehaviour
         {
             //사망 처리
             isDead = true;
-            curCreatureMove = CreatureMove.Idle;
+            //curCreatureMove = CreatureMoveEnum.Idle;
             
             //미니 UI 닫기
             miniHealth.fillAmount = 0;
