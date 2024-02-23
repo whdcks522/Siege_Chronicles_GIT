@@ -8,6 +8,11 @@ using UnityEngine.UI;
 
 public class Creature : MonoBehaviour
 {
+    [Header("쉐이더에 쓰일 텍스쳐")]
+    public Texture baseTexture;
+    [Header("쉐이더에 쓰일 스킨 렌더러")]
+    public SkinnedMeshRenderer skinnedMeshRenderer;
+
     [Header("생명체의 최대 체력")]
     public float maxHealth;
     [Header("생명체의 현재 체력")]
@@ -54,8 +59,7 @@ public class Creature : MonoBehaviour
         //Debug.Log(index);
     }
 
-    #region 생명체 활성화
-    public void Revive()
+    private void OnEnable()
     {
         //공격 대기 시간 초기화
         curTime = 0;
@@ -69,6 +73,14 @@ public class Creature : MonoBehaviour
 
         //오브젝트 활성화
         gameObject.SetActive(true);
+
+        VisibleWarp();
+    }
+
+    #region 생명체 활성화
+    public void Revive()
+    {
+        
     }
     #endregion
 
@@ -180,4 +192,44 @@ public class Creature : MonoBehaviour
     #endregion
 
 
+    #region 왜곡장 
+    public void InvisibleWarp() // 점차 안보이게 되는 것
+    {
+        StopCoroutine(Dissolve(false));
+        StartCoroutine(Dissolve(true));
+    }
+    public void VisibleWarp() //점차 보이게 되는 것 
+    {
+        if (curHealth > 0)
+        {
+            StopCoroutine(Dissolve(true));
+            StartCoroutine(Dissolve(false));
+        }
+    }
+    IEnumerator Dissolve(bool b)//왜곡장 1.5초간
+    {
+        //레이어 변경
+
+        float firstValue = b ? 0f : 1f;      //true는 점차 안보이는 것
+        float targetValue = b ? 1f : 0f;     //false는 점차 보이는 것
+
+        float duration = 1.5f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            if (curHealth <= 0 && !b) break;
+            float progress = elapsedTime / duration;
+            float value = Mathf.Lerp(firstValue, targetValue, progress);
+            elapsedTime += Time.deltaTime;
+
+            skinnedMeshRenderer.material.SetFloat("_AlphaFloat", value);
+            yield return null;
+        }
+        skinnedMeshRenderer.material.SetFloat("_AlphaFloat", targetValue);
+
+        //레이어 변경
+
+    }
+    #endregion
 }

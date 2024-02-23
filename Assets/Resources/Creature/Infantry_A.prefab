@@ -47,6 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fee1e6a78de7644493b111244b33748, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseTexture: {fileID: 2800000, guid: 0673901d7bb3e1a408ffd1754ad3e8cd, type: 3}
+  skinnedMeshRenderer: {fileID: 4136840119831701257}
   maxHealth: 100
   curHealth: 0
   maxTime: 3
@@ -56,7 +58,8 @@ MonoBehaviour:
   miniUI: {fileID: 0}
   miniHealth: {fileID: 0}
   runSpd: 4
-  curCreatureMove: 0
+  curCreatureMoveEnum: 0
+  curTeamEnum: 0
 --- !u!54 &5137104300073328733
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -349,6 +352,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 7388106785048407052}
   m_SourcePrefab: {fileID: 100100000, guid: a6a1964ee63cb9b4484be19c9579b178, type: 3}
+--- !u!137 &4136840119831701257 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6961172637168999439, guid: a6a1964ee63cb9b4484be19c9579b178,
+    type: 3}
+  m_PrefabInstance: {fileID: 6481259901158406918}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6139363260707276375 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a6a1964ee63cb9b4484be19c9579b178,
