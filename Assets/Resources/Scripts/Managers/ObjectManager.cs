@@ -82,8 +82,24 @@ public class ObjectManager : MonoBehaviour
         //없으면 생성하고 select에 할당
         if (!tmpGameObject)
         {
-            tmpGameObject = Instantiate(Resources.Load<GameObject>(tmpNames[index]), Vector3.zero, Quaternion.identity);
-            //tmpGameObject =Instantiate(Resources.Load("characters/Player") , pos , Quaternion.identity);
+            //tmpGameObject = Instantiate(Resources.Load<GameObject>(tmpNames[index]), Vector3.zero, Quaternion.identity);
+
+            string path = "";
+
+            switch (poolTypes)
+            {
+                case PoolTypes.BulletPool:
+                    
+                    break;
+                case PoolTypes.EffectPool:
+                    
+                    break;
+                case PoolTypes.CreaturePool:
+                    path = "Creature/" + tmpNames[index]; // 서브 폴더명을 포함하여 경로 설정
+                    tmpGameObject = Instantiate(Resources.Load<GameObject>(path), Vector3.zero, Quaternion.identity);
+                    break;
+            }
+
             //임시 리스트에 더하기
             tmpPools[index].Add(tmpGameObject);
 

@@ -8,6 +8,7 @@ Toon Fantasy Nature
 POLYGON Nature - Low Poly 3D Art by Synty
 3D Scifi Base Vol 1
 GUI Pro - Casual Game
+Stylized Slash VFX
  
  
  */
