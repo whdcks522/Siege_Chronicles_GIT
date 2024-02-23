@@ -36,8 +36,8 @@ public class UIManager : MonoBehaviour
         cameraParent.transform.position = Vector3.up * fly + (blueCameraTarget.position + redCameraTarget.transform.position) / 2f;
 
         //持誤端 持失
-        GameObject a = objectManager.CreateObj("Infantry_A", PoolTypes.CreaturePool);
-        a.transform.position = redCameraTarget.position;
+        //GameObject a = objectManager.CreateObj("Infantry_A", PoolTypes.CreaturePool);
+        //a.transform.position = redCameraTarget.position;
     }
 
     

@@ -18,10 +18,8 @@ public class Creature : MonoBehaviour
     [Header("생명체의 현재 체력")]
     public float curHealth;
 
-    [Header("생명체의 최대 공격 대기 시간")]
-    public float maxTime;
-    [Header("생명체의 현재 공격 대기 시간")]
-    public float curTime;
+    [Header("가까운 적")]
+    public Transform target;
 
     [Header("우리 성")]
     public Transform ourTower;
@@ -34,10 +32,13 @@ public class Creature : MonoBehaviour
 
     [Header("달리는 속도")]
     public int runSpd;
-    int rotSpd = 30;//회전 속도
+    int rotSpd = 120;//회전 속도
 
     Vector3 moveVec;//이동용 벡터
 
+    
+
+    public GameManager gameManager;
     Rigidbody rigid;
     Animator anim;
 
@@ -49,85 +50,84 @@ public class Creature : MonoBehaviour
 
     //생명체의 상태 목록
     bool isDead = false;
+    [Header("현재 공격 중인지")]
+    public bool isAttack = false;
 
     private void Awake()
     {
         rigid = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
 
+        //텍스쳐 매터리얼 설정
+        skinnedMeshRenderer.material.SetTexture("_BaseTexture", baseTexture);
+
         //int index = System.Array.IndexOf(System.Enum.GetValues(typeof(CreatureMove)), curCreatureMove);
         //Debug.Log(index);
-    }
-
-    private void OnEnable()
-    {
-        //공격 대기 시간 초기화
-        curTime = 0;
-        //가속 초기화
-        rigid.velocity = Vector3.zero;
-        //체력 회복
-        curHealth = maxHealth;
-        miniHealth.fillAmount = 1;
-
-        isDead = false;
-
-        //오브젝트 활성화
-        gameObject.SetActive(true);
-
-        VisibleWarp();
     }
 
     #region 생명체 활성화
     public void Revive()
     {
-        
+        //공격 대기 시간 초기화
+        isAttack = false;
+        //가속 초기화
+        rigid.velocity = Vector3.zero;
+        //체력 회복
+        curHealth = maxHealth;
+
+        isDead = false;
+
+        //오브젝트 활성화
+        gameObject.SetActive(true);
+        //기상 애니메이션
+        anim.SetTrigger("isRage");
+
+        //miniHealth.fillAmount = 1;
+        VisibleWarp();
     }
     #endregion
-
-    #region 애니메이션 조작
-    void AnimationControl() 
-    {
-    
-    }
-    #endregion
-
+   
 
     #region 물리 동작
     private void FixedUpdate()
     {
-        switch (curCreatureMoveEnum) 
+        if (gameObject.layer == LayerMask.NameToLayer("Creature")) 
         {
-            case CreatureMoveEnum.Idle://멈추기
-                moveVec = new Vector3(0, rigid.velocity.y, 0);
-                rigid.velocity = moveVec;
 
-                anim.SetBool("isIdle", true);
-                break;
-            case CreatureMoveEnum.Run://달리기
-                moveVec = new Vector3(0, rigid.velocity.y, 0) + Vector3.forward * runSpd;
-                rigid.velocity = moveVec.normalized * runSpd;
-                rigid.angularVelocity = Vector3.zero;
+            switch (curCreatureMoveEnum)
+            {
+                case CreatureMoveEnum.Idle://멈추기
+                    moveVec = new Vector3(0, rigid.velocity.y, 0);
+                    rigid.velocity = moveVec;
 
-                anim.SetBool("isRun", true);
-                break;
-            case CreatureMoveEnum.LeftSpin:
-                moveVec = transform.rotation.eulerAngles;
-                // 왼쪽으로 조금 회전합니다 (여기서는 y축 값만 조정합니다)
-                moveVec.y -= rotSpd * Time.deltaTime;
-                // 새로운 회전값을 설정합니다
-                transform.rotation = Quaternion.Euler(moveVec);
+                    anim.SetBool("isRun", false);
+                    break;
+                case CreatureMoveEnum.Run://달리기
+                    moveVec = new Vector3(0, rigid.velocity.y, 0) + transform.forward * runSpd;
+                    rigid.velocity = moveVec.normalized * runSpd;
+                    rigid.angularVelocity = Vector3.zero;
 
-                anim.SetBool("isIdle", true);
-                break;
-            case CreatureMoveEnum.RightSpin:
-                moveVec = transform.rotation.eulerAngles;
-                // 왼쪽으로 조금 회전합니다 (여기서는 y축 값만 조정합니다)
-                moveVec.y += rotSpd * Time.deltaTime;
-                // 새로운 회전값을 설정합니다
-                transform.rotation = Quaternion.Euler(moveVec);
+                    anim.SetBool("isRun", true);
+                    break;
+                case CreatureMoveEnum.LeftSpin:
+                    moveVec = transform.rotation.eulerAngles;
+                    // 왼쪽으로 조금 회전합니다 (여기서는 y축 값만 조정합니다)
+                    moveVec.y -= rotSpd * Time.deltaTime;
+                    // 새로운 회전값을 설정합니다
+                    transform.rotation = Quaternion.Euler(moveVec);
 
-                anim.SetBool("isIdle", true);
-                break;
+                    anim.SetBool("isRun", false);
+                    break;
+                case CreatureMoveEnum.RightSpin:
+                    moveVec = transform.rotation.eulerAngles;
+                    // 왼쪽으로 조금 회전합니다 (여기서는 y축 값만 조정합니다)
+                    moveVec.y += rotSpd * Time.deltaTime;
+                    // 새로운 회전값을 설정합니다
+                    transform.rotation = Quaternion.Euler(moveVec);
+
+                    anim.SetBool("isRun", false);
+                    break;
+            }
         }
     }
     #endregion
@@ -167,19 +167,15 @@ public class Creature : MonoBehaviour
     #region 사망처리
     void Dead()
     {
-        //if (!isML)
-        {
-            //사망 처리
-            isDead = true;
-            //curCreatureMove = CreatureMoveEnum.Idle;
-            
-            //미니 UI 닫기
-            miniHealth.fillAmount = 0;
-            //먼지 종료
-            
-            //곧 죽음
-            Invoke("SoonDie", 1.5f);
-        }
+        //사망 처리
+        isDead = true;
+
+        //미니 UI 닫기
+        //miniHealth.fillAmount = 0;
+        //먼지 종료
+
+        //곧 죽음
+        Invoke("SoonDie", 1.5f);
     }
     #endregion
 
@@ -200,25 +196,27 @@ public class Creature : MonoBehaviour
     }
     public void VisibleWarp() //점차 보이게 되는 것 
     {
+        
         if (curHealth > 0)
         {
             StopCoroutine(Dissolve(true));
             StartCoroutine(Dissolve(false));
         }
     }
-    IEnumerator Dissolve(bool b)//왜곡장 1.5초간
+    IEnumerator Dissolve(bool  InVisible)//왜곡장 1.5초간
     {
-        //레이어 변경
+        
 
-        float firstValue = b ? 0f : 1f;      //true는 점차 안보이는 것
-        float targetValue = b ? 1f : 0f;     //false는 점차 보이는 것
+        float firstValue = InVisible ? 0f : 1f;      //true는 점차 안보이는 것
+        float targetValue = InVisible ? 1f : 0f;     //false는 점차 보이는 것
+        
 
         float duration = 1.5f;
         float elapsedTime = 0f;
 
         while (elapsedTime < duration)
         {
-            if (curHealth <= 0 && !b) break;
+            if (curHealth <= 0 && !InVisible) break;
             float progress = elapsedTime / duration;
             float value = Mathf.Lerp(firstValue, targetValue, progress);
             elapsedTime += Time.deltaTime;
@@ -228,8 +226,17 @@ public class Creature : MonoBehaviour
         }
         skinnedMeshRenderer.material.SetFloat("_AlphaFloat", targetValue);
 
-        //레이어 변경
-
+        if (InVisible)//안보이도록
+        {
+            //피격당하지 않도록, 레이어 변경
+            gameObject.layer = LayerMask.NameToLayer("WarpCreature");
+        }
+        else if(!InVisible)//보이도록 
+        {
+            //피격당하도록, 레이어 변경
+            gameObject.layer = LayerMask.NameToLayer("Creature");
+        }
+         
     }
     #endregion
 }

@@ -6,8 +6,7 @@ public class ObjectManager : MonoBehaviour
 {
 
     //1. 총알 리스트
-    string[] bulletNames = { "NormalBullet", "NormalBulletHit","PowerUpBullet","PowerUpBulletHit",
-                                "UnBreakableBullet", "UnBreakableBulletHit"};
+    string[] bulletNames = { "Infantry_A_Slash" };
     //총알 주소가 저장될 곳
     List<GameObject>[] bulletPools;
 

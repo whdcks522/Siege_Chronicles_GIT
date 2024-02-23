@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class ParentAgent : Agent
 {
-    public void increaseAward(float _score)//공용 점수 증가용
+    #region 공격한 생명체의 점수 증가
+    public void AddAward(float _score)
     {
-        
+        AddReward(_score);
     }
+    #endregion
 }
