@@ -16,10 +16,14 @@ public class Creature : MonoBehaviour
     [Header("생명체의 최대 체력")]
     public float maxHealth;
     [Header("생명체의 현재 체력")]
-    public float curHealth;
+    float curHealth;
 
     [Header("가까운 적")]
     public Transform target;
+    [Header("공격 가능한 최대 거리")]
+    public float maxRange;
+    [Header("현재 대상과의 거리")]
+    public float curRange;
 
     [Header("우리 성")]
     public Transform ourTower;
@@ -70,19 +74,22 @@ public class Creature : MonoBehaviour
     {
         //공격 대기 시간 초기화
         isAttack = false;
+        //대상과의 거리 초기화
+        curRange = 0;
         //가속 초기화
         rigid.velocity = Vector3.zero;
         //체력 회복
         curHealth = maxHealth;
-
         isDead = false;
+
+        //miniHealth.fillAmount = 1;
 
         //오브젝트 활성화
         gameObject.SetActive(true);
         //기상 애니메이션
         anim.SetTrigger("isRage");
 
-        //miniHealth.fillAmount = 1;
+        
         VisibleWarp();
     }
     #endregion

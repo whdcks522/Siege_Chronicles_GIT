@@ -4,11 +4,20 @@ using UnityEngine;
 
 public class AnimatorSupport : MonoBehaviour
 {
-    public Creature creature;
+    Creature creature;
+    ParentAgent parentAgent;
 
-    #region 공격 대기 초기화
+    private void Awake()
+    {
+        creature = transform.parent.GetComponent<Creature>();
+        parentAgent = transform.parent.GetComponent<ParentAgent>();
+    }
+
+    //공격 대기 초기화
     public void AttackClear() => creature.isAttack = false;
-    #endregion
 
-
+    public void AgentAttack()//에이전트 공격(상속)
+    {
+        parentAgent.AgentAttack();
+    }
 }

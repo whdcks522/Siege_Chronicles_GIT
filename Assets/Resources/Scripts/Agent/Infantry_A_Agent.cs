@@ -9,24 +9,16 @@ using static Creature;
 public class Infantry_A_Agent : ParentAgent
 {
     Rigidbody rigid;
-    public Creature creature;
-    
 
     GameManager gameManager;
     ObjectManager objectManager;
     AudioManager audioManager;
-    AiManager aiManager;
+    //AiManager aiManager;
     Animator anim;
 
-    public float maxRange;
 
-    //맥스 스텝은 늘린채로 놔도 이상 없음
-    //평면에서 학습하다가 환경 2로 옮김
-    //<Enemy_Orc>
     //mlagents-learn "D:\gitHubDeskTop\ML_EX_GIT\config\ppo\Enemy_Orc.yaml" --run-id=Enemy_Orc_K --resum(2시간즈음부터 성능 향상 시작됨)
 
-    Coroutine bigCor;
-    WaitForSeconds wait = new WaitForSeconds(0.12f);
 
     //대상과의 거리
     float curRange;
@@ -72,7 +64,7 @@ public class Infantry_A_Agent : ParentAgent
                 case 4://공격
                     if (gameObject.activeSelf)
                     {
-                        if (!creature.isAttack && curRange <= maxRange)//쿨타임이 돌았으면서, 거리 이내여야 함
+                        if (!creature.isAttack && curRange <= creature.maxRange)//쿨타임이 돌았으면서, 거리 이내여야 함
                         {
                             //애니메이션 관리
                             creature.curCreatureMoveEnum = CreatureMoveEnum.Idle;
@@ -81,18 +73,6 @@ public class Infantry_A_Agent : ParentAgent
                             int r = Random.Range(0, 2);
                             if (r == 0) anim.SetTrigger("isAttackLeft");
                             else if (r == 1) anim.SetTrigger("isAttackRight");
-
-                            //주황색 참격 생성
-                            GameObject slash = objectManager.CreateObj("Infantry_A_Slash", ObjectManager.PoolTypes.BulletPool);
-                            Bullet slash_bullet = slash.GetComponent<Bullet>();
-                            slash_bullet.BulletOn(this);
-                            //이동
-                            slash.transform.position = transform.position + transform.forward + Vector3.up * 3;
-                            //회전
- 
-                            slash.transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x + 90,
-                                transform.rotation.eulerAngles.y - 180, transform.rotation.eulerAngles.z - 90);
-
                         }
                         else AddReward(-0.5f);
                     }
@@ -100,6 +80,8 @@ public class Infantry_A_Agent : ParentAgent
             }
         } 
     }
+
+
 
     #region 휴리스틱: 키보드를 통해 에이전트를 조정
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -154,16 +136,7 @@ public class Infantry_A_Agent : ParentAgent
         if (other.transform.CompareTag("Outline")) //맵 밖으로 나가지면 사망
         {
             AddReward(-1f);
-
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        //if (collision.gameObject == player)
-        {
-            //AddReward(10f);//점프였나 거기
-            //EndEpisode();//이것만으로 초기화가 되진 않음
+            //EndEpisode();
         }
     }
 
@@ -172,7 +145,20 @@ public class Infantry_A_Agent : ParentAgent
 
     public override void OnEpisodeBegin()//EndEpisode가 호출됐을 때 사용됨(씬을 호출할 때는 통째로 삭제)
     {
-        transform.position = point.position;
         creature.Revive();
+        transform.position = point.position;
+    }
+
+    override public void AgentAttack() //주황색 참격 생성
+    {
+        GameObject slash = objectManager.CreateObj("Infantry_A_Slash", ObjectManager.PoolTypes.BulletPool);
+        Bullet slash_bullet = slash.GetComponent<Bullet>();
+        slash_bullet.BulletOn(this);
+        //이동
+        slash.transform.position = transform.position + transform.forward + Vector3.up * 3;
+
+        //회전
+        slash.transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x + 90,
+            transform.rotation.eulerAngles.y - 180, transform.rotation.eulerAngles.z - 90);
     }
 }

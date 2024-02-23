@@ -7,10 +7,14 @@ public class ParentAgent : Agent
 {
     public Creature creature;
 
-    #region 공격한 생명체의 점수 증가
-    public void AddAward(float _score)
+    public void AddAward(float _score)//공격한 생명체의 점수 증가
     {
         AddReward(_score);
     }
-    #endregion
+
+    //에이전트에서 각자 공격(상속)
+    virtual public void AgentAttack() 
+    {
+
+    }
 }
