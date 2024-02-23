@@ -36,8 +36,11 @@ public class Creature : MonoBehaviour
     Rigidbody rigid;
     Animator anim;
 
-    public enum CreatureMove {Idle, Run, LeftSpin, RightSpin }
+    public enum CreatureMove {Idle, Run, LeftSpin, RightSpin }//머신러닝으로 취할수 있는 행동
     public CreatureMove curCreatureMove;
+
+    public enum TeamEnum { Blue, Red }//머신러닝으로 취할수 있는 행동
+    public TeamEnum curTeamEnum;
 
     //생명체의 상태 목록
     bool isDead = false;
