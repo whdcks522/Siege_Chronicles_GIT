@@ -37,7 +37,7 @@ public class UIManager : MonoBehaviour
 
         //持誤端 持失
         GameObject a = objectManager.CreateObj("Infantry_A", PoolTypes.CreaturePool);
-        a.transform.position = blueCameraTarget.position;
+        a.transform.position = redCameraTarget.position;
     }
 
     

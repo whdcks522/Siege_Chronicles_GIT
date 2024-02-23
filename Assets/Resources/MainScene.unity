@@ -6373,7 +6373,6 @@ MonoBehaviour:
   cameraParent: {fileID: 28815272}
   blueCameraTarget: {fileID: 1167470141}
   redCameraTarget: {fileID: 581650010}
-  fly: 50
   gameManager: {fileID: 1350925724}
 --- !u!1001 &384766960
 PrefabInstance:
@@ -10264,6 +10263,11 @@ PrefabInstance:
     - target: {fileID: 4800243204587378, guid: 595a396050bd5488997b131eb2c2305d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 793402535981347153, guid: 595a396050bd5488997b131eb2c2305d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -21003,6 +21007,11 @@ PrefabInstance:
     - target: {fileID: 82315706860550862, guid: 595a396050bd5488997b131eb2c2305d,
         type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 793402535981347153, guid: 595a396050bd5488997b131eb2c2305d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
