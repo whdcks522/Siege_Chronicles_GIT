@@ -51,9 +51,11 @@ MonoBehaviour:
   curHealth: 0
   maxTime: 3
   curTime: 0
+  ourTower: {fileID: 0}
+  enemyTower: {fileID: 0}
   miniUI: {fileID: 0}
   miniHealth: {fileID: 0}
-  runSpd: 8
+  runSpd: 4
   curCreatureMove: 0
 --- !u!54 &5137104300073328733
 Rigidbody:

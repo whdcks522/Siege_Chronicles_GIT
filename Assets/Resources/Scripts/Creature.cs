@@ -1,6 +1,7 @@
 using Google.Protobuf.WellKnownTypes;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Presets;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
@@ -28,6 +29,8 @@ public class Creature : MonoBehaviour
 
     [Header("달리는 속도")]
     public int runSpd;
+    int rotSpd = 30;//회전 속도
+
     Vector3 moveVec;//이동용 벡터
 
     Rigidbody rigid;
@@ -49,7 +52,7 @@ public class Creature : MonoBehaviour
     }
 
     #region 생명체 활성화
-    public void activateRPC()
+    public void Revive()
     {
         //공격 대기 시간 초기화
         curTime = 0;
@@ -66,7 +69,13 @@ public class Creature : MonoBehaviour
     }
     #endregion
 
-    public float ff;
+    #region 애니메이션 조작
+    void AnimationControl() 
+    {
+    
+    }
+    #endregion
+
 
     #region 물리 동작
     private void FixedUpdate()
@@ -89,7 +98,7 @@ public class Creature : MonoBehaviour
             case CreatureMove.LeftSpin:
                 moveVec = transform.rotation.eulerAngles;
                 // 왼쪽으로 조금 회전합니다 (여기서는 y축 값만 조정합니다)
-                moveVec.y -= ff * Time.deltaTime;
+                moveVec.y -= rotSpd * Time.deltaTime;
                 // 새로운 회전값을 설정합니다
                 transform.rotation = Quaternion.Euler(moveVec);
 
@@ -98,13 +107,72 @@ public class Creature : MonoBehaviour
             case CreatureMove.RightSpin:
                 moveVec = transform.rotation.eulerAngles;
                 // 왼쪽으로 조금 회전합니다 (여기서는 y축 값만 조정합니다)
-                moveVec.y += ff * Time.deltaTime;
+                moveVec.y += rotSpd * Time.deltaTime;
                 // 새로운 회전값을 설정합니다
                 transform.rotation = Quaternion.Euler(moveVec);
 
                 anim.SetBool("isIdle", true);
                 break;
         }
+    }
+    #endregion
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Bomb"))//폭탄과 충돌했을 때
+        {
+            //int damage = other.gameObject.GetComponent<Bomb>().bombDmg;
+            //피격 처리
+            //damageControlRPC(damage * 3);
+        }
+    }
+
+    #region 피격 처리
+    public void damageControlRPC(float _dmg)
+    {
+        if (isDead)
+            return;
+
+        //피해량 계산
+        curHealth -= _dmg;
+        if (curHealth <= 0) curHealth = 0;
+        else if (curHealth > maxHealth) curHealth = maxHealth;
+        //UI관리
+        miniHealth.fillAmount = curHealth / maxHealth;
+
+        //충격 초기화
+        if (curHealth > 0)//피격
+        {
+               
+        }
+        else if (curHealth <= 0) Dead();
+    }
+    #endregion
+
+    #region 사망처리
+    void Dead()
+    {
+        //if (!isML)
+        {
+            //사망 처리
+            isDead = true;
+            curCreatureMove = CreatureMove.Idle;
+            
+            //미니 UI 닫기
+            miniHealth.fillAmount = 0;
+            //먼지 종료
+            
+            //곧 죽음
+            Invoke("SoonDie", 1.5f);
+        }
+    }
+    #endregion
+
+    #region 사망 뒤, 소멸
+    void SoonDie()//죽었고 조금 뒤, 죽음에 대한 처리
+    {
+        //게임오브젝트 활성화
+        gameObject.SetActive(false);
     }
     #endregion
 
