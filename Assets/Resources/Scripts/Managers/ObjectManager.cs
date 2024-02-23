@@ -13,18 +13,18 @@ public class ObjectManager : MonoBehaviour
 
     //4. 이펙트 리스트(2가 강한 폭발, 6이 약한 폭발),3은 안씀
     string[] effectNames = { "Explosion 2", "Explosion 3", "Explosion 6", "Explosion 2_Cure", "Explosion 2_PowerUp",
-                                "Text 52_Enemy", "Text 52_Player", "congratulation 9"};
+                                "Text 52_Creature", "Text 52_Player", "congratulation 9"};
     //이펙트 주소가 저장될 곳
     List<GameObject>[] effectPools;
 
     //7. 적 리스트
-    string[] enemyNames = { "Enemy_Goblin", "Enemy_Orc", "Enemy_Lizard" };
+    string[] creatureNames = { "Infantry_A", "shooter_A"};
     //이펙트 주소가 저장될 곳
-    List<GameObject>[] enemyPools;
+    List<GameObject>[] creaturePools;
 
     public enum PoolTypes
     {
-        BulletType, EffectType, EnemyType
+        BulletPool, EffectPool, CreaturePool
     }
 
     private void Awake()
@@ -39,10 +39,10 @@ public class ObjectManager : MonoBehaviour
         for (int index = 0; index < effectNames.Length; index++)//풀 하나하나 초기화
             effectPools[index] = new List<GameObject>();
 
-        //6. 오브젝트 풀 초기화(4개씩 수정)
-        enemyPools = new List<GameObject>[enemyNames.Length];
-        for (int index = 0; index < enemyNames.Length; index++)//풀 하나하나 초기화
-            enemyPools[index] = new List<GameObject>();
+        //적 풀 초기화(4개씩 수정)
+        creaturePools = new List<GameObject>[creatureNames.Length];
+        for (int index = 0; index < creatureNames.Length; index++)//풀 하나하나 초기화
+            creaturePools[index] = new List<GameObject>();
     }
 
     public GameObject CreateObj(string _name, PoolTypes poolTypes) //있으면 적 부르고, 없으면 생성
@@ -55,17 +55,17 @@ public class ObjectManager : MonoBehaviour
 
         switch (poolTypes)
         {
-            case PoolTypes.BulletType:
+            case PoolTypes.BulletPool:
                 tmpPools = bulletPools;
                 tmpNames = bulletNames;
                 break;
-            case PoolTypes.EffectType:
+            case PoolTypes.EffectPool:
                 tmpPools = effectPools;
-                tmpNames = effectNames;//awake에서 선언햇니
+                tmpNames = effectNames;//awake에서 선언했니
                 break;
-            case PoolTypes.EnemyType:
-                tmpPools = enemyPools;
-                tmpNames = enemyNames;//awake에서 선언햇니
+            case PoolTypes.CreaturePool:
+                tmpPools = creaturePools;
+                tmpNames = creatureNames;//awake에서 선언했니
                 break;
         }
 
@@ -83,20 +83,21 @@ public class ObjectManager : MonoBehaviour
         if (!tmpGameObject)
         {
             tmpGameObject = Instantiate(Resources.Load<GameObject>(tmpNames[index]), Vector3.zero, Quaternion.identity);
+            //tmpGameObject =Instantiate(Resources.Load("characters/Player") , pos , Quaternion.identity);
             //임시 리스트에 더하기
             tmpPools[index].Add(tmpGameObject);
 
             //동기화
             switch (poolTypes)
             {
-                case PoolTypes.BulletType:
+                case PoolTypes.BulletPool:
                     bulletPools = tmpPools;
                     break;
-                case PoolTypes.EffectType:
+                case PoolTypes.EffectPool:
                     effectPools = tmpPools;
                     break;
-                case PoolTypes.EnemyType:
-                    enemyPools = tmpPools;
+                case PoolTypes.CreaturePool:
+                    creaturePools = tmpPools;
                     break;
             }
         }
@@ -108,6 +109,7 @@ public class ObjectManager : MonoBehaviour
     {
         for (int i = 0; i < tmpNames.Length; i++)
         {
+            //Debug.Log(tmpNames[i]);
             if (string.Equals(tmpNames[i], _name))
             {
                 return i;

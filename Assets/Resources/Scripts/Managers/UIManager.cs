@@ -2,29 +2,45 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static ObjectManager;
 
-public class CameraManager : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
     [Header("카메라 객체")]
     public Transform cameraObj;
     [Header("카메라 위치")]
     public Transform cameraParent;
-    [Header("성 1")]
-    public Transform cameraTarget1;
-    [Header("성 2")]
-    public Transform cameraTarget2;
+    [Header("파란 성의 생성 지점")]
+    public Transform blueCameraTarget;
+    [Header("빨간 성의 생성 지점")]
+    public Transform redCameraTarget;
 
-    int rot;//현재 회전값
+    int mul = 45;//카메라 회전 속도
+    int rot = -168;//현재 회전값
     int addRot = 0;//버튼으로 회전할 때 사용하는 논리값
-    int mul = 35;//카메라 회전 배율
-    Vector3 cameraVec;
+    Vector3 cameraVec;//카메라 회전용 벡터
+
+    int fly = 50;//카메라를 하늘에서 띄운 정도
+
+    public GameManager gameManager;
+    ObjectManager objectManager;
+
+    private void Awake()
+    {
+        objectManager = gameManager.objectManager;
+    }
 
     private void Start()
     {
-        cameraParent.transform.position = Vector3.up * fly + (cameraTarget1.transform.position + cameraTarget2.transform.position) / 2f;
+        //시작 할 때, 카메라 위치 고정
+        cameraParent.transform.position = Vector3.up * fly + (blueCameraTarget.position + redCameraTarget.transform.position) / 2f;
+
+        //생명체 생성
+        GameObject a = objectManager.CreateObj("Infantry_A", PoolTypes.CreaturePool);
+        a.transform.position = blueCameraTarget.position;
     }
 
-    public int fly;
+    
 
     private void Update()
     {
@@ -35,7 +51,7 @@ public class CameraManager : MonoBehaviour
         cameraObj.position = cameraParent.position + cameraVec;
 
         //카메라가 향하도록 관리
-        cameraObj.LookAt((cameraTarget1.transform.position + cameraTarget2.transform.position) / 2f);
+        cameraObj.LookAt((blueCameraTarget.position + redCameraTarget.position) / 2f);
     }
 
     //버튼으로 카메라 조작
@@ -44,7 +60,10 @@ public class CameraManager : MonoBehaviour
     //[CreateAssetMenu(fileName = "SingleInfoData", menuName = "Scriptable Ojbect/SingleInfo")]
     //ScriptableObject//스크립타블 오브젝트 상속
 
-    #region 난사 발사
+    #region 스펠 버튼 클릭
+    public void spellBtn()
+    {
 
+    }
     #endregion
 }
