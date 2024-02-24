@@ -159,26 +159,23 @@ public class Creature : MonoBehaviour
             Bullet bullet = other.GetComponent<Bullet>();
             if (bullet.curTeamEnum != curTeamEnum)//팀이 다를 경우
             {
-                
-
-                bulletParentAgent = bullet.GetComponent<Infantry_A_Agent>();
+                //피해량 확인
+                bulletParentAgent = bullet.bulletHost;
                 float damage = bullet.bulletDamage;
 
-                Debug.LogError(damage);
-
-                //bulletParentAgent.AddReward(damage / 100f);//20이면 0.2f
+                //점수 증가
+                bulletParentAgent.AddReward(damage / 100f);
+                //피해 관리
                 damageControl(damage);
             }
         }
     }
 
-   public Infantry_A_Agent bulletParentAgent;
+   public ParentAgent bulletParentAgent;
 
     #region 피격 처리
     public void damageControl(float _dmg)
     {
-        Debug.Log(_dmg);
-
         //피해량 계산
         curHealth -= _dmg;
         if (curHealth < 0) curHealth = 0;
@@ -199,8 +196,12 @@ public class Creature : MonoBehaviour
     #region 사망처리
     void AlmostDead()
     {
+        //피격당하지 않도록, 레이어 변경
+        gameObject.layer = LayerMask.NameToLayer("WarpCreature");
+
         //애니메이션 실행
         anim.SetTrigger("isDeath");
+
         //미니 UI 닫기
         //miniHealth.fillAmount = 0;
 
@@ -229,10 +230,8 @@ public class Creature : MonoBehaviour
             StartCoroutine(Dissolve(false));
         }
     }
-    IEnumerator Dissolve(bool  InVisible)//왜곡장 1.5초간
+    IEnumerator Dissolve(bool InVisible)//왜곡장 1.5초간
     {
-        
-
         float firstValue = InVisible ? 0f : 1f;      //true는 점차 안보이는 것
         float targetValue = InVisible ? 1f : 0f;     //false는 점차 보이는 것
         

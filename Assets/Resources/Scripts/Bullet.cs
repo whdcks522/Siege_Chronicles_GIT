@@ -17,7 +17,7 @@ public class Bullet : MonoBehaviour
     public Collider bulletCollider;
 
     [Header("총알의 주인")]
-    public Creature bulletHost;
+    public ParentAgent bulletHost;
     [Header("총알 주인이 속한 팀")]
     public Creature.TeamEnum curTeamEnum;
 
@@ -57,11 +57,11 @@ public class Bullet : MonoBehaviour
     }
 
     #region 총알 활성 동기화
-    public void BulletOn(Creature _creature)
+    public void BulletOn(ParentAgent a)
     {
         //부모 설정
-        bulletHost = _creature;
-        curTeamEnum = _creature.curTeamEnum;
+        bulletHost = a;
+        curTeamEnum = a.creature.curTeamEnum;
         //회전 초기화
         //transform.rotation = Quaternion.identity;
         //시간 동기화

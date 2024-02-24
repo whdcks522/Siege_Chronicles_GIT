@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -32,7 +33,17 @@ public class Infantry_A_Agent : ParentAgent
 
     public override void OnActionReceived(ActionBuffers actions)//액션 기입(가능한 동작), 매 번 호출 
     {
+        //시간 낭비 안하도록
         AddReward(-0.0005f);
+
+
+        //방향이 맞으면 수치 증가
+        //목표값
+        Vector3 goal = (creature.enemyTower.transform.position - transform.position).normalized;
+        //현재값
+        Vector3 cur = rigid.velocity.normalized;
+        Debug.Log(GetMatchingVelocityReward(goal, cur));
+
 
         if (!creature.isAttack && gameObject.layer == LayerMask.NameToLayer("Creature")) 
         {
@@ -67,7 +78,7 @@ public class Infantry_A_Agent : ParentAgent
                             creature.curCreatureMoveEnum = CreatureMoveEnum.Idle;
                             creature.isAttack = true;//동시 입력 방지
 
-                            int r = Random.Range(0, 2);
+                            int r = UnityEngine.Random.Range(0, 2);
                             if (r == 0) anim.SetTrigger("isAttackLeft");
                             else if (r == 1) anim.SetTrigger("isAttackRight");
                         }
@@ -75,7 +86,9 @@ public class Infantry_A_Agent : ParentAgent
                     }
                     break;
             }
-        } 
+        }
+
+        //Debug.Log("spin: " + actions.DiscreteActions[0] + "action: " + actions.DiscreteActions[1]);
     }
 
     #region 휴리스틱: 키보드를 통해 에이전트를 조정
@@ -94,8 +107,6 @@ public class Infantry_A_Agent : ParentAgent
             action = 1;
         else if (Input.GetKey(KeyCode.Z))//공격
             action = 2;
-
-        Debug.Log("spin: " + spin + "action: " + action);
 
         disCreteActionOut[0] = spin;
         disCreteActionOut[1] = action;
