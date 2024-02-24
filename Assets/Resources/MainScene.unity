@@ -1857,10 +1857,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7076029219765752721, guid: 224c1cd34f67d1d4bad4ccdaa75b836b,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1625047365}
-    - targetCorrespondingSourceObject: {fileID: 7076029219765752721, guid: 224c1cd34f67d1d4bad4ccdaa75b836b,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1625047364}
     - targetCorrespondingSourceObject: {fileID: 8956265266057674242, guid: 224c1cd34f67d1d4bad4ccdaa75b836b,
         type: 3}
@@ -35268,11 +35264,13 @@ MonoBehaviour:
   curRange: 0
   ourTower: {fileID: 0}
   enemyTower: {fileID: 0}
+  bulletStart: {fileID: 0}
   miniUI: {fileID: 0}
   miniHealth: {fileID: 0}
   runSpd: 4
   gameManager: {fileID: 1350925724}
   curCreatureMoveEnum: 0
+  curCreatureSpinEnum: 0
   curTeamEnum: 1
   isAttack: 0
 --- !u!4 &1625047361 stripped
@@ -35345,22 +35343,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DecisionPeriod: 5
   TakeActionsBetweenDecisions: 1
---- !u!114 &1625047365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1625047359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88b6042bc9a5d4aa58d931eae49442e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agentParameters:
-    maxStep: 0
-  hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
 --- !u!114 &1625047366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35403,6 +35385,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a316e0538d947a842b37e3867db05ede, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  creature: {fileID: 0}
 --- !u!1001 &1629524892
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45026,7 +45013,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 75}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 900, y: 100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &2098733994
@@ -45578,6 +45565,11 @@ PrefabInstance:
       propertyPath: point
       value: 
       objectReference: {fileID: 1167470141}
+    - target: {fileID: 1703850358029723869, guid: 0d13f62ecda91574aa45be5a56b837b9,
+        type: 3}
+      propertyPath: MaxStep
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1779239507838602175, guid: 0d13f62ecda91574aa45be5a56b837b9,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -46087,6 +46079,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131292589408315668, guid: 0d13f62ecda91574aa45be5a56b837b9,
+        type: 3}
+      propertyPath: m_BrainParameters.VectorActionSize.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131292589408315668, guid: 0d13f62ecda91574aa45be5a56b837b9,
+        type: 3}
+      propertyPath: m_BrainParameters.VectorActionSize.Array.data[0]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131292589408315668, guid: 0d13f62ecda91574aa45be5a56b837b9,
+        type: 3}
+      propertyPath: m_BrainParameters.VectorActionSize.Array.data[1]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131292589408315668, guid: 0d13f62ecda91574aa45be5a56b837b9,
+        type: 3}
+      propertyPath: m_BrainParameters.m_ActionSpec.BranchSizes.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131292589408315668, guid: 0d13f62ecda91574aa45be5a56b837b9,
+        type: 3}
+      propertyPath: m_BrainParameters.m_ActionSpec.BranchSizes.Array.data[0]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131292589408315668, guid: 0d13f62ecda91574aa45be5a56b837b9,
+        type: 3}
+      propertyPath: m_BrainParameters.m_ActionSpec.BranchSizes.Array.data[1]
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8364354642521973303, guid: 0d13f62ecda91574aa45be5a56b837b9,
         type: 3}

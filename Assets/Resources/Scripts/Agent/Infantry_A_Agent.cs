@@ -32,13 +32,24 @@ public class Infantry_A_Agent : ParentAgent
 
     public override void OnActionReceived(ActionBuffers actions)//액션 기입(가능한 동작), 매 번 호출 
     {
-        //AddReward(-0.0005f);
+        AddReward(-0.0005f);
 
-        int index = actions.DiscreteActions[0];
-
-        if (!creature.isAttack) 
+        if (!creature.isAttack && gameObject.layer == LayerMask.NameToLayer("Creature")) 
         {
-            switch (index)
+            switch (actions.DiscreteActions[0])
+            {
+                case 0://왼쪽으로 회전
+                    creature.curCreatureSpinEnum = CreatureSpinEnum.LeftSpin;
+                    break;
+                case 1://서있기
+                    creature.curCreatureSpinEnum = CreatureSpinEnum.None;
+                    break;
+                case 2://오른쪽으로 회전
+                    creature.curCreatureSpinEnum = CreatureSpinEnum.RightSpin;
+                    break;
+            }
+
+            switch (actions.DiscreteActions[1]) 
             {
                 case 0://서있기
                     creature.curCreatureMoveEnum = CreatureMoveEnum.Idle;
@@ -46,18 +57,13 @@ public class Infantry_A_Agent : ParentAgent
                 case 1://달리기
                     creature.curCreatureMoveEnum = CreatureMoveEnum.Run;
                     break;
-                case 2://왼쪽으로 회전
-                    creature.curCreatureMoveEnum = CreatureMoveEnum.LeftSpin;
-                    break;
-                case 3://오른쪽으로 회전
-                    creature.curCreatureMoveEnum = CreatureMoveEnum.RightSpin;
-                    break;
-                case 4://공격
+                case 2://공격
                     if (gameObject.activeSelf)
                     {
-                        if (!creature.isAttack && creature.curRange <= creature.maxRange)//쿨타임이 돌았으면서, 거리 이내여야 함
+                        if (creature.curRange <= creature.maxRange)//쿨타임이 돌았으면서, 거리 이내여야 함
                         {
                             //애니메이션 관리
+                            creature.curCreatureSpinEnum = CreatureSpinEnum.None;
                             creature.curCreatureMoveEnum = CreatureMoveEnum.Idle;
                             creature.isAttack = true;//동시 입력 방지
 
@@ -72,25 +78,27 @@ public class Infantry_A_Agent : ParentAgent
         } 
     }
 
-
-
     #region 휴리스틱: 키보드를 통해 에이전트를 조정
     public override void Heuristic(in ActionBuffers actionsOut)
     {
         var disCreteActionOut = actionsOut.DiscreteActions;
 
-        int spin = 0;
-
-        if (Input.GetKey(KeyCode.LeftArrow))
+        int spin = 1;//회전 안함
+        if (Input.GetKey(KeyCode.LeftArrow))//좌회전
+            spin = 0;
+        else if (Input.GetKey(KeyCode.RightArrow))//우회전
             spin = 2;
-        else if (Input.GetKey(KeyCode.UpArrow))
-            spin = 1;
-        if (Input.GetKey(KeyCode.RightArrow))
-            x = 3;
-        else if (Input.GetKey(KeyCode.Z))
-            x = 4;
 
-        disCreteActionOut[0] = x;
+        int action = 0;//액션 안함
+        if (Input.GetKey(KeyCode.UpArrow))//걷기
+            action = 1;
+        else if (Input.GetKey(KeyCode.Z))//공격
+            action = 2;
+
+        Debug.Log("spin: " + spin + "action: " + action);
+
+        disCreteActionOut[0] = spin;
+        disCreteActionOut[1] = action;
     }
     #endregion
 
@@ -116,20 +124,9 @@ public class Infantry_A_Agent : ParentAgent
                 //각각의 거리
                 sensor.AddObservation(creature.curRange);
             }
-
-            sensor.AddObservation(StepCount / (float)MaxStep);//진행한 스텝 비율    //state size = 1
         }
     }
     #endregion
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.transform.CompareTag("Outline")) //맵 밖으로 나가지면 사망
-        {
-            //AddReward(-1f);
-            //EndEpisode();
-        }
-    }
 
     [Header("재시작점")]
     public Transform point;

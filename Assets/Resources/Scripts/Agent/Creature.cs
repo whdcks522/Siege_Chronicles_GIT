@@ -48,12 +48,19 @@ public class Creature : MonoBehaviour
     public GameManager gameManager;
     Rigidbody rigid;
     Animator anim;
+    ParentAgent parentAgent;
 
-    public enum CreatureMoveEnum {Idle, Run, LeftSpin, RightSpin }//머신러닝으로 취할수 있는 행동
+    public enum CreatureMoveEnum {Idle, Run}//머신러닝으로 취할수 있는 행동
     public CreatureMoveEnum curCreatureMoveEnum;
+    
+    public enum CreatureSpinEnum { LeftSpin, None,  RightSpin }//머신러닝으로 취할수 있는 회전
+    public CreatureSpinEnum curCreatureSpinEnum;
 
-    public enum TeamEnum { None, Blue, Red }//머신러닝으로 취할수 있는 행동
+    public enum TeamEnum { None, Blue, Red }//속하는 팀
     public TeamEnum curTeamEnum;
+
+    //public enum CreatureTypeEnum { Melee, Range }//속하는 팀
+    //public TeamEnum curTeamEnum;
 
     //생명체의 상태 목록
     bool isDead = false;
@@ -64,6 +71,7 @@ public class Creature : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
+        parentAgent = GetComponent<ParentAgent>();
 
         //텍스쳐 매터리얼 설정
         skinnedMeshRenderer.material.SetTexture("_BaseTexture", baseTexture);
@@ -90,6 +98,8 @@ public class Creature : MonoBehaviour
         //오브젝트 활성화
         gameObject.SetActive(true);
         //기상 애니메이션
+        curCreatureSpinEnum = CreatureSpinEnum.None;
+        curCreatureMoveEnum = CreatureMoveEnum.Idle;
         anim.SetTrigger("isRage");
 
         VisibleWarp();
@@ -120,23 +130,28 @@ public class Creature : MonoBehaviour
 
                     anim.SetBool("isRun", true);
                     break;
-                case CreatureMoveEnum.LeftSpin:
+            }
+            switch (curCreatureSpinEnum) 
+            {
+                case CreatureSpinEnum.LeftSpin:
                     moveVec = transform.rotation.eulerAngles;
                     // 왼쪽으로 조금 회전합니다 (여기서는 y축 값만 조정합니다)
                     moveVec.y -= rotSpd * Time.deltaTime;
                     // 새로운 회전값을 설정합니다
                     transform.rotation = Quaternion.Euler(moveVec);
 
-                    anim.SetBool("isRun", false);
+                    //anim.SetBool("isRun", false);
                     break;
-                case CreatureMoveEnum.RightSpin:
+                case CreatureSpinEnum.None:
+                    break;
+                case CreatureSpinEnum.RightSpin:
                     moveVec = transform.rotation.eulerAngles;
                     // 왼쪽으로 조금 회전합니다 (여기서는 y축 값만 조정합니다)
                     moveVec.y += rotSpd * Time.deltaTime;
                     // 새로운 회전값을 설정합니다
                     transform.rotation = Quaternion.Euler(moveVec);
 
-                    anim.SetBool("isRun", false);
+                    //anim.SetBool("isRun", false);
                     break;
             }
         }
@@ -147,9 +162,14 @@ public class Creature : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Bullet"))//폭탄과 충돌했을 때
         {
-            //int damage = other.gameObject.GetComponent<Bomb>().bombDmg;
-            //피격 처리
-            //damageControlRPC(damage * 3);
+            Bullet bullet = other.GetComponent<Bullet>();
+            if (bullet.curTeamEnum != curTeamEnum)//팀이 다를 경우
+            {
+                ParentAgent bulletHost = bullet.GetComponent<ParentAgent>();
+                float damage = bullet.bulletDamage;
+
+                bulletHost.AddReward(damage / 100f);//20이면 0.2f
+            }
         }
     }
 
@@ -161,15 +181,15 @@ public class Creature : MonoBehaviour
 
         //피해량 계산
         curHealth -= _dmg;
-        if (curHealth <= 0) curHealth = 0;
+        if (curHealth < 0) curHealth = 0;
         else if (curHealth > maxHealth) curHealth = maxHealth;
         //UI관리
-        miniHealth.fillAmount = curHealth / maxHealth;
+        //miniHealth.fillAmount = curHealth / maxHealth;
 
         //충격 초기화
-        if (curHealth > 0)//피격
+        if (curHealth > 0)//피격하고 살아 있음
         {
-               
+            anim.SetTrigger("isHit");
         }
         else if (curHealth <= 0) Dead();
     }
@@ -180,7 +200,8 @@ public class Creature : MonoBehaviour
     {
         //사망 처리
         isDead = true;
-
+        //애니메이션 실행
+        anim.SetTrigger("isDeath");
         //미니 UI 닫기
         //miniHealth.fillAmount = 0;
         //먼지 종료

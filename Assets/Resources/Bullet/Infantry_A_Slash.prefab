@@ -4923,10 +4923,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxTime: 1.7
   colTime: 0.7
-  bulletDamage: 10
+  bulletDamage: 20
   bulletSpeed: 0
-  bulletHost: {fileID: 0}
   bulletCollider: {fileID: 0}
+  bulletHost: {fileID: 0}
+  curTeamEnum: 0
   curBulletMoveEnum: 0
   endStr: 
   gameManager: {fileID: 0}
