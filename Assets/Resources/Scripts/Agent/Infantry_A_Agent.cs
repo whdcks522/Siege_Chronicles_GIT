@@ -30,19 +30,21 @@ public class Infantry_A_Agent : ParentAgent
         objectManager = gameManager.objectManager;
     }
 
-
+    //목표 방향 벡터
+    Vector3 goalVec;
+    //현재값 서있는 벡터
+    Vector3 curVec;
     public override void OnActionReceived(ActionBuffers actions)//액션 기입(가능한 동작), 매 번 호출 
     {
-        //시간 낭비 안하도록
-        AddReward(-0.0005f);
-
-
-        //방향이 맞으면 수치 증가
-        //목표값
-        Vector3 goal = (creature.enemyTower.transform.position - transform.position).normalized;
-        //현재값
-        Vector3 cur = rigid.velocity.normalized;
-        Debug.Log(GetMatchingVelocityReward(goal, cur));
+        //목표 방향 벡터
+        goalVec = (creature.enemyTower.transform.position - transform.position).normalized;
+        //현재값 서있는 벡터
+        curVec = rigid.velocity.normalized;
+        //벡터 계산
+        float dirReward = GetMatchingVelocityReward(goalVec, curVec) / 100f;
+        Debug.Log(dirReward);
+        AddReward(dirReward);
+            
 
 
         if (!creature.isAttack && gameObject.layer == LayerMask.NameToLayer("Creature")) 

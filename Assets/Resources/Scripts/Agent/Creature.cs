@@ -160,18 +160,16 @@ public class Creature : MonoBehaviour
             if (bullet.curTeamEnum != curTeamEnum)//팀이 다를 경우
             {
                 //피해량 확인
-                bulletParentAgent = bullet.bulletHost;
+                ParentAgent bulletParentAgent = bullet.bulletHost;
                 float damage = bullet.bulletDamage;
 
                 //점수 증가
-                bulletParentAgent.AddReward(damage / 100f);
+                bulletParentAgent.AddReward(damage / 10f);
                 //피해 관리
                 damageControl(damage);
             }
         }
     }
-
-   public ParentAgent bulletParentAgent;
 
     #region 피격 처리
     public void damageControl(float _dmg)
