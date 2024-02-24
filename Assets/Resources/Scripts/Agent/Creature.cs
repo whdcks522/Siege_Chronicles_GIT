@@ -42,12 +42,13 @@ public class Creature : MonoBehaviour
     int rotSpd = 120;//회전 속도
 
     Vector3 moveVec;//이동용 벡터
-
+    
     
 
     public GameManager gameManager;
     Rigidbody rigid;
     Animator anim;
+    ParentAgent parentAgent;
 
     public enum CreatureMoveEnum {Idle, Run}//머신러닝으로 취할수 있는 행동
     public CreatureMoveEnum curCreatureMoveEnum;
@@ -68,12 +69,10 @@ public class Creature : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
+        parentAgent = GetComponent<ParentAgent>();
 
         //텍스쳐 매터리얼 설정
         skinnedMeshRenderer.material.SetTexture("_BaseTexture", baseTexture);
-
-        //int index = System.Array.IndexOf(System.Enum.GetValues(typeof(CreatureMove)), curCreatureMove);
-        //Debug.Log(index);
     }
 
     #region 생명체 활성화
@@ -204,17 +203,15 @@ public class Creature : MonoBehaviour
         anim.SetTrigger("isDeath");
         //미니 UI 닫기
         //miniHealth.fillAmount = 0;
-        //먼지 종료
 
+        //먼지 종료
         //왜곡장
         InvisibleWarp();
     }
 
-    public void CompletelyDead()//죽었고 조금 뒤, 죽음에 대한 처리
-    {
-        //게임오브젝트 활성화
-        gameObject.SetActive(false);
-    }
+    //완전히 죽음
+    public void CompletelyDead()=> gameObject.SetActive(false);
+    
 
     #endregion
 
@@ -240,7 +237,7 @@ public class Creature : MonoBehaviour
         float targetValue = InVisible ? 1f : 0f;     //false는 점차 보이는 것
         
 
-        float duration = 1.5f;
+        float duration = 1.05f;
         float elapsedTime = 0f;
 
         while (elapsedTime < duration)
