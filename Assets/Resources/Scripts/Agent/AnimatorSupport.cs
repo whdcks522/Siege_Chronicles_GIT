@@ -16,8 +16,17 @@ public class AnimatorSupport : MonoBehaviour
     //공격 대기 초기화
     public void AttackClear() => creature.isAttack = false;
 
+    public void CompletelyDeadAnimation()//완전히 생명체 사망 처리
+    {
+        creature.CompletelyDead();
+    }
+
     public void AgentAttack()//에이전트 공격(상속)
     {
         parentAgent.AgentAttack();
     }
+
+    
+
+
 }

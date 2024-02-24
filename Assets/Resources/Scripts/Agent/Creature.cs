@@ -16,7 +16,7 @@ public class Creature : MonoBehaviour
     [Header("생명체의 최대 체력")]
     public float maxHealth;
     [Header("생명체의 현재 체력")]
-    float curHealth;
+    public float curHealth;
 
     [Header("가까운 적")]
     public Transform target;
@@ -48,7 +48,6 @@ public class Creature : MonoBehaviour
     public GameManager gameManager;
     Rigidbody rigid;
     Animator anim;
-    ParentAgent parentAgent;
 
     public enum CreatureMoveEnum {Idle, Run}//머신러닝으로 취할수 있는 행동
     public CreatureMoveEnum curCreatureMoveEnum;
@@ -62,8 +61,6 @@ public class Creature : MonoBehaviour
     //public enum CreatureTypeEnum { Melee, Range }//속하는 팀
     //public TeamEnum curTeamEnum;
 
-    //생명체의 상태 목록
-    bool isDead = false;
     [Header("현재 공격 중인지")]
     public bool isAttack = false;
 
@@ -71,7 +68,6 @@ public class Creature : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
-        parentAgent = GetComponent<ParentAgent>();
 
         //텍스쳐 매터리얼 설정
         skinnedMeshRenderer.material.SetTexture("_BaseTexture", baseTexture);
@@ -91,7 +87,6 @@ public class Creature : MonoBehaviour
         rigid.velocity = Vector3.zero;
         //체력 회복
         curHealth = maxHealth;
-        isDead = false;
 
         //miniHealth.fillAmount = 1;
 
@@ -165,19 +160,25 @@ public class Creature : MonoBehaviour
             Bullet bullet = other.GetComponent<Bullet>();
             if (bullet.curTeamEnum != curTeamEnum)//팀이 다를 경우
             {
-                ParentAgent bulletHost = bullet.GetComponent<ParentAgent>();
+                
+
+                bulletParentAgent = bullet.GetComponent<Infantry_A_Agent>();
                 float damage = bullet.bulletDamage;
 
-                bulletHost.AddReward(damage / 100f);//20이면 0.2f
+                Debug.LogError(damage);
+
+                //bulletParentAgent.AddReward(damage / 100f);//20이면 0.2f
+                damageControl(damage);
             }
         }
     }
 
+   public Infantry_A_Agent bulletParentAgent;
+
     #region 피격 처리
-    public void damageControlRPC(float _dmg)
+    public void damageControl(float _dmg)
     {
-        if (isDead)
-            return;
+        Debug.Log(_dmg);
 
         //피해량 계산
         curHealth -= _dmg;
@@ -191,34 +192,31 @@ public class Creature : MonoBehaviour
         {
             anim.SetTrigger("isHit");
         }
-        else if (curHealth <= 0) Dead();
+        else if (curHealth <= 0) AlmostDead();
+
     }
     #endregion
 
     #region 사망처리
-    void Dead()
+    void AlmostDead()
     {
-        //사망 처리
-        isDead = true;
         //애니메이션 실행
         anim.SetTrigger("isDeath");
         //미니 UI 닫기
         //miniHealth.fillAmount = 0;
         //먼지 종료
 
-        //곧 죽음
-        Invoke("SoonDie", 1.5f);
+        //왜곡장
+        InvisibleWarp();
     }
-    #endregion
 
-    #region 사망 뒤, 소멸
-    void SoonDie()//죽었고 조금 뒤, 죽음에 대한 처리
+    public void CompletelyDead()//죽었고 조금 뒤, 죽음에 대한 처리
     {
         //게임오브젝트 활성화
         gameObject.SetActive(false);
     }
-    #endregion
 
+    #endregion
 
     #region 왜곡장 
     public void InvisibleWarp() // 점차 안보이게 되는 것
@@ -228,7 +226,6 @@ public class Creature : MonoBehaviour
     }
     public void VisibleWarp() //점차 보이게 되는 것 
     {
-        
         if (curHealth > 0)
         {
             StopCoroutine(Dissolve(true));

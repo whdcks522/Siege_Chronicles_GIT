@@ -35259,6 +35259,7 @@ MonoBehaviour:
   baseTexture: {fileID: 2800000, guid: 61b7137a48b3f954694eefff0ef3f063, type: 3}
   skinnedMeshRenderer: {fileID: 1877323182}
   maxHealth: 100
+  curHealth: 0
   target: {fileID: 0}
   maxRange: 0
   curRange: 0
@@ -35270,9 +35271,10 @@ MonoBehaviour:
   runSpd: 4
   gameManager: {fileID: 1350925724}
   curCreatureMoveEnum: 0
-  curCreatureSpinEnum: 0
-  curTeamEnum: 1
+  curCreatureSpinEnum: 1
+  curTeamEnum: 2
   isAttack: 0
+  bulletParentAgent: {fileID: 0}
 --- !u!4 &1625047361 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8364354642521973303, guid: 224c1cd34f67d1d4bad4ccdaa75b836b,
@@ -35389,7 +35391,8 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  creature: {fileID: 0}
+  creature: {fileID: 1625047360}
+  point: {fileID: 1167470141}
 --- !u!1001 &1629524892
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45740,6 +45743,11 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1350925724}
+    - target: {fileID: 4120125501966113268, guid: 0d13f62ecda91574aa45be5a56b837b9,
+        type: 3}
+      propertyPath: curCreatureSpinEnum
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4259091750543596601, guid: 0d13f62ecda91574aa45be5a56b837b9,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
