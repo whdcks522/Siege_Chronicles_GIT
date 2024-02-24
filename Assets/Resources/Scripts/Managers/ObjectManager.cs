@@ -5,20 +5,29 @@ using UnityEngine;
 public class ObjectManager : MonoBehaviour
 {
 
+    [Header("총알을 저장할 폴더")]
+    public Transform bulletFolder;
+    [Header("이펙트를 저장할 폴더")]
+    public Transform effectFolder;
+
+    [Header("블루팀 적을 저장할 폴더")]
+    public Transform blueCreatureFolder;
+    [Header("레드팀 적를 저장할 폴더")]
+    public Transform redCreatureFolder;
+
+
     //총알 리스트
     string[] bulletNames = { "Infantry_A_Slash" };
     //총알 주소가 저장될 곳
     List<GameObject>[] bulletPools;
-    [Header("총알을 저장할 폴더")]
-    public Transform bulletFolder;
+    
 
     //이펙트 리스트
     string[] effectNames = { "Explosion 2", "Explosion 3", "Explosion 6", "Explosion 2_Cure", "Explosion 2_PowerUp",
                                 "Text 52_Creature", "Text 52_Player", "congratulation 9"};
     //이펙트 주소가 저장될 곳
     List<GameObject>[] effectPools;
-    [Header("이펙트를 저장할 폴더")]
-    public Transform effectFolder;
+    
 
     //적 리스트
     string[] creatureNames = { "Infantry_A", "shooter_A"};
@@ -94,6 +103,7 @@ public class ObjectManager : MonoBehaviour
                 case PoolTypes.BulletPool:
                     path = "Bullet/" + tmpNames[index]; // 서브 폴더명을 포함하여 경로 설정
                     tmpGameObject = Instantiate(Resources.Load<GameObject>(path), Vector3.zero, Quaternion.identity);
+                    tmpGameObject.transform.parent = bulletFolder;
                     break;
                 case PoolTypes.EffectPool:
                     

@@ -30,6 +30,9 @@ public class Creature : MonoBehaviour
     [Header("상대 성")]
     public Transform enemyTower;
 
+    [Header("총알이 시작되는 곳")]
+    public Transform bulletStart;
+
     [Header("캐릭터 위의 미니 UI")]
     public GameObject miniUI;
     public Image miniHealth;
@@ -89,7 +92,6 @@ public class Creature : MonoBehaviour
         //기상 애니메이션
         anim.SetTrigger("isRage");
 
-        
         VisibleWarp();
     }
     #endregion
@@ -100,6 +102,8 @@ public class Creature : MonoBehaviour
     {
         if (gameObject.layer == LayerMask.NameToLayer("Creature")) 
         {
+            //if (target != null)
+               // creature.curRange = (creature.target.transform.position - transform.position).magnitude;
 
             switch (curCreatureMoveEnum)
             {
