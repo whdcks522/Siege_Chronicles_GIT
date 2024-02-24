@@ -23,7 +23,7 @@ public class Bullet : MonoBehaviour
 
     public enum BulletMoveEnum
     {
-       Melee, Tracer, Canon
+       Slash, Tracer, Canon
     }
     [Header("총알의 이동 방식")]
     public BulletMoveEnum curBulletMoveEnum;
@@ -38,8 +38,7 @@ public class Bullet : MonoBehaviour
     private void Awake()
     {
         rigid = GetComponent<Rigidbody>();
-        if (curBulletMoveEnum == BulletMoveEnum.Canon) 
-            rigid.useGravity = true;
+        
         bulletCollider = GetComponent<Collider>();
     }
 
@@ -50,7 +49,7 @@ public class Bullet : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
-        else if(curTime > colTime)
+        else if(curTime > colTime && curBulletMoveEnum == BulletMoveEnum.Slash)
         {
             bulletCollider.enabled = false;
         }
@@ -76,11 +75,12 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.transform.CompareTag("Outline")) //맵 밖으로 나가지면 종료
+        if (other.transform.CompareTag("Untagged")) //맵 밖으로 나가지면 종료
         {
-            if (curBulletMoveEnum != BulletMoveEnum.Melee) 
+            Debug.Log("벽과 닿음");
+            if (curBulletMoveEnum != BulletMoveEnum.Slash) 
             {
-                gameObject.SetActive(true);
+                gameObject.SetActive(false);
             }
         }
     }

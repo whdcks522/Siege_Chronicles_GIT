@@ -41,7 +41,7 @@ public class shooter_A_Agent : ParentAgent
         curVec = rigid.velocity.normalized;
         //∫§≈Õ ∞ËªÍ
         float dirReward = GetMatchingVelocityReward(goalVec, curVec) / 100f;
-        Debug.Log(dirReward);
+        //Debug.Log(dirReward);
         AddReward(dirReward);
 
 
