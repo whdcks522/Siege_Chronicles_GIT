@@ -31,7 +31,7 @@ public class Creature : MonoBehaviour
     public Transform enemyTower;
 
     [Header("총알이 시작되는 곳")]
-    public Transform bulletStart;
+    public Transform bulletStartPoint;
 
     [Header("캐릭터 위의 미니 UI")]
     public GameObject miniUI;

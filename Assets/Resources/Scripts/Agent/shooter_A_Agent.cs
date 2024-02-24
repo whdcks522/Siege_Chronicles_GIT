@@ -8,8 +8,6 @@ using static Creature;
 
 public class shooter_A_Agent : ParentAgent
 {
-    Rigidbody rigid;
-
     GameManager gameManager;
     ObjectManager objectManager;
     AudioManager audioManager;
@@ -29,21 +27,10 @@ public class shooter_A_Agent : ParentAgent
         objectManager = gameManager.objectManager;
     }
 
-    //목표 방향 벡터
-    Vector3 goalVec;
-    //현재값 서있는 벡터
-    Vector3 curVec;
+    
     public override void OnActionReceived(ActionBuffers actions)//액션 기입(가능한 동작), 매 번 호출 
     {
-        //목표 방향 벡터
-        goalVec = (creature.enemyTower.transform.position - transform.position).normalized;
-        //현재값 서있는 벡터
-        curVec = rigid.velocity.normalized;
-        //벡터 계산
-        float dirReward = GetMatchingVelocityReward(goalVec, curVec) / 100f;
-        //Debug.Log(dirReward);
-        AddReward(dirReward);
-
+        GetMatchingVelocityReward();
 
 
         if (!creature.isAttack && gameObject.layer == LayerMask.NameToLayer("Creature"))
@@ -104,7 +91,7 @@ public class shooter_A_Agent : ParentAgent
         int action = 0;//액션 안함
         if (Input.GetKey(KeyCode.UpArrow))//걷기
             action = 1;
-        else if (Input.GetKey(KeyCode.Z))//공격
+        else if (Input.GetKey(KeyCode.Z))//투사체 공격
             action = 2;
 
         disCreteActionOut[0] = spin;
@@ -150,15 +137,20 @@ public class shooter_A_Agent : ParentAgent
     #region 투사체 생성
     override public void AgentAttack()
     {
-        GameObject slash = objectManager.CreateObj("Infantry_A_Slash", ObjectManager.PoolTypes.BulletPool);
-        Bullet slash_bullet = slash.GetComponent<Bullet>();
-        slash_bullet.BulletOn(this);
-        //이동
-        slash.transform.position = transform.position + transform.forward + Vector3.up * 3;
+        GameObject tracer = objectManager.CreateObj("shooter_A_Tracer", ObjectManager.PoolTypes.BulletPool);
+        Bullet tracer_bullet = tracer.GetComponent<Bullet>();
+        Rigidbody tracer_rigid = tracer.GetComponent<Rigidbody>();
 
+        tracer_bullet.gameManager = gameManager;
+        tracer_bullet.Init();
+
+
+        //이동
+        tracer.transform.position = creature.bulletStartPoint.position;
         //회전
-        slash.transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x + 90,
-            transform.rotation.eulerAngles.y - 180, transform.rotation.eulerAngles.z - 90);
+        tracer_rigid.velocity = tracer_bullet.bulletSpeed * transform.forward;
+        //활성화
+        tracer_bullet.BulletOn(this);
     }
     #endregion
 }

@@ -9,13 +9,13 @@ using static Creature;
 
 public class Infantry_A_Agent : ParentAgent
 {
-    Rigidbody rigid;
-
     GameManager gameManager;
     ObjectManager objectManager;
     AudioManager audioManager;
-    //AiManager aiManager;
     Animator anim;
+
+    //공격 맞으면 점수 증가, 안맞으면 감소
+    //방향 맞으면 점수 증가
 
     //  mlagents-learn --force
     //mlagents-learn "D:\gitHubDeskTop\ML_EX_GIT\config\ppo\Enemy_Orc.yaml" --run-id=Enemy_Orc_K --resum(2시간즈음부터 성능 향상 시작됨)
@@ -30,22 +30,11 @@ public class Infantry_A_Agent : ParentAgent
         objectManager = gameManager.objectManager;
     }
 
-    //목표 방향 벡터
-    Vector3 goalVec;
-    //현재값 서있는 벡터
-    Vector3 curVec;
+    
     public override void OnActionReceived(ActionBuffers actions)//액션 기입(가능한 동작), 매 번 호출 
     {
-        //목표 방향 벡터
-        goalVec = (creature.enemyTower.transform.position - transform.position).normalized;
-        //현재값 서있는 벡터
-        curVec = rigid.velocity.normalized;
-        //벡터 계산
-        float dirReward = GetMatchingVelocityReward(goalVec, curVec) / 100f;
-        Debug.Log(dirReward);
-        AddReward(dirReward);
-            
-
+        //방향따라 점수 증가
+        GetMatchingVelocityReward();
 
         if (!creature.isAttack && gameObject.layer == LayerMask.NameToLayer("Creature")) 
         {

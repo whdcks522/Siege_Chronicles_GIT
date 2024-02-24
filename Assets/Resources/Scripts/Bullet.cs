@@ -32,7 +32,7 @@ public class Bullet : MonoBehaviour
     public string endStr;
 
     public GameManager gameManager;
-    ObjectManager objectManager;
+    public ObjectManager objectManager;
     Rigidbody rigid;
 
     private void Awake()
@@ -40,6 +40,12 @@ public class Bullet : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         
         bulletCollider = GetComponent<Collider>();
+        
+    }
+
+    public void Init()//최초 설정
+    {
+        objectManager = gameManager.objectManager;
     }
 
     private void Update()
@@ -47,7 +53,7 @@ public class Bullet : MonoBehaviour
         curTime += Time.deltaTime;
         if (curTime > maxTime)
         {
-            gameObject.SetActive(false);
+            BulletOff();
         }
         else if(curTime > colTime && curBulletMoveEnum == BulletMoveEnum.Slash)
         {
@@ -55,14 +61,12 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    #region 총알 활성 동기화
+    #region 총알 활성
     public void BulletOn(ParentAgent a)
     {
         //부모 설정
         bulletHost = a;
         curTeamEnum = a.creature.curTeamEnum;
-        //회전 초기화
-        //transform.rotation = Quaternion.identity;
         //시간 동기화
         curTime = 0f;
         //충돌 영역 활성화
@@ -72,16 +76,35 @@ public class Bullet : MonoBehaviour
     }
     #endregion
 
+    #region 총알 활성
+    public void BulletOff()
+    {
+        //총알 비활성화
+        gameObject.SetActive(false);
+        
+        if (curBulletMoveEnum != BulletMoveEnum.Slash) 
+        {
+            //파괴 총알 활성
+            GameObject bomb = objectManager.CreateObj("shooter_A_Bomb", ObjectManager.PoolTypes.BulletPool);
+            Bullet bomb_bullet = bomb.GetComponent<Bullet>();
+            //이동
+            bomb.transform.position = transform.position;
+            //활성화
+            bomb_bullet.BulletOn(bulletHost);
+            
 
-    private void OnTriggerEnter2D(Collider2D other)
+        }
+    }
+    #endregion
+
+    private void OnTriggerEnter(Collider other)
     {
         if (other.transform.CompareTag("Untagged")) //맵 밖으로 나가지면 종료
         {
-            Debug.Log("벽과 닿음");
-            if (curBulletMoveEnum != BulletMoveEnum.Slash) 
-            {
-                gameObject.SetActive(false);
-            }
+            //감점
+            bulletHost.AddReward(-0.1f);
+            //총알 비활성화
+            BulletOff();
         }
     }
 }
