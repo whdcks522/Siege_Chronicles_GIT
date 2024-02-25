@@ -22,15 +22,10 @@ public class Creature : MonoBehaviour
     [Header("현재 공격 중인지")]
     public bool isAttack = false;
 
-    [Header("가까운 적")]
-    public Transform target;
-    [Header("공격 가능한 최대 거리")]
-    public float maxRange;
-    [Header("현재 대상과의 거리")]
-    public float curRange;
-
     [Header("우리 성")]
     public Transform ourTower;
+    [Header("시작할 장소")]
+    public Transform createPoint;
     [Header("상대 성")]
     public Transform enemyTower;
 
@@ -63,6 +58,7 @@ public class Creature : MonoBehaviour
     Animator anim;
     ParentAgent parentAgent;
     public GameManager gameManager;
+    
     UIManager UIManager;
     Transform cameraGround;
     Transform mainCamera;
@@ -87,8 +83,6 @@ public class Creature : MonoBehaviour
     {
         //공격 대기 시간 초기화
         isAttack = false;
-        //대상과의 거리 초기화
-        curRange = 0;
         //가속 초기화
         rigid.velocity = Vector3.zero;
         //체력 회복
@@ -121,6 +115,7 @@ public class Creature : MonoBehaviour
             //if (target != null)
                // creature.curRange = (creature.target.transform.position - transform.position).magnitude;
 
+            //행동 관리
             switch (curCreatureMoveEnum)
             {
                 case CreatureMoveEnum.Idle://멈추기

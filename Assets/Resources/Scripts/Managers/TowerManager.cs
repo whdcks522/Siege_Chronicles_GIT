@@ -27,11 +27,13 @@ public class TowerManager : MonoBehaviour
     UIManager UIManager;
     Transform cameraGround;
     Transform mainCamera;
+    AiManager aiManager;
     private void Awake()
     {
         UIManager = gameManager.uiManager;
         mainCamera = UIManager.cameraObj;
         cameraGround = UIManager.cameraGround;
+        aiManager = gameManager.aiManager;
 
 
         if (curTeamEnum == TeamEnum.Blue)
@@ -57,7 +59,6 @@ public class TowerManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("오브젝트명: " + other.gameObject.name);
         if (other.gameObject.CompareTag("Bullet"))//총알과 충돌
         {
             
@@ -70,7 +71,7 @@ public class TowerManager : MonoBehaviour
                 float damage = bullet.bulletDamage;
 
                 //점수 증가
-                bulletParentAgent.AddReward(damage / 8f);
+                bulletParentAgent.AddReward(damage / 20f);
                 //피해 관리
                 damageControl(damage);
 
@@ -102,11 +103,17 @@ public class TowerManager : MonoBehaviour
 
     void Dead() 
     {
-        if(gameManager.isML)
-            Revive();
+        if (aiManager.isML)
+        {
+            //모두 초기화
+            if(curTeamEnum == TeamEnum.Blue)
+                aiManager.AiClear(1);
+            if (curTeamEnum == TeamEnum.Red)
+                aiManager.AiClear(-1);
+        }
     }
 
-    void Revive() 
+    public void TowerOn() //타워 활성화
     {
         curHealth = maxHealth;
         miniHealth.fillAmount = 1;

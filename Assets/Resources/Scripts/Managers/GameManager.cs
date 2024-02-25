@@ -10,8 +10,7 @@ public class GameManager : MonoBehaviour
     public Transform redTower;
 
 
-    [Header("머신러닝중인지 여부 확인")]
-    public bool isML;
+    
 
     [Header("매니저 목록")]
     public ObjectManager objectManager;

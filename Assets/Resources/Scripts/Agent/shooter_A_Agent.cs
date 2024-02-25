@@ -8,12 +8,6 @@ using static Creature;
 
 public class shooter_A_Agent : ParentAgent
 {
-    GameManager gameManager;
-    ObjectManager objectManager;
-    AudioManager audioManager;
-    //AiManager aiManager;
-    Animator anim;
-
     //  mlagents-learn --force
     //mlagents-learn "D:\gitHubDeskTop\ML_EX_GIT\config\ppo\Enemy_Orc.yaml" --run-id=Enemy_Orc_K --resum(2시간즈음부터 성능 향상 시작됨)
 
@@ -25,16 +19,24 @@ public class shooter_A_Agent : ParentAgent
 
         gameManager = creature.gameManager;
         objectManager = gameManager.objectManager;
+
+        if (creature.curTeamEnum == TeamEnum.Blue)
+            enemyCreatureFolder = objectManager.redCreatureFolder;
+        else if (creature.curTeamEnum == TeamEnum.Red)
+            enemyCreatureFolder = objectManager.blueCreatureFolder;
     }
 
     
     public override void OnActionReceived(ActionBuffers actions)//액션 기입(가능한 동작), 매 번 호출 
     {
-        GetMatchingVelocityReward();
-
 
         if (!creature.isAttack && gameObject.layer == LayerMask.NameToLayer("Creature"))
         {
+            //곧바로 이동하면 점수
+            GetMatchingVelocityReward();
+            //적과의 거리 계산
+            RangeCalculate();
+
             switch (actions.DiscreteActions[0])
             {
                 case 0://왼쪽으로 회전
@@ -57,19 +59,17 @@ public class shooter_A_Agent : ParentAgent
                     creature.curCreatureMoveEnum = CreatureMoveEnum.Run;
                     break;
                 case 2://공격
-                    if (gameObject.activeSelf)
+                    if (curRange <= maxRange)//쿨타임이 돌았으면서, 거리 이내여야 함
                     {
-                        if (creature.curRange <= creature.maxRange)//쿨타임이 돌았으면서, 거리 이내여야 함
-                        {
-                            //애니메이션 관리
-                            creature.curCreatureSpinEnum = CreatureSpinEnum.None;
-                            creature.curCreatureMoveEnum = CreatureMoveEnum.Idle;
-                            creature.isAttack = true;//동시 입력 방지
+                        //애니메이션 관리
+                        creature.curCreatureSpinEnum = CreatureSpinEnum.None;
+                        creature.curCreatureMoveEnum = CreatureMoveEnum.Idle;
+                        creature.isAttack = true;//동시 입력 방지
 
-                            anim.SetTrigger("isGun");
-                        }
-                        else AddReward(-0.5f);
+                        anim.SetTrigger("isGun");
                     }
+                    else AddReward(-0.5f);
+
                     break;
             }
         }
@@ -84,9 +84,6 @@ public class shooter_A_Agent : ParentAgent
 
         if (behaviorParameters.BehaviorType == Unity.MLAgents.Policies.BehaviorType.HeuristicOnly) 
         {
-            //Debug.Log("휴리스틱 원거리");
-            
-
             int spin = 1;//회전 안함
             if (Input.GetKey(KeyCode.LeftArrow))//좌회전
                 spin = 0;
@@ -118,33 +115,34 @@ public class shooter_A_Agent : ParentAgent
         //자신의 정보
         if (gameObject.layer == LayerMask.NameToLayer("Creature")) //죽으면 필요 없자너
         {
+            //현재 자신의 위치
             sensor.AddObservation(transform.position.x);//state size = 1     x,y,z를 모두 받아오면 size가 3이 됨
             sensor.AddObservation(transform.position.z);
-
-            //가속을 더하기도 함
+            //현재 자신의 가속
             sensor.AddObservation(rigid.velocity.x);
             sensor.AddObservation(rigid.velocity.z);
 
-            if (creature.target != null) //시작 한 순간, 빈 취급됨
+            //자기 타워의 정보
+            sensor.AddObservation(creature.enemyTower.position.x);
+            sensor.AddObservation(creature.enemyTower.position.z);
+            //상대 타워의 정보
+            sensor.AddObservation(creature.enemyTower.position.x);
+            sensor.AddObservation(creature.enemyTower.position.z);
+            //각각의 거리
+            sensor.AddObservation(curRange / maxRange);
+
+            for (int i = 0; i < enemyCreatureFolder.childCount; i++)
             {
-                //플레이어의 정보
-                sensor.AddObservation(creature.target.transform.position.x);
-                sensor.AddObservation(creature.target.transform.position.z);
-                //각각의 거리
-                sensor.AddObservation(creature.curRange);
+                if (enemyCreatureFolder.GetChild(i).gameObject.activeSelf)//활성화돼있다면
+                {
+                    sensor.AddObservation(enemyCreatureFolder.GetChild(i).position.x);
+                    sensor.AddObservation(enemyCreatureFolder.GetChild(i).position.z);
+                }
             }
         }
     }
     #endregion
 
-    [Header("재시작점")]
-    public Transform point;
-
-    public override void OnEpisodeBegin()//EndEpisode가 호출됐을 때 사용됨(씬을 호출할 때는 통째로 삭제)
-    {
-        creature.Revive();
-        transform.position = point.position;
-    }
 
     #region 투사체 생성
     override public void AgentAttack()

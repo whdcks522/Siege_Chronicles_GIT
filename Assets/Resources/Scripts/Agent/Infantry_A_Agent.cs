@@ -10,10 +10,7 @@ using static Creature;
 
 public class Infantry_A_Agent : ParentAgent
 {
-    GameManager gameManager;
-    ObjectManager objectManager;
-    AudioManager audioManager;
-    Animator anim;
+    
 
     //공격 맞으면 점수 증가, 안맞으면 감소
     //방향 맞으면 점수 증가
@@ -29,16 +26,23 @@ public class Infantry_A_Agent : ParentAgent
 
         gameManager = creature.gameManager;
         objectManager = gameManager.objectManager;
+
+        if(creature.curTeamEnum == TeamEnum.Blue)
+            enemyCreatureFolder = objectManager.redCreatureFolder;
+        else if (creature.curTeamEnum == TeamEnum.Red)
+            enemyCreatureFolder = objectManager.blueCreatureFolder;
     }
 
     
     public override void OnActionReceived(ActionBuffers actions)//액션 기입(가능한 동작), 매 번 호출 
     {
-        //방향따라 점수 증가
-        GetMatchingVelocityReward();
-
         if (!creature.isAttack && gameObject.layer == LayerMask.NameToLayer("Creature")) 
         {
+            //방향따라 점수 증가
+            GetMatchingVelocityReward();
+            //적과의 거리 계산
+            RangeCalculate();
+
             switch (actions.DiscreteActions[0])
             {
                 case 0://왼쪽으로 회전
@@ -63,7 +67,7 @@ public class Infantry_A_Agent : ParentAgent
                 case 2://공격
                     if (gameObject.activeSelf)
                     {
-                        if (creature.curRange <= creature.maxRange)//쿨타임이 돌았으면서, 거리 이내여야 함
+                        if (curRange <= maxRange)//쿨타임이 돌았으면서, 거리 이내여야 함
                         {
                             //애니메이션 관리
                             creature.curCreatureSpinEnum = CreatureSpinEnum.None;
@@ -90,10 +94,6 @@ public class Infantry_A_Agent : ParentAgent
 
         if (behaviorParameters.BehaviorType == Unity.MLAgents.Policies.BehaviorType.HeuristicOnly)
         {
-            //Debug.Log("휴리스틱 근접");
-
-            
-
             int spin = 1;//회전 안함
             if (Input.GetKey(KeyCode.LeftArrow))//좌회전
                 spin = 0;
@@ -122,36 +122,36 @@ public class Infantry_A_Agent : ParentAgent
     public override void CollectObservations(VectorSensor sensor)
     {
         //1. 수치형, 받아오는 데이터가 적을 수록 좋음
-        //자신의 정보
         if (gameObject.layer == LayerMask.NameToLayer("Creature")) //죽으면 필요 없자너
         {
+            //현재 자신의 위치
             sensor.AddObservation(transform.position.x);//state size = 1     x,y,z를 모두 받아오면 size가 3이 됨
             sensor.AddObservation(transform.position.z);
-
-            //가속을 더하기도 함
+            //현재 자신의 가속
             sensor.AddObservation(rigid.velocity.x);
             sensor.AddObservation(rigid.velocity.z);
 
-            if (creature.target != null) //시작 한 순간, 빈 취급됨
+            //자기 타워의 정보
+            sensor.AddObservation(creature.enemyTower.position.x);
+            sensor.AddObservation(creature.enemyTower.position.z);
+            //상대 타워의 정보
+            sensor.AddObservation(creature.enemyTower.position.x);
+            sensor.AddObservation(creature.enemyTower.position.z);
+            //각각의 거리
+            sensor.AddObservation(curRange / maxRange);
+
+            for (int i = 0; i < enemyCreatureFolder.childCount; i++)
             {
-                //플레이어의 정보
-                sensor.AddObservation(creature.target.transform.position.x);
-                sensor.AddObservation(creature.target.transform.position.z);
-                //각각의 거리
-                sensor.AddObservation(creature.curRange);
+                if (enemyCreatureFolder.GetChild(i).gameObject.activeSelf)//활성화돼있다면
+                {
+                    sensor.AddObservation(enemyCreatureFolder.GetChild(i).position.x);
+                    sensor.AddObservation(enemyCreatureFolder.GetChild(i).position.z);
+                }
             }
         }
     }
     #endregion
 
-    [Header("재시작점")]
-    public Transform point;
-
-    public override void OnEpisodeBegin()//EndEpisode가 호출됐을 때 사용됨(씬을 호출할 때는 통째로 삭제)
-    {
-        creature.Revive();
-        transform.position = point.position;
-    }
 
     #region 주황색 참격 생성
     override public void AgentAttack()
