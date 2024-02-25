@@ -59,7 +59,7 @@ public class TowerManager : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Bullet"))//폭탄과 충돌했을 때
         {
-
+            Debug.Log("오브젝트명: "+ other.gameObject.name);
             Bullet bullet = other.gameObject.GetComponent<Bullet>();
             if (bullet.curTeamEnum != curTeamEnum)//팀이 다를 경우
             {

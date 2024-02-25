@@ -64,7 +64,7 @@ public class Bullet : MonoBehaviour
     #region 총알 활성
     public void BulletOn(ParentAgent a)
     {
-        //부모 설정
+        //주인 설정
         bulletHost = a;
         curTeamEnum = a.creature.curTeamEnum;
         //시간 동기화

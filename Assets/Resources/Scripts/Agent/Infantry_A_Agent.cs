@@ -158,13 +158,15 @@ public class Infantry_A_Agent : ParentAgent
     {
         GameObject slash = objectManager.CreateObj("Infantry_A_Slash", ObjectManager.PoolTypes.BulletPool);
         Bullet slash_bullet = slash.GetComponent<Bullet>();
-        slash_bullet.BulletOn(this);
+        
         //이동
         slash.transform.position = transform.position + transform.forward + Vector3.up * 3;
 
         //회전
         slash.transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x + 90,
             transform.rotation.eulerAngles.y - 180, transform.rotation.eulerAngles.z - 90);
+        //활성화
+        slash_bullet.BulletOn(this);
     }
     #endregion
 }
