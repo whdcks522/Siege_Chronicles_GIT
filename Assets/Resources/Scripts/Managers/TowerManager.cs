@@ -55,12 +55,12 @@ public class TowerManager : MonoBehaviour
         miniCanvas.transform.rotation = lookRotation;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Bullet"))//폭탄과 충돌했을 때
+        if (other.gameObject.CompareTag("Bullet"))//폭탄과 충돌했을 때
         {
-            
-            Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+
+            Bullet bullet = other.gameObject.GetComponent<Bullet>();
             if (bullet.curTeamEnum != curTeamEnum)//팀이 다를 경우
             {
                 //피해량 확인
@@ -71,9 +71,14 @@ public class TowerManager : MonoBehaviour
                 bulletParentAgent.AddReward(damage / 10f);
                 //피해 관리
                 damageControl(damage);
+
+                //피격한 총알 후처리
+                if (bullet.curBulletMoveEnum != Bullet.BulletMoveEnum.Slash)
+                    bullet.BulletOff();
             }
         }
     }
+
 
     void damageControl(float _dmg)
     {

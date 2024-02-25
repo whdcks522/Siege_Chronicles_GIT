@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
+using Unity.VisualScripting;
 using UnityEngine;
 using static Creature;
 
@@ -87,20 +88,33 @@ public class Infantry_A_Agent : ParentAgent
     {
         var disCreteActionOut = actionsOut.DiscreteActions;
 
-        int spin = 1;//회전 안함
-        if (Input.GetKey(KeyCode.LeftArrow))//좌회전
-            spin = 0;
-        else if (Input.GetKey(KeyCode.RightArrow))//우회전
-            spin = 2;
+        if (behaviorParameters.BehaviorType == Unity.MLAgents.Policies.BehaviorType.HeuristicOnly)
+        {
+            //Debug.Log("휴리스틱 근접");
 
-        int action = 0;//액션 안함
-        if (Input.GetKey(KeyCode.UpArrow))//걷기
-            action = 1;
-        else if (Input.GetKey(KeyCode.Z))//공격
-            action = 2;
+            
 
-        disCreteActionOut[0] = spin;
-        disCreteActionOut[1] = action;
+            int spin = 1;//회전 안함
+            if (Input.GetKey(KeyCode.LeftArrow))//좌회전
+                spin = 0;
+            else if (Input.GetKey(KeyCode.RightArrow))//우회전
+                spin = 2;
+
+            int action = 0;//액션 안함
+            if (Input.GetKey(KeyCode.UpArrow))//걷기
+                action = 1;
+            else if (Input.GetKey(KeyCode.Z))//공격
+                action = 2;
+
+            disCreteActionOut[0] = spin;
+            disCreteActionOut[1] = action;
+        }
+        else 
+        {
+            disCreteActionOut[0] = 1;
+            disCreteActionOut[1] = 0;
+        }
+            
     }
     #endregion
 

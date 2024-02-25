@@ -1,19 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.MLAgents;
+using Unity.MLAgents.Policies;
 using UnityEngine;
 using static Creature;
 
 public class ParentAgent : Agent
 {
+    public BehaviorParameters behaviorParameters;
     public Creature creature;
-    public Rigidbody rigid;
+    public Rigidbody rigid;//상속 때문
 
-    private void Awake()
-    {
-        //Debug.Log("ASDFSA");
-        //rigid = GetComponent<Rigidbody>();
-    }
 
     //에이전트에서 각자 공격(상속)
     virtual public void AgentAttack() 

@@ -192,6 +192,10 @@ public class Creature : MonoBehaviour
                 bulletParentAgent.AddReward(damage / 10f);
                 //피해 관리
                 damageControl(damage);
+
+                //피격한 총알 후처리
+                if(bullet.curBulletMoveEnum != Bullet.BulletMoveEnum.Slash)
+                    bullet.BulletOff();
             }
         }
     }
