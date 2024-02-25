@@ -59,12 +59,15 @@ public class ParentAgent : Agent
         AddReward(reward / 100f);
     }
 
+    public void AgentOn() 
+    {
+        EndEpisode();
+    }
+
     public override void OnEpisodeBegin()//EndEpisode가 호출됐을 때 사용됨(씬을 호출할 때는 통째로 삭제)
     {
         creature.Revive();
         transform.position = creature.createPoint.position;
-
-        
     }
 
     [Header("공격 가능한 최대 거리")]

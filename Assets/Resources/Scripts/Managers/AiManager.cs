@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AiManager : MonoBehaviour
@@ -33,10 +34,20 @@ public class AiManager : MonoBehaviour
     #region ½Ã°£ÀÌ ´ÙµÇ°Å³ª, ¼ºÀÌ ÆÄ±«µÇ¸é ÃÊ±âÈ­
     public void AiClear(int warIndex)
     {
+        StartCoroutine(AiClearCor(warIndex));
+
+    }
+
+    new WaitForSeconds wait01 = new WaitForSeconds(0.5f);
+    
+    IEnumerator AiClearCor(int warIndex) 
+    {
         //warIndex
         // 1ÀÌ¸é ÆÄ¶õ ÆÀ ½Â¸®
         // 0ÀÌ¸é ¹«½ÂºÎ
         // -1ÀÌ¸é »¡°£ ÆÀ ½Â¸®
+
+        yield return null;
 
         //½Ã°£ ÃÊ±âÈ­
         curTime = 0f;
@@ -47,20 +58,24 @@ public class AiManager : MonoBehaviour
 
         //Å©¸®ÃÄ ÃÊ±âÈ­
         int creatureSize = objectManager.blueCreatureFolder.childCount;//ÆÄ¶õ ÆÀ
-        if (creatureSize > 0) 
+        if (creatureSize > 0)
         {
             for (int i = 0; i < creatureSize; i++)
             {
                 ParentAgent agent = objectManager.blueCreatureFolder.GetChild(i).GetComponent<ParentAgent>();
 
                 if (warIndex == 1)
-                    agent.AddReward(20f);
+                    agent.AddReward(10f);
                 else if (warIndex == -1)
                     agent.AddReward(-5f);
 
-                agent.EndEpisode();
+                agent.AgentOn();
+
+                yield return wait01;
             }
         }
+
+        
 
         creatureSize = objectManager.redCreatureFolder.childCount;//»¡°£ ÆÀ
         if (creatureSize > 0)
@@ -70,15 +85,14 @@ public class AiManager : MonoBehaviour
                 ParentAgent agent = objectManager.redCreatureFolder.GetChild(i).GetComponent<ParentAgent>();
 
                 if (warIndex == -1)
-                    agent.AddReward(20f);
+                    agent.AddReward(10f);
                 else if (warIndex == 1)
                     agent.AddReward(-5f);
 
-                agent.EndEpisode();
+                agent.AgentOn();
+                yield return wait01;
             }
         }
-
     }
     #endregion
-
 }

@@ -122,7 +122,7 @@ public class Infantry_A_Agent : ParentAgent
     public override void CollectObservations(VectorSensor sensor)
     {
         //1. 수치형, 받아오는 데이터가 적을 수록 좋음
-        if (gameObject.layer == LayerMask.NameToLayer("Creature")) //죽으면 필요 없자너
+        if (gameObject.layer == LayerMask.NameToLayer("Creature") && gameObject.activeSelf) //죽으면 필요 없자너
         {
             //현재 자신의 위치
             sensor.AddObservation(transform.position.x);//state size = 1     x,y,z를 모두 받아오면 size가 3이 됨
@@ -137,6 +137,7 @@ public class Infantry_A_Agent : ParentAgent
             //상대 타워의 정보
             sensor.AddObservation(creature.enemyTower.position.x);
             sensor.AddObservation(creature.enemyTower.position.z);
+
             //각각의 거리
             sensor.AddObservation(curRange / maxRange);
 

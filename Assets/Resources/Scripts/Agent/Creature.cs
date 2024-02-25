@@ -183,7 +183,7 @@ public class Creature : MonoBehaviour
                 ParentAgent bulletParentAgent = bullet.bulletHost;
                 float damage = bullet.bulletDamage;
 
-                //점수 증가
+                //공격자 점수 증가
                 bulletParentAgent.AddReward(damage / 10f);
                 //피해 관리
                 damageControl(damage);

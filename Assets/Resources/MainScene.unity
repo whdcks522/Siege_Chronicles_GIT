@@ -1635,16 +1635,16 @@ PrefabInstance:
       propertyPath: m_BehaviorName
       value: shooter_A
       objectReference: {fileID: 0}
+    - target: {fileID: 3767533950753847470, guid: 224c1cd34f67d1d4bad4ccdaa75b836b,
+        type: 3}
+      propertyPath: m_BrainParameters.VectorObservationSize
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 4646125403814747638, guid: 224c1cd34f67d1d4bad4ccdaa75b836b,
         type: 3}
-      propertyPath: point
-      value: 
-      objectReference: {fileID: 535775405}
-    - target: {fileID: 4646125403814747638, guid: 224c1cd34f67d1d4bad4ccdaa75b836b,
-        type: 3}
-      propertyPath: behaviorParameters
-      value: 
-      objectReference: {fileID: 1625047366}
+      propertyPath: maxRange
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 5058680581963489764, guid: 224c1cd34f67d1d4bad4ccdaa75b836b,
         type: 3}
       propertyPath: m_Name
@@ -5130,6 +5130,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_BehaviorName
       value: shooter_A
+      objectReference: {fileID: 0}
+    - target: {fileID: 3767533950753847470, guid: 224c1cd34f67d1d4bad4ccdaa75b836b,
+        type: 3}
+      propertyPath: m_BrainParameters.VectorObservationSize
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4646125403814747638, guid: 224c1cd34f67d1d4bad4ccdaa75b836b,
         type: 3}
@@ -22851,6 +22856,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23801e31ddc21364ca7ea8830d8e0b9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isML: 1
   maxTime: 9999
   curTime: 0
   gameManager: {fileID: 1350925724}
@@ -24814,7 +24820,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blueTower: {fileID: 4800244203999566}
   redTower: {fileID: 517150046}
-  isML: 1
   objectManager: {fileID: 1788813899}
   uiManager: {fileID: 383471555}
   audioManager: {fileID: 0}
@@ -25875,6 +25880,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_BehaviorType
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131292589408315668, guid: 0d13f62ecda91574aa45be5a56b837b9,
+        type: 3}
+      propertyPath: m_BrainParameters.VectorObservationSize
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8364354642521973303, guid: 0d13f62ecda91574aa45be5a56b837b9,
         type: 3}
@@ -29209,18 +29219,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2125979138}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1597181440 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8131292589408315668, guid: 0d13f62ecda91574aa45be5a56b837b9,
-    type: 3}
-  m_PrefabInstance: {fileID: 2125979138}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1603296050
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29715,18 +29713,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 108341326}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1625047366 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3767533950753847470, guid: 224c1cd34f67d1d4bad4ccdaa75b836b,
-    type: 3}
-  m_PrefabInstance: {fileID: 108341326}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1629524892
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39794,14 +39780,9 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1703850358029723869, guid: 0d13f62ecda91574aa45be5a56b837b9,
         type: 3}
-      propertyPath: point
-      value: 
-      objectReference: {fileID: 535775405}
-    - target: {fileID: 1703850358029723869, guid: 0d13f62ecda91574aa45be5a56b837b9,
-        type: 3}
-      propertyPath: behaviorParameters
-      value: 
-      objectReference: {fileID: 1597181440}
+      propertyPath: maxRange
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4120125501966113268, guid: 0d13f62ecda91574aa45be5a56b837b9,
         type: 3}
       propertyPath: ourTower
@@ -39835,7 +39816,12 @@ PrefabInstance:
     - target: {fileID: 8131292589408315668, guid: 0d13f62ecda91574aa45be5a56b837b9,
         type: 3}
       propertyPath: m_BehaviorType
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131292589408315668, guid: 0d13f62ecda91574aa45be5a56b837b9,
+        type: 3}
+      propertyPath: m_BrainParameters.VectorObservationSize
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8364354642521973303, guid: 0d13f62ecda91574aa45be5a56b837b9,
         type: 3}

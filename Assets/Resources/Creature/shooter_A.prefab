@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2151948963192839182}
   - component: {fileID: 6010622076925348326}
   m_Layer: 0
-  m_Name: CreatureSensor
+  m_Name: CreatureSensorObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,6 +119,7 @@ MonoBehaviour:
   curHealth: 0
   isAttack: 0
   ourTower: {fileID: 0}
+  createPoint: {fileID: 0}
   enemyTower: {fileID: 0}
   bulletStartPoint: {fileID: 8520013805693020062}
   miniCanvas: {fileID: 5908633637094029029}
@@ -126,7 +127,7 @@ MonoBehaviour:
   runSpd: 4
   curCreatureMoveEnum: 0
   curCreatureSpinEnum: 1
-  curTeamEnum: 2
+  curTeamEnum: 1
   gameManager: {fileID: 0}
 --- !u!54 &7707506176948445747
 Rigidbody:
@@ -194,7 +195,6 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  point: {fileID: 0}
   enemyCreatureFolder: {fileID: 0}
   behaviorParameters: {fileID: 3767533950753847470}
   creature: {fileID: 1287777390633518934}
@@ -203,7 +203,7 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   objectManager: {fileID: 0}
   audioManager: {fileID: 0}
-  maxRange: 0
+  maxRange: 12
   curRange: 0
 --- !u!114 &3767533950753847470
 MonoBehaviour:
@@ -230,7 +230,7 @@ MonoBehaviour:
   m_Model: {fileID: 0}
   m_InferenceDevice: 2
   m_BehaviorType: 0
-  m_BehaviorName: My Behavior
+  m_BehaviorName: shooter_A
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1

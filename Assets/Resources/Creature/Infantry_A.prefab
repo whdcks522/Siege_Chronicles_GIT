@@ -177,10 +177,8 @@ MonoBehaviour:
   maxHealth: 100
   curHealth: 0
   isAttack: 0
-  target: {fileID: 0}
-  maxRange: 0
-  curRange: 0
   ourTower: {fileID: 0}
+  createPoint: {fileID: 0}
   enemyTower: {fileID: 0}
   bulletStartPoint: {fileID: 0}
   miniCanvas: {fileID: 1735232647855550576}
@@ -256,10 +254,16 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
+  enemyCreatureFolder: {fileID: 0}
   behaviorParameters: {fileID: 8131292589408315668}
   creature: {fileID: 4120125501966113268}
   rigid: {fileID: 5137104300073328733}
-  point: {fileID: 0}
+  anim: {fileID: 0}
+  gameManager: {fileID: 0}
+  objectManager: {fileID: 0}
+  audioManager: {fileID: 0}
+  maxRange: 5
+  curRange: 0
 --- !u!114 &8131292589408315668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -284,8 +288,8 @@ MonoBehaviour:
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
   m_InferenceDevice: 2
-  m_BehaviorType: 1
-  m_BehaviorName: My Behavior
+  m_BehaviorType: 0
+  m_BehaviorName: Infantry_A
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
