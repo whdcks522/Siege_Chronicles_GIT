@@ -1637,6 +1637,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3767533950753847470, guid: 224c1cd34f67d1d4bad4ccdaa75b836b,
         type: 3}
+      propertyPath: m_BehaviorType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3767533950753847470, guid: 224c1cd34f67d1d4bad4ccdaa75b836b,
+        type: 3}
       propertyPath: m_BrainParameters.VectorObservationSize
       value: 50
       objectReference: {fileID: 0}
@@ -5135,6 +5140,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_BehaviorName
       value: shooter_A
+      objectReference: {fileID: 0}
+    - target: {fileID: 3767533950753847470, guid: 224c1cd34f67d1d4bad4ccdaa75b836b,
+        type: 3}
+      propertyPath: m_BehaviorType
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3767533950753847470, guid: 224c1cd34f67d1d4bad4ccdaa75b836b,
         type: 3}
@@ -22862,7 +22872,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isML: 1
-  maxTime: 9999
+  maxTime: 100
   curTime: 0
   gameManager: {fileID: 1350925724}
 --- !u!1001 &1246128699
@@ -25889,7 +25899,7 @@ PrefabInstance:
     - target: {fileID: 8131292589408315668, guid: 0d13f62ecda91574aa45be5a56b837b9,
         type: 3}
       propertyPath: m_BehaviorType
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8131292589408315668, guid: 0d13f62ecda91574aa45be5a56b837b9,
         type: 3}
@@ -39826,7 +39836,7 @@ PrefabInstance:
     - target: {fileID: 8131292589408315668, guid: 0d13f62ecda91574aa45be5a56b837b9,
         type: 3}
       propertyPath: m_BehaviorType
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8131292589408315668, guid: 0d13f62ecda91574aa45be5a56b837b9,
         type: 3}

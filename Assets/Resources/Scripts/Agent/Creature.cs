@@ -112,8 +112,6 @@ public class Creature : MonoBehaviour
     {
         if (gameObject.layer == LayerMask.NameToLayer("Creature")) 
         {
-            //if (target != null)
-               // creature.curRange = (creature.target.transform.position - transform.position).magnitude;
 
             //행동 관리
             switch (curCreatureMoveEnum)
@@ -254,6 +252,9 @@ public class Creature : MonoBehaviour
     }
     IEnumerator Dissolve(bool InVisible)//왜곡장 1.5초간
     {
+        //피격당하지 않도록, 레이어 변경
+        gameObject.layer = LayerMask.NameToLayer("WarpCreature");
+
         float firstValue = InVisible ? 0f : 1f;      //true는 점차 안보이는 것
         float targetValue = InVisible ? 1f : 0f;     //false는 점차 보이는 것
         

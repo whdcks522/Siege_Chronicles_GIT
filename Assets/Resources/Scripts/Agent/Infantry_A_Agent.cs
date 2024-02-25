@@ -10,13 +10,14 @@ using static Creature;
 
 public class Infantry_A_Agent : ParentAgent
 {
-    
+
 
     //공격 맞으면 점수 증가, 안맞으면 감소
     //방향 맞으면 점수 증가
 
     //  mlagents-learn --force
     //mlagents-learn "D:\gitHubDeskTop\ML_EX_GIT\config\ppo\Enemy_Orc.yaml" --run-id=Enemy_Orc_K --resum(2시간즈음부터 성능 향상 시작됨)
+    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\ppo\Custom_shooter_A.yaml" --run-id=ustom_shooter_B --resum
 
     private void Awake()
     {

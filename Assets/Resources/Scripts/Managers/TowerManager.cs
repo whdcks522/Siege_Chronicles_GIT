@@ -107,9 +107,9 @@ public class TowerManager : MonoBehaviour
         {
             //모두 초기화
             if(curTeamEnum == TeamEnum.Blue)
-                aiManager.AiClear(1);
+                aiManager.AiEnd(1);
             if (curTeamEnum == TeamEnum.Red)
-                aiManager.AiClear(-1);
+                aiManager.AiEnd(-1);
         }
     }
 

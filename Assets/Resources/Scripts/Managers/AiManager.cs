@@ -50,12 +50,12 @@ public class AiManager : MonoBehaviour
         if (curTime >= maxTime)//타임 오버
         {
 
-            AiClear(0);
+            AiEnd(0);
         }
     }
 
     #region 시간이 다되거나, 성이 파괴되면 초기화
-    public void AiClear(int warIndex)
+    public void AiEnd(int warIndex)
     {
         if (warIndex == 0)
         {
@@ -79,23 +79,30 @@ public class AiManager : MonoBehaviour
             blueAgentGroup.EndGroupEpisode();
             redAgentGroup.EndGroupEpisode();
         }
-        
-        StartCoroutine(AiClearCor(warIndex));
+
+        AiClear(warIndex);
     }
 
-    WaitForSeconds wait01 = new WaitForSeconds(0.5f);
+    //WaitForSeconds wait01 = new WaitForSeconds(0.5f);
+
+
     
-    IEnumerator AiClearCor(int warIndex) 
+    void AiClear(int warIndex) 
     {
         //warIndex
         // 1이면 파란 팀 승리
         // 0이면 무승부
         // -1이면 빨간 팀 승리
 
-        yield return null;
 
         //시간 초기화
         curTime = 0f;
+
+        //총알 비활성화
+        for (int i = 0; i < objectManager.bulletFolder.childCount; i++)
+        {
+            objectManager.bulletFolder.GetChild(i).gameObject.SetActive(false);
+        }
 
         //건물 체력 초기화
         gameManager.blueTower.GetComponent<TowerManager>().TowerOn();
@@ -108,19 +115,9 @@ public class AiManager : MonoBehaviour
             for (int i = 0; i < creatureSize; i++)
             {
                 ParentAgent agent = objectManager.blueCreatureFolder.GetChild(i).GetComponent<ParentAgent>();
-
-                //if (warIndex == 1)
-                //    agent.AddReward(10f);
-                //else if (warIndex == -1)
-                //    agent.AddReward(-5f);
-
                 agent.StateReturn();
-
-                yield return wait01;
             }
         }
-
-        
 
         creatureSize = objectManager.redCreatureFolder.childCount;//빨간 팀
         if (creatureSize > 0)
@@ -128,14 +125,7 @@ public class AiManager : MonoBehaviour
             for (int i = 0; i < creatureSize; i++)
             {
                 ParentAgent agent = objectManager.redCreatureFolder.GetChild(i).GetComponent<ParentAgent>();
-
-                //if (warIndex == -1)
-                 //   agent.AddReward(10f);
-                //else if (warIndex == 1)
-                 //   agent.AddReward(-5f);
-
                 agent.StateReturn();
-                yield return wait01;
             }
         }
     }
