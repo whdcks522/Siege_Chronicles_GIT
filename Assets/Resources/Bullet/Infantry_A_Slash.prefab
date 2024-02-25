@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1205837206348942882}
   - component: {fileID: 2377350996307044321}
   - component: {fileID: 3920584867422586876}
+  - component: {fileID: 3005962474802799519}
   m_Layer: 8
   m_Name: Infantry_A_Slash
   m_TagString: Bullet
@@ -4931,6 +4932,7 @@ MonoBehaviour:
   curBulletMoveEnum: 0
   endStr: 
   gameManager: {fileID: 0}
+  objectManager: {fileID: 0}
 --- !u!136 &3920584867422586876
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4954,3 +4956,30 @@ CapsuleCollider:
   m_Height: 4
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &3005962474802799519
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3536692737643162957}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

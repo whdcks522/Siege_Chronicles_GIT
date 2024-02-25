@@ -1888,7 +1888,7 @@ PrefabInstance:
     - target: {fileID: 3767533950753847470, guid: 224c1cd34f67d1d4bad4ccdaa75b836b,
         type: 3}
       propertyPath: m_BehaviorType
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3787391825834780493, guid: 224c1cd34f67d1d4bad4ccdaa75b836b,
         type: 3}
@@ -1939,7 +1939,7 @@ PrefabInstance:
         type: 3}
       propertyPath: point
       value: 
-      objectReference: {fileID: 793402537114460013}
+      objectReference: {fileID: 907198248}
     - target: {fileID: 4646125403814747638, guid: 224c1cd34f67d1d4bad4ccdaa75b836b,
         type: 3}
       propertyPath: behaviorParameters
@@ -2109,6 +2109,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7076029219765752721, guid: 224c1cd34f67d1d4bad4ccdaa75b836b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7076029219765752721, guid: 224c1cd34f67d1d4bad4ccdaa75b836b,
         type: 3}
@@ -16544,6 +16549,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4323406122081712, guid: 2df6c259e4a67614fac8c85e23ecb3d5,
     type: 3}
   m_PrefabInstance: {fileID: 906835913}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &907198248 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7856681755523183836, guid: b8170ebc87ea299489eb7b3a403d712f,
+    type: 3}
+  m_PrefabInstance: {fileID: 581650009}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &908913397
 PrefabInstance:
@@ -40163,7 +40174,7 @@ PrefabInstance:
         type: 3}
       propertyPath: point
       value: 
-      objectReference: {fileID: 793402537114460013}
+      objectReference: {fileID: 907198248}
     - target: {fileID: 1703850358029723869, guid: 0d13f62ecda91574aa45be5a56b837b9,
         type: 3}
       propertyPath: rigid
@@ -40491,6 +40502,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7076029219765752721, guid: 0d13f62ecda91574aa45be5a56b837b9,
         type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7076029219765752721, guid: 0d13f62ecda91574aa45be5a56b837b9,
+        type: 3}
       propertyPath: m_TagString
       value: Creature
       objectReference: {fileID: 0}
@@ -40562,7 +40578,7 @@ PrefabInstance:
     - target: {fileID: 8131292589408315668, guid: 0d13f62ecda91574aa45be5a56b837b9,
         type: 3}
       propertyPath: m_BehaviorType
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8131292589408315668, guid: 0d13f62ecda91574aa45be5a56b837b9,
         type: 3}
@@ -41251,12 +41267,6 @@ Transform:
 --- !u!4 &4800244203999566 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 890367817235851015, guid: b8170ebc87ea299489eb7b3a403d712f,
-    type: 3}
-  m_PrefabInstance: {fileID: 5919912964024308187}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &793402537114460013 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7856681755523183836, guid: b8170ebc87ea299489eb7b3a403d712f,
     type: 3}
   m_PrefabInstance: {fileID: 5919912964024308187}
   m_PrefabAsset: {fileID: 0}

@@ -19,7 +19,7 @@ public class UIManager : MonoBehaviour
     //[Header("빨간 성의 생성 지점")]
     Transform redTower;
 
-    int mul = 75;//카메라 회전 속도
+    int mul = 45;//카메라 회전 속도
     int curRot = -160;//현재 회전값
     int addRot = 0;//버튼으로 회전할 때 사용하는 논리값
     Vector3 cameraVec;//카메라 회전용 벡터
@@ -53,9 +53,9 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        curRot += addRot;
+        curRot += addRot * 2;
 
-        //카메라 위치 관리
+        //카메라 위치 관리(위에서 퍼진 정도)
         cameraVec = mul * new Vector3(Mathf.Sin(Mathf.PI * curRot / 360), 0, Mathf.Cos(Mathf.PI * curRot / 360));
         cameraObj.position = cameraCloud.position + cameraVec;
 

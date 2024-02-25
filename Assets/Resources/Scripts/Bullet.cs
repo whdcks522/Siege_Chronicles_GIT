@@ -51,13 +51,13 @@ public class Bullet : MonoBehaviour
     private void Update()
     {
         curTime += Time.deltaTime;
-        if (curTime > maxTime)
+        if (curTime >= maxTime)
         {
             BulletOff();
         }
-        else if(curTime > colTime && curBulletMoveEnum == BulletMoveEnum.Slash)
+        else if(curTime >= colTime && curBulletMoveEnum == BulletMoveEnum.Slash)
         {
-            bulletCollider.enabled = false;
+            //bulletCollider.enabled = false;
         }
     }
 
@@ -103,7 +103,7 @@ public class Bullet : MonoBehaviour
         {
             if (curBulletMoveEnum != BulletMoveEnum.Slash)
             {
-                //Debug.LogError(gameObject.name + " 충돌 감점: " + other.gameObject.name);
+                Debug.LogError(gameObject.name + " 충돌 감점: " + other.gameObject.name);
                 //감점
                 bulletHost.AddReward(-0.1f);
                 //총알 비활성화
