@@ -57,9 +57,10 @@ public class TowerManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("오브젝트명: " + other.gameObject.name);
         if (other.gameObject.CompareTag("Bullet"))//총알과 충돌
         {
-            Debug.Log("오브젝트명: "+ other.gameObject.name);
+            
             Bullet bullet = other.gameObject.GetComponent<Bullet>();
 
             if (bullet.curTeamEnum != curTeamEnum)//팀이 다를 경우만 피해 처리
@@ -69,7 +70,7 @@ public class TowerManager : MonoBehaviour
                 float damage = bullet.bulletDamage;
 
                 //점수 증가
-                bulletParentAgent.AddReward(damage / 10f);
+                bulletParentAgent.AddReward(damage / 8f);
                 //피해 관리
                 damageControl(damage);
 
@@ -79,7 +80,6 @@ public class TowerManager : MonoBehaviour
             }
         }
     }
-
 
     void damageControl(float _dmg)
     {
