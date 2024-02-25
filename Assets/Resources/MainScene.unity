@@ -13666,7 +13666,7 @@ PrefabInstance:
     - target: {fileID: 793402535981347153, guid: 595a396050bd5488997b131eb2c2305d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.05
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 3975854094079895220, guid: 595a396050bd5488997b131eb2c2305d,
         type: 3}
@@ -17501,6 +17501,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63745d04603b8384e84272fb1c50ca73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 0
+  curHealth: 0
+  target: {fileID: 0}
+  maxRange: 0
+  curRange: 0
+  curTeamEnum: 0
+  ourTower: {fileID: 0}
+  enemyTower: {fileID: 0}
+  bulletStartPoint: {fileID: 0}
+  miniUI: {fileID: 0}
+  miniHealth: {fileID: 0}
 --- !u!1001 &807512532
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28861,6 +28872,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63745d04603b8384e84272fb1c50ca73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 0
+  curHealth: 0
+  target: {fileID: 0}
+  maxRange: 0
+  curRange: 0
+  curTeamEnum: 0
+  ourTower: {fileID: 0}
+  enemyTower: {fileID: 0}
+  bulletStartPoint: {fileID: 0}
+  miniUI: {fileID: 0}
+  miniHealth: {fileID: 0}
 --- !u!1001 &1241199026
 PrefabInstance:
   m_ObjectHideFlags: 0

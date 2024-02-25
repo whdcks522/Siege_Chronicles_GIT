@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [Header("레드팀 성")]
     public Transform redTower;
 
+
     [Header("머신러닝중인지 여부 확인")]
     public bool isML;
 

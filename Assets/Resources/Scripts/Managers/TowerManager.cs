@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static Creature;
 
 public class TowerManager : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class TowerManager : MonoBehaviour
     [Header("현재 대상과의 거리")]
     public float curRange;
 
+    public TeamEnum curTeamEnum;
     [Header("우리 성")]
     public Transform ourTower;
     [Header("상대 성")]
@@ -28,6 +30,19 @@ public class TowerManager : MonoBehaviour
     [Header("캐릭터 위의 미니 UI")]
     public GameObject miniUI;
     public Image miniHealth;
+
+    Transform mainCamera;
+    GameManager gameManager;
+    private void Awake()
+    {
+        mainCamera = gameManager.uiManager.cameraObj;
+    }
+
+    private void LateUpdate()
+    {
+        miniUI.transform.LookAt(transform.position + mainCamera.transform.rotation * Vector3.forward,
+            mainCamera.transform.rotation * Vector3.up);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -46,5 +61,27 @@ public class TowerManager : MonoBehaviour
                 damageControl(damage);
             }
         }
+    }
+
+    void damageControl(float _dmg)
+    {
+        //피해량 계산
+        curHealth -= _dmg;
+        if (curHealth < 0) curHealth = 0;
+        else if (curHealth > maxHealth) curHealth = maxHealth;
+        //UI관리
+        //miniHealth.fillAmount = curHealth / maxHealth;
+
+        //충격 초기화
+        if (curHealth > 0)//피격하고 살아 있음
+        {
+            //anim.SetTrigger("isHit");
+        }
+        else if (curHealth <= 0) Dead();
+    }
+
+    void Dead() 
+    {
+        
     }
 }
