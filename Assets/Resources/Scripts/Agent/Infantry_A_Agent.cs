@@ -38,6 +38,9 @@ public class Infantry_A_Agent : ParentAgent
     {
         if (!creature.isAttack && gameObject.layer == LayerMask.NameToLayer("Creature")) 
         {
+            rewardValue =  GetCumulativeReward();
+
+
             //방향따라 점수 증가
             GetMatchingVelocityReward();
             //적과의 거리 계산

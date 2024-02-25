@@ -5128,6 +5128,11 @@ PrefabInstance:
       objectReference: {fileID: 1350925724}
     - target: {fileID: 3767533950753847470, guid: 224c1cd34f67d1d4bad4ccdaa75b836b,
         type: 3}
+      propertyPath: TeamId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3767533950753847470, guid: 224c1cd34f67d1d4bad4ccdaa75b836b,
+        type: 3}
       propertyPath: m_BehaviorName
       value: shooter_A
       objectReference: {fileID: 0}
@@ -25870,6 +25875,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Infantry_A
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131292589408315668, guid: 0d13f62ecda91574aa45be5a56b837b9,
+        type: 3}
+      propertyPath: TeamId
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8131292589408315668, guid: 0d13f62ecda91574aa45be5a56b837b9,
         type: 3}

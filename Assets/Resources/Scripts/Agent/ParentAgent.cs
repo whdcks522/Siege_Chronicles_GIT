@@ -7,7 +7,8 @@ using static Creature;
 
 public class ParentAgent : Agent
 {
-    
+    [Header("보상 값")]
+    public float rewardValue;
 
     [Header("상대팀이 들어있는 폴더")]
     public Transform enemyCreatureFolder;
@@ -65,6 +66,11 @@ public class ParentAgent : Agent
     }
 
     public override void OnEpisodeBegin()//EndEpisode가 호출됐을 때 사용됨(씬을 호출할 때는 통째로 삭제)
+    {
+        StateReturn();
+    }
+
+    public void StateReturn() 
     {
         creature.Revive();
         transform.position = creature.createPoint.position;

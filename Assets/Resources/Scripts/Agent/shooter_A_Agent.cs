@@ -32,6 +32,8 @@ public class shooter_A_Agent : ParentAgent
 
         if (!creature.isAttack && gameObject.layer == LayerMask.NameToLayer("Creature"))
         {
+            rewardValue = GetCumulativeReward();
+
             //곧바로 이동하면 점수
             GetMatchingVelocityReward();
             //적과의 거리 계산
