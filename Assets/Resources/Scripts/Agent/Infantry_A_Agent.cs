@@ -15,9 +15,19 @@ public class Infantry_A_Agent : ParentAgent
     //공격 맞으면 점수 증가, 안맞으면 감소
     //방향 맞으면 점수 증가
 
+    /*
+     스크립트에서의 간단한 코드정리
+
+- Initialize : 환경이 실행될 떄 호출되는 초기화 함수
+- CollectObservations : Agent에게 Vector Observation 정보를 전달해 주는 함수 
+- OnActionReceived : Agent가 결정한 행동을 전달, 보상 업데이트, 에피소드 종료 
+- OnEpisodeBegin : 각 에피소드가 시작될 떄 호출되는 함수
+- Heuristic : 개발자가 직접 명령을 내리는 휴리스틱 모드에서 사용 
+     */
+
     //  mlagents-learn --force
     //mlagents-learn "D:\gitHubDeskTop\ML_EX_GIT\config\ppo\Enemy_Orc.yaml" --run-id=Enemy_Orc_K --resum(2시간즈음부터 성능 향상 시작됨)
-    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\ppo\Custom_shooter_A.yaml" --run-id=ustom_shooter_B --resum
+    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\ppo\Custom_shooter_A.yaml" --run-id=ustom_shooter_C --resum
 
     private void Awake()
     {
