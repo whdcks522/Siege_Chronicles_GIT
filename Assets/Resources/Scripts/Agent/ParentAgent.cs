@@ -48,7 +48,7 @@ public class ParentAgent : Agent
         else // 0부터 1까지의 값을 반환
             reward = (cosineSimilarity + 1f) / 2f;
 
-        Debug.Log(reward);
+        //Debug.Log(reward); //0f ~ 1f
         AddReward(reward / 100f);
     }
 }

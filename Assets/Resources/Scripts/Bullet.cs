@@ -97,14 +97,17 @@ public class Bullet : MonoBehaviour
     }
     #endregion
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.transform.CompareTag("Untagged")) //맵 밖으로 나가지면 종료
+        if (collision.transform.CompareTag("Untagged")) //맵과 충돌하면 감점
         {
-            //감점
-            bulletHost.AddReward(-0.1f);
-            //총알 비활성화
-            BulletOff();
+            if (curBulletMoveEnum != BulletMoveEnum.Slash)
+            {
+                //감점
+                bulletHost.AddReward(-0.1f);
+                //총알 비활성화
+                BulletOff();
+            }
         }
     }
 }

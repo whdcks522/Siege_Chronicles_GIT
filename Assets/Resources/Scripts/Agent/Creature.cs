@@ -1,6 +1,7 @@
 using Google.Protobuf.WellKnownTypes;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Presets;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
@@ -18,6 +19,9 @@ public class Creature : MonoBehaviour
     [Header("생명체의 현재 체력")]
     public float curHealth;
 
+    [Header("현재 공격 중인지")]
+    public bool isAttack = false;
+
     [Header("가까운 적")]
     public Transform target;
     [Header("공격 가능한 최대 거리")]
@@ -34,7 +38,7 @@ public class Creature : MonoBehaviour
     public Transform bulletStartPoint;
 
     [Header("캐릭터 위의 미니 UI")]
-    public GameObject miniUI;
+    public GameObject miniCanvas;
     public Image miniHealth;
 
     [Header("달리는 속도")]
@@ -42,18 +46,11 @@ public class Creature : MonoBehaviour
     int rotSpd = 120;//회전 속도
 
     Vector3 moveVec;//이동용 벡터
-    
-    
 
-    public GameManager gameManager;
-    Rigidbody rigid;
-    Animator anim;
-    ParentAgent parentAgent;
-
-    public enum CreatureMoveEnum {Idle, Run}//머신러닝으로 취할수 있는 행동
+    public enum CreatureMoveEnum { Idle, Run }//머신러닝으로 취할수 있는 행동
     public CreatureMoveEnum curCreatureMoveEnum;
-    
-    public enum CreatureSpinEnum { LeftSpin, None,  RightSpin }//머신러닝으로 취할수 있는 회전
+
+    public enum CreatureSpinEnum { LeftSpin, None, RightSpin }//머신러닝으로 취할수 있는 회전
     public CreatureSpinEnum curCreatureSpinEnum;
 
     public enum TeamEnum { None, Blue, Red }//속하는 팀
@@ -62,14 +59,24 @@ public class Creature : MonoBehaviour
     //public enum CreatureTypeEnum { Melee, Range }//속하는 팀
     //public TeamEnum curTeamEnum;
 
-    [Header("현재 공격 중인지")]
-    public bool isAttack = false;
+    Rigidbody rigid;
+    Animator anim;
+    ParentAgent parentAgent;
+    public GameManager gameManager;
+    UIManager UIManager;
+    Transform cameraGround;
+    Transform mainCamera;
 
     private void Awake()
     {
         rigid = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
         parentAgent = GetComponent<ParentAgent>();
+
+        UIManager = gameManager.uiManager;
+        mainCamera = UIManager.cameraObj;
+        cameraGround = UIManager.cameraGround;
+
 
         //텍스쳐 매터리얼 설정
         skinnedMeshRenderer.material.SetTexture("_BaseTexture", baseTexture);
@@ -87,8 +94,13 @@ public class Creature : MonoBehaviour
         //체력 회복
         curHealth = maxHealth;
 
-        //miniHealth.fillAmount = 1;
-
+        //체력 UI 관리
+        miniCanvas.SetActive(true);
+        miniHealth.fillAmount = 1;
+        if(curTeamEnum == TeamEnum.Blue)
+            miniHealth.color = Color.blue;
+        else if (curTeamEnum == TeamEnum.Red)
+            miniHealth.color = Color.red;
         //오브젝트 활성화
         gameObject.SetActive(true);
         //기상 애니메이션
@@ -152,6 +164,19 @@ public class Creature : MonoBehaviour
     }
     #endregion
 
+    //카메라 회전값
+    Vector3 cameraVec;
+    Quaternion lookRotation;
+    private void LateUpdate()
+    {
+        // 물체 A에서 B를 바라보는 회전 구하기
+        cameraVec = mainCamera.transform.position - cameraGround.transform.position;
+        lookRotation = Quaternion.LookRotation(cameraVec);
+
+        // 물체 C에 회전 적용
+        miniCanvas.transform.rotation = lookRotation;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Bullet"))//폭탄과 충돌했을 때
@@ -179,7 +204,7 @@ public class Creature : MonoBehaviour
         if (curHealth < 0) curHealth = 0;
         else if (curHealth > maxHealth) curHealth = maxHealth;
         //UI관리
-        //miniHealth.fillAmount = curHealth / maxHealth;
+        miniHealth.fillAmount = curHealth / maxHealth;
 
         //충격 초기화
         if (curHealth > 0)//피격하고 살아 있음
@@ -201,7 +226,7 @@ public class Creature : MonoBehaviour
         anim.SetTrigger("isDeath");
 
         //미니 UI 닫기
-        //miniHealth.fillAmount = 0;
+        miniCanvas.SetActive(false);
 
         //먼지 종료
         //왜곡장
