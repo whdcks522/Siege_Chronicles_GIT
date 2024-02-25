@@ -97,13 +97,13 @@ public class Bullet : MonoBehaviour
     }
     #endregion
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.transform.CompareTag("Untagged")) //맵과 충돌하면 감점
+        if (other.transform.CompareTag("Untagged")) //맵과 충돌하면 감점
         {
             if (curBulletMoveEnum != BulletMoveEnum.Slash)
             {
-                Debug.LogError(gameObject.name + " 충돌 감점: " + collision.gameObject.name);
+                //Debug.LogError(gameObject.name + " 충돌 감점: " + other.gameObject.name);
                 //감점
                 bulletHost.AddReward(-0.1f);
                 //총알 비활성화

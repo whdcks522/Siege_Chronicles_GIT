@@ -48,7 +48,7 @@ public class TowerManager : MonoBehaviour
     private void LateUpdate()
     {
         // 물체 A에서 B를 바라보는 회전 구하기
-        cameraVec = mainCamera.transform.position - cameraGround.transform.position;
+        cameraVec = cameraGround.transform.position - mainCamera.transform.position;
         lookRotation = Quaternion.LookRotation(cameraVec);
 
         // 물체 C에 회전 적용
@@ -57,11 +57,12 @@ public class TowerManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Bullet"))//폭탄과 충돌했을 때
+        if (other.gameObject.CompareTag("Bullet"))//총알과 충돌
         {
             Debug.Log("오브젝트명: "+ other.gameObject.name);
             Bullet bullet = other.gameObject.GetComponent<Bullet>();
-            if (bullet.curTeamEnum != curTeamEnum)//팀이 다를 경우
+
+            if (bullet.curTeamEnum != curTeamEnum)//팀이 다를 경우만 피해 처리
             {
                 //피해량 확인
                 ParentAgent bulletParentAgent = bullet.bulletHost;
@@ -83,7 +84,7 @@ public class TowerManager : MonoBehaviour
     void damageControl(float _dmg)
     {
         //피해량 계산
-        Debug.Log(_dmg);
+        //Debug.Log(_dmg);
         curHealth -= _dmg;
         if (curHealth < 0) curHealth = 0;
         else if (curHealth > maxHealth) curHealth = maxHealth;
