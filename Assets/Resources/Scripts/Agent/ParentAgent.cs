@@ -13,6 +13,9 @@ public class ParentAgent : Agent
     [Header("상대팀이 들어있는 폴더")]
     public Transform enemyCreatureFolder;
 
+    [Header("사용하는 총알")]
+    public Transform useBullet;
+
     public BehaviorParameters behaviorParameters;
     public Creature creature;
     public Rigidbody rigid;//상속 때문
@@ -22,6 +25,7 @@ public class ParentAgent : Agent
     public ObjectManager objectManager;
     
     public AudioManager audioManager;
+    
 
     //에이전트에서 각자 공격(상속)
     virtual public void AgentAttack() 
@@ -57,7 +61,7 @@ public class ParentAgent : Agent
             reward = (cosineSimilarity + 1f) / 2f;
 
         //Debug.Log(reward); //0f ~ 1f
-        AddReward(reward / 100f);
+        AddReward(reward / 2000f);
     }
 
     public void AgentOn() 
@@ -73,7 +77,7 @@ public class ParentAgent : Agent
     public void StateReturn() 
     {
         creature.Revive();
-        transform.position = creature.createPoint.position;
+        transform.position = creature.startPoint.position;
     }
 
     [Header("공격 가능한 최대 거리")]
@@ -84,7 +88,7 @@ public class ParentAgent : Agent
     #region 적들과의 거리 계산
     protected void RangeCalculate() 
     {
-        curRange = (creature.enemyTower.position - transform.position).magnitude;
+        curRange = (creature.enemyTower.position - transform.position).magnitude - 2;//타워의 두께 계산
 
         for (int i = 0; i < enemyCreatureFolder.childCount; i++)
         {

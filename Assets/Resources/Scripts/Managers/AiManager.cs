@@ -43,16 +43,16 @@ public class AiManager : MonoBehaviour
         }
     }
 
-
-    private void Update()
+    private void FixedUpdate()
     {
-        curTime += Time.deltaTime;
-        if (curTime >= maxTime)//타임 오버
+        curTime += 1;
+        if (curTime >= maxTime && maxTime > 0)//타임 오버
         {
 
             AiEnd(0);
         }
     }
+
 
     #region 시간이 다되거나, 성이 파괴되면 초기화
     public void AiEnd(int warIndex)
@@ -67,13 +67,13 @@ public class AiManager : MonoBehaviour
         {
             if (warIndex == 1) //파랑 승
             {
-                blueAgentGroup.AddGroupReward(10f);
-                redAgentGroup.AddGroupReward(-5f);
+                blueAgentGroup.AddGroupReward(20f);
+                redAgentGroup.AddGroupReward(-10f);
             }
             else if (warIndex == -1) //빨강 승
             {
-                blueAgentGroup.AddGroupReward(-5f);
-                redAgentGroup.AddGroupReward(10f);
+                blueAgentGroup.AddGroupReward(-10f);
+                redAgentGroup.AddGroupReward(20f);
             }
 
             blueAgentGroup.EndGroupEpisode();

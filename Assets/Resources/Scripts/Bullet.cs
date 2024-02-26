@@ -28,8 +28,8 @@ public class Bullet : MonoBehaviour
     [Header("총알의 이동 방식")]
     public BulletMoveEnum curBulletMoveEnum;
 
-    [Header("사라질 때, 사용할 이펙트")]
-    public string endStr;
+    [Header("사라질 때, 생성되는 총알")]
+    public Transform endBullet;
 
     public GameManager gameManager;
     public ObjectManager objectManager;
@@ -76,7 +76,7 @@ public class Bullet : MonoBehaviour
     }
     #endregion
 
-    #region 총알 활성
+    #region 총알 비활성
     public void BulletOff()
     {
         //총알 비활성화
@@ -85,7 +85,9 @@ public class Bullet : MonoBehaviour
         if (curBulletMoveEnum != BulletMoveEnum.Slash) 
         {
             //파괴 총알 활성
-            GameObject bomb = objectManager.CreateObj("shooter_A_Bomb", ObjectManager.PoolTypes.BulletPool);
+            string bulletName = endBullet.name;
+
+            GameObject bomb = objectManager.CreateObj(bulletName, ObjectManager.PoolTypes.BulletPool);
             Bullet bomb_bullet = bomb.GetComponent<Bullet>();
             //이동
             bomb.transform.position = transform.position;

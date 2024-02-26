@@ -19,11 +19,6 @@ public class shooter_A_Agent : ParentAgent
 
         gameManager = creature.gameManager;
         objectManager = gameManager.objectManager;
-
-        if (creature.curTeamEnum == TeamEnum.Blue)
-            enemyCreatureFolder = objectManager.redCreatureFolder;
-        else if (creature.curTeamEnum == TeamEnum.Red)
-            enemyCreatureFolder = objectManager.blueCreatureFolder;
     }
 
     
@@ -70,8 +65,6 @@ public class shooter_A_Agent : ParentAgent
 
                         anim.SetTrigger("isGun");
                     }
-                    else AddReward(-0.5f);
-
                     break;
             }
         }
@@ -150,7 +143,9 @@ public class shooter_A_Agent : ParentAgent
     #region 투사체 생성
     override public void AgentAttack()
     {
-        GameObject tracer = objectManager.CreateObj("shooter_A_Tracer", ObjectManager.PoolTypes.BulletPool);
+        string bulletName = useBullet.name;
+
+        GameObject tracer = objectManager.CreateObj(bulletName, ObjectManager.PoolTypes.BulletPool);
         Bullet tracer_bullet = tracer.GetComponent<Bullet>();
         Rigidbody tracer_rigid = tracer.GetComponent<Rigidbody>();
 

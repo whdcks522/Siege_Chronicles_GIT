@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -5408856047565953560}
   - component: {fileID: 4035777649766217421}
   m_Layer: 8
-  m_Name: shooter_A_Tracer
+  m_Name: Shooter_A_Tracer
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4922,7 +4922,7 @@ MonoBehaviour:
   bulletHost: {fileID: 0}
   curTeamEnum: 0
   curBulletMoveEnum: 1
-  endStr: shooter_A_Bomb
+  endBullet: {fileID: 4252801894676002, guid: d0cc3ddf4955f5142ac3267fffce7cbe, type: 3}
   gameManager: {fileID: 0}
   objectManager: {fileID: 0}
 --- !u!54 &-5408856047565953560

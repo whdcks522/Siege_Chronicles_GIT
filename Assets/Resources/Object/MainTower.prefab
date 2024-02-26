@@ -1093,8 +1093,8 @@ MonoBehaviour:
   maxHealth: 300
   curHealth: 300
   curTeamEnum: 0
-  creatureStartPoint: {fileID: 3776508832002094755}
-  bulletStartPoint: {fileID: 7856681755523183836}
+  creatureStartPoint: {fileID: 7856681755523183836}
+  bulletStartPoint: {fileID: 3776508832002094755}
   miniCanvas: {fileID: 1861832217168777235}
   miniHealth: {fileID: 1353024281092045365}
   gameManager: {fileID: 0}

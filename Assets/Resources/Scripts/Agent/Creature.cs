@@ -1,6 +1,7 @@
 using Google.Protobuf.WellKnownTypes;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using Unity.VisualScripting;
 using UnityEditor.Presets;
 using UnityEngine;
@@ -22,12 +23,15 @@ public class Creature : MonoBehaviour
     [Header("현재 공격 중인지")]
     public bool isAttack = false;
 
-    [Header("우리 성")]
+    [Header("우리 타워")]
     public Transform ourTower;
-    [Header("시작할 장소")]
-    public Transform createPoint;
-    [Header("상대 성")]
+    public TowerManager ourTowerManager;
+    [Header("상대 타워")]
     public Transform enemyTower;
+    public TowerManager enemyTowerManager;
+    [Header("우리 타워에서 시작할 장소")]
+    public Transform startPoint;
+    
 
     [Header("총알이 시작되는 곳")]
     public Transform bulletStartPoint;
@@ -76,6 +80,47 @@ public class Creature : MonoBehaviour
 
         //텍스쳐 매터리얼 설정
         skinnedMeshRenderer.material.SetTexture("_BaseTexture", baseTexture);
+
+        
+
+        if (curTeamEnum == TeamEnum.Blue)//파랑 팀
+        {
+            //팀 번호 설정
+            parentAgent.behaviorParameters.TeamId = 0;
+            //아군 타워 설정
+            ourTower = gameManager.blueTower;
+            //적 타워 설정
+            enemyTower = gameManager.redTower;
+            
+        }
+        else if (curTeamEnum == TeamEnum.Red)//빨강 팀
+        {
+            //팀 번호 설정
+            parentAgent.behaviorParameters.TeamId = 1;
+            //아군 타워 설정
+            ourTower = gameManager.redTower; 
+            //적 타워 설정
+            enemyTower = gameManager.blueTower;  
+        }
+
+        ourTowerManager = ourTower.GetComponent<TowerManager>();
+        enemyTowerManager = enemyTower.GetComponent<TowerManager>();
+        //시작지점 설정
+        startPoint = ourTowerManager.creatureStartPoint;
+    }
+
+    private void Start()
+    {
+        if (curTeamEnum == TeamEnum.Blue)//파랑 팀
+        {
+            //적 폴더 설정
+            parentAgent.enemyCreatureFolder = parentAgent.objectManager.redCreatureFolder;
+        }
+        else if (curTeamEnum == TeamEnum.Red)//빨강 팀
+        {
+            //적 폴더 설정
+            parentAgent.enemyCreatureFolder = parentAgent.objectManager.blueCreatureFolder;
+        }
     }
 
     #region 생명체 활성화

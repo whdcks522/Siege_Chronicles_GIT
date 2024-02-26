@@ -15,12 +15,12 @@ public class ObjectManager : MonoBehaviour
     public Transform redCreatureFolder;
 
     //적 리스트
-    string[] creatureNames = { "Infantry_A", "shooter_A" };
+    string[] creatureNames = { "Infantry_A", "Shooter_A" };
     //적 주소가 저장될 곳
     List<GameObject>[] creaturePools;
 
     //총알 리스트
-    string[] bulletNames = { "Infantry_A_Slash", "shooter_A_Tracer", "shooter_A_Bomb" };
+    string[] bulletNames = { "Infantry_A_Slash", "Shooter_A_Tracer", "Shooter_A_Bomb" };
     //총알 주소가 저장될 곳
     List<GameObject>[] bulletPools;
     
