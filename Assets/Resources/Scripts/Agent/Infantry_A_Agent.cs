@@ -29,9 +29,7 @@ public class Infantry_A_Agent : ParentAgent
     //mlagents-learn "D:\gitHubDeskTop\ML_EX_GIT\config\ppo\Enemy_Orc.yaml" --run-id=Enemy_Orc_K --resum(2시간즈음부터 성능 향상 시작됨)
     //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\ppo\Custom_shooter_A.yaml" --run-id=ustom_shooter_C --resum
 
-    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\poca\Custom_Infantry_A.yaml" --run-id=Custom_Infantry_CC --resum
-
-    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\poca\StrikersVsGoalie.yaml" --run-id=SoccerML --resum
+    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\poca\Custom_Infantry_A.yaml" --run-id=Custom_Infantry_DD --resum
 
     /*
  Version information:
