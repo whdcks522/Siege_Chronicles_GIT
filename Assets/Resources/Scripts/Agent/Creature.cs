@@ -249,7 +249,7 @@ public class Creature : MonoBehaviour
         miniHealth.fillAmount = curHealth / maxHealth;
 
         //충격 초기화
-        if (curHealth > 0)//피격하고 살아 있음
+        if (curHealth > 0 && !isAttack)//피격하고 살아 있으면서, 공격중이 아니라면
         {
             anim.SetTrigger("isHit");
         }

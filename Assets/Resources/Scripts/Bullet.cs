@@ -35,6 +35,8 @@ public class Bullet : MonoBehaviour
     public ObjectManager objectManager;
     Rigidbody rigid;
 
+    bool isAlreadyHit = false;
+
     private void Awake()
     {
         rigid = GetComponent<Rigidbody>();
@@ -57,7 +59,7 @@ public class Bullet : MonoBehaviour
         }
         else if(curTime >= colTime && curBulletMoveEnum == BulletMoveEnum.Slash)
         {
-            //bulletCollider.enabled = false;
+            bulletCollider.enabled = false;
         }
     }
 
@@ -69,6 +71,8 @@ public class Bullet : MonoBehaviour
         curTeamEnum = a.creature.curTeamEnum;
         //시간 동기화
         curTime = 0f;
+        //이미 충돌했는지 확인 값 초기화
+        isAlreadyHit = false;
         //충돌 영역 활성화
         bulletCollider.enabled = true;
         //게임오브젝트 활성화
@@ -101,13 +105,15 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.CompareTag("Untagged")) //맵과 충돌하면 감점
+        if (other.transform.CompareTag("Untagged") && !isAlreadyHit) //맵과 충돌하면 감점
         {
+            isAlreadyHit = true;
+
+            //Debug.LogError(gameObject.name + " 충돌 감점: " + other.gameObject.name);
+            //감점
+            bulletHost.AddReward(-0.1f);
             if (curBulletMoveEnum != BulletMoveEnum.Slash)
             {
-                //Debug.LogError(gameObject.name + " 충돌 감점: " + other.gameObject.name);
-                //감점
-                bulletHost.AddReward(-0.1f);
                 //총알 비활성화
                 BulletOff();
             }

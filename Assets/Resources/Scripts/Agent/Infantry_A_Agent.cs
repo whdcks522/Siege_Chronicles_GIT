@@ -29,7 +29,7 @@ public class Infantry_A_Agent : ParentAgent
     //mlagents-learn "D:\gitHubDeskTop\ML_EX_GIT\config\ppo\Enemy_Orc.yaml" --run-id=Enemy_Orc_K --resum(2시간즈음부터 성능 향상 시작됨)
     //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\ppo\Custom_shooter_A.yaml" --run-id=ustom_shooter_C --resum
 
-    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\poca\Custom_Infantry_A.yaml" --run-id=Custom_Infantry_DD --resum
+    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\poca\Custom_Infantry_A.yaml" --run-id=Custom_Infantry_FF --resum
 
     /*
  Version information:
@@ -219,6 +219,8 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
             //적과의 거리 계산
             RangeCalculate();
 
+            
+
             switch (actions.DiscreteActions[0])
             {
                 case 0://왼쪽으로 회전
@@ -262,6 +264,8 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
         //Debug.Log("spin: " + actions.DiscreteActions[0] + "action: " + actions.DiscreteActions[1]);
     }
 
+    
+
     #region 휴리스틱: 키보드를 통해 에이전트를 조정
     public override void Heuristic(in ActionBuffers actionsOut)
     {
@@ -302,6 +306,8 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
             //현재 자신의 위치
             sensor.AddObservation(transform.position.x);//state size = 1     x,y,z를 모두 받아오면 size가 3이 됨
             sensor.AddObservation(transform.position.z);
+            //현재 자신의 회전
+            sensor.AddObservation(transform.rotation.y);
             //현재 자신의 가속
             sensor.AddObservation(rigid.velocity.x);
             sensor.AddObservation(rigid.velocity.z);

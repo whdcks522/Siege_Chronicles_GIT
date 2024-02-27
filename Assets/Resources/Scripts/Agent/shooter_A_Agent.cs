@@ -113,6 +113,8 @@ public class shooter_A_Agent : ParentAgent
             //현재 자신의 위치
             sensor.AddObservation(transform.position.x);//state size = 1     x,y,z를 모두 받아오면 size가 3이 됨
             sensor.AddObservation(transform.position.z);
+            //현재 자신의 회전
+            sensor.AddObservation(transform.rotation.y);
             //현재 자신의 가속
             sensor.AddObservation(rigid.velocity.x);
             sensor.AddObservation(rigid.velocity.z);

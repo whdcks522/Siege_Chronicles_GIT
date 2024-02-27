@@ -54,14 +54,15 @@ public class ParentAgent : Agent
 
         float reward = 0f;
 
-        
-        if (creature.curCreatureMoveEnum == CreatureMoveEnum.Idle)//서있다면 0을 반환
-            reward = 0f;
-        else // 0부터 1까지의 값을 반환
-            reward = (cosineSimilarity + 1f) / 2f;
 
-        //Debug.Log(reward); //0f ~ 1f
-        AddReward(reward / 2000f);
+        if (creature.curCreatureMoveEnum != CreatureMoveEnum.Idle)//서있다면 0을 반환
+        {
+            reward = (cosineSimilarity + 1f) / 2f;  //0f ~ 1f
+            reward -= 0.5f;                         //-0.5f ~ 0.5f
+          
+            //Debug.Log(reward);
+            AddReward(reward / 1000f);
+        }
     }
 
     public void AgentOn() 
