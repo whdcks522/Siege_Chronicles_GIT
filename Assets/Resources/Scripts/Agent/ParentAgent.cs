@@ -78,7 +78,10 @@ public class ParentAgent : Agent
     public void StateReturn() 
     {
         creature.Revive();
+        //위치 초기화
         transform.position = creature.startPoint.position;
+        //득점 초기화
+        SetReward(0);
     }
 
     [Header("공격 가능한 최대 거리")]

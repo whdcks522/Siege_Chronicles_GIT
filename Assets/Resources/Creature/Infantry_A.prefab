@@ -185,6 +185,7 @@ MonoBehaviour:
   bulletStartPoint: {fileID: 0}
   miniCanvas: {fileID: 1735232647855550576}
   miniHealth: {fileID: 8454607891872545176}
+  curReward: {fileID: 2821103960876331193}
   runSpd: 6
   curCreatureMoveEnum: 0
   curCreatureSpinEnum: 1
@@ -442,6 +443,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 6146570189726468658}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2821103960876331193 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8244844202792188555, guid: 01a8371238a4e6242bea6367eeb2ae16,
+    type: 3}
+  m_PrefabInstance: {fileID: 6146570189726468658}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7014888723323824798 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3752876336939196588, guid: 01a8371238a4e6242bea6367eeb2ae16,

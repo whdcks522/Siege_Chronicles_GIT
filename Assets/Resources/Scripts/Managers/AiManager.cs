@@ -57,11 +57,15 @@ public class AiManager : MonoBehaviour
     #region 시간이 다되거나, 성이 파괴되면 초기화
     public void AiEnd(int warIndex)
     {
+        //warIndex
+        // 1이면 파란 팀 승리
+        // 0이면 무승부
+        // -1이면 빨간 팀 승리
+
         if (warIndex == 0)
         {
             blueAgentGroup.GroupEpisodeInterrupted();
-            redAgentGroup.GroupEpisodeInterrupted();
-            
+            redAgentGroup.GroupEpisodeInterrupted(); 
         }
         else if (warIndex != 0) 
         {
@@ -80,21 +84,15 @@ public class AiManager : MonoBehaviour
             redAgentGroup.EndGroupEpisode();
         }
 
-        AiClear(warIndex);
+        AiClear();
     }
 
     //WaitForSeconds wait01 = new WaitForSeconds(0.5f);
 
 
     
-    void AiClear(int warIndex) 
+    void AiClear() 
     {
-        //warIndex
-        // 1이면 파란 팀 승리
-        // 0이면 무승부
-        // -1이면 빨간 팀 승리
-
-
         //시간 초기화
         curTime = 0f;
 

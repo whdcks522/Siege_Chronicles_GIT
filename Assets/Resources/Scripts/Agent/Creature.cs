@@ -39,6 +39,7 @@ public class Creature : MonoBehaviour
     [Header("캐릭터 위의 미니 UI")]
     public GameObject miniCanvas;
     public Image miniHealth;
+    public Text curReward;
 
     [Header("달리는 속도")]
     public int runSpd;
@@ -213,6 +214,8 @@ public class Creature : MonoBehaviour
 
         // 물체 C에 회전 적용
         miniCanvas.transform.rotation = lookRotation;
+
+        curReward.text = parentAgent.rewardValue.ToString("F2");
     }
 
     private void OnTriggerEnter(Collider other)
