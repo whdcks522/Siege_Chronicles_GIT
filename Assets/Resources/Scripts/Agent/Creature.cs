@@ -172,12 +172,16 @@ public class Creature : MonoBehaviour
             {
                 case CreatureMoveEnum.Idle://멈추기
                     moveVec = new Vector3(0, rigid.velocity.y, 0);
+                    if (moveVec.y >= 0) 
+                        moveVec.y = 0;
                     rigid.velocity = moveVec;
 
                     anim.SetBool("isRun", false);
                     break;
                 case CreatureMoveEnum.Run://달리기
                     moveVec = new Vector3(0, rigid.velocity.y, 0) + transform.forward * runSpd;
+                    if (moveVec.y >= 0)
+                        moveVec.y = 0;
                     rigid.velocity = moveVec.normalized * runSpd;
                     rigid.angularVelocity = Vector3.zero;
 
@@ -193,7 +197,6 @@ public class Creature : MonoBehaviour
                     // 새로운 회전값을 설정합니다
                     transform.rotation = Quaternion.Euler(moveVec);
 
-                    //anim.SetBool("isRun", false);
                     break;
                 case CreatureSpinEnum.None:
                     break;
@@ -204,7 +207,6 @@ public class Creature : MonoBehaviour
                     // 새로운 회전값을 설정합니다
                     transform.rotation = Quaternion.Euler(moveVec);
 
-                    //anim.SetBool("isRun", false);
                     break;
             }
         }
