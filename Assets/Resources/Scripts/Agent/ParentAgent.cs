@@ -65,11 +65,6 @@ public class ParentAgent : Agent
         }
     }
 
-    public void AgentOn() 
-    {
-        EndEpisode();
-    }
-
     public override void OnEpisodeBegin()//EndEpisode가 호출됐을 때 사용됨(씬을 호출할 때는 통째로 삭제)
     {
         StateReturn();
@@ -78,10 +73,7 @@ public class ParentAgent : Agent
     public void StateReturn() 
     {
         creature.Revive();
-        //위치 초기화
-        transform.position = creature.startPoint.position;
-        //득점 초기화
-        SetReward(0);
+        
     }
 
     [Header("공격 가능한 최대 거리")]

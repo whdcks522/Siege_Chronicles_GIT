@@ -127,12 +127,19 @@ public class Creature : MonoBehaviour
     #region 생명체 활성화
     public void Revive()
     {
+        //위치 초기화
+        transform.position = startPoint.position;
+        //회전 초기화
+        transform.LookAt(enemyTower.position);
+
         //공격 대기 시간 초기화
         isAttack = false;
         //가속 초기화
         rigid.velocity = Vector3.zero;
         //체력 회복
         curHealth = maxHealth;
+        //회전 관리
+
 
         //체력 UI 관리
         miniCanvas.SetActive(true);
@@ -141,6 +148,7 @@ public class Creature : MonoBehaviour
             miniHealth.color = Color.blue;
         else if (curTeamEnum == TeamEnum.Red)
             miniHealth.color = Color.red;
+
         //오브젝트 활성화
         gameObject.SetActive(true);
         //기상 애니메이션
@@ -214,8 +222,6 @@ public class Creature : MonoBehaviour
 
         // 물체 C에 회전 적용
         miniCanvas.transform.rotation = lookRotation;
-
-        curReward.text = parentAgent.rewardValue.ToString("F2");
     }
 
     private void OnTriggerEnter(Collider other)

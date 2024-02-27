@@ -87,9 +87,6 @@ public class AiManager : MonoBehaviour
         AiClear();
     }
 
-    //WaitForSeconds wait01 = new WaitForSeconds(0.5f);
-
-
     
     void AiClear() 
     {
@@ -113,7 +110,8 @@ public class AiManager : MonoBehaviour
             for (int i = 0; i < creatureSize; i++)
             {
                 ParentAgent agent = objectManager.blueCreatureFolder.GetChild(i).GetComponent<ParentAgent>();
-                agent.StateReturn();
+                //agent.StateReturn();
+                agent.EndEpisode();
             }
         }
 
@@ -123,7 +121,8 @@ public class AiManager : MonoBehaviour
             for (int i = 0; i < creatureSize; i++)
             {
                 ParentAgent agent = objectManager.redCreatureFolder.GetChild(i).GetComponent<ParentAgent>();
-                agent.StateReturn();
+                //agent.StateReturn();
+                agent.EndEpisode();
             }
         }
     }
