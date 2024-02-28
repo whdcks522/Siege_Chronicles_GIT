@@ -186,10 +186,12 @@ MonoBehaviour:
   miniCanvas: {fileID: 1735232647855550576}
   miniHealth: {fileID: 8454607891872545176}
   curReward: {fileID: 2821103960876331193}
-  runSpd: 6
+  runSpd: 9
   curCreatureMoveEnum: 0
   curCreatureSpinEnum: 1
   curTeamEnum: 1
+  rigid: {fileID: 5137104300073328733}
+  anim: {fileID: 7388106785048407052}
   gameManager: {fileID: 0}
 --- !u!54 &5137104300073328733
 Rigidbody:

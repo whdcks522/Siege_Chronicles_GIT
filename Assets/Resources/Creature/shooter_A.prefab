@@ -127,10 +127,12 @@ MonoBehaviour:
   miniCanvas: {fileID: 5908633637094029029}
   miniHealth: {fileID: 4377405447275560717}
   curReward: {fileID: 7984307101634000428}
-  runSpd: 4
+  runSpd: 6
   curCreatureMoveEnum: 0
   curCreatureSpinEnum: 1
   curTeamEnum: 1
+  rigid: {fileID: 7707506176948445747}
+  anim: {fileID: 1241195992810873}
   gameManager: {fileID: 0}
 --- !u!54 &7707506176948445747
 Rigidbody:

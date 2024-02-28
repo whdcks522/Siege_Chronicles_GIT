@@ -59,8 +59,8 @@ public class Creature : MonoBehaviour
     //public enum CreatureTypeEnum { Melee, Range }//속하는 팀
     //public TeamEnum curTeamEnum;
 
-    Rigidbody rigid;
-    Animator anim;
+    public Rigidbody rigid;
+    public Animator anim;
     ParentAgent parentAgent;
     public GameManager gameManager;
     
@@ -70,8 +70,8 @@ public class Creature : MonoBehaviour
 
     private void Awake()
     {
-        rigid = GetComponent<Rigidbody>();
-        anim = GetComponentInChildren<Animator>();
+        //rigid = GetComponent<Rigidbody>();
+        //anim = GetComponentInChildren<Animator>();
         parentAgent = GetComponent<ParentAgent>();
 
         UIManager = gameManager.uiManager;
@@ -108,6 +108,8 @@ public class Creature : MonoBehaviour
         enemyTowerManager = enemyTower.GetComponent<TowerManager>();
         //시작지점 설정
         startPoint = ourTowerManager.creatureStartPoint;
+
+
     }
 
     private void Start()

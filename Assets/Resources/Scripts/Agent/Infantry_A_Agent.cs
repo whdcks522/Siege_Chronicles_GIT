@@ -29,7 +29,7 @@ public class Infantry_A_Agent : ParentAgent
      */
 
     //mlagents-learn --force
-    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\poca\Custom_Infantry_A.yaml" --run-id=Custom_Infantry_F --resum
+    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\poca\Custom_Infantry_A.yaml" --run-id=Custom_Infantry_G --resum
 
     //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\poca\StrikersVsGoalie.yaml" --run-id=Custom_Soccer --resum
 
@@ -157,6 +157,8 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
 
         gameManager = creature.gameManager;
         objectManager = gameManager.objectManager;
+
+        StateReturn();
     }
 
     
@@ -165,7 +167,7 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
         if (!creature.isAttack && gameObject.layer == LayerMask.NameToLayer("Creature")) 
         {
             rewardValue =  GetCumulativeReward();
-            creature.curReward.text = rewardValue.ToString("F2");
+            creature.curReward.text = rewardValue.ToString("F1");
 
             //방향따라 점수 증가
             GetMatchingVelocityReward();

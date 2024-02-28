@@ -46,6 +46,10 @@ public class AiManager : MonoBehaviour
     private void FixedUpdate()
     {
         curTime += 1;
+
+        blueAgentGroup.AddGroupReward(0.001f);
+        redAgentGroup.AddGroupReward(0.001f);
+
         if (curTime >= maxTime && maxTime > 0)//타임 오버
         {
 

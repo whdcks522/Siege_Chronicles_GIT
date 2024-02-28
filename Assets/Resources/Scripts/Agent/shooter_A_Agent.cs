@@ -19,6 +19,8 @@ public class shooter_A_Agent : ParentAgent
 
         gameManager = creature.gameManager;
         objectManager = gameManager.objectManager;
+
+        StateReturn();
     }
 
     
@@ -28,7 +30,7 @@ public class shooter_A_Agent : ParentAgent
         if (!creature.isAttack && gameObject.layer == LayerMask.NameToLayer("Creature"))
         {
             rewardValue = GetCumulativeReward();
-            creature.curReward.text = rewardValue.ToString("F2");
+            creature.curReward.text = rewardValue.ToString("F1");
 
             //곧바로 이동하면 점수
             GetMatchingVelocityReward();

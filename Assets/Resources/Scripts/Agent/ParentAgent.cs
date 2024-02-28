@@ -67,15 +67,19 @@ public class ParentAgent : Agent
 
     public override void OnEpisodeBegin()//EndEpisode가 호출됐을 때 사용됨(씬을 호출할 때는 통째로 삭제)
     {
-        Debug.Log("초기화");
+        //Debug.Log("초기화");//계속 호출됨(팀 단위 초기화만 해도)
 
         StateReturn();
+
+        
     }
 
     public void StateReturn() 
     {
+        //Debug.Log("초기화");
+        //SetReward(0);
+
         creature.Revive();
-        
     }
 
     [Header("공격 가능한 최대 거리")]
