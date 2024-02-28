@@ -28,9 +28,11 @@ public class Infantry_A_Agent : ParentAgent
 - Heuristic : 개발자가 직접 명령을 내리는 휴리스틱 모드에서 사용 
      */
 
-    //  mlagents-learn --force
-    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\poca\Custom_Infantry_A.yaml" --run-id=Custom_Infantry_L --resum
-    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\ppo\Custom_shooter_A.yaml" --run-id=Custom_Infantry_K --resum
+    //mlagents-learn --force
+    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\poca\Custom_Infantry_A.yaml" --run-id=Custom_Infantry_E --resum
+
+    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\poca\StrikersVsGoalie.yaml" --run-id=Custom_Soccer --resum
+
     //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\ppo\Basic.yaml" --run-id=Custom_Basic --resum
     /*
  Version information:
@@ -249,7 +251,7 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
     public override void CollectObservations(VectorSensor sensor)
     {
         //1. 수치형, 받아오는 데이터가 적을 수록 좋음
-        if (gameObject.layer == LayerMask.NameToLayer("Creature") && gameObject.activeSelf) //죽으면 필요 없자너
+        if (gameObject.layer == LayerMask.NameToLayer("Creature")) //죽으면 필요 없자너
         {
             //현재 자신의 위치
             sensor.AddObservation(transform.position.x);//state size = 1     x,y,z를 모두 받아오면 size가 3이 됨
@@ -261,27 +263,25 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
             //sensor.AddObservation(rigid.velocity.z);
 
             //자기 타워의 정보
-            sensor.AddObservation(creature.ourTower.position.x);
-            sensor.AddObservation(creature.ourTower.position.z);
+            //sensor.AddObservation(creature.ourTower.position.x);
+            //sensor.AddObservation(creature.ourTower.position.z);
             sensor.AddObservation(creature.ourTowerManager.curHealth / creature.ourTowerManager.maxHealth);
+
             //상대 타워의 정보
-            sensor.AddObservation(creature.enemyTower.position.x);
-            sensor.AddObservation(creature.enemyTower.position.z);
+            //sensor.AddObservation(creature.enemyTower.position.x);
+            //sensor.AddObservation(creature.enemyTower.position.z);
             sensor.AddObservation(creature.enemyTowerManager.curHealth / creature.enemyTowerManager.maxHealth);
 
-            //각각의 거리
+            //적까지의 거리
             sensor.AddObservation(curRange / maxRange);
-            /*
-            for (int i = 0; i < enemyCreatureFolder.childCount; i++)
-            {
-                //크리쳐 상태라면
-                if (enemyCreatureFolder.GetChild(i).gameObject.layer == LayerMask.NameToLayer("Creature"))
-                {
-                    sensor.AddObservation(enemyCreatureFolder.GetChild(i).position.x);
-                    sensor.AddObservation(enemyCreatureFolder.GetChild(i).position.z);
-                }
-            }
-            */
+
+            //가까운 적의 위치
+            sensor.AddObservation(curTarget.position.x);
+            sensor.AddObservation(curTarget.position.z);
+
+            //우리 타워에서 가장 가까운 적의 위치
+            sensor.AddObservation(creature.ourTowerManager.curTarget.position.x);
+            sensor.AddObservation(creature.ourTowerManager.curTarget.position.z);
         }
     }
     #endregion

@@ -67,6 +67,8 @@ public class ParentAgent : Agent
 
     public override void OnEpisodeBegin()//EndEpisode가 호출됐을 때 사용됨(씬을 호출할 때는 통째로 삭제)
     {
+        Debug.Log("초기화");
+
         StateReturn();
     }
 
@@ -92,7 +94,7 @@ public class ParentAgent : Agent
 
         for (int i = 0; i < enemyCreatureFolder.childCount; i++)
         {
-            if (enemyCreatureFolder.GetChild(i).gameObject.activeSelf)//활성화돼있다면
+            if (enemyCreatureFolder.GetChild(i).gameObject.layer == LayerMask.NameToLayer("Creature"))//활성화돼있다면
             {
                 //적과의 거리
                 float tmpRange = (enemyCreatureFolder.GetChild(i).position - transform.position).magnitude;

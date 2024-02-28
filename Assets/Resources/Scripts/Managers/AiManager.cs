@@ -18,8 +18,8 @@ public class AiManager : MonoBehaviour
     ObjectManager objectManager;
 
     //그룹 번호 설정 필요(그냥 하면 unityagentsexception: onepisodebegin called recursively. this might happen if you call environmentstep() or endepisode() from custom code such as collectobservations() or onactionreceived().)
-    private SimpleMultiAgentGroup blueAgentGroup;
-    private SimpleMultiAgentGroup redAgentGroup;
+    public SimpleMultiAgentGroup blueAgentGroup;
+    public SimpleMultiAgentGroup redAgentGroup;
 
     private void Awake()
     {
@@ -110,8 +110,8 @@ public class AiManager : MonoBehaviour
             for (int i = 0; i < creatureSize; i++)
             {
                 ParentAgent agent = objectManager.blueCreatureFolder.GetChild(i).GetComponent<ParentAgent>();
-                //agent.StateReturn();
-                agent.EndEpisode();
+                //agent.EndEpisode();
+                agent.StateReturn();
             }
         }
 
@@ -121,8 +121,8 @@ public class AiManager : MonoBehaviour
             for (int i = 0; i < creatureSize; i++)
             {
                 ParentAgent agent = objectManager.redCreatureFolder.GetChild(i).GetComponent<ParentAgent>();
-                //agent.StateReturn();
-                agent.EndEpisode();
+                //agent.EndEpisode();
+                agent.StateReturn();
             }
         }
     }

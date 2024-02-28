@@ -48,8 +48,8 @@ MonoBehaviour:
   m_DetectableTags:
   - Creature
   - Tower
-  m_RaysPerDirection: 3
-  m_MaxRayDegrees: 70
+  m_RaysPerDirection: 4
+  m_MaxRayDegrees: 180
   m_SphereCastRadius: 0.5
   m_RayLength: 3
   m_RayLayerMask:
@@ -284,8 +284,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 50
-    NumStackedVectorObservations: 1
+    VectorObservationSize: 10
+    NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 0
       BranchSizes: 0300000003000000
