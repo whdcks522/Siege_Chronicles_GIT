@@ -257,8 +257,8 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
             //현재 자신의 회전
             sensor.AddObservation(transform.rotation.y);
             //현재 자신의 가속
-            sensor.AddObservation(rigid.velocity.x);
-            sensor.AddObservation(rigid.velocity.z);
+            //sensor.AddObservation(rigid.velocity.x);
+            //sensor.AddObservation(rigid.velocity.z);
 
             //자기 타워의 정보
             sensor.AddObservation(creature.ourTower.position.x);
@@ -271,7 +271,7 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
 
             //각각의 거리
             sensor.AddObservation(curRange / maxRange);
-
+            /*
             for (int i = 0; i < enemyCreatureFolder.childCount; i++)
             {
                 //크리쳐 상태라면
@@ -281,6 +281,7 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
                     sensor.AddObservation(enemyCreatureFolder.GetChild(i).position.z);
                 }
             }
+            */
         }
     }
     #endregion

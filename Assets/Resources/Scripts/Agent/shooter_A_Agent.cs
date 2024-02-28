@@ -117,27 +117,31 @@ public class shooter_A_Agent : ParentAgent
             //현재 자신의 회전
             sensor.AddObservation(transform.rotation.y);
             //현재 자신의 가속
-            sensor.AddObservation(rigid.velocity.x);
-            sensor.AddObservation(rigid.velocity.z);
+            //sensor.AddObservation(rigid.velocity.x);
+            //sensor.AddObservation(rigid.velocity.z);
 
             //자기 타워의 정보
-            sensor.AddObservation(creature.enemyTower.position.x);
-            sensor.AddObservation(creature.enemyTower.position.z);
+            sensor.AddObservation(creature.ourTower.position.x);
+            sensor.AddObservation(creature.ourTower.position.z);
+            sensor.AddObservation(creature.ourTowerManager.curHealth / creature.ourTowerManager.maxHealth);
             //상대 타워의 정보
             sensor.AddObservation(creature.enemyTower.position.x);
             sensor.AddObservation(creature.enemyTower.position.z);
+            sensor.AddObservation(creature.enemyTowerManager.curHealth / creature.enemyTowerManager.maxHealth);
 
             //각각의 거리
             sensor.AddObservation(curRange / maxRange);
-
+            /*
             for (int i = 0; i < enemyCreatureFolder.childCount; i++)
             {
-                if (enemyCreatureFolder.GetChild(i).gameObject.activeSelf)//활성화돼있다면
+                //크리쳐 상태라면
+                if (enemyCreatureFolder.GetChild(i).gameObject.layer == LayerMask.NameToLayer("Creature"))
                 {
                     sensor.AddObservation(enemyCreatureFolder.GetChild(i).position.x);
                     sensor.AddObservation(enemyCreatureFolder.GetChild(i).position.z);
                 }
             }
+            */
         }
     }
     #endregion
