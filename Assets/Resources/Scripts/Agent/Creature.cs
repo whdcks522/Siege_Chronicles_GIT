@@ -199,6 +199,8 @@ public class Creature : MonoBehaviour
 
                     break;
                 case CreatureSpinEnum.None:
+                    //회전 가속도 초기화
+                    rigid.angularVelocity = Vector3.zero;
                     break;
                 case CreatureSpinEnum.RightSpin:
                     moveVec = transform.rotation.eulerAngles;
