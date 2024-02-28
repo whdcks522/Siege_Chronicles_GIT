@@ -110,14 +110,14 @@ public class TowerManager : MonoBehaviour
                 float damage = bullet.bulletDamage;
 
                 //ÆÀ º° Á¡¼ö Áõ°¡
-                if (curTeamEnum == TeamEnum.Blue)//Å¸¿öÀÇ ÆÀÀÌ ÆÄ¶ûÆÀ
+                if (curTeamEnum == TeamEnum.Blue)//ÆÄ¶û Å¸¿ö°¡ ÇÇ°Ý
                 {
                     aiManager.blueAgentGroup.AddGroupReward(-damage / 20f);//ÆÄ¶û ½ÇÁ¡
                     aiManager.redAgentGroup.AddGroupReward(damage / 10f);//»¡°­ µæÁ¡
 
                     
                 }
-                else if (curTeamEnum == TeamEnum.Red)//Å¸¿öÀÇ ÆÀÀÌ »¡°­ÆÀ
+                else if (curTeamEnum == TeamEnum.Red)//»¡°­ Å¸¿ö°¡ ÇÇ°Ý
                 {
                     aiManager.blueAgentGroup.AddGroupReward(damage / 10f);//ÆÄ¶û µæÁ¡
                     aiManager.redAgentGroup.AddGroupReward(-damage / 20f);//»¡°­ ½ÇÁ¡
@@ -134,8 +134,7 @@ public class TowerManager : MonoBehaviour
 
     void damageControl(float _dmg)
     {
-        //ÇÇÇØ·® °è»ê
-        //Debug.Log(_dmg);
+
         curHealth -= _dmg;
         if (curHealth < 0) curHealth = 0;
         else if (curHealth > maxHealth) curHealth = maxHealth;
@@ -146,7 +145,7 @@ public class TowerManager : MonoBehaviour
         //Ãæ°Ý ÃÊ±âÈ­
         if (curHealth > 0)//ÇÇ°ÝÇÏ°í »ì¾Æ ÀÖÀ½
         {
-            //anim.SetTrigger("isHit");
+            
         }
         else if (curHealth <= 0) Dead();
     }
@@ -157,9 +156,9 @@ public class TowerManager : MonoBehaviour
         {
             //¸ðµÎ ÃÊ±âÈ­
             if(curTeamEnum == TeamEnum.Blue)//ÆÄ¶û Å¸¿ö°¡ Á×À½
-                aiManager.AiEnd(-1);
+                aiManager.AiEnd(-1);//»¡°­ µæÁ¡
             if (curTeamEnum == TeamEnum.Red)//»¡°­ Å¸¿ö°¡ Á×À½
-                aiManager.AiEnd(1);
+                aiManager.AiEnd(1);//ÆÄ¶û µæÁ¡
         }
     }
 
