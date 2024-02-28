@@ -70,8 +70,6 @@ public class Creature : MonoBehaviour
 
     private void Awake()
     {
-        //rigid = GetComponent<Rigidbody>();
-        //anim = GetComponentInChildren<Animator>();
         parentAgent = GetComponent<ParentAgent>();
 
         UIManager = gameManager.uiManager;
@@ -325,6 +323,8 @@ public class Creature : MonoBehaviour
         while (elapsedTime < duration)
         {
             if (curHealth <= 0 && !InVisible) break;
+
+
             float progress = elapsedTime / duration;
             float value = Mathf.Lerp(firstValue, targetValue, progress);
             elapsedTime += Time.deltaTime;

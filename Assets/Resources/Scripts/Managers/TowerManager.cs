@@ -109,18 +109,25 @@ public class TowerManager : MonoBehaviour
                 ParentAgent bulletParentAgent = bullet.bulletHost;
                 float damage = bullet.bulletDamage;
 
-                //ÆÀ º° Á¡¼ö Áõ°¡
-                if (curTeamEnum == TeamEnum.Blue)//ÆÄ¶û Å¸¿ö°¡ ÇÇ°Ý
-                {
-                    aiManager.blueAgentGroup.AddGroupReward(-damage / 20f);//ÆÄ¶û ½ÇÁ¡
-                    aiManager.redAgentGroup.AddGroupReward(damage / 10f);//»¡°­ µæÁ¡
+                
 
-                    
-                }
-                else if (curTeamEnum == TeamEnum.Red)//»¡°­ Å¸¿ö°¡ ÇÇ°Ý
+                float winPoint = damage / 10f;
+                float loosePoint = -damage / 20f;
+                //Debug.Log("winPoint: " + winPoint + " / loosePoint: " + loosePoint);
+
+                //°ø°ÝÀÚ Á¡¼ö Áõ°¡
+                bulletParentAgent.AddReward(winPoint * 2f);
+
+                //ÆÀ º° Á¡¼ö Áõ°¡
+                if (curTeamEnum == TeamEnum.Blue)//ÆÄ¶û Å¸¿ö°¡ ÇÇ°Ý´çÇÔ
                 {
-                    aiManager.blueAgentGroup.AddGroupReward(damage / 10f);//ÆÄ¶û µæÁ¡
-                    aiManager.redAgentGroup.AddGroupReward(-damage / 20f);//»¡°­ ½ÇÁ¡
+                    aiManager.blueAgentGroup.AddGroupReward(loosePoint);//ÆÄ¶û ½ÇÁ¡
+                    aiManager.redAgentGroup.AddGroupReward(winPoint);//»¡°­ µæÁ¡
+                }
+                else if (curTeamEnum == TeamEnum.Red)//»¡°­ Å¸¿ö°¡ ÇÇ°Ý´çÇÔ
+                {
+                    aiManager.blueAgentGroup.AddGroupReward(winPoint);//ÆÄ¶û µæÁ¡
+                    aiManager.redAgentGroup.AddGroupReward(loosePoint);//»¡°­ ½ÇÁ¡
                 }
                 //ÇÇÇØ °ü¸®
                 damageControl(damage);
