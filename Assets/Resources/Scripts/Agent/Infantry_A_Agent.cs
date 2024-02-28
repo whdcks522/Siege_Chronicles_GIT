@@ -29,7 +29,7 @@ public class Infantry_A_Agent : ParentAgent
      */
 
     //  mlagents-learn --force
-    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\poca\Custom_Infantry_A.yaml" --run-id=Custom_Infantry_K --resum
+    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\poca\Custom_Infantry_A.yaml" --run-id=Custom_Infantry_L --resum
     //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\ppo\Custom_shooter_A.yaml" --run-id=Custom_Infantry_K --resum
     //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\ppo\Basic.yaml" --run-id=Custom_Basic --resum
     /*

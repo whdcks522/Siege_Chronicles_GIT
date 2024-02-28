@@ -202,13 +202,13 @@ public class Creature : MonoBehaviour
                     //회전 가속도 초기화
                     rigid.angularVelocity = Vector3.zero;
                     break;
+
                 case CreatureSpinEnum.RightSpin:
                     moveVec = transform.rotation.eulerAngles;
                     // 왼쪽으로 조금 회전합니다 (여기서는 y축 값만 조정합니다)
                     moveVec.y += rotSpd * Time.deltaTime;
                     // 새로운 회전값을 설정합니다
                     transform.rotation = Quaternion.Euler(moveVec);
-
                     break;
             }
         }
