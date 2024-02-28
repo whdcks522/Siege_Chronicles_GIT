@@ -194,19 +194,16 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
                     creature.curCreatureMoveEnum = CreatureMoveEnum.Run;
                     break;
                 case 2://공격
-                    if (gameObject.activeSelf)
+                    if (curRange <= maxRange && gameObject.layer == LayerMask.NameToLayer("Creature"))
                     {
-                        if (curRange <= maxRange)//쿨타임이 돌았으면서, 거리 이내여야 함
-                        {
-                            //애니메이션 관리
-                            creature.curCreatureSpinEnum = CreatureSpinEnum.None;
-                            creature.curCreatureMoveEnum = CreatureMoveEnum.Idle;
-                            creature.isAttack = true;//동시 입력 방지
+                        //애니메이션 관리
+                        creature.curCreatureSpinEnum = CreatureSpinEnum.None;
+                        creature.curCreatureMoveEnum = CreatureMoveEnum.Idle;
+                        creature.isAttack = true;//동시 입력 방지
 
-                            int r = UnityEngine.Random.Range(0, 2);
-                            if (r == 0) anim.SetTrigger("isAttackLeft");
-                            else if (r == 1) anim.SetTrigger("isAttackRight");
-                        }
+                        int r = UnityEngine.Random.Range(0, 2);
+                        if (r == 0) anim.SetTrigger("isAttackLeft");
+                        else if (r == 1) anim.SetTrigger("isAttackRight");
                     }
                     break;
             }

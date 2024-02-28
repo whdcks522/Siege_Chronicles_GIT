@@ -57,7 +57,7 @@ public class shooter_A_Agent : ParentAgent
                     creature.curCreatureMoveEnum = CreatureMoveEnum.Run;
                     break;
                 case 2://공격
-                    if (curRange <= maxRange)//쿨타임이 돌았으면서, 거리 이내여야 함
+                    if (curRange <= maxRange && gameObject.layer == LayerMask.NameToLayer("Creature"))//살아있으면서, 거리 이내여야 함
                     {
                         //애니메이션 관리
                         creature.curCreatureSpinEnum = CreatureSpinEnum.None;

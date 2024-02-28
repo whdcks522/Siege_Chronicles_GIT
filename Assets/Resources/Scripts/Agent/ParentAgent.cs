@@ -80,11 +80,15 @@ public class ParentAgent : Agent
     public float maxRange;
     [Header("현재 대상과의 거리")]
     public float curRange;
+    [Header("가장 가까운 대상")]
+    public Transform curTarget;
+
 
     #region 적들과의 거리 계산
     protected void RangeCalculate() 
     {
         curRange = (creature.enemyTower.position - transform.position).magnitude - 2;//타워의 두께 계산
+        curTarget = creature.enemyTower;
 
         for (int i = 0; i < enemyCreatureFolder.childCount; i++)
         {
@@ -92,7 +96,12 @@ public class ParentAgent : Agent
             {
                 //적과의 거리
                 float tmpRange = (enemyCreatureFolder.GetChild(i).position - transform.position).magnitude;
-                curRange = Mathf.Min(curRange, tmpRange);
+                if (curRange > tmpRange) 
+                {
+                    curRange = tmpRange;
+                    curTarget = enemyCreatureFolder.GetChild(i);
+                }
+                
             }
         }
 
