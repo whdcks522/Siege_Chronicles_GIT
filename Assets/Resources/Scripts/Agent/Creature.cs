@@ -2,6 +2,8 @@ using Google.Protobuf.WellKnownTypes;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Unity.MLAgents;
+using Unity.MLAgents.Policies;
 using Unity.VisualScripting;
 using UnityEditor.Presets;
 using UnityEngine;
@@ -56,23 +58,45 @@ public class Creature : MonoBehaviour
     public enum TeamEnum { None, Blue, Red }//속하는 팀
     public TeamEnum curTeamEnum;
 
-    //public enum CreatureTypeEnum { Melee, Range }//속하는 팀
-    //public TeamEnum curTeamEnum;
+    
 
     public Rigidbody rigid;
     public Animator anim;
-    ParentAgent parentAgent;
+    public Agent agent;
+    [Header("보상 값")]
+    public float rewardValue;
+
+    [Header("상대팀이 들어있는 폴더")]
+    public Transform enemyCreatureFolder;
+    public BehaviorParameters behaviorParameters;
+
     public GameManager gameManager;
-    
+    public ObjectManager objectManager;
+
     UIManager UIManager;
     Transform cameraGround;
     Transform mainCamera;
+    //--------
+   
+
+    
+
+    //public enum CreatureTypeEnum { Melee, Range }//속하는 팀
+    //public TeamEnum curTeamEnum;
+    /*
+    이동하면 점수
+
+    공격 맞추면 점수    
+    공격 못맞추면 실점
+
+    타워 맞추면 득점
+    타워 이기는쪽은 득점, 나머지는 실점
+    */
 
     private void Awake()
     {
-        parentAgent = GetComponent<ParentAgent>();
-
         UIManager = gameManager.uiManager;
+        objectManager = gameManager.objectManager;
         mainCamera = UIManager.cameraObj;
         cameraGround = UIManager.cameraGround;
 
@@ -85,7 +109,7 @@ public class Creature : MonoBehaviour
         if (curTeamEnum == TeamEnum.Blue)//파랑 팀
         {
             //팀 번호 설정
-            parentAgent.behaviorParameters.TeamId = 0;
+            behaviorParameters.TeamId = 0;
             //아군 타워 설정
             ourTower = gameManager.blueTower;
             //적 타워 설정
@@ -95,7 +119,7 @@ public class Creature : MonoBehaviour
         else if (curTeamEnum == TeamEnum.Red)//빨강 팀
         {
             //팀 번호 설정
-            parentAgent.behaviorParameters.TeamId = 1;
+            behaviorParameters.TeamId = 1;
             //아군 타워 설정
             ourTower = gameManager.redTower; 
             //적 타워 설정
@@ -107,22 +131,22 @@ public class Creature : MonoBehaviour
         //시작지점 설정
         startPoint = ourTowerManager.creatureStartPoint;
 
-
-    }
-
-    private void Start()
-    {
         if (curTeamEnum == TeamEnum.Blue)//파랑 팀
         {
             //적 폴더 설정
-            parentAgent.enemyCreatureFolder = parentAgent.objectManager.redCreatureFolder;
+            enemyCreatureFolder = objectManager.redCreatureFolder;
         }
         else if (curTeamEnum == TeamEnum.Red)//빨강 팀
         {
             //적 폴더 설정
-            parentAgent.enemyCreatureFolder = parentAgent.objectManager.blueCreatureFolder;
+            enemyCreatureFolder = objectManager.blueCreatureFolder;
+        }
+        if (gameManager.aiManager.isML) 
+        {
+            Revive();
         }
     }
+
 
     #region 생명체 활성화
     public void Revive()
@@ -138,7 +162,6 @@ public class Creature : MonoBehaviour
         rigid.velocity = Vector3.zero;
         //체력 회복
         curHealth = maxHealth;
-        //회전 관리
 
 
         //체력 UI 관리
@@ -236,11 +259,11 @@ public class Creature : MonoBehaviour
             if (bullet.curTeamEnum != curTeamEnum)//팀이 다를 경우
             {
                 //피해량 확인
-                ParentAgent bulletParentAgent = bullet.bulletHost;
+                Agent bulletAgent = bullet.bulletHost.agent;
                 float damage = bullet.bulletDamage;
 
                 //공격자 점수 증가
-                bulletParentAgent.AddReward(damage / 10f);
+                bulletAgent.AddReward(damage / 10f);
                 //피해 관리
                 damageControl(damage);
 
@@ -290,9 +313,72 @@ public class Creature : MonoBehaviour
 
     //완전히 죽음
     public void CompletelyDead()=> gameObject.SetActive(false);
-    
+
 
     #endregion
+
+    #region 맞는 방향으로 가고 있는지
+
+    //목표 방향 벡터
+    Vector3 goalVec;
+    //이동하는 벡터
+    Vector3 curVec;
+
+    public void GetMatchingVelocityReward()
+    {
+        //목표 방향 벡터
+        goalVec = (enemyTower.transform.position - transform.position).normalized;
+        //현재값 서있는 벡터
+        curVec = rigid.velocity.normalized;
+
+
+        // 두 벡터 사이의 각도 계산 (라디안 단위)
+        float angle = Vector3.Angle(goalVec, curVec);
+        // 코사인 유사도 계산 (-1부터 1까지의 값)
+        float cosineSimilarity = Mathf.Cos(angle * Mathf.Deg2Rad);
+
+        float reward = 0f;
+
+
+        if (curCreatureMoveEnum != CreatureMoveEnum.Idle)//서있다면 0을 반환
+        {
+            reward = (cosineSimilarity + 1f) / 2f;  //0f ~ 1f
+            reward -= 0.5f;                         //-0.5f ~ 0.5f
+
+            //Debug.Log(reward);
+            agent.AddReward(reward / 1000f);
+        }
+    }
+    #endregion
+
+    #region 적들과의 거리 계산
+    [Header("공격 가능한 최대 거리")]
+    public float maxRange;
+    [Header("현재 대상과의 거리")]
+    public float curRange;
+    [Header("가장 가까운 대상")]
+    public Transform curTarget;
+    public void RangeCalculate()
+    {
+        curRange = (enemyTower.position - transform.position).magnitude - 2;//타워의 두께 계산
+        curTarget = enemyTower;
+
+        for (int i = 0; i < enemyCreatureFolder.childCount; i++)
+        {
+            if (enemyCreatureFolder.GetChild(i).gameObject.layer == LayerMask.NameToLayer("Creature"))//활성화돼있다면
+            {
+                //적과의 거리
+                float tmpRange = (enemyCreatureFolder.GetChild(i).position - transform.position).magnitude;
+                if (curRange > tmpRange)
+                {
+                    curRange = tmpRange;
+                    curTarget = enemyCreatureFolder.GetChild(i);
+                }
+
+            }
+        }
+    }
+    #endregion 
 
     #region 왜곡장 
     public void InvisibleWarp() // 점차 안보이게 되는 것

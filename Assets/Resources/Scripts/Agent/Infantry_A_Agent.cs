@@ -2,13 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using Unity.VisualScripting;
 using UnityEngine;
 using static Creature;
 
-public class Infantry_A_Agent : ParentAgent
+public class Infantry_A_Agent : Agent
 {
     /*
      D:\Unities\Github_DeskTop\ML_EX_GIT\config\ppo
@@ -29,12 +30,12 @@ public class Infantry_A_Agent : ParentAgent
      */
 
     //mlagents-learn --force
-    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\poca\Custom_Infantry_A.yaml" --run-id=Custom_Infantry_G --resum
+    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\poca\Custom_Infantry_B.yaml" --run-id=Custom_Infantry_Y --resum
     //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\poca\Custom_Infantry_B.yaml" --run-id=Custom_Infantry_I --resum
 
-    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\poca\StrikersVsGoalie.yaml" --run-id=Custom_Soccer --resum
+    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\poca\SoccerTwos.yaml" --run-id=Custom_Soccer --resum
 
-    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\ppo\Basic.yaml" --run-id=Custom_Basic --resum
+    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\ppo\Basic.yaml" --run-id=Custom_Basic_A --resum
     /*
  Version information:
   ml-agents: 0.28.0,
@@ -150,30 +151,21 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
     오류 발생: RuntimeError: Could not allocate bytes object!
     https://mingchin.tistory.com/419
      */
-    private void Awake()
-    {
-        rigid = GetComponent<Rigidbody>();
-        creature = GetComponent<Creature>();
-        anim = GetComponentInChildren<Animator>();
 
-        gameManager = creature.gameManager;
-        objectManager = gameManager.objectManager;
-
-        StateReturn();
-    }
 
     
     public override void OnActionReceived(ActionBuffers actions)//액션 기입(가능한 동작), 매 번 호출 
     {
         if (!creature.isAttack && gameObject.layer == LayerMask.NameToLayer("Creature")) 
         {
-            rewardValue =  GetCumulativeReward();
-            creature.curReward.text = rewardValue.ToString("F1");
+            creature.rewardValue =  GetCumulativeReward();
+            creature.curReward.text = creature.rewardValue.ToString("F1");
 
             //방향따라 점수 증가
-            GetMatchingVelocityReward();
+            creature.GetMatchingVelocityReward();
+
             //적과의 거리 계산
-            RangeCalculate();
+            creature.RangeCalculate();
 
             
 
@@ -199,7 +191,7 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
                     creature.curCreatureMoveEnum = CreatureMoveEnum.Run;
                     break;
                 case 2://공격
-                    if (curRange <= maxRange && gameObject.layer == LayerMask.NameToLayer("Creature"))
+                    if (creature.curRange <= creature.maxRange && gameObject.layer == LayerMask.NameToLayer("Creature"))
                     {
                         //애니메이션 관리
                         creature.curCreatureSpinEnum = CreatureSpinEnum.None;
@@ -207,8 +199,8 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
                         creature.isAttack = true;//동시 입력 방지
 
                         int r = UnityEngine.Random.Range(0, 2);
-                        if (r == 0) anim.SetTrigger("isAttackLeft");
-                        else if (r == 1) anim.SetTrigger("isAttackRight");
+                        if (r == 0) creature.anim.SetTrigger("isAttackLeft");
+                        else if (r == 1) creature.anim.SetTrigger("isAttackRight");
                     }
                     break;
             }
@@ -224,7 +216,7 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
     {
         var disCreteActionOut = actionsOut.DiscreteActions;
 
-        if (behaviorParameters.BehaviorType == Unity.MLAgents.Policies.BehaviorType.HeuristicOnly)
+        if (creature.behaviorParameters.BehaviorType == Unity.MLAgents.Policies.BehaviorType.HeuristicOnly)
         {
             int spin = 1;//회전 안함
             if (Input.GetKey(KeyCode.LeftArrow))//좌회전
@@ -276,11 +268,11 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
             sensor.AddObservation(creature.enemyTowerManager.curHealth / creature.enemyTowerManager.maxHealth);
 
             //적까지의 거리
-            sensor.AddObservation(curRange / maxRange);
+            sensor.AddObservation(creature.curRange / creature.maxRange);
 
             //가까운 적의 위치
-            sensor.AddObservation(curTarget.position.x);
-            sensor.AddObservation(curTarget.position.z);
+            sensor.AddObservation(creature.curTarget.position.x);
+            sensor.AddObservation(creature.curTarget.position.z);
 
             //우리 타워에서 가장 가까운 적의 위치
             sensor.AddObservation(creature.ourTowerManager.curTarget.position.x);
@@ -288,14 +280,18 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
         }
     }
     #endregion
+    [Header("크리쳐")]
+    public Creature creature;
 
+    [Header("사용하는 총알")]
+    public Transform useBullet;
 
     #region 주황색 참격 생성
-    override public void AgentAttack()
+    public void AgentAttack()
     {
         string bulletName = useBullet.name;
 
-        GameObject slash = objectManager.CreateObj(bulletName, ObjectManager.PoolTypes.BulletPool);
+        GameObject slash = creature.objectManager.CreateObj(bulletName, ObjectManager.PoolTypes.BulletPool);
         Bullet slash_bullet = slash.GetComponent<Bullet>();
         
         //이동
@@ -305,7 +301,7 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
         slash.transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x + 90,
             transform.rotation.eulerAngles.y - 180, transform.rotation.eulerAngles.z - 90);
         //활성화
-        slash_bullet.BulletOn(this);
+        slash_bullet.BulletOn(creature);
     }
     #endregion
 }

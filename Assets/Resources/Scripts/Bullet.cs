@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.MLAgents;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -17,7 +18,7 @@ public class Bullet : MonoBehaviour
     public Collider bulletCollider;
 
     [Header("총알의 주인")]
-    public ParentAgent bulletHost;
+    public Creature bulletHost;
     [Header("총알 주인이 속한 팀")]
     public Creature.TeamEnum curTeamEnum;
 
@@ -64,11 +65,11 @@ public class Bullet : MonoBehaviour
     }
 
     #region 총알 활성
-    public void BulletOn(ParentAgent a)
+    public void BulletOn(Creature _creature)
     {
         //주인 설정
-        bulletHost = a;
-        curTeamEnum = a.creature.curTeamEnum;
+        bulletHost = _creature;
+        curTeamEnum = _creature.curTeamEnum;
         //시간 동기화
         curTime = 0f;
         //이미 충돌했는지 확인 값 초기화
@@ -112,7 +113,7 @@ public class Bullet : MonoBehaviour
             //Debug.LogError(gameObject.name + " 충돌 감점: " + other.gameObject.name);
 
             //감점
-            bulletHost.AddReward(- bulletDamage / 100f);
+            bulletHost.agent.AddReward(- bulletDamage / 100f);
             if (curBulletMoveEnum != BulletMoveEnum.Slash)
             {
                 //총알 비활성화

@@ -1,41 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 using static Creature;
 
-public class shooter_A_Agent : ParentAgent
+public class shooter_A_Agent : Agent
 {
-    //  mlagents-learn --force
-    //mlagents-learn "D:\gitHubDeskTop\ML_EX_GIT\config\ppo\Enemy_Orc.yaml" --run-id=Enemy_Orc_K --resum(2시간즈음부터 성능 향상 시작됨)
-
-    private void Awake()
-    {
-        rigid = GetComponent<Rigidbody>();
-        creature = GetComponent<Creature>();
-        anim = GetComponentInChildren<Animator>();
-
-        gameManager = creature.gameManager;
-        objectManager = gameManager.objectManager;
-
-        StateReturn();
-    }
-
-    
     public override void OnActionReceived(ActionBuffers actions)//액션 기입(가능한 동작), 매 번 호출 
     {
-
         if (!creature.isAttack && gameObject.layer == LayerMask.NameToLayer("Creature"))
         {
-            rewardValue = GetCumulativeReward();
-            creature.curReward.text = rewardValue.ToString("F1");
+            creature.rewardValue = GetCumulativeReward();
+            creature.curReward.text = creature.rewardValue.ToString("F1");
 
-            //곧바로 이동하면 점수
-            GetMatchingVelocityReward();
+            //방향따라 점수 증가
+            creature.GetMatchingVelocityReward();
+
             //적과의 거리 계산
-            RangeCalculate();
+            creature.RangeCalculate();
+
+
 
             switch (actions.DiscreteActions[0])
             {
@@ -59,14 +46,16 @@ public class shooter_A_Agent : ParentAgent
                     creature.curCreatureMoveEnum = CreatureMoveEnum.Run;
                     break;
                 case 2://공격
-                    if (curRange <= maxRange && gameObject.layer == LayerMask.NameToLayer("Creature"))//살아있으면서, 거리 이내여야 함
+                    if (creature.curRange <= creature.maxRange && gameObject.layer == LayerMask.NameToLayer("Creature"))
                     {
                         //애니메이션 관리
                         creature.curCreatureSpinEnum = CreatureSpinEnum.None;
                         creature.curCreatureMoveEnum = CreatureMoveEnum.Idle;
                         creature.isAttack = true;//동시 입력 방지
 
-                        anim.SetTrigger("isGun");
+                        int r = UnityEngine.Random.Range(0, 2);
+                        if (r == 0) creature.anim.SetTrigger("isAttackLeft");
+                        else if (r == 1) creature.anim.SetTrigger("isAttackRight");
                     }
                     break;
             }
@@ -75,12 +64,14 @@ public class shooter_A_Agent : ParentAgent
         //Debug.Log("spin: " + actions.DiscreteActions[0] + "action: " + actions.DiscreteActions[1]);
     }
 
+
+
     #region 휴리스틱: 키보드를 통해 에이전트를 조정
     public override void Heuristic(in ActionBuffers actionsOut)
     {
         var disCreteActionOut = actionsOut.DiscreteActions;
 
-        if (behaviorParameters.BehaviorType == Unity.MLAgents.Policies.BehaviorType.HeuristicOnly) 
+        if (creature.behaviorParameters.BehaviorType == Unity.MLAgents.Policies.BehaviorType.HeuristicOnly)
         {
             int spin = 1;//회전 안함
             if (Input.GetKey(KeyCode.LeftArrow))//좌회전
@@ -91,7 +82,7 @@ public class shooter_A_Agent : ParentAgent
             int action = 0;//액션 안함
             if (Input.GetKey(KeyCode.UpArrow))//걷기
                 action = 1;
-            else if (Input.GetKey(KeyCode.Z))//투사체 공격
+            else if (Input.GetKey(KeyCode.Z))//공격
                 action = 2;
 
             disCreteActionOut[0] = spin;
@@ -132,44 +123,35 @@ public class shooter_A_Agent : ParentAgent
             sensor.AddObservation(creature.enemyTowerManager.curHealth / creature.enemyTowerManager.maxHealth);
 
             //적까지의 거리
-            sensor.AddObservation(curRange / maxRange);
+            sensor.AddObservation(creature.curRange / creature.maxRange);
 
             //가까운 적의 위치
-            sensor.AddObservation(curTarget.position.x);
-            sensor.AddObservation(curTarget.position.z);
-
+            sensor.AddObservation(creature.curTarget.position.x);
+            sensor.AddObservation(creature.curTarget.position.z);
 
             //우리 타워에서 가장 가까운 적의 위치
             sensor.AddObservation(creature.ourTowerManager.curTarget.position.x);
             sensor.AddObservation(creature.ourTowerManager.curTarget.position.z);
-
-
-            /*
-            for (int i = 0; i < enemyCreatureFolder.childCount; i++)
-            {
-                //크리쳐 상태라면
-                if (enemyCreatureFolder.GetChild(i).gameObject.layer == LayerMask.NameToLayer("Creature"))
-                {
-                    sensor.AddObservation(enemyCreatureFolder.GetChild(i).position.x);
-                    sensor.AddObservation(enemyCreatureFolder.GetChild(i).position.z);
-                }
-            }
-            */
         }
     }
     #endregion
+    [Header("크리쳐")]
+    public Creature creature;
+
+    [Header("사용하는 총알")]
+    public Transform useBullet;
 
 
-    #region 투사체 생성
-    override public void AgentAttack()
+    #region 초록 투사체 생성
+    public void AgentAttack()
     {
         string bulletName = useBullet.name;
 
-        GameObject tracer = objectManager.CreateObj(bulletName, ObjectManager.PoolTypes.BulletPool);
+        GameObject tracer = creature.objectManager.CreateObj(bulletName, ObjectManager.PoolTypes.BulletPool);
         Bullet tracer_bullet = tracer.GetComponent<Bullet>();
         Rigidbody tracer_rigid = tracer.GetComponent<Rigidbody>();
 
-        tracer_bullet.gameManager = gameManager;
+        tracer_bullet.gameManager = creature.gameManager;
         tracer_bullet.Init();
 
 
@@ -178,7 +160,7 @@ public class shooter_A_Agent : ParentAgent
         //회전
         tracer_rigid.velocity = tracer_bullet.bulletSpeed * transform.forward;
         //활성화
-        tracer_bullet.BulletOn(this);
+        tracer_bullet.BulletOn(creature);
     }
     #endregion
 }

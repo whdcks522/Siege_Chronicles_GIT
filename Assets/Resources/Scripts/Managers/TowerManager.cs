@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.MLAgents;
 using UnityEngine;
 using UnityEngine.UI;
 using static Creature;
@@ -106,7 +107,7 @@ public class TowerManager : MonoBehaviour
             if (bullet.curTeamEnum != curTeamEnum)//팀이 다를 경우만 피해 처리
             {
                 //피해량 확인
-                ParentAgent bulletParentAgent = bullet.bulletHost;
+                Agent bulletAgent = bullet.bulletHost.agent;
                 float damage = bullet.bulletDamage;
 
                 
@@ -116,7 +117,7 @@ public class TowerManager : MonoBehaviour
                 //Debug.Log("winPoint: " + winPoint + " / loosePoint: " + loosePoint);
 
                 //공격자 점수 증가
-                bulletParentAgent.AddReward(winPoint * 2f);
+                bulletAgent.AddReward(winPoint * 2f);
 
                 //팀 별 점수 증가
                 if (curTeamEnum == TeamEnum.Blue)//파랑 타워가 피격당함

@@ -10,9 +10,9 @@ public class AiManager : MonoBehaviour
     public bool isML;
 
     [Header("머신 러닝의 최대 시간")]
-    public float maxTime;
+    public float maxStep;
     [Header("머신 러닝의 현재 시간")]
-    public float curTime = 0f;
+    public float curStep = 0f;
 
     public GameManager gameManager;
     ObjectManager objectManager;
@@ -33,23 +33,23 @@ public class AiManager : MonoBehaviour
 
         for (int i = 0; i < objectManager.blueCreatureFolder.childCount; i++)
         {
-            ParentAgent agent = objectManager.blueCreatureFolder.GetChild(i).GetComponent<ParentAgent>();
+            Agent agent = objectManager.blueCreatureFolder.GetChild(i).GetComponent<Agent>();
             blueAgentGroup.RegisterAgent(agent);
         }
         for (int i = 0; i < objectManager.redCreatureFolder.childCount; i++)
         {
-            ParentAgent agent = objectManager.redCreatureFolder.GetChild(i).GetComponent<ParentAgent>();
+            Agent agent = objectManager.redCreatureFolder.GetChild(i).GetComponent<Agent>();
             redAgentGroup.RegisterAgent(agent);
         }
     }
 
     private void FixedUpdate()
     {
-        curTime += 1;
+        curStep += 1;
 
         
 
-        if (curTime >= maxTime && maxTime > 0)//타임 오버
+        if (curStep >= maxStep && maxStep > 0)//타임 오버
         {
             blueAgentGroup.AddGroupReward(-1f);
             redAgentGroup.AddGroupReward(-1f);
@@ -97,7 +97,7 @@ public class AiManager : MonoBehaviour
     void AiClear() 
     {
         //시간 초기화
-        curTime = 0f;
+        curStep = 0f;
 
         //총알 비활성화
         for (int i = 0; i < objectManager.bulletFolder.childCount; i++)
@@ -115,9 +115,8 @@ public class AiManager : MonoBehaviour
         {
             for (int i = 0; i < creatureSize; i++)
             {
-                ParentAgent agent = objectManager.blueCreatureFolder.GetChild(i).GetComponent<ParentAgent>();
-                //agent.EndEpisode();
-                agent.StateReturn();
+                Creature creature = objectManager.blueCreatureFolder.GetChild(i).GetComponent<Creature>();
+                creature.Revive();
             }
         }
 
@@ -126,9 +125,8 @@ public class AiManager : MonoBehaviour
         {
             for (int i = 0; i < creatureSize; i++)
             {
-                ParentAgent agent = objectManager.redCreatureFolder.GetChild(i).GetComponent<ParentAgent>();
-                //agent.EndEpisode();
-                agent.StateReturn();
+                Creature creature = objectManager.redCreatureFolder.GetChild(i).GetComponent<Creature>();
+                creature.Revive();
             }
         }
     }
