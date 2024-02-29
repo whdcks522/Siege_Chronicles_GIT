@@ -131,10 +131,18 @@ MonoBehaviour:
   curCreatureMoveEnum: 0
   curCreatureSpinEnum: 1
   curTeamEnum: 1
+  curCreatureTypeEnum: 2
   rigid: {fileID: 7707506176948445747}
   anim: {fileID: 1241195992810873}
-  parentAgent: {fileID: 4646125403814747638}
+  agent: {fileID: 0}
+  rewardValue: 0
+  enemyCreatureFolder: {fileID: 0}
+  behaviorParameters: {fileID: 0}
   gameManager: {fileID: 0}
+  objectManager: {fileID: 0}
+  maxRange: 0
+  curRange: 0
+  curTarget: {fileID: 0}
 --- !u!54 &7707506176948445747
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -201,19 +209,8 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  rewardValue: 0
-  enemyCreatureFolder: {fileID: 0}
-  useBullet: {fileID: 4878814061148674, guid: 07347af5d2586d442b04017cc060878a, type: 3}
-  behaviorParameters: {fileID: 3767533950753847470}
   creature: {fileID: 1287777390633518934}
-  rigid: {fileID: 7707506176948445747}
-  anim: {fileID: 0}
-  gameManager: {fileID: 0}
-  objectManager: {fileID: 0}
-  audioManager: {fileID: 0}
-  maxRange: 12
-  curRange: 0
-  curTarget: {fileID: 0}
+  useBullet: {fileID: 4878814061148674, guid: 07347af5d2586d442b04017cc060878a, type: 3}
 --- !u!114 &3767533950753847470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1209,3 +1206,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b183dfab6e79a14482c0ab57cc61f5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useBullet: {fileID: 0}

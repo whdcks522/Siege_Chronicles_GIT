@@ -13,8 +13,8 @@ public class shooter_A_Agent : Agent
     {
         if (!creature.isAttack && gameObject.layer == LayerMask.NameToLayer("Creature"))
         {
-            creature.rewardValue = GetCumulativeReward();
-            creature.curReward.text = creature.rewardValue.ToString("F1");
+            //creature.rewardValue = GetCumulativeReward();
+            //creature.curReward.text = creature.rewardValue.ToString("F1");
 
             //방향따라 점수 증가
             creature.GetMatchingVelocityReward();
@@ -48,6 +48,9 @@ public class shooter_A_Agent : Agent
                 case 2://공격
                     if (creature.curRange <= creature.maxRange && gameObject.layer == LayerMask.NameToLayer("Creature"))
                     {
+                        //대상을 보도록
+                        transform.LookAt(creature.curTarget);
+
                         //애니메이션 관리
                         creature.curCreatureSpinEnum = CreatureSpinEnum.None;
                         creature.curCreatureMoveEnum = CreatureMoveEnum.Idle;
@@ -128,6 +131,7 @@ public class shooter_A_Agent : Agent
             //가까운 적의 위치
             sensor.AddObservation(creature.curTarget.position.x);
             sensor.AddObservation(creature.curTarget.position.z);
+            sensor.AddObservation(creature.curHealth / creature.maxHealth);
 
             //우리 타워에서 가장 가까운 적의 위치
             sensor.AddObservation(creature.ourTowerManager.curTarget.position.x);

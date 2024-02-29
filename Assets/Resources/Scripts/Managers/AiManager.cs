@@ -18,14 +18,15 @@ public class AiManager : MonoBehaviour
     ObjectManager objectManager;
 
     //그룹 번호 설정 필요(그냥 하면 unityagentsexception: onepisodebegin called recursively. this might happen if you call environmentstep() or endepisode() from custom code such as collectobservations() or onactionreceived().)
-    public SimpleMultiAgentGroup blueAgentGroup;
-    public SimpleMultiAgentGroup redAgentGroup;
+    //public SimpleMultiAgentGroup blueAgentGroup;
+    //public SimpleMultiAgentGroup redAgentGroup;
 
     private void Awake()
     {
         objectManager = gameManager.objectManager;
     }
 
+    /*
     private void Start()
     {
         blueAgentGroup = new SimpleMultiAgentGroup();
@@ -42,9 +43,11 @@ public class AiManager : MonoBehaviour
             redAgentGroup.RegisterAgent(agent);
         }
     }
+    */
 
     private void FixedUpdate()
     {
+        /*
         curStep += 1;
 
         
@@ -57,8 +60,10 @@ public class AiManager : MonoBehaviour
 
             AiEnd(0);
         }
+        */
     }
 
+    /*
 
     #region 시간이 다되거나, 성이 파괴되면 초기화
     public void AiEnd(int warIndex)
@@ -131,4 +136,5 @@ public class AiManager : MonoBehaviour
         }
     }
     #endregion
+    */
 }

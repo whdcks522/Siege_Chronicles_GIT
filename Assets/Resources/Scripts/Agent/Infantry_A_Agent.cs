@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Numerics;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
@@ -30,12 +31,13 @@ public class Infantry_A_Agent : Agent
      */
 
     //mlagents-learn --force
-    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\poca\Custom_Infantry_B.yaml" --run-id=Custom_Infantry_Y --resum
+    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\ppo\Infantry_A.yaml" --run-id=Custom_Infantry_1 --resum
+
     //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\poca\Custom_Infantry_B.yaml" --run-id=Custom_Infantry_I --resum
 
     //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\poca\SoccerTwos.yaml" --run-id=Custom_Soccer --resum
 
-    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\ppo\Basic.yaml" --run-id=Custom_Basic_A --resum
+    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\ppo\Basic.yaml" --run-id=Custom_Basic_AA --resum
     /*
  Version information:
   ml-agents: 0.28.0,
@@ -153,19 +155,22 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
      */
 
 
-    
+
     public override void OnActionReceived(ActionBuffers actions)//액션 기입(가능한 동작), 매 번 호출 
     {
         if (!creature.isAttack && gameObject.layer == LayerMask.NameToLayer("Creature")) 
         {
-            creature.rewardValue =  GetCumulativeReward();
-            creature.curReward.text = creature.rewardValue.ToString("F1");
+            //creature.rewardValue =  GetCumulativeReward();
+            //creature.curReward.text = creature.rewardValue.ToString("F1");
 
             //방향따라 점수 증가
             creature.GetMatchingVelocityReward();
 
             //적과의 거리 계산
             creature.RangeCalculate();
+
+            //자동 실점
+            AddReward(-0.005f);
 
             
 
@@ -193,6 +198,9 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
                 case 2://공격
                     if (creature.curRange <= creature.maxRange && gameObject.layer == LayerMask.NameToLayer("Creature"))
                     {
+                        creature.aa();
+
+
                         //애니메이션 관리
                         creature.curCreatureSpinEnum = CreatureSpinEnum.None;
                         creature.curCreatureMoveEnum = CreatureMoveEnum.Idle;
@@ -273,6 +281,7 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
             //가까운 적의 위치
             sensor.AddObservation(creature.curTarget.position.x);
             sensor.AddObservation(creature.curTarget.position.z);
+            sensor.AddObservation(creature.curHealth / creature.maxHealth);
 
             //우리 타워에서 가장 가까운 적의 위치
             sensor.AddObservation(creature.ourTowerManager.curTarget.position.x);
@@ -286,6 +295,14 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
     [Header("사용하는 총알")]
     public Transform useBullet;
 
+    [Header("훈련용 더미")]
+    public GameObject[] trainDummies;
+
+    public override void OnEpisodeBegin() 
+    {
+        creature.resetEnv();
+    }
+
     #region 주황색 참격 생성
     public void AgentAttack()
     {
@@ -295,10 +312,10 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
         Bullet slash_bullet = slash.GetComponent<Bullet>();
         
         //이동
-        slash.transform.position = transform.position + transform.forward + Vector3.up * 3;
+        slash.transform.position = transform.position + transform.forward + UnityEngine.Vector3.up * 3;
 
         //회전
-        slash.transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x + 90,
+        slash.transform.rotation = UnityEngine.Quaternion.Euler(transform.rotation.eulerAngles.x + 90,
             transform.rotation.eulerAngles.y - 180, transform.rotation.eulerAngles.z - 90);
         //활성화
         slash_bullet.BulletOn(creature);

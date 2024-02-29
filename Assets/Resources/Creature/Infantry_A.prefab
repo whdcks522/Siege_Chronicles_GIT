@@ -190,6 +190,7 @@ MonoBehaviour:
   curCreatureMoveEnum: 0
   curCreatureSpinEnum: 1
   curTeamEnum: 1
+  curCreatureTypeEnum: 1
   rigid: {fileID: 5137104300073328733}
   anim: {fileID: 7388106785048407052}
   agent: {fileID: 1703850358029723869}
@@ -270,6 +271,7 @@ MonoBehaviour:
   creature: {fileID: 4120125501966113268}
   useBullet: {fileID: 1041126755279568644, guid: 372d9605c09874c40b09c0105492664c,
     type: 3}
+  trainDummies: []
 --- !u!114 &8131292589408315668
 MonoBehaviour:
   m_ObjectHideFlags: 0

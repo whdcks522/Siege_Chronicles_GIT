@@ -9,6 +9,7 @@ using UnityEditor.Presets;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class Creature : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class Creature : MonoBehaviour
     public Texture baseTexture;
     [Header("쉐이더에 쓰일 스킨 렌더러")]
     public SkinnedMeshRenderer skinnedMeshRenderer;
+    [Header("더미 쉐이더에 쓰일 스킨 렌더러")]
+    public MeshRenderer meshRenderer;
 
     [Header("생명체의 최대 체력")]
     public float maxHealth;
@@ -33,7 +36,7 @@ public class Creature : MonoBehaviour
     public TowerManager enemyTowerManager;
     [Header("우리 타워에서 시작할 장소")]
     public Transform startPoint;
-    
+
 
     [Header("총알이 시작되는 곳")]
     public Transform bulletStartPoint;
@@ -55,16 +58,15 @@ public class Creature : MonoBehaviour
     public enum CreatureSpinEnum { LeftSpin, None, RightSpin }//머신러닝으로 취할수 있는 회전
     public CreatureSpinEnum curCreatureSpinEnum;
 
-    public enum TeamEnum { None, Blue, Red }//속하는 팀
+    public enum TeamEnum { Gray, Blue, Red }//속하는 팀
     public TeamEnum curTeamEnum;
 
-    
+    public enum CreatureTypeEnum { Dummy, Infantry_A, Shooter_A }//머신러닝으로 취할수 있는 행동
+    public CreatureTypeEnum curCreatureTypeEnum;
 
     public Rigidbody rigid;
     public Animator anim;
     public Agent agent;
-    [Header("보상 값")]
-    public float rewardValue;
 
     [Header("상대팀이 들어있는 폴더")]
     public Transform enemyCreatureFolder;
@@ -77,9 +79,9 @@ public class Creature : MonoBehaviour
     Transform cameraGround;
     Transform mainCamera;
     //--------
-   
 
-    
+
+
 
     //public enum CreatureTypeEnum { Melee, Range }//속하는 팀
     //public TeamEnum curTeamEnum;
@@ -102,46 +104,47 @@ public class Creature : MonoBehaviour
 
 
         //텍스쳐 매터리얼 설정
-        skinnedMeshRenderer.material.SetTexture("_BaseTexture", baseTexture);
-
-        
-
-        if (curTeamEnum == TeamEnum.Blue)//파랑 팀
+        if (curCreatureTypeEnum != CreatureTypeEnum.Dummy)
         {
-            //팀 번호 설정
-            behaviorParameters.TeamId = 0;
-            //아군 타워 설정
-            ourTower = gameManager.blueTower;
-            //적 타워 설정
-            enemyTower = gameManager.redTower;
-            
-        }
-        else if (curTeamEnum == TeamEnum.Red)//빨강 팀
-        {
-            //팀 번호 설정
-            behaviorParameters.TeamId = 1;
-            //아군 타워 설정
-            ourTower = gameManager.redTower; 
-            //적 타워 설정
-            enemyTower = gameManager.blueTower;  
-        }
+            skinnedMeshRenderer.material.SetTexture("_BaseTexture", baseTexture);
 
-        ourTowerManager = ourTower.GetComponent<TowerManager>();
-        enemyTowerManager = enemyTower.GetComponent<TowerManager>();
-        //시작지점 설정
-        startPoint = ourTowerManager.creatureStartPoint;
+            if (curTeamEnum == TeamEnum.Blue)//파랑 팀
+            {
+                //팀 번호 설정
+                //behaviorParameters.TeamId = 0;
+                //아군 타워 설정
+                ourTower = gameManager.blueTower;
+                //적 타워 설정
+                enemyTower = gameManager.redTower;
 
-        if (curTeamEnum == TeamEnum.Blue)//파랑 팀
-        {
-            //적 폴더 설정
-            enemyCreatureFolder = objectManager.redCreatureFolder;
+            }
+            else if (curTeamEnum == TeamEnum.Red)//빨강 팀
+            {
+                //팀 번호 설정
+                //behaviorParameters.TeamId = 1;
+                //아군 타워 설정
+                ourTower = gameManager.redTower;
+                //적 타워 설정
+                enemyTower = gameManager.blueTower;
+            }
+
+            ourTowerManager = ourTower.GetComponent<TowerManager>();
+            enemyTowerManager = enemyTower.GetComponent<TowerManager>();
+            //시작지점 설정
+            startPoint = ourTowerManager.creatureStartPoint;
+
+            if (curTeamEnum == TeamEnum.Blue)//파랑 팀
+            {
+                //적 폴더 설정
+                enemyCreatureFolder = objectManager.redCreatureFolder;
+            }
+            else if (curTeamEnum == TeamEnum.Red)//빨강 팀
+            {
+                //적 폴더 설정
+                enemyCreatureFolder = objectManager.blueCreatureFolder;
+            }
         }
-        else if (curTeamEnum == TeamEnum.Red)//빨강 팀
-        {
-            //적 폴더 설정
-            enemyCreatureFolder = objectManager.blueCreatureFolder;
-        }
-        if (gameManager.aiManager.isML) 
+        else if (curCreatureTypeEnum == CreatureTypeEnum.Dummy)
         {
             Revive();
         }
@@ -151,10 +154,15 @@ public class Creature : MonoBehaviour
     #region 생명체 활성화
     public void Revive()
     {
-        //위치 초기화
-        transform.position = startPoint.position;
-        //회전 초기화
-        transform.LookAt(enemyTower.position);
+        
+        if (curCreatureTypeEnum != CreatureTypeEnum.Dummy)
+        {
+            //위치 초기화
+            transform.position = startPoint.position;
+            //회전 초기화
+            transform.LookAt(enemyTower.position);
+        }
+            
 
         //공격 대기 시간 초기화
         isAttack = false;
@@ -167,7 +175,7 @@ public class Creature : MonoBehaviour
         //체력 UI 관리
         miniCanvas.SetActive(true);
         miniHealth.fillAmount = 1;
-        if(curTeamEnum == TeamEnum.Blue)
+        if (curTeamEnum == TeamEnum.Blue)
             miniHealth.color = Color.blue;
         else if (curTeamEnum == TeamEnum.Red)
             miniHealth.color = Color.red;
@@ -177,17 +185,19 @@ public class Creature : MonoBehaviour
         //기상 애니메이션
         curCreatureSpinEnum = CreatureSpinEnum.None;
         curCreatureMoveEnum = CreatureMoveEnum.Idle;
-        anim.SetTrigger("isRage");
+
+        if (curCreatureTypeEnum != CreatureTypeEnum.Dummy)
+            anim.SetTrigger("isRage");
 
         VisibleWarp();
     }
     #endregion
-   
+
 
     #region 물리 동작
     private void FixedUpdate()
     {
-        if (gameObject.layer == LayerMask.NameToLayer("Creature")) 
+        if (gameObject.layer == LayerMask.NameToLayer("Creature") && curCreatureTypeEnum != CreatureTypeEnum.Dummy)
         {
 
             //행동 관리
@@ -195,9 +205,10 @@ public class Creature : MonoBehaviour
             {
                 case CreatureMoveEnum.Idle://멈추기
                     moveVec = new Vector3(0, rigid.velocity.y, 0);
-                    if (moveVec.y >= 0) 
+                    if (moveVec.y >= 0)
                         moveVec.y = 0;
                     rigid.velocity = moveVec;
+
 
                     anim.SetBool("isRun", false);
                     break;
@@ -211,7 +222,7 @@ public class Creature : MonoBehaviour
                     anim.SetBool("isRun", true);
                     break;
             }
-            switch (curCreatureSpinEnum) 
+            switch (curCreatureSpinEnum)
             {
                 case CreatureSpinEnum.LeftSpin:
                     moveVec = transform.rotation.eulerAngles;
@@ -268,7 +279,7 @@ public class Creature : MonoBehaviour
                 damageControl(damage);
 
                 //피격한 총알 후처리
-                if(bullet.curBulletMoveEnum != Bullet.BulletMoveEnum.Slash)
+                if (bullet.curBulletMoveEnum != Bullet.BulletMoveEnum.Slash)
                     bullet.BulletOff();
             }
         }
@@ -285,7 +296,7 @@ public class Creature : MonoBehaviour
         miniHealth.fillAmount = curHealth / maxHealth;
 
         //충격 초기화
-        if (curHealth > 0 && !isAttack)//피격하고 살아 있으면서, 공격중이 아니라면
+        if (curHealth > 0 && !isAttack && curCreatureTypeEnum != CreatureTypeEnum.Dummy)//피격하고 살아 있으면서, 공격중이 아니라면
         {
             anim.SetTrigger("isHit");
         }
@@ -301,7 +312,8 @@ public class Creature : MonoBehaviour
         gameObject.layer = LayerMask.NameToLayer("WarpCreature");
 
         //애니메이션 실행
-        anim.SetTrigger("isDeath");
+        if (curCreatureTypeEnum != CreatureTypeEnum.Dummy)
+            anim.SetTrigger("isDeath");
 
         //미니 UI 닫기
         miniCanvas.SetActive(false);
@@ -312,7 +324,7 @@ public class Creature : MonoBehaviour
     }
 
     //완전히 죽음
-    public void CompletelyDead()=> gameObject.SetActive(false);
+    public void CompletelyDead() => gameObject.SetActive(false);
 
 
     #endregion
@@ -345,7 +357,6 @@ public class Creature : MonoBehaviour
             reward = (cosineSimilarity + 1f) / 2f;  //0f ~ 1f
             reward -= 0.5f;                         //-0.5f ~ 0.5f
 
-            //Debug.Log(reward);
             agent.AddReward(reward / 1000f);
         }
     }
@@ -358,8 +369,24 @@ public class Creature : MonoBehaviour
     public float curRange;
     [Header("가장 가까운 대상")]
     public Transform curTarget;
+    [Header("대상을 보는 벡터")]
+    public Vector3 lookVec;
+    public Quaternion qq;
+
+    public void aa()
+    {
+        //대상을 보도록
+        //lookVec = transform.position - curTarget.position;
+        //lookVec.x = 0;
+        //lookVec.z = 0;
+
+        //qq = Quaternion.LookRotation(lookVec);
+        //transform.rotation = qq;
+    }
     public void RangeCalculate()
     {
+        Debug.Log(gameObject.name);
+
         curRange = (enemyTower.position - transform.position).magnitude - 2;//타워의 두께 계산
         curTarget = enemyTower;
 
@@ -379,6 +406,41 @@ public class Creature : MonoBehaviour
         }
     }
     #endregion 
+
+    //public Creature[] Dummies;
+    public Transform[] DummyPoints;
+    public void resetEnv() 
+    {
+        //본인 부활
+        Revive();
+
+        //더미 2개 위치 조정
+        int saveR = Random.Range(0, DummyPoints.Length);
+
+        int newR = Random.Range(0, DummyPoints.Length);
+        while (saveR == newR) 
+        {
+            newR = Random.Range(0, DummyPoints.Length);
+        }
+
+        for (int i = 0; i < enemyCreatureFolder.childCount; i++) 
+        {
+            enemyCreatureFolder.GetChild(i).GetComponent<Creature>().Revive();
+            if(i == 0)
+                enemyCreatureFolder.GetChild(i).transform.position = DummyPoints[saveR].position;
+            else if (i == 1)
+                enemyCreatureFolder.GetChild(i).transform.position = DummyPoints[newR].position;
+        }
+        //Dummies[0].Revive();
+        //Dummies[0].transform.position = Vector3.zero;
+
+        //Dummies[1].Revive();
+        //Dummies[1].transform.position = Vector3.zero;
+
+
+        //포탑 체력 갱신
+        enemyTowerManager.TowerOn();
+    }
 
     #region 왜곡장 
     public void InvisibleWarp() // 점차 안보이게 되는 것
@@ -415,15 +477,25 @@ public class Creature : MonoBehaviour
             float value = Mathf.Lerp(firstValue, targetValue, progress);
             elapsedTime += Time.deltaTime;
 
-            skinnedMeshRenderer.material.SetFloat("_AlphaFloat", value);
+            if (curCreatureTypeEnum != CreatureTypeEnum.Dummy)
+                skinnedMeshRenderer.material.SetFloat("_AlphaFloat", value);
+            else if (curCreatureTypeEnum == CreatureTypeEnum.Dummy)
+                meshRenderer.material.SetFloat("_AlphaFloat", value);
+
             yield return null;
         }
-        skinnedMeshRenderer.material.SetFloat("_AlphaFloat", targetValue);
+        if (curCreatureTypeEnum != CreatureTypeEnum.Dummy)
+            skinnedMeshRenderer.material.SetFloat("_AlphaFloat", targetValue);
+        else if (curCreatureTypeEnum == CreatureTypeEnum.Dummy)
+            meshRenderer.material.SetFloat("_AlphaFloat", targetValue);
 
         if (InVisible)//안보이도록
         {
             //피격당하지 않도록, 레이어 변경
             gameObject.layer = LayerMask.NameToLayer("WarpCreature");
+
+            if (curCreatureTypeEnum == CreatureTypeEnum.Dummy)
+                gameObject.SetActive(false);
         }
         else if(!InVisible)//보이도록 
         {

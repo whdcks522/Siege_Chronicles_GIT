@@ -73,7 +73,7 @@ public class TowerManager : MonoBehaviour
         curRange = (enemyTower.position - transform.position).magnitude - 2;//타워의 두께 계산
         curTarget = enemyTower;
 
-        
+        /*
         for (int i = 0; i < enemyCreatureFolder.childCount; i++)
         {
             if (enemyCreatureFolder.GetChild(i).gameObject.layer == LayerMask.NameToLayer("Creature"))//활성화돼있다면
@@ -88,6 +88,7 @@ public class TowerManager : MonoBehaviour
 
             }
         }
+        */
 
         // 물체 A에서 B를 바라보는 회전 구하기
         cameraVec = cameraGround.transform.position - mainCamera.transform.position;
@@ -106,32 +107,8 @@ public class TowerManager : MonoBehaviour
 
             if (bullet.curTeamEnum != curTeamEnum)//팀이 다를 경우만 피해 처리
             {
-                //피해량 확인
-                Agent bulletAgent = bullet.bulletHost.agent;
-                float damage = bullet.bulletDamage;
-
-                
-
-                float winPoint = damage / 10f;
-                float loosePoint = -damage / 20f;
-                //Debug.Log("winPoint: " + winPoint + " / loosePoint: " + loosePoint);
-
-                //공격자 점수 증가
-                bulletAgent.AddReward(winPoint * 2f);
-
-                //팀 별 점수 증가
-                if (curTeamEnum == TeamEnum.Blue)//파랑 타워가 피격당함
-                {
-                    aiManager.blueAgentGroup.AddGroupReward(loosePoint);//파랑 실점
-                    aiManager.redAgentGroup.AddGroupReward(winPoint);//빨강 득점
-                }
-                else if (curTeamEnum == TeamEnum.Red)//빨강 타워가 피격당함
-                {
-                    aiManager.blueAgentGroup.AddGroupReward(winPoint);//파랑 득점
-                    aiManager.redAgentGroup.AddGroupReward(loosePoint);//빨강 실점
-                }
                 //피해 관리
-                damageControl(damage);
+                damageControl(bullet);
 
                 //피격한 총알 후처리
                 if (bullet.curBulletMoveEnum != Bullet.BulletMoveEnum.Slash)
@@ -140,10 +117,21 @@ public class TowerManager : MonoBehaviour
         }
     }
 
-    void damageControl(float _dmg)
-    {
 
-        curHealth -= _dmg;
+    float breakPoint = 20f;
+    void damageControl(Bullet bullet)
+    {
+        //피해량 확인
+        Agent bulletAgent = bullet.bulletHost.agent;
+        float damage = bullet.bulletDamage;
+
+        float attackPoint = damage / 10f;
+        
+        
+
+        
+
+        curHealth -= damage;
         if (curHealth < 0) curHealth = 0;
         else if (curHealth > maxHealth) curHealth = maxHealth;
 
@@ -153,9 +141,22 @@ public class TowerManager : MonoBehaviour
         //충격 초기화
         if (curHealth > 0)//피격하고 살아 있음
         {
-            
+            //공격자 점수 증가
+            bulletAgent.AddReward(attackPoint);
+            Debug.Log("attackPoint: " + attackPoint);
         }
-        else if (curHealth <= 0) Dead();
+        else if (curHealth <= 0) 
+        {
+            //Dead();
+            //공격자 점수 증가
+
+            bulletAgent.AddReward(breakPoint);
+            Debug.Log("breakPoint: " + breakPoint);
+
+            //시나리오 종료
+            bulletAgent.EndEpisode();
+        }
+
     }
 
     void Dead() 
@@ -163,10 +164,14 @@ public class TowerManager : MonoBehaviour
         if (aiManager.isML)
         {
             //모두 초기화
-            if(curTeamEnum == TeamEnum.Blue)//파랑 타워가 죽음
-                aiManager.AiEnd(-1);//빨강 득점
+            if (curTeamEnum == TeamEnum.Blue)//파랑 타워가 죽음
+            {
+                //aiManager.AiEnd(-1);//빨강 득점
+            }
             if (curTeamEnum == TeamEnum.Red)//빨강 타워가 죽음
-                aiManager.AiEnd(1);//파랑 득점
+            {
+                //aiManager.AiEnd(1);//파랑 득점
+            }
         }
     }
 
