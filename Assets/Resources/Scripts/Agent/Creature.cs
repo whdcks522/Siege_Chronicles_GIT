@@ -245,6 +245,9 @@ public class Creature : MonoBehaviour
                     transform.rotation = Quaternion.Euler(moveVec);
                     break;
             }
+            //moveVec.x = 0;
+            //moveVec.x = 0;
+            //transform.localEulerAngles = moveVec;
         }
     }
     #endregion
@@ -339,7 +342,7 @@ public class Creature : MonoBehaviour
     public void GetMatchingVelocityReward()
     {
         //목표 방향 벡터
-        goalVec = (enemyTower.transform.position - transform.position).normalized;
+        goalVec = (curTarget.transform.position - transform.position).normalized;
         //현재값 서있는 벡터
         curVec = rigid.velocity.normalized;
 
@@ -349,15 +352,17 @@ public class Creature : MonoBehaviour
         // 코사인 유사도 계산 (-1부터 1까지의 값)
         float cosineSimilarity = Mathf.Cos(angle * Mathf.Deg2Rad);
 
-        float reward = 0f;
+
 
 
         if (curCreatureMoveEnum != CreatureMoveEnum.Idle)//서있다면 0을 반환
         {
-            reward = (cosineSimilarity + 1f) / 2f;  //0f ~ 1f
-            reward -= 0.5f;                         //-0.5f ~ 0.5f
+            float tmpReward = (cosineSimilarity + 1f) / 2f;  //0f ~ 1f
+            tmpReward -= 0.5f;                         //-0.5f ~ 0.5f
 
-            agent.AddReward(reward / 1000f);
+            //Debug.Log(tmpReward);
+
+            agent.AddReward(tmpReward / 1000f);
         }
     }
     #endregion
@@ -369,9 +374,10 @@ public class Creature : MonoBehaviour
     public float curRange;
     [Header("가장 가까운 대상")]
     public Transform curTarget;
-    [Header("대상을 보는 벡터")]
-    public Vector3 lookVec;
-    public Quaternion qq;
+
+    //[Header("대상을 보는 벡터")]
+    //public Vector3 lookVec;
+    //public Quaternion qq;
 
     public void aa()
     {
@@ -385,29 +391,35 @@ public class Creature : MonoBehaviour
     }
     public void RangeCalculate()
     {
-        Debug.Log(gameObject.name);
+        bool isLive = false;
+        curRange = 9999;
 
-        curRange = (enemyTower.position - transform.position).magnitude - 2;//타워의 두께 계산
-        curTarget = enemyTower;
-
-        for (int i = 0; i < enemyCreatureFolder.childCount; i++)
+        foreach (Transform obj in enemyCreatureFolder) 
         {
-            if (enemyCreatureFolder.GetChild(i).gameObject.layer == LayerMask.NameToLayer("Creature"))//활성화돼있다면
+            //Debug.Log(obj.name);
+
+            if (obj.gameObject.layer == LayerMask.NameToLayer("Creature")) 
             {
+                isLive = true;
+
                 //적과의 거리
-                float tmpRange = (enemyCreatureFolder.GetChild(i).position - transform.position).magnitude;
-                if (curRange > tmpRange)
+                float tmpRange = (obj.position - transform.position).magnitude;
+                if (tmpRange < curRange)
                 {
                     curRange = tmpRange;
-                    curTarget = enemyCreatureFolder.GetChild(i);
+                    curTarget = obj;
                 }
+            } 
+        }
 
-            }
+        if (!isLive)//남은 적이 없다면
+        {
+            curTarget = enemyTower;
+            curRange = (curTarget.position - transform.position).magnitude - 2;//타워의 두께 계산
         }
     }
     #endregion 
 
-    //public Creature[] Dummies;
     public Transform[] DummyPoints;
     public void resetEnv() 
     {

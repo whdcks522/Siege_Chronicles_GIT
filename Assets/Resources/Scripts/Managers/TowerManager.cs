@@ -127,10 +127,6 @@ public class TowerManager : MonoBehaviour
 
         float attackPoint = damage / 10f;
         
-        
-
-        
-
         curHealth -= damage;
         if (curHealth < 0) curHealth = 0;
         else if (curHealth > maxHealth) curHealth = maxHealth;
@@ -143,15 +139,10 @@ public class TowerManager : MonoBehaviour
         {
             //공격자 점수 증가
             bulletAgent.AddReward(attackPoint);
-            Debug.Log("attackPoint: " + attackPoint);
         }
-        else if (curHealth <= 0) 
+        else if (curHealth <= 0) //파괴 완료됨
         {
-            //Dead();
-            //공격자 점수 증가
-
             bulletAgent.AddReward(breakPoint);
-            Debug.Log("breakPoint: " + breakPoint);
 
             //시나리오 종료
             bulletAgent.EndEpisode();

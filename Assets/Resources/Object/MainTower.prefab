@@ -1090,8 +1090,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63745d04603b8384e84272fb1c50ca73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 300
-  curHealth: 300
+  maxHealth: 100
+  curHealth: 100
   curTeamEnum: 0
   creatureStartPoint: {fileID: 7856681755523183836}
   bulletStartPoint: {fileID: 3776508832002094755}

@@ -64,10 +64,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 22859755917456932}
+  - {fileID: 7542188208339398018}
   - {fileID: 3766649720003778184}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3501157376978219676
 MeshFilter:
@@ -134,7 +134,7 @@ MonoBehaviour:
   baseTexture: {fileID: 2800000, guid: 0673901d7bb3e1a408ffd1754ad3e8cd, type: 3}
   skinnedMeshRenderer: {fileID: 0}
   meshRenderer: {fileID: 1633115900600768822}
-  maxHealth: 100
+  maxHealth: 50
   curHealth: 0
   isAttack: 0
   ourTower: {fileID: 0}
@@ -143,9 +143,9 @@ MonoBehaviour:
   enemyTowerManager: {fileID: 0}
   startPoint: {fileID: 3766649720003778184}
   bulletStartPoint: {fileID: 0}
-  miniCanvas: {fileID: 8726878857473797322}
-  miniHealth: {fileID: 1467082653429032226}
-  curReward: {fileID: 5057051897177549827}
+  miniCanvas: {fileID: 1289736974013216620}
+  miniHealth: {fileID: 8981889608559066756}
+  curReward: {fileID: 3374404537897105317}
   runSpd: 0
   curCreatureMoveEnum: 0
   curCreatureSpinEnum: 1
@@ -154,7 +154,6 @@ MonoBehaviour:
   rigid: {fileID: 2351790408158171906}
   anim: {fileID: 0}
   agent: {fileID: 0}
-  rewardValue: 0
   enemyCreatureFolder: {fileID: 0}
   behaviorParameters: {fileID: 0}
   gameManager: {fileID: 0}
@@ -162,9 +161,6 @@ MonoBehaviour:
   maxRange: 4.5
   curRange: 0
   curTarget: {fileID: 0}
-  lookVec: {x: 0, y: 0, z: 0}
-  qq: {x: 0, y: 0, z: 0, w: 0}
-  Dummies: []
   DummyPoints: []
 --- !u!65 &8819221637153733276
 BoxCollider:
@@ -185,8 +181,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 14.033869, z: 1}
+  m_Center: {x: 0, y: 6.5169344, z: 0}
 --- !u!54 &2351790408158171906
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -357,25 +353,13 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01a8371238a4e6242bea6367eeb2ae16, type: 3}
---- !u!224 &22859755917456932 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3752876336939196588, guid: 01a8371238a4e6242bea6367eeb2ae16,
+--- !u!1 &1289736974013216620 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5573707993925679682, guid: 01a8371238a4e6242bea6367eeb2ae16,
     type: 3}
   m_PrefabInstance: {fileID: 6683299043609627950}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1467082653429032226 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2313104256076362666, guid: 01a8371238a4e6242bea6367eeb2ae16,
-    type: 3}
-  m_PrefabInstance: {fileID: 6683299043609627950}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5057051897177549827 stripped
+--- !u!114 &3374404537897105317 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8244844202792188555, guid: 01a8371238a4e6242bea6367eeb2ae16,
     type: 3}
@@ -387,9 +371,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &8726878857473797322 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5573707993925679682, guid: 01a8371238a4e6242bea6367eeb2ae16,
+--- !u!224 &7542188208339398018 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3752876336939196588, guid: 01a8371238a4e6242bea6367eeb2ae16,
     type: 3}
   m_PrefabInstance: {fileID: 6683299043609627950}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8981889608559066756 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2313104256076362666, guid: 01a8371238a4e6242bea6367eeb2ae16,
+    type: 3}
+  m_PrefabInstance: {fileID: 6683299043609627950}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

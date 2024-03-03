@@ -31,7 +31,7 @@ public class Infantry_A_Agent : Agent
      */
 
     //mlagents-learn --force
-    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\ppo\Infantry_A.yaml" --run-id=Custom_Infantry_1 --resum
+    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\ppo\Infantry_A.yaml" --run-id=Custom_Infantry_4 --resum
 
     //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\poca\Custom_Infantry_B.yaml" --run-id=Custom_Infantry_I --resum
 
@@ -163,14 +163,16 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
             //creature.rewardValue =  GetCumulativeReward();
             //creature.curReward.text = creature.rewardValue.ToString("F1");
 
-            //방향따라 점수 증가
-            creature.GetMatchingVelocityReward();
-
             //적과의 거리 계산
             creature.RangeCalculate();
 
+            //방향따라 점수 증가
+            creature.GetMatchingVelocityReward();
+
+            
+
             //자동 실점
-            AddReward(-0.005f);
+            AddReward(-0.001f);
 
             
 
@@ -198,7 +200,7 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
                 case 2://공격
                     if (creature.curRange <= creature.maxRange && gameObject.layer == LayerMask.NameToLayer("Creature"))
                     {
-                        creature.aa();
+                        //creature.aa();
 
 
                         //애니메이션 관리
@@ -259,33 +261,22 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
             //현재 자신의 위치
             sensor.AddObservation(transform.position.x);//state size = 1     x,y,z를 모두 받아오면 size가 3이 됨
             sensor.AddObservation(transform.position.z);
+            //현재 자신의 가속
+            sensor.AddObservation(creature.rigid.velocity.x);//state size = 1
+            sensor.AddObservation(creature.rigid.velocity.z);
             //현재 자신의 회전
             sensor.AddObservation(transform.rotation.y);
-            //현재 자신의 가속
-            //sensor.AddObservation(rigid.velocity.x);
-            //sensor.AddObservation(rigid.velocity.z);
-
-            //자기 타워의 정보
-            //sensor.AddObservation(creature.ourTower.position.x);
-            //sensor.AddObservation(creature.ourTower.position.z);
-            sensor.AddObservation(creature.ourTowerManager.curHealth / creature.ourTowerManager.maxHealth);
-
-            //상대 타워의 정보
-            //sensor.AddObservation(creature.enemyTower.position.x);
-            //sensor.AddObservation(creature.enemyTower.position.z);
-            sensor.AddObservation(creature.enemyTowerManager.curHealth / creature.enemyTowerManager.maxHealth);
 
             //적까지의 거리
-            sensor.AddObservation(creature.curRange / creature.maxRange);
+            if(creature.curRange != 0)
+                sensor.AddObservation(creature.maxRange / creature.curRange);
 
             //가까운 적의 위치
-            sensor.AddObservation(creature.curTarget.position.x);
-            sensor.AddObservation(creature.curTarget.position.z);
-            sensor.AddObservation(creature.curHealth / creature.maxHealth);
-
-            //우리 타워에서 가장 가까운 적의 위치
-            sensor.AddObservation(creature.ourTowerManager.curTarget.position.x);
-            sensor.AddObservation(creature.ourTowerManager.curTarget.position.z);
+            if (creature.curTarget != null) 
+            {
+                sensor.AddObservation(creature.curTarget.position.x);
+                sensor.AddObservation(creature.curTarget.position.z);
+            }
         }
     }
     #endregion

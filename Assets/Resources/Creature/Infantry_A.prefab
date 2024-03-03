@@ -51,7 +51,7 @@ MonoBehaviour:
   m_RaysPerDirection: 4
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 0.5
-  m_RayLength: 3
+  m_RayLength: 4.2
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -85,7 +85,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1772102728242608382}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.63, z: 0}
+  m_LocalPosition: {x: 0, y: -5.49, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -174,6 +174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseTexture: {fileID: 2800000, guid: 0673901d7bb3e1a408ffd1754ad3e8cd, type: 3}
   skinnedMeshRenderer: {fileID: 4136840119831701257}
+  meshRenderer: {fileID: 0}
   maxHealth: 100
   curHealth: 0
   isAttack: 0
@@ -194,14 +195,14 @@ MonoBehaviour:
   rigid: {fileID: 5137104300073328733}
   anim: {fileID: 7388106785048407052}
   agent: {fileID: 1703850358029723869}
-  rewardValue: 0
   enemyCreatureFolder: {fileID: 0}
   behaviorParameters: {fileID: 8131292589408315668}
   gameManager: {fileID: 0}
   objectManager: {fileID: 0}
-  maxRange: 4.5
+  maxRange: 4.2
   curRange: 0
   curTarget: {fileID: 0}
+  DummyPoints: []
 --- !u!54 &5137104300073328733
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -267,7 +268,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
+  MaxStep: 5000
   creature: {fileID: 4120125501966113268}
   useBullet: {fileID: 1041126755279568644, guid: 372d9605c09874c40b09c0105492664c,
     type: 3}
@@ -285,7 +286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 10
+    VectorObservationSize: 8
     NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 0
