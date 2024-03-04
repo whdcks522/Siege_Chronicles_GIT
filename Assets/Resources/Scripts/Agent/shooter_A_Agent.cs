@@ -22,6 +22,9 @@ public class shooter_A_Agent : Agent
             //자동 실점
             AddReward(-0.001f);
 
+            if (actions.DiscreteActions[0] == 1 && actions.DiscreteActions[1] == 0)
+                AddReward(-0.0002f);
+
             switch (actions.DiscreteActions[0])
             {
                 case 0://왼쪽으로 회전
@@ -46,17 +49,13 @@ public class shooter_A_Agent : Agent
                 case 2://공격
                     if (creature.curRange <= creature.maxRange && gameObject.layer == LayerMask.NameToLayer("Creature"))
                     {
-                        //creature.aa();
-
-
                         //애니메이션 관리
                         creature.curCreatureSpinEnum = CreatureSpinEnum.None;
                         creature.curCreatureMoveEnum = CreatureMoveEnum.Idle;
                         creature.isAttack = true;//동시 입력 방지
 
-                        int r = UnityEngine.Random.Range(0, 2);
-                        if (r == 0) creature.anim.SetTrigger("isAttackLeft");
-                        else if (r == 1) creature.anim.SetTrigger("isAttackRight");
+                        transform.LookAt(creature.curTarget);
+                        creature.anim.SetTrigger("isGun");
                     }
                     break;
             }
@@ -65,7 +64,7 @@ public class shooter_A_Agent : Agent
         //Debug.Log("spin: " + actions.DiscreteActions[0] + "action: " + actions.DiscreteActions[1]);
     }
 
-
+    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\ppo\Infantry_A.yaml" --run-id=Custom_Shoter_1 --resum
 
     #region 휴리스틱: 키보드를 통해 에이전트를 조정
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -108,7 +107,7 @@ public class shooter_A_Agent : Agent
             sensor.AddObservation(transform.position.x);//state size = 1     x,y,z를 모두 받아오면 size가 3이 됨
             sensor.AddObservation(transform.position.z);
             //현재 자신의 가속
-            sensor.AddObservation(creature.rigid.velocity.x);//state size = 1
+            sensor.AddObservation(creature.rigid.velocity.x);
             sensor.AddObservation(creature.rigid.velocity.z);
             //현재 자신의 회전
             sensor.AddObservation(transform.rotation.y);
@@ -132,11 +131,9 @@ public class shooter_A_Agent : Agent
     [Header("사용하는 총알")]
     public Transform useBullet;
 
-    [Header("훈련용 더미")]
-    public GameObject[] trainDummies;
-
     public override void OnEpisodeBegin()
     {
+        Debug.Log("BB");
         creature.resetEnv();
     }
 }

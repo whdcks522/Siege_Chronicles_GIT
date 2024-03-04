@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using static ObjectManager;
 
 public class UIManager : MonoBehaviour
@@ -84,6 +85,18 @@ public class UIManager : MonoBehaviour
 
     //버튼으로 카메라 조작
     public void CameraSpin(int _spin) => addRot = _spin;
+
+    int speed = 1;
+    public Text SpeedControlText;
+    public void SpeedControl() 
+    {
+        speed++;
+        speed = (speed % 3);
+
+        Time.timeScale = (speed + 1);
+
+        SpeedControlText.text = "x" + (speed + 1);
+    }
 
     //[CreateAssetMenu(fileName = "SingleInfoData", menuName = "Scriptable Ojbect/SingleInfo")]
     //ScriptableObject//스크립타블 오브젝트 상속

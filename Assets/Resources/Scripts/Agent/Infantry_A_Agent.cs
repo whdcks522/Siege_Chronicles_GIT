@@ -204,8 +204,6 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
                 case 2://공격
                     if (creature.curRange <= creature.maxRange && gameObject.layer == LayerMask.NameToLayer("Creature"))
                     {
-                        //creature.aa();
-
 
                         //애니메이션 관리
                         creature.curCreatureSpinEnum = CreatureSpinEnum.None;
@@ -290,11 +288,10 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
     [Header("사용하는 총알")]
     public Transform useBullet;
 
-    [Header("훈련용 더미")]
-    public GameObject[] trainDummies;
-
     public override void OnEpisodeBegin() 
     {
-        creature.resetEnv();
+        Debug.Log("AA");
+        //creature.resetEnv();
+        //creature.Revive();
     }
 }

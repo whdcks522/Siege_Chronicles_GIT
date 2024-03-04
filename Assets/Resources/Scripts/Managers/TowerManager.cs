@@ -121,16 +121,20 @@ public class TowerManager : MonoBehaviour
         }
         else if (curHealth <= 0) //파괴 완료됨
         {
-            bulletAgent.AddReward(breakPoint);
+            //bulletAgent.AddReward(breakPoint);
 
             //시나리오 종료
-            bulletAgent.EndEpisode();
+            //bulletAgent.EndEpisode();
+
+
+            aiManager.MlCreature.resetEnv();
         }
 
     }
-
+    /*
     void Dead() 
     {
+        
         if (aiManager.isML)
         {
             //모두 초기화
@@ -143,8 +147,9 @@ public class TowerManager : MonoBehaviour
                 //aiManager.AiEnd(1);//파랑 득점
             }
         }
+        
     }
-
+*/
     public void TowerOn() //타워 활성화
     {
         curHealth = maxHealth;

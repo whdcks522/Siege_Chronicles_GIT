@@ -211,7 +211,6 @@ MonoBehaviour:
   MaxStep: 0
   creature: {fileID: 1287777390633518934}
   useBullet: {fileID: 4878814061148674, guid: 07347af5d2586d442b04017cc060878a, type: 3}
-  trainDummies: []
 --- !u!114 &3767533950753847470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,7 +224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 10
+    VectorObservationSize: 8
     NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 0

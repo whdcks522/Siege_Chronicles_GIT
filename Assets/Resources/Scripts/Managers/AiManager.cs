@@ -6,20 +6,25 @@ using UnityEngine;
 
 public class AiManager : MonoBehaviour
 {
-    [Header("머신러닝중인지 여부 확인")]
-    public bool isML;
+    //[Header("머신러닝중인지 여부 확인")]
+    //public bool isML;
 
     [Header("머신 러닝의 최대 시간")]
     public float maxStep;
     [Header("머신 러닝의 현재 시간")]
     public float curStep = 0f;
 
+    [Header("현재 학습중인 에이전트")]
+    public Creature MlCreature;
+
+    [Header("매니저")]
     public GameManager gameManager;
     ObjectManager objectManager;
 
     //그룹 번호 설정 필요(그냥 하면 unityagentsexception: onepisodebegin called recursively. this might happen if you call environmentstep() or endepisode() from custom code such as collectobservations() or onactionreceived().)
     //public SimpleMultiAgentGroup blueAgentGroup;
     //public SimpleMultiAgentGroup redAgentGroup;
+
 
     private void Awake()
     {
@@ -44,25 +49,25 @@ public class AiManager : MonoBehaviour
         }
     }
     */
-
+    /*
     private void FixedUpdate()
     {
-        /*
-        curStep += 1;
-
-        
-
-        if (curStep >= maxStep && maxStep > 0)//타임 오버
-        {
-            blueAgentGroup.AddGroupReward(-1f);
-            redAgentGroup.AddGroupReward(-1f);
+    
+    curStep += 1;
 
 
-            AiEnd(0);
-        }
-        */
+
+    if (curStep >= maxStep && maxStep > 0)//타임 오버
+    {
+        blueAgentGroup.AddGroupReward(-1f);
+        redAgentGroup.AddGroupReward(-1f);
+
+
+        AiEnd(0);
     }
 
+}
+*/
     /*
 
     #region 시간이 다되거나, 성이 파괴되면 초기화

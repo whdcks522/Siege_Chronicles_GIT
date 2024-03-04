@@ -58,22 +58,24 @@ public class Creature : MonoBehaviour
     public enum CreatureSpinEnum { LeftSpin, None, RightSpin }//머신러닝으로 취할수 있는 회전
     public CreatureSpinEnum curCreatureSpinEnum;
 
-    
+    public enum CreatureTypeEnum { Dummy, Infantry_A, Shooter_A }//머신러닝으로 취할수 있는 행동
+    public CreatureTypeEnum curCreatureTypeEnum;
+
     public enum TeamEnum { Gray, Blue, Red }//속하는 팀
     [Header("속하는 팀")]
     public TeamEnum curTeamEnum;
-
-    public enum CreatureTypeEnum { Dummy, Infantry_A, Shooter_A }//머신러닝으로 취할수 있는 행동
-    public CreatureTypeEnum curCreatureTypeEnum;
 
     public Rigidbody rigid;
     public Animator anim;
     public Agent agent;
 
-    [Header("상대팀이 들어있는 폴더")]
-    public Transform enemyCreatureFolder;
-    public BehaviorParameters behaviorParameters;
+    public Transform enemyCreatureFolder;//상대팀이 들어있는 폴더
+    public BehaviorParameters behaviorParameters;//디폴트에서도 조작이 되므로 방지하기 위함
 
+    [Header("머신러닝 중인지")]
+    public bool isML;
+
+    [Header("매니저")]
     public GameManager gameManager;
     public ObjectManager objectManager;
 
@@ -99,6 +101,7 @@ public class Creature : MonoBehaviour
 
     private void Awake()
     {
+        if (gameManager == null) Debug.LogError("게임매니저 없음");
         UIManager = gameManager.uiManager;
         objectManager = gameManager.objectManager;
         mainCamera = UIManager.cameraObj;
@@ -112,8 +115,6 @@ public class Creature : MonoBehaviour
 
             if (curTeamEnum == TeamEnum.Blue)//파랑 팀
             {
-                //팀 번호 설정
-                //behaviorParameters.TeamId = 0;
                 //아군 타워 설정
                 ourTower = gameManager.blueTower;
                 //적 타워 설정
@@ -122,8 +123,6 @@ public class Creature : MonoBehaviour
             }
             else if (curTeamEnum == TeamEnum.Red)//빨강 팀
             {
-                //팀 번호 설정
-                //behaviorParameters.TeamId = 1;
                 //아군 타워 설정
                 ourTower = gameManager.redTower;
                 //적 타워 설정
@@ -177,6 +176,7 @@ public class Creature : MonoBehaviour
         //체력 UI 관리
         miniCanvas.SetActive(true);
         miniHealth.fillAmount = 1;
+
         if (curTeamEnum == TeamEnum.Blue)
             miniHealth.color = Color.blue;
         else if (curTeamEnum == TeamEnum.Red)
@@ -304,7 +304,7 @@ public class Creature : MonoBehaviour
         miniHealth.fillAmount = curHealth / maxHealth;
 
         //충격 초기화
-        if (curHealth > 0 && !isAttack && curCreatureTypeEnum != CreatureTypeEnum.Dummy)//피격하고 살아 있으면서, 공격중이 아니라면
+        if (curHealth > 0 && !isAttack && curCreatureTypeEnum != CreatureTypeEnum.Dummy)//피격당하고 살아 있으면서, 공격중이 아니라면
         {
             anim.SetTrigger("isHit");
         }
@@ -429,36 +429,69 @@ public class Creature : MonoBehaviour
             }
         }
     }
+    #endregion
 
-    
-    #endregion 
-
+    #region 환경 초기화
     public Transform[] DummyPoints;
     public void resetEnv() 
     {
         //본인 부활
         Revive();
 
-        //더미 2개 위치 조정
-        int saveR = Random.Range(0, DummyPoints.Length);
-
-        int newR = Random.Range(0, DummyPoints.Length);
-        while (saveR == newR) 
-        {
-            newR = Random.Range(0, DummyPoints.Length);
-        }
-
-        for (int i = 0; i < enemyCreatureFolder.childCount; i++) 
-        {
-            enemyCreatureFolder.GetChild(i).GetComponent<Creature>().Revive();
-            if(i == 0)
-                enemyCreatureFolder.GetChild(i).transform.position = DummyPoints[saveR].position;
-            else if (i == 1)
-                enemyCreatureFolder.GetChild(i).transform.position = DummyPoints[newR].position;
-        }
         //포탑 체력 갱신
         enemyTowerManager.TowerOn();
+
+        //적 부활
+        foreach (Transform obj in enemyCreatureFolder)
+        {
+            Creature crt = obj.GetComponent<Creature>();
+            crt.Revive();
+        }
+
+        //DummyClear();
+
+        
     }
+
+    void DummyClear(int count) 
+    {
+        if (count == 1)
+        {
+            //더미 2개 위치 조정
+            int r = Random.Range(0, DummyPoints.Length);
+
+            //더미 부활
+            enemyCreatureFolder.GetChild(0).GetComponent<Creature>().Revive();
+
+            //더미 위치 조정
+            enemyCreatureFolder.GetChild(0).transform.position = DummyPoints[r].position;
+        }
+        else if (count == 2) 
+        {
+            //더미 2개 위치 조정
+            int saveR = Random.Range(0, DummyPoints.Length);
+
+            int newR = Random.Range(0, DummyPoints.Length);
+            while (saveR == newR)
+            {
+                newR = Random.Range(0, DummyPoints.Length);
+            }
+
+            for (int i = 0; i < enemyCreatureFolder.childCount; i++)
+            {
+                //더미 부활
+                enemyCreatureFolder.GetChild(i).GetComponent<Creature>().Revive();
+
+                //더미 위치 조정
+                if (i == 0)
+                    enemyCreatureFolder.GetChild(i).transform.position = DummyPoints[saveR].position;
+                else if (i == 1)
+                    enemyCreatureFolder.GetChild(i).transform.position = DummyPoints[newR].position;
+            }
+        }  
+    }
+    #endregion
+
 
     #region 왜곡장 
     public void InvisibleWarp() // 점차 안보이게 되는 것
