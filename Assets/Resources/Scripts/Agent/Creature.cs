@@ -234,6 +234,11 @@ public class Creature : MonoBehaviour
                     break;
                 case CreatureSpinEnum.None:
                     //회전 가속도 초기화
+                    moveVec = transform.rotation.eulerAngles;
+                    moveVec.x = 0;
+                    moveVec.z = 0;
+                    transform.localEulerAngles = moveVec;
+
                     rigid.angularVelocity = Vector3.zero;
                     break;
 
@@ -245,9 +250,7 @@ public class Creature : MonoBehaviour
                     transform.rotation = Quaternion.Euler(moveVec);
                     break;
             }
-            //moveVec.x = 0;
-            //moveVec.x = 0;
-            //transform.localEulerAngles = moveVec;
+            
         }
     }
     #endregion
@@ -375,28 +378,13 @@ public class Creature : MonoBehaviour
     [Header("가장 가까운 대상")]
     public Transform curTarget;
 
-    //[Header("대상을 보는 벡터")]
-    //public Vector3 lookVec;
-    //public Quaternion qq;
-
-    public void aa()
-    {
-        //대상을 보도록
-        //lookVec = transform.position - curTarget.position;
-        //lookVec.x = 0;
-        //lookVec.z = 0;
-
-        //qq = Quaternion.LookRotation(lookVec);
-        //transform.rotation = qq;
-    }
-    public void RangeCalculate()
+    public void EnemyFirstRangeCalc()//모든 적을 잡고 나서 공성
     {
         bool isLive = false;
         curRange = 9999;
 
         foreach (Transform obj in enemyCreatureFolder) 
         {
-            //Debug.Log(obj.name);
 
             if (obj.gameObject.layer == LayerMask.NameToLayer("Creature")) 
             {
@@ -418,6 +406,29 @@ public class Creature : MonoBehaviour
             curRange = (curTarget.position - transform.position).magnitude - 2;//타워의 두께 계산
         }
     }
+
+    public void TowerFirstRangeCalc()//가까운 적부터 사냥
+    {
+
+        curRange = (enemyTower.position - transform.position).magnitude - 2;//일단 적을 타워로 설정
+        curTarget = enemyTower;
+
+        foreach (Transform obj in enemyCreatureFolder)
+        {
+            if (obj.gameObject.layer == LayerMask.NameToLayer("Creature"))
+            {
+                //적과의 거리
+                float tmpRange = (obj.position - transform.position).magnitude;
+                if (tmpRange < curRange)
+                {
+                    curRange = tmpRange;
+                    curTarget = obj;
+                }
+            }
+        }
+    }
+
+    
     #endregion 
 
     public Transform[] DummyPoints;
@@ -443,13 +454,6 @@ public class Creature : MonoBehaviour
             else if (i == 1)
                 enemyCreatureFolder.GetChild(i).transform.position = DummyPoints[newR].position;
         }
-        //Dummies[0].Revive();
-        //Dummies[0].transform.position = Vector3.zero;
-
-        //Dummies[1].Revive();
-        //Dummies[1].transform.position = Vector3.zero;
-
-
         //포탑 체력 갱신
         enemyTowerManager.TowerOn();
     }

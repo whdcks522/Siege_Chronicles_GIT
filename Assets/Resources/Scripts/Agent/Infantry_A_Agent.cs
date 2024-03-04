@@ -33,8 +33,6 @@ public class Infantry_A_Agent : Agent
     //mlagents-learn --force
     //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\ppo\Infantry_A.yaml" --run-id=Custom_Infantry_4 --resum
 
-    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\poca\Custom_Infantry_B.yaml" --run-id=Custom_Infantry_I --resum
-
     //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\poca\SoccerTwos.yaml" --run-id=Custom_Soccer --resum
 
     //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\ppo\Basic.yaml" --run-id=Custom_Basic_AA --resum
@@ -164,17 +162,13 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
             //creature.curReward.text = creature.rewardValue.ToString("F1");
 
             //적과의 거리 계산
-            creature.RangeCalculate();
+            creature.EnemyFirstRangeCalc();
 
             //방향따라 점수 증가
             creature.GetMatchingVelocityReward();
 
-            
-
             //자동 실점
             AddReward(-0.001f);
-
-            
 
             switch (actions.DiscreteActions[0])
             {

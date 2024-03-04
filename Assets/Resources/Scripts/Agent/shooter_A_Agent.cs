@@ -20,7 +20,7 @@ public class shooter_A_Agent : Agent
             creature.GetMatchingVelocityReward();
 
             //적과의 거리 계산
-            creature.RangeCalculate();
+            creature.EnemyFirstRangeCalc();
 
 
 
