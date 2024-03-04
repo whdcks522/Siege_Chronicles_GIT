@@ -13,16 +13,14 @@ public class shooter_A_Agent : Agent
     {
         if (!creature.isAttack && gameObject.layer == LayerMask.NameToLayer("Creature"))
         {
-            //creature.rewardValue = GetCumulativeReward();
-            //creature.curReward.text = creature.rewardValue.ToString("F1");
+            //적과의 거리 계산
+            creature.EnemyFirstRangeCalc();
 
             //방향따라 점수 증가
             creature.GetMatchingVelocityReward();
 
-            //적과의 거리 계산
-            creature.EnemyFirstRangeCalc();
-
-
+            //자동 실점
+            AddReward(-0.001f);
 
             switch (actions.DiscreteActions[0])
             {
@@ -48,8 +46,8 @@ public class shooter_A_Agent : Agent
                 case 2://공격
                     if (creature.curRange <= creature.maxRange && gameObject.layer == LayerMask.NameToLayer("Creature"))
                     {
-                        //대상을 보도록
-                        transform.LookAt(creature.curTarget);
+                        //creature.aa();
+
 
                         //애니메이션 관리
                         creature.curCreatureSpinEnum = CreatureSpinEnum.None;
@@ -109,33 +107,22 @@ public class shooter_A_Agent : Agent
             //현재 자신의 위치
             sensor.AddObservation(transform.position.x);//state size = 1     x,y,z를 모두 받아오면 size가 3이 됨
             sensor.AddObservation(transform.position.z);
+            //현재 자신의 가속
+            sensor.AddObservation(creature.rigid.velocity.x);//state size = 1
+            sensor.AddObservation(creature.rigid.velocity.z);
             //현재 자신의 회전
             sensor.AddObservation(transform.rotation.y);
-            //현재 자신의 가속
-            //sensor.AddObservation(rigid.velocity.x);
-            //sensor.AddObservation(rigid.velocity.z);
-
-            //자기 타워의 정보
-            //sensor.AddObservation(creature.ourTower.position.x);
-            //sensor.AddObservation(creature.ourTower.position.z);
-            sensor.AddObservation(creature.ourTowerManager.curHealth / creature.ourTowerManager.maxHealth);
-
-            //상대 타워의 정보
-            //sensor.AddObservation(creature.enemyTower.position.x);
-            //sensor.AddObservation(creature.enemyTower.position.z);
-            sensor.AddObservation(creature.enemyTowerManager.curHealth / creature.enemyTowerManager.maxHealth);
 
             //적까지의 거리
-            sensor.AddObservation(creature.curRange / creature.maxRange);
+            if (creature.curRange != 0)
+                sensor.AddObservation(creature.maxRange / creature.curRange);
 
             //가까운 적의 위치
-            sensor.AddObservation(creature.curTarget.position.x);
-            sensor.AddObservation(creature.curTarget.position.z);
-            sensor.AddObservation(creature.curHealth / creature.maxHealth);
-
-            //우리 타워에서 가장 가까운 적의 위치
-            sensor.AddObservation(creature.ourTowerManager.curTarget.position.x);
-            sensor.AddObservation(creature.ourTowerManager.curTarget.position.z);
+            if (creature.curTarget != null)
+            {
+                sensor.AddObservation(creature.curTarget.position.x);
+                sensor.AddObservation(creature.curTarget.position.z);
+            }
         }
     }
     #endregion
@@ -145,26 +132,11 @@ public class shooter_A_Agent : Agent
     [Header("사용하는 총알")]
     public Transform useBullet;
 
+    [Header("훈련용 더미")]
+    public GameObject[] trainDummies;
 
-    #region 초록 투사체 생성
-    public void AgentAttack()
+    public override void OnEpisodeBegin()
     {
-        string bulletName = useBullet.name;
-
-        GameObject tracer = creature.objectManager.CreateObj(bulletName, ObjectManager.PoolTypes.BulletPool);
-        Bullet tracer_bullet = tracer.GetComponent<Bullet>();
-        Rigidbody tracer_rigid = tracer.GetComponent<Rigidbody>();
-
-        tracer_bullet.gameManager = creature.gameManager;
-        tracer_bullet.Init();
-
-
-        //이동
-        tracer.transform.position = creature.bulletStartPoint.position;
-        //회전
-        tracer_rigid.velocity = tracer_bullet.bulletSpeed * transform.forward;
-        //활성화
-        tracer_bullet.BulletOn(creature);
+        creature.resetEnv();
     }
-    #endregion
 }

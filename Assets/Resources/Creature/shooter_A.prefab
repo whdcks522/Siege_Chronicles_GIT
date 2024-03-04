@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5058680581963489764
+--- !u!1 &5270300199560675275
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,58 +8,57 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2151948963192839182}
-  - component: {fileID: 6010622076925348326}
+  - component: {fileID: 4295897047091350243}
+  - component: {fileID: 6630229451264194402}
   m_Layer: 0
-  m_Name: CreatureSensorObj
+  m_Name: MapSensorObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2151948963192839182
+--- !u!4 &4295897047091350243
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5058680581963489764}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.81, z: 0}
+  m_GameObject: {fileID: 5270300199560675275}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: -19.380005, y: -3.919983, z: 31.809998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8364354642521973303}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6010622076925348326
+--- !u!114 &6630229451264194402
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5058680581963489764}
+  m_GameObject: {fileID: 5270300199560675275}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SensorName: CreatureSensor
+  m_SensorName: MapSensor
   m_DetectableTags:
-  - Creature
-  - Tower
-  m_RaysPerDirection: 16
+  - Untagged
+  m_RaysPerDirection: 6
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 0.5
-  m_RayLength: 12
+  m_RayLength: 15
   m_RayLayerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 1
   m_ObservationStacks: 1
-  rayHitColor: {r: 1, g: 0, b: 0.039215688, a: 1}
-  rayMissColor: {r: 1, g: 0.56078434, b: 0.56078434, a: 1}
-  m_StartVerticalOffset: 0.8
-  m_EndVerticalOffset: 0
+  rayHitColor: {r: 0, g: 1, b: 0.32636452, a: 1}
+  rayMissColor: {r: 0.495283, g: 1, b: 0.60791653, a: 1}
+  m_StartVerticalOffset: 7.5
+  m_EndVerticalOffset: 0.4
 --- !u!1 &7076029219765752721
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,8 +95,8 @@ Transform:
   m_Children:
   - {fileID: 8575094905460303032}
   - {fileID: 2932549492997811211}
-  - {fileID: 7669159081089866036}
-  - {fileID: 2151948963192839182}
+  - {fileID: 4295897047091350243}
+  - {fileID: 1103550886707903296}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -115,6 +114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseTexture: {fileID: 2800000, guid: 61b7137a48b3f954694eefff0ef3f063, type: 3}
   skinnedMeshRenderer: {fileID: 3939695356885963170}
+  meshRenderer: {fileID: 0}
   maxHealth: 75
   curHealth: 0
   isAttack: 0
@@ -130,19 +130,19 @@ MonoBehaviour:
   runSpd: 4
   curCreatureMoveEnum: 0
   curCreatureSpinEnum: 1
-  curTeamEnum: 1
+  curTeamEnum: 2
   curCreatureTypeEnum: 2
   rigid: {fileID: 7707506176948445747}
   anim: {fileID: 1241195992810873}
-  agent: {fileID: 0}
-  rewardValue: 0
+  agent: {fileID: 4646125403814747638}
   enemyCreatureFolder: {fileID: 0}
-  behaviorParameters: {fileID: 0}
+  behaviorParameters: {fileID: 3767533950753847470}
   gameManager: {fileID: 0}
   objectManager: {fileID: 0}
-  maxRange: 0
+  maxRange: 12
   curRange: 0
   curTarget: {fileID: 0}
+  DummyPoints: []
 --- !u!54 &7707506176948445747
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -211,6 +211,7 @@ MonoBehaviour:
   MaxStep: 0
   creature: {fileID: 1287777390633518934}
   useBullet: {fileID: 4878814061148674, guid: 07347af5d2586d442b04017cc060878a, type: 3}
+  trainDummies: []
 --- !u!114 &3767533950753847470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,7 +256,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DecisionPeriod: 5
   TakeActionsBetweenDecisions: 1
---- !u!1 &8438308636380285038
+--- !u!1 &9117120190778300707
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -263,57 +264,58 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7669159081089866036}
-  - component: {fileID: 21880957294266690}
+  - component: {fileID: 1103550886707903296}
+  - component: {fileID: 838379195868216825}
   m_Layer: 0
-  m_Name: MapSensorObj
+  m_Name: CreatureSensorObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7669159081089866036
+--- !u!4 &1103550886707903296
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8438308636380285038}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.63, z: 0}
+  m_GameObject: {fileID: 9117120190778300707}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: -19.380005, y: 2.789978, z: 32.059998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8364354642521973303}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &21880957294266690
+--- !u!114 &838379195868216825
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8438308636380285038}
+  m_GameObject: {fileID: 9117120190778300707}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SensorName: MapSensor
+  m_SensorName: CreatureSensor
   m_DetectableTags:
-  - Untagged
-  m_RaysPerDirection: 6
+  - Creature
+  - Tower
+  m_RaysPerDirection: 4
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 0.5
-  m_RayLength: 15
+  m_RayLength: 40
   m_RayLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 64
   m_ObservationStacks: 1
-  rayHitColor: {r: 0, g: 1, b: 0.3254902, a: 1}
-  rayMissColor: {r: 0.49411765, g: 1, b: 0.60784316, a: 1}
-  m_StartVerticalOffset: 7.5
-  m_EndVerticalOffset: 0.4
+  rayHitColor: {r: 1, g: 0, b: 0.039559364, a: 1}
+  rayMissColor: {r: 1, g: 0.5613208, b: 0.5613208, a: 1}
+  m_StartVerticalOffset: 0
+  m_EndVerticalOffset: 5
 --- !u!1001 &2064450862395690151
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1206,4 +1208,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b183dfab6e79a14482c0ab57cc61f5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useBullet: {fileID: 0}
+  useBullet: {fileID: 4878814061148674, guid: 07347af5d2586d442b04017cc060878a, type: 3}

@@ -42,8 +42,6 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        
-
         //생명체 생성
         //GameObject a = objectManager.CreateObj("Infantry_A", PoolTypes.CreaturePool);
         //a.transform.position = redCameraTarget.position;
@@ -53,6 +51,7 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
+        //사이드 화살표 버튼 누르면 카메라 회전
         curRot += addRot * 2;
 
         //카메라 위치 관리(위에서 퍼진 정도)
@@ -61,7 +60,27 @@ public class UIManager : MonoBehaviour
 
         //카메라가 향하도록 관리
         cameraObj.LookAt((blueTower.position + redTower.position) / 2f);
+
+        //카메라 누르기
+        if(Input.GetMouseButton(0))
+            MapClick();
     }
+
+    #region 맵 클릭하기
+    [Header("클릭한 곳")]
+    public Transform clickPoint;
+    
+    void MapClick()
+    {
+        int layerMask = LayerMask.GetMask("Default"); // "Default" 레이어와 충돌하도록 설정
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask, QueryTriggerInteraction.Ignore))
+            // 트리거는 무시한다
+            clickPoint.position = hit.point;
+    }
+    #endregion
 
     //버튼으로 카메라 조작
     public void CameraSpin(int _spin) => addRot = _spin;

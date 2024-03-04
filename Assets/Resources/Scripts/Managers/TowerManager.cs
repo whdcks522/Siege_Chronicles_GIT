@@ -62,41 +62,20 @@ public class TowerManager : MonoBehaviour
 
     [Header("상대팀이 들어있는 폴더")]
     public Transform enemyCreatureFolder;
-    [Header("가장 가까운 적의 위치")]
-    public Transform curTarget;
-    [Header("가장 가까운 적과의 거리")]
-    public float curRange;
-
+    
     private void Update()
     {
-        //타워에서 가장 가까운 적 파악
-        curRange = (enemyTower.position - transform.position).magnitude - 2;//타워의 두께 계산
-        curTarget = enemyTower;
-
-        /*
-        for (int i = 0; i < enemyCreatureFolder.childCount; i++)
-        {
-            if (enemyCreatureFolder.GetChild(i).gameObject.layer == LayerMask.NameToLayer("Creature"))//활성화돼있다면
-            {
-                //적과의 거리
-                float tmpRange = (enemyCreatureFolder.GetChild(i).position - transform.position).magnitude;
-                if (curRange > tmpRange)
-                {
-                    curRange = tmpRange;
-                    curTarget = enemyCreatureFolder.GetChild(i);
-                }
-
-            }
-        }
-        */
-
         // 물체 A에서 B를 바라보는 회전 구하기
         cameraVec = cameraGround.transform.position - mainCamera.transform.position;
         lookRotation = Quaternion.LookRotation(cameraVec);
 
         // 물체 C에 회전 적용
         miniCanvas.transform.rotation = lookRotation;
+
+
     }
+
+    
 
     private void OnTriggerEnter(Collider other)
     {

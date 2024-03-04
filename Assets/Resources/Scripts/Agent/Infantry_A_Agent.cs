@@ -32,6 +32,16 @@ public class Infantry_A_Agent : Agent
 
     //mlagents-learn --force
     //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\ppo\Infantry_A.yaml" --run-id=Custom_Infantry_4 --resum
+    /*
+     사실상 한 4일 함
+[INFO] Infantry_A. Step: 38700000. Time Elapsed: 33071.935 s. Mean Reward: 34.769. Std of Reward: 0.363. Training.
+[INFO] Infantry_A. Step: 38710000. Time Elapsed: 33137.106 s. Mean Reward: 34.633. Std of Reward: 0.602. Training.
+[INFO] Infantry_A. Step: 38720000. Time Elapsed: 33214.059 s. Mean Reward: 34.722. Std of Reward: 0.539. Training.
+[INFO] Infantry_A. Step: 38730000. Time Elapsed: 33279.209 s. Mean Reward: 34.649. Std of Reward: 0.663. Training.
+[INFO] Infantry_A. Step: 38740000. Time Elapsed: 33355.994 s. Mean Reward: 34.722. Std of Reward: 0.389. Training.
+     
+     */
+
 
     //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\poca\SoccerTwos.yaml" --run-id=Custom_Soccer --resum
 
@@ -287,23 +297,4 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
     {
         creature.resetEnv();
     }
-
-    #region 주황색 참격 생성
-    public void AgentAttack()
-    {
-        string bulletName = useBullet.name;
-
-        GameObject slash = creature.objectManager.CreateObj(bulletName, ObjectManager.PoolTypes.BulletPool);
-        Bullet slash_bullet = slash.GetComponent<Bullet>();
-        
-        //이동
-        slash.transform.position = transform.position + transform.forward + UnityEngine.Vector3.up * 3;
-
-        //회전
-        slash.transform.rotation = UnityEngine.Quaternion.Euler(transform.rotation.eulerAngles.x + 90,
-            transform.rotation.eulerAngles.y - 180, transform.rotation.eulerAngles.z - 90);
-        //활성화
-        slash_bullet.BulletOn(creature);
-    }
-    #endregion
 }

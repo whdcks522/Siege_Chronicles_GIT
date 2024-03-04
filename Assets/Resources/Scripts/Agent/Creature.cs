@@ -58,7 +58,9 @@ public class Creature : MonoBehaviour
     public enum CreatureSpinEnum { LeftSpin, None, RightSpin }//머신러닝으로 취할수 있는 회전
     public CreatureSpinEnum curCreatureSpinEnum;
 
+    
     public enum TeamEnum { Gray, Blue, Red }//속하는 팀
+    [Header("속하는 팀")]
     public TeamEnum curTeamEnum;
 
     public enum CreatureTypeEnum { Dummy, Infantry_A, Shooter_A }//머신러닝으로 취할수 있는 행동
