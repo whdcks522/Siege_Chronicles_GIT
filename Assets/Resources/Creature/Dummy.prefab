@@ -59,7 +59,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9049945852878353282}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -15.152187, y: 4.270729, z: 24.941864}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -147,21 +147,38 @@ MonoBehaviour:
   miniHealth: {fileID: 8981889608559066756}
   curReward: {fileID: 3374404537897105317}
   runSpd: 0
+  curTeamEnum: 1
   curCreatureMoveEnum: 0
   curCreatureSpinEnum: 1
-  curTeamEnum: 0
   curCreatureTypeEnum: 0
   rigid: {fileID: 2351790408158171906}
   anim: {fileID: 0}
   agent: {fileID: 0}
   enemyCreatureFolder: {fileID: 0}
   behaviorParameters: {fileID: 0}
+  isML: 0
   gameManager: {fileID: 0}
   objectManager: {fileID: 0}
   maxRange: 4.5
   curRange: 0
   curTarget: {fileID: 0}
-  DummyPoints: []
+  DummyPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!65 &8819221637153733276
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -169,7 +186,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9049945852878353282}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 17bc4740615f0d94493eb42e8033cea6, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

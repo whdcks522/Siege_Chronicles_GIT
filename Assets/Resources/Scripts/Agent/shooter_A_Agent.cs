@@ -7,7 +7,7 @@ using Unity.MLAgents.Sensors;
 using UnityEngine;
 using static Creature;
 
-public class shooter_A_Agent : Agent
+public class Shooter_A_Agent : Agent
 {
     public override void OnActionReceived(ActionBuffers actions)//액션 기입(가능한 동작), 매 번 호출 
     {
@@ -133,7 +133,6 @@ public class shooter_A_Agent : Agent
 
     public override void OnEpisodeBegin()
     {
-        Debug.Log("BB");
         creature.resetEnv();
     }
 }

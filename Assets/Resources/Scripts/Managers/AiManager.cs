@@ -29,6 +29,7 @@ public class AiManager : MonoBehaviour
     private void Awake()
     {
         objectManager = gameManager.objectManager;
+        MlCreature.isML = true;
     }
 
     /*

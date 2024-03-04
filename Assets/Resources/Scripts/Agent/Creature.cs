@@ -15,10 +15,8 @@ public class Creature : MonoBehaviour
 {
     [Header("쉐이더에 쓰일 텍스쳐")]
     public Texture baseTexture;
-    [Header("쉐이더에 쓰일 스킨 렌더러")]
-    public SkinnedMeshRenderer skinnedMeshRenderer;
-    [Header("더미 쉐이더에 쓰일 스킨 렌더러")]
-    public MeshRenderer meshRenderer;
+    public SkinnedMeshRenderer skinnedMeshRenderer;//쉐이더에 쓰일 스킨 렌더러
+    public MeshRenderer meshRenderer;//더미에 쓰일 스킨 렌더러
 
     [Header("생명체의 최대 체력")]
     public float maxHealth;
@@ -41,8 +39,7 @@ public class Creature : MonoBehaviour
     [Header("총알이 시작되는 곳")]
     public Transform bulletStartPoint;
 
-    [Header("캐릭터 위의 미니 UI")]
-    public GameObject miniCanvas;
+    public GameObject miniCanvas;//캐릭터 위의 미니 UI
     public Image miniHealth;
     public Text curReward;
 
@@ -51,7 +48,9 @@ public class Creature : MonoBehaviour
     int rotSpd = 120;//회전 속도
 
     Vector3 moveVec;//이동용 벡터
-
+    public enum TeamEnum { Gray, Blue, Red }//속하는 팀
+    [Header("속하는 팀")]
+    public TeamEnum curTeamEnum;
     public enum CreatureMoveEnum { Idle, Run }//머신러닝으로 취할수 있는 행동
     public CreatureMoveEnum curCreatureMoveEnum;
 
@@ -61,9 +60,7 @@ public class Creature : MonoBehaviour
     public enum CreatureTypeEnum { Dummy, Infantry_A, Shooter_A }//머신러닝으로 취할수 있는 행동
     public CreatureTypeEnum curCreatureTypeEnum;
 
-    public enum TeamEnum { Gray, Blue, Red }//속하는 팀
-    [Header("속하는 팀")]
-    public TeamEnum curTeamEnum;
+    
 
     public Rigidbody rigid;
     public Animator anim;
@@ -72,7 +69,7 @@ public class Creature : MonoBehaviour
     public Transform enemyCreatureFolder;//상대팀이 들어있는 폴더
     public BehaviorParameters behaviorParameters;//디폴트에서도 조작이 되므로 방지하기 위함
 
-    [Header("머신러닝 중인지")]
+    [Header("머신러닝 중인지(AI 매니저에서 관리)")]
     public bool isML;
 
     [Header("매니저")]
@@ -101,7 +98,8 @@ public class Creature : MonoBehaviour
 
     private void Awake()
     {
-        if (gameManager == null) Debug.LogError("게임매니저 없음");
+        if (gameManager == null) 
+            Debug.LogError("게임매니저 없음");
         UIManager = gameManager.uiManager;
         objectManager = gameManager.objectManager;
         mainCamera = UIManager.cameraObj;
@@ -155,7 +153,7 @@ public class Creature : MonoBehaviour
     #region 생명체 활성화
     public void Revive()
     {
-        
+
         if (curCreatureTypeEnum != CreatureTypeEnum.Dummy)
         {
             //위치 초기화
@@ -163,10 +161,17 @@ public class Creature : MonoBehaviour
             //회전 초기화
             transform.LookAt(enemyTower.position);
         }
-            
+        else if (curCreatureTypeEnum == CreatureTypeEnum.Dummy) 
+        {
+            //더미 위치 초기화
+            int r = Random.Range(0, DummyPoints.Length);
 
-        //공격 대기 시간 초기화
-        isAttack = false;
+            transform.position = DummyPoints[r].position;
+        }
+
+
+            //공격 대기 시간 초기화
+            isAttack = false;
         //가속 초기화
         rigid.velocity = Vector3.zero;
         //체력 회복
@@ -283,6 +288,10 @@ public class Creature : MonoBehaviour
 
                 //공격자 점수 증가
                 bulletAgent.AddReward(damage / 10f);
+                //피격자 점수 감소
+                if(curCreatureTypeEnum != CreatureTypeEnum.Dummy)
+                    agent.AddReward(-damage / 100f);
+
                 //피해 관리
                 damageControl(damage);
 
@@ -316,6 +325,12 @@ public class Creature : MonoBehaviour
     #region 사망처리
     void AlmostDead()
     {
+        if (isML) 
+        {
+            agent.EndEpisode();
+            return;
+        }
+
         //피격당하지 않도록, 레이어 변경
         gameObject.layer = LayerMask.NameToLayer("WarpCreature");
 

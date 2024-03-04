@@ -15,7 +15,7 @@ public class ObjectManager : MonoBehaviour
     public Transform redCreatureFolder;
 
     //利 府胶飘
-    string[] creatureNames = { "Infantry_A", "Shooter_A" };
+    string[] creatureNames = { "Infantry_A", "Shoter_A" };
     //利 林家啊 历厘瞪 镑
     List<GameObject>[] creaturePools;
 

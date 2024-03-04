@@ -288,10 +288,8 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
     [Header("사용하는 총알")]
     public Transform useBullet;
 
-    public override void OnEpisodeBegin() 
+    public override void OnEpisodeBegin()//아무것도 안하면 처음 한 번만 실행됨
     {
-        Debug.Log("AA");
         //creature.resetEnv();
-        //creature.Revive();
     }
 }
