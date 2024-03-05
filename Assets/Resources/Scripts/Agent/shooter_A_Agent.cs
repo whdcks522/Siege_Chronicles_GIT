@@ -13,8 +13,8 @@ public class Shooter_A_Agent : Agent
     {
         if (!creature.isAttack && gameObject.layer == LayerMask.NameToLayer("Creature"))
         {
-            //적과의 거리 계산
-            creature.EnemyFirstRangeCalc();
+            //가까운 적부터 사냥
+            creature.RangeFirstRangeCalc();
 
             //방향따라 점수 증가
             creature.GetMatchingVelocityReward();
@@ -64,7 +64,7 @@ public class Shooter_A_Agent : Agent
         //Debug.Log("spin: " + actions.DiscreteActions[0] + "action: " + actions.DiscreteActions[1]);
     }
 
-    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\ppo\Siege_Creature.yaml" --run-id=Custom_Shoter_3 --resum
+    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\ppo\Siege_Creature.yaml" --run-id=Shooter_A4 --resum
 
     #region 휴리스틱: 키보드를 통해 에이전트를 조정
     public override void Heuristic(in ActionBuffers actionsOut)

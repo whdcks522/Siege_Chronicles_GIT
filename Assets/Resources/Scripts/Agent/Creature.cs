@@ -434,7 +434,7 @@ public class Creature : MonoBehaviour
         }
     }
 
-    public void TowerFirstRangeCalc()//가까운 적부터 사냥
+    public void RangeFirstRangeCalc()//가까운 적부터 사냥
     {
 
         curRange = (enemyTower.position - transform.position).magnitude - 2;//일단 적을 타워로 설정

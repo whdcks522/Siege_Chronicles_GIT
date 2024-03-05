@@ -110,10 +110,9 @@ public class Bullet : MonoBehaviour
         {
             //여러번 충돌 방지
             isAlreadyHit = true;
-            //Debug.LogError(gameObject.name + " 충돌 감점: " + other.gameObject.name);
 
             //감점
-            bulletHost.agent.AddReward(- bulletDamage / 100f);
+            bulletHost.agent.AddReward(- bulletDamage / 50f);
             if (curBulletMoveEnum != BulletMoveEnum.Slash)
             {
                 //총알 비활성화
