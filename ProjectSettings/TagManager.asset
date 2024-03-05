@@ -6,12 +6,15 @@ TagManager:
   tags:
   - Bullet
   - Creature
-  - Tower
+  - BlueTower
+  - RedTower
+  - BlueCreature
+  - RedCreature
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - MainMap
   - Water
   - UI
   - Creature

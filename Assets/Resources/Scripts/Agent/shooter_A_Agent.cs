@@ -64,7 +64,7 @@ public class Shooter_A_Agent : Agent
         //Debug.Log("spin: " + actions.DiscreteActions[0] + "action: " + actions.DiscreteActions[1]);
     }
 
-    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\ppo\Infantry_A.yaml" --run-id=Custom_Shoter_1 --resum
+    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\ppo\Siege_Creature.yaml" --run-id=Custom_Shoter_3 --resum
 
     #region 휴리스틱: 키보드를 통해 에이전트를 조정
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -103,6 +103,8 @@ public class Shooter_A_Agent : Agent
         //1. 수치형, 받아오는 데이터가 적을 수록 좋음
         if (gameObject.layer == LayerMask.NameToLayer("Creature")) //죽으면 필요 없자너
         {
+
+
             //현재 자신의 위치
             sensor.AddObservation(transform.position.x);//state size = 1     x,y,z를 모두 받아오면 size가 3이 됨
             sensor.AddObservation(transform.position.z);
@@ -122,9 +124,13 @@ public class Shooter_A_Agent : Agent
                 sensor.AddObservation(creature.curTarget.position.x);
                 sensor.AddObservation(creature.curTarget.position.z);
             }
+
+            
+            sensor.AddObservation(creature.teamIndex);
         }
     }
     #endregion
+
     [Header("크리쳐")]
     public Creature creature;
 
@@ -133,6 +139,7 @@ public class Shooter_A_Agent : Agent
 
     public override void OnEpisodeBegin()
     {
-        creature.resetEnv();
+        //creature.resetEnv();
+        creature.Revive();
     }
 }

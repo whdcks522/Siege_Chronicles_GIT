@@ -1055,7 +1055,7 @@ GameObject:
   - component: {fileID: 5203069691071841600}
   m_Layer: 6
   m_Name: MainTower
-  m_TagString: Tower
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1100,8 +1100,6 @@ MonoBehaviour:
   miniHealth: {fileID: 1353024281092045365}
   gameManager: {fileID: 0}
   enemyCreatureFolder: {fileID: 0}
-  curTarget: {fileID: 0}
-  curRange: 0
 --- !u!65 &5203069691071841600
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4365,7 +4363,7 @@ GameObject:
   - component: {fileID: 7856681755523183836}
   m_Layer: 2
   m_Name: TowerStartPoint
-  m_TagString: Tower
+  m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13192,7 +13190,7 @@ GameObject:
   - component: {fileID: 2419095544954099896}
   m_Layer: 2
   m_Name: P_Small_Tower_Room_01
-  m_TagString: Tower
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295

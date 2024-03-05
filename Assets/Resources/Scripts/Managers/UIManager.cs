@@ -73,7 +73,7 @@ public class UIManager : MonoBehaviour
     
     void MapClick()
     {
-        int layerMask = LayerMask.GetMask("Default"); // "Default" 레이어와 충돌하도록 설정
+        int layerMask = LayerMask.GetMask("MainMap"); // "Default" 레이어와 충돌하도록 설정
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 

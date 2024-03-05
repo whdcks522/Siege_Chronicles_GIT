@@ -105,13 +105,14 @@ public class TowerManager : MonoBehaviour
         float damage = bullet.bulletDamage;
 
         float attackPoint = damage / 10f;
-        
-        curHealth -= damage;
+        /*
+        //curHealth -= damage;
         if (curHealth < 0) curHealth = 0;
         else if (curHealth > maxHealth) curHealth = maxHealth;
 
         //UI관리
         miniHealth.fillAmount = curHealth / maxHealth;
+        */
 
         //충격 초기화
         if (curHealth > 0)//피격하고 살아 있음

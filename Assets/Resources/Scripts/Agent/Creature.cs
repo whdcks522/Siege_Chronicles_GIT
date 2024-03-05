@@ -48,9 +48,11 @@ public class Creature : MonoBehaviour
     int rotSpd = 120;//회전 속도
 
     Vector3 moveVec;//이동용 벡터
-    public enum TeamEnum { Gray, Blue, Red }//속하는 팀
+    public enum TeamEnum {Blue, Red, Gray}//속하는 팀
     [Header("속하는 팀")]
     public TeamEnum curTeamEnum;
+    public int teamIndex;
+
     public enum CreatureMoveEnum { Idle, Run }//머신러닝으로 취할수 있는 행동
     public CreatureMoveEnum curCreatureMoveEnum;
 
@@ -109,6 +111,7 @@ public class Creature : MonoBehaviour
         //텍스쳐 매터리얼 설정
         if (curCreatureTypeEnum != CreatureTypeEnum.Dummy)
         {
+            //매터리얼 변경
             skinnedMeshRenderer.material.SetTexture("_BaseTexture", baseTexture);
 
             if (curTeamEnum == TeamEnum.Blue)//파랑 팀
@@ -117,6 +120,8 @@ public class Creature : MonoBehaviour
                 ourTower = gameManager.blueTower;
                 //적 타워 설정
                 enemyTower = gameManager.redTower;
+                //태그 변경
+                gameObject.tag = "BlueCreature";
 
             }
             else if (curTeamEnum == TeamEnum.Red)//빨강 팀
@@ -125,7 +130,10 @@ public class Creature : MonoBehaviour
                 ourTower = gameManager.redTower;
                 //적 타워 설정
                 enemyTower = gameManager.blueTower;
+                //태그 변경
+                gameObject.tag = "RedCreature";
             }
+            teamIndex = (int)(curTeamEnum);
 
             ourTowerManager = ourTower.GetComponent<TowerManager>();
             enemyTowerManager = enemyTower.GetComponent<TowerManager>();
@@ -325,25 +333,27 @@ public class Creature : MonoBehaviour
     #region 사망처리
     void AlmostDead()
     {
-        if (isML) 
+        if (isML)
         {
+            //Debug.Log("사망");
             agent.EndEpisode();
-            return;
         }
+        else if (!isML)
+        {
+            //피격당하지 않도록, 레이어 변경
+            gameObject.layer = LayerMask.NameToLayer("WarpCreature");
 
-        //피격당하지 않도록, 레이어 변경
-        gameObject.layer = LayerMask.NameToLayer("WarpCreature");
+            //애니메이션 실행
+            if (curCreatureTypeEnum != CreatureTypeEnum.Dummy)
+                anim.SetTrigger("isDeath");
 
-        //애니메이션 실행
-        if (curCreatureTypeEnum != CreatureTypeEnum.Dummy)
-            anim.SetTrigger("isDeath");
+            //미니 UI 닫기
+            miniCanvas.SetActive(false);
 
-        //미니 UI 닫기
-        miniCanvas.SetActive(false);
-
-        //먼지 종료
-        //왜곡장
-        InvisibleWarp();
+            //먼지 종료
+            //왜곡장
+            InvisibleWarp();
+        }
     }
 
     //완전히 죽음
@@ -454,6 +464,7 @@ public class Creature : MonoBehaviour
         Revive();
 
         //포탑 체력 갱신
+        ourTowerManager.TowerOn();
         enemyTowerManager.TowerOn();
 
         //적 부활
