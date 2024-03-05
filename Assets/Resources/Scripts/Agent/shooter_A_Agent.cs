@@ -9,6 +9,15 @@ using static Creature;
 
 public class Shooter_A_Agent : Agent
 {
+    //레이가 적에게 맞았는지
+    RaycastHit hit;
+    bool isCast;
+
+    //투사체를 수평으로 발사하므로
+    Vector3 hitVec;
+    
+
+
     public override void OnActionReceived(ActionBuffers actions)//액션 기입(가능한 동작), 매 번 호출 
     {
         if (!creature.isAttack && gameObject.layer == LayerMask.NameToLayer("Creature"))
@@ -22,8 +31,30 @@ public class Shooter_A_Agent : Agent
             //자동 실점
             AddReward(-0.001f);
 
+            //가만히 서있다면 실점
             if (actions.DiscreteActions[0] == 1 && actions.DiscreteActions[1] == 0)
                 AddReward(-0.0002f);
+
+
+            int bulletLayerMask = LayerMask.GetMask("Creature", "MainMap", "Default");
+            hitVec = creature.goalVec;
+            hitVec.y = 0;
+            
+            if (Physics.SphereCast(transform.position + Vector3.up * 0.91f, 1, hitVec, out hit, creature.maxRange, bulletLayerMask))
+            {
+                // 충돌한 오브젝트의 Transform을 가져옴
+                if (creature.curTarget == hit.transform)
+                {
+                    isCast = true;
+                    //Debug.Log("겨냥 완료");
+                }
+                else
+                {
+                    isCast = false;
+                    //Debug.Log("실패 대상: " + hit.transform.name);
+                }
+                    
+            }
 
             switch (actions.DiscreteActions[0])
             {
@@ -47,7 +78,9 @@ public class Shooter_A_Agent : Agent
                     creature.curCreatureMoveEnum = CreatureMoveEnum.Run;
                     break;
                 case 2://공격
-                    if (creature.curRange <= creature.maxRange && gameObject.layer == LayerMask.NameToLayer("Creature"))
+                    if (creature.curRange <= creature.maxRange &&
+                        gameObject.layer == LayerMask.NameToLayer("Creature") &&
+                        isCast)
                     {
                         //애니메이션 관리
                         creature.curCreatureSpinEnum = CreatureSpinEnum.None;

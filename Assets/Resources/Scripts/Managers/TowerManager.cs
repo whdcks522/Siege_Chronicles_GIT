@@ -119,6 +119,7 @@ public class TowerManager : MonoBehaviour
         {
             //공격자 점수 증가
             bulletAgent.AddReward(attackPoint);
+            //Debug.Log("성 공격");
         }
         else if (curHealth <= 0) //파괴 완료됨
         {

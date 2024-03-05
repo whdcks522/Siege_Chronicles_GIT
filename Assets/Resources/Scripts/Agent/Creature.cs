@@ -365,7 +365,7 @@ public class Creature : MonoBehaviour
     #region 맞는 방향으로 가고 있는지
 
     //목표 방향 벡터
-    Vector3 goalVec;
+    public Vector3 goalVec;
     //이동하는 벡터
     Vector3 curVec;
 
