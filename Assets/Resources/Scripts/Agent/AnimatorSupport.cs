@@ -73,7 +73,8 @@ public class AnimatorSupport : MonoBehaviour
         //이동
         tracer.transform.position = creature.bulletStartPoint.position;
         //회전
-        tracer_rigid.velocity = tracer_bullet.bulletSpeed * transform.forward;
+        //tracer_rigid.velocity = tracer_bullet.bulletSpeed * transform.forward;
+        tracer_rigid.velocity = creature.goalVec * tracer_bullet.bulletSpeed;
         //활성화
         tracer_bullet.BulletOn(creature);
     }

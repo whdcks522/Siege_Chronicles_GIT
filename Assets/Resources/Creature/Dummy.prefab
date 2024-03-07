@@ -148,6 +148,7 @@ MonoBehaviour:
   curReward: {fileID: 3374404537897105317}
   runSpd: 0
   curTeamEnum: 1
+  teamIndex: 0
   curCreatureMoveEnum: 0
   curCreatureSpinEnum: 1
   curCreatureTypeEnum: 0
@@ -159,6 +160,7 @@ MonoBehaviour:
   isML: 0
   gameManager: {fileID: 0}
   objectManager: {fileID: 0}
+  goalVec: {x: 0, y: 0, z: 0}
   maxRange: 4.5
   curRange: 0
   curTarget: {fileID: 0}
@@ -198,8 +200,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 14.033869, z: 1}
-  m_Center: {x: 0, y: 6.5169344, z: 0}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &2351790408158171906
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -160,7 +160,7 @@ Transform:
   - {fileID: 2047878687032849823}
   - {fileID: 1103550886707903296}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1287777390633518934
 MonoBehaviour:
@@ -203,6 +203,7 @@ MonoBehaviour:
   isML: 1
   gameManager: {fileID: 0}
   objectManager: {fileID: 0}
+  goalVec: {x: 0, y: 0, z: 0}
   maxRange: 12
   curRange: 0
   curTarget: {fileID: 0}
@@ -265,7 +266,7 @@ MonoBehaviour:
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
   m_InferenceDevice: 2
-  m_BehaviorType: 1
+  m_BehaviorType: 0
   m_BehaviorName: Shooter_A
   TeamId: 0
   m_UseChildSensors: 1
@@ -332,9 +333,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 1.0319228
-  m_Height: 8.873853
+  m_Height: 3.0352297
   m_Direction: 1
-  m_Center: {x: 0.01999998, y: 4.636926, z: -0.26173806}
+  m_Center: {x: 0.01999998, y: 1.7176147, z: -0.26173806}
 --- !u!1 &9117120190778300707
 GameObject:
   m_ObjectHideFlags: 0

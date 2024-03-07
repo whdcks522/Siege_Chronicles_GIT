@@ -16,7 +16,8 @@ public class Shooter_A_Agent : Agent
     //투사체를 수평으로 발사하므로
     Vector3 hitVec;
     
-
+    public float radius = 1f;
+    public float high = 0.91f;
 
     public override void OnActionReceived(ActionBuffers actions)//액션 기입(가능한 동작), 매 번 호출 
     {
@@ -37,10 +38,12 @@ public class Shooter_A_Agent : Agent
 
 
             int bulletLayerMask = LayerMask.GetMask("Creature", "MainMap", "Default");
-            hitVec = creature.goalVec;
-            hitVec.y = 0;
+            //hitVec = creature.goalVec;
+            //hitVec.y = 0;
+
             
-            if (Physics.SphereCast(transform.position + Vector3.up * 0.91f, 1, hitVec, out hit, creature.maxRange, bulletLayerMask))
+            
+            if (Physics.SphereCast(transform.position + Vector3.back * 0.5f + Vector3.up * high, radius, creature.goalVec, out hit, creature.maxRange, bulletLayerMask))
             {
                 // 충돌한 오브젝트의 Transform을 가져옴
                 if (creature.curTarget == hit.transform)
