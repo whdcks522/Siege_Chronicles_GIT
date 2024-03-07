@@ -5,7 +5,6 @@ TagManager:
   serializedVersion: 2
   tags:
   - Bullet
-  - Creature
   - BlueTower
   - RedTower
   - BlueCreature

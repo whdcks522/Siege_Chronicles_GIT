@@ -168,17 +168,20 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
     {
         if (!creature.isAttack && gameObject.layer == LayerMask.NameToLayer("Creature")) 
         {
-            //creature.rewardValue =  GetCumulativeReward();
-            //creature.curReward.text = creature.rewardValue.ToString("F1");
-
-            //적과의 거리 계산
-            creature.EnemyFirstRangeCalc();
+            //가까운 적부터 사냥
+            creature.RangeFirstRangeCalc();
 
             //방향따라 점수 증가
             creature.GetMatchingVelocityReward();
 
             //자동 실점
             AddReward(-0.001f);
+
+            //가만히 서있다면 실점
+            if (actions.DiscreteActions[0] == 1 && actions.DiscreteActions[1] == 0)
+            {
+                AddReward(-0.001f);
+            }
 
             switch (actions.DiscreteActions[0])
             {
@@ -221,7 +224,7 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
         //Debug.Log("spin: " + actions.DiscreteActions[0] + "action: " + actions.DiscreteActions[1]);
     }
 
-    
+    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\ppo\Siege_Creature.yaml" --run-id=Infantry_A1 --resum
 
     #region 휴리스틱: 키보드를 통해 에이전트를 조정
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -264,21 +267,23 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
             sensor.AddObservation(transform.position.x);//state size = 1     x,y,z를 모두 받아오면 size가 3이 됨
             sensor.AddObservation(transform.position.z);
             //현재 자신의 가속
-            sensor.AddObservation(creature.rigid.velocity.x);//state size = 1
+            sensor.AddObservation(creature.rigid.velocity.x);
             sensor.AddObservation(creature.rigid.velocity.z);
             //현재 자신의 회전
             sensor.AddObservation(transform.rotation.y);
 
             //적까지의 거리
-            if(creature.curRange != 0)
+            if (creature.curRange != 0)
                 sensor.AddObservation(creature.maxRange / creature.curRange);
 
             //가까운 적의 위치
-            if (creature.curTarget != null) 
+            if (creature.curTarget != null)
             {
                 sensor.AddObservation(creature.curTarget.position.x);
                 sensor.AddObservation(creature.curTarget.position.z);
             }
+            //팀 번호
+            sensor.AddObservation(creature.teamIndex);
         }
     }
     #endregion
@@ -290,6 +295,6 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
 
     public override void OnEpisodeBegin()//아무것도 안하면 처음 한 번만 실행됨
     {
-        //creature.resetEnv();
+        creature.Revive();
     }
 }

@@ -13,11 +13,9 @@ public class Shooter_A_Agent : Agent
     RaycastHit hit;
     bool isCast;
 
-    //투사체를 수평으로 발사하므로
-    Vector3 hitVec;
     
-    public float radius = 1f;
-    public float high = 0.91f;
+    public float radius = 2f;
+    public float high = 2f;
 
     public override void OnActionReceived(ActionBuffers actions)//액션 기입(가능한 동작), 매 번 호출 
     {
@@ -38,23 +36,17 @@ public class Shooter_A_Agent : Agent
 
 
             int bulletLayerMask = LayerMask.GetMask("Creature", "MainMap", "Default");
-            //hitVec = creature.goalVec;
-            //hitVec.y = 0;
-
-            
-            
+        
             if (Physics.SphereCast(transform.position + Vector3.back * 0.5f + Vector3.up * high, radius, creature.goalVec, out hit, creature.maxRange, bulletLayerMask))
             {
                 // 충돌한 오브젝트의 Transform을 가져옴
                 if (creature.curTarget == hit.transform)
                 {
                     isCast = true;
-                    //Debug.Log("겨냥 완료");
                 }
                 else
                 {
                     isCast = false;
-                    //Debug.Log("실패 대상: " + hit.transform.name);
                 }
                     
             }
@@ -139,8 +131,6 @@ public class Shooter_A_Agent : Agent
         //1. 수치형, 받아오는 데이터가 적을 수록 좋음
         if (gameObject.layer == LayerMask.NameToLayer("Creature")) //죽으면 필요 없자너
         {
-
-
             //현재 자신의 위치
             sensor.AddObservation(transform.position.x);//state size = 1     x,y,z를 모두 받아오면 size가 3이 됨
             sensor.AddObservation(transform.position.z);
@@ -175,7 +165,6 @@ public class Shooter_A_Agent : Agent
 
     public override void OnEpisodeBegin()
     {
-        //creature.resetEnv();
         creature.Revive();
     }
 }

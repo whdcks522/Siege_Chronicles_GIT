@@ -129,14 +129,14 @@ GameObject:
   m_Component:
   - component: {fileID: 8364354642521973303}
   - component: {fileID: 4120125501966113268}
-  - component: {fileID: 5137104300073328733}
-  - component: {fileID: 6939640703433112824}
   - component: {fileID: 1703850358029723869}
   - component: {fileID: 8131292589408315668}
   - component: {fileID: 7583115054870655309}
+  - component: {fileID: 5137104300073328733}
+  - component: {fileID: 6939640703433112824}
   m_Layer: 7
   m_Name: Infantry_A
-  m_TagString: Creature
+  m_TagString: RedCreature
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -188,8 +188,8 @@ MonoBehaviour:
   miniHealth: {fileID: 8454607891872545176}
   curReward: {fileID: 2821103960876331193}
   runSpd: 6
-  curTeamEnum: 2
-  teamIndex: 0
+  curTeamEnum: 1
+  teamIndex: -1
   curCreatureMoveEnum: 0
   curCreatureSpinEnum: 1
   curCreatureTypeEnum: 1
@@ -198,7 +198,7 @@ MonoBehaviour:
   agent: {fileID: 1703850358029723869}
   enemyCreatureFolder: {fileID: 0}
   behaviorParameters: {fileID: 8131292589408315668}
-  isML: 0
+  isML: 1
   gameManager: {fileID: 0}
   objectManager: {fileID: 0}
   goalVec: {x: 0, y: 0, z: 0}
@@ -222,56 +222,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
---- !u!54 &5137104300073328733
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7076029219765752721}
-  serializedVersion: 4
-  m_Mass: 0.5
-  m_Drag: 0
-  m_AngularDrag: 0.5
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 80
-  m_CollisionDetection: 0
---- !u!136 &6939640703433112824
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7076029219765752721}
-  m_Material: {fileID: 13400000, guid: 17bc4740615f0d94493eb42e8033cea6, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1.0319228
-  m_Height: 3.129936
-  m_Direction: 1
-  m_Center: {x: 0.01999998, y: 1.7649678, z: -0.26173806}
 --- !u!114 &1703850358029723869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,6 +285,56 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DecisionPeriod: 5
   TakeActionsBetweenDecisions: 1
+--- !u!54 &5137104300073328733
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7076029219765752721}
+  serializedVersion: 4
+  m_Mass: 0.5
+  m_Drag: 0
+  m_AngularDrag: 0.5
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0
+--- !u!136 &6939640703433112824
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7076029219765752721}
+  m_Material: {fileID: 13400000, guid: 17bc4740615f0d94493eb42e8033cea6, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.0319228
+  m_Height: 3.129936
+  m_Direction: 1
+  m_Center: {x: 0.01999998, y: 1.7649678, z: -0.26173806}
 --- !u!1001 &6146570189726468658
 PrefabInstance:
   m_ObjectHideFlags: 0
