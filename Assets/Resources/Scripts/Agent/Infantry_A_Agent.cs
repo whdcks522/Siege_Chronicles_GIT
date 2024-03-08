@@ -213,6 +213,8 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
                         creature.curCreatureMoveEnum = CreatureMoveEnum.Idle;
                         creature.isAttack = true;//동시 입력 방지
 
+                        transform.LookAt(creature.curTarget);
+
                         int r = UnityEngine.Random.Range(0, 2);
                         if (r == 0) creature.anim.SetTrigger("isAttackLeft");
                         else if (r == 1) creature.anim.SetTrigger("isAttackRight");
