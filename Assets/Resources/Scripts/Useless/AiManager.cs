@@ -14,9 +14,6 @@ public class AiManager : MonoBehaviour
     [Header("머신 러닝의 현재 시간")]
     public float curStep = 0f;
 
-    [Header("현재 학습중인 에이전트")]
-    public Creature MlCreature;
-
     [Header("매니저")]
     public GameManager gameManager;
     ObjectManager objectManager;
@@ -29,7 +26,6 @@ public class AiManager : MonoBehaviour
     private void Awake()
     {
         objectManager = gameManager.objectManager;
-        MlCreature.isML = true;
     }
 
     /*

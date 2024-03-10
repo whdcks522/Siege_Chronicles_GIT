@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1186752452136346}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4944,11 +4944,12 @@ MonoBehaviour:
   bulletSpeed: 0
   bulletCollider: {fileID: 0}
   bulletHost: {fileID: 0}
-  curTeamEnum: 0
+  curTeamEnum: 2
   curBulletMoveEnum: 0
-  endStr: 
+  endBullet: {fileID: 0}
   gameManager: {fileID: 0}
   objectManager: {fileID: 0}
+  isCreature: 1
 --- !u!136 &4066962489564113658
 CapsuleCollider:
   m_ObjectHideFlags: 0

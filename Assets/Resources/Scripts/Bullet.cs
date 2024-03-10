@@ -22,9 +22,10 @@ public class Bullet : MonoBehaviour
     [Header("총알 주인이 속한 팀")]
     public Creature.TeamEnum curTeamEnum;
 
+
     public enum BulletMoveEnum
     {
-       Slash, Tracer, Canon
+        Slash, Tracer, Canon
     }
     [Header("총알의 이동 방식")]
     public BulletMoveEnum curBulletMoveEnum;
@@ -38,12 +39,15 @@ public class Bullet : MonoBehaviour
 
     bool isAlreadyHit = false;
 
+    [Header("크리쳐의 총알인지")]
+    public bool isCreature;
+
     private void Awake()
     {
         rigid = GetComponent<Rigidbody>();
-        
+
         bulletCollider = GetComponent<Collider>();
-        
+
     }
 
     public void Init()//최초 설정
@@ -58,18 +62,37 @@ public class Bullet : MonoBehaviour
         {
             BulletOff();
         }
-        else if(curTime >= colTime && curBulletMoveEnum == BulletMoveEnum.Slash)
+        else if (curTime >= colTime && curBulletMoveEnum == BulletMoveEnum.Slash)
         {
             bulletCollider.enabled = false;
+        }
+
+        if (curBulletMoveEnum != BulletMoveEnum.Slash)
+        {
+            Debug.Log(transform.position);
         }
     }
 
     #region 총알 활성
-    public void BulletOn(Creature _creature)
+    public void BulletOnByCreature(Creature _creature)
     {
-        //주인 설정
+        //주인과 팀 설정
         bulletHost = _creature;
         curTeamEnum = _creature.curTeamEnum;
+
+        BulletOn();
+    }
+
+    public void BulletOnByTower(Creature.TeamEnum teamEnum)//
+    {
+        //팀 설정
+        curTeamEnum = teamEnum;
+
+        BulletOn();
+    }
+
+    public void BulletOn()
+    {
         //시간 동기화
         curTime = 0f;
         //이미 충돌했는지 확인 값 초기화
@@ -86,8 +109,13 @@ public class Bullet : MonoBehaviour
     {
         //총알 비활성화
         gameObject.SetActive(false);
-        
-        if (curBulletMoveEnum != BulletMoveEnum.Slash) 
+
+        EndBulletOn();
+    }
+
+    public void EndBulletOn()
+    {
+        if (endBullet != null)
         {
             //파괴 총알 활성
             string bulletName = endBullet.name;
@@ -97,9 +125,10 @@ public class Bullet : MonoBehaviour
             //이동
             bomb.transform.position = transform.position;
             //활성화
-            bomb_bullet.BulletOn(bulletHost);
-            
-
+            if (isCreature)
+                bomb_bullet.BulletOnByCreature(bulletHost);
+            else if (!isCreature)
+                bomb_bullet.BulletOnByTower(curTeamEnum);
         }
     }
     #endregion
@@ -108,16 +137,18 @@ public class Bullet : MonoBehaviour
     {
         if (other.transform.CompareTag("Untagged") && !isAlreadyHit) //맵과 충돌하면 감점
         {
+            //Debug.Log("충돌");
             //여러번 충돌 방지
-            isAlreadyHit = true;
+            //isAlreadyHit = true;
 
-            //감점
-            bulletHost.agent.AddReward(- bulletDamage / 50f);
+            EndBulletOn();
+
             if (curBulletMoveEnum != BulletMoveEnum.Slash)
             {
                 //총알 비활성화
-                BulletOff();
+                //BulletOff();
             }
+            
         }
     }
 }

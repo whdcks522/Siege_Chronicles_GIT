@@ -71,16 +71,14 @@ public class Creature : MonoBehaviour
     public Transform enemyCreatureFolder;//상대팀이 들어있는 폴더
     public BehaviorParameters behaviorParameters;//디폴트에서도 조작이 되므로 방지하기 위함
 
-    [Header("머신러닝 중인지(AI 매니저에서 관리)")]
-    public bool isML;
-
     [Header("매니저")]
     public GameManager gameManager;
     public ObjectManager objectManager;
 
-    UIManager UIManager;
-    Transform cameraGround;
-    Transform mainCamera;
+    UIManager UIManager;//
+    Transform cameraGround;//카메라가 관찰하는 곳
+    
+    Transform mainCamera;//메인 카메라 객체
     //--------
 
 
@@ -172,9 +170,9 @@ public class Creature : MonoBehaviour
         else if (curCreatureTypeEnum == CreatureTypeEnum.Dummy) 
         {
             //더미 위치 초기화
-            int r = Random.Range(0, DummyPoints.Length);
+            //int r = Random.Range(0, DummyPoints.Length);
 
-            transform.position = DummyPoints[r].position;
+            //transform.position = DummyPoints[r].position;
         }
 
 
@@ -291,14 +289,17 @@ public class Creature : MonoBehaviour
             if (bullet.curTeamEnum != curTeamEnum)//팀이 다를 경우
             {
                 //피해량 확인
-                Agent bulletAgent = bullet.bulletHost.agent;
                 float damage = bullet.bulletDamage;
 
-                //공격자 점수 증가
-                bulletAgent.AddReward(damage / 10f);
-                //피격자 점수 감소
-                if(curCreatureTypeEnum != CreatureTypeEnum.Dummy)
-                    agent.AddReward(-damage / 100f);
+                if (bullet.isCreature) 
+                {
+                    Agent bulletAgent = bullet.bulletHost.agent;
+                    //공격자 점수 증가
+                    bulletAgent.AddReward(damage / 10f);
+                    //피격자 점수 감소
+                    if (curCreatureTypeEnum != CreatureTypeEnum.Dummy)
+                        agent.AddReward(-damage / 100f);
+                }
 
                 //피해 관리
                 damageControl(damage);
@@ -333,12 +334,12 @@ public class Creature : MonoBehaviour
     #region 사망처리
     void AlmostDead()
     {
-        if (isML)
+        if (gameManager.isML)
         {
             //Debug.Log("사망");
             agent.EndEpisode();
         }
-        else if (!isML)
+        else if (!gameManager.isML)
         {
             //피격당하지 않도록, 레이어 변경
             gameObject.layer = LayerMask.NameToLayer("WarpCreature");
@@ -350,7 +351,6 @@ public class Creature : MonoBehaviour
             //미니 UI 닫기
             miniCanvas.SetActive(false);
 
-            //먼지 종료
             //왜곡장
             InvisibleWarp();
         }
@@ -358,8 +358,6 @@ public class Creature : MonoBehaviour
 
     //완전히 죽음
     public void CompletelyDead() => gameObject.SetActive(false);
-
-
     #endregion
 
     #region 맞는 방향으로 가고 있는지
@@ -369,31 +367,27 @@ public class Creature : MonoBehaviour
     //이동하는 벡터
     Vector3 curVec;
 
-    public void GetMatchingVelocityReward()
+    public float GetMatchingVelocityReward()
     {
+        float tmpReward = 0;
         //목표 방향 벡터
         goalVec = (curTarget.transform.position - transform.position).normalized;
         //현재값 서있는 벡터
         curVec = rigid.velocity.normalized;
-
 
         // 두 벡터 사이의 각도 계산 (라디안 단위)
         float angle = Vector3.Angle(goalVec, curVec);
         // 코사인 유사도 계산 (-1부터 1까지의 값)
         float cosineSimilarity = Mathf.Cos(angle * Mathf.Deg2Rad);
 
-
-
-
         if (curCreatureMoveEnum != CreatureMoveEnum.Idle)//서있다면 0을 반환
         {
-            float tmpReward = (cosineSimilarity + 1f) / 2f;  //0f ~ 1f
+            tmpReward = (cosineSimilarity + 1f) / 2f;  //0f ~ 1f
             tmpReward -= 0.5f;                         //-0.5f ~ 0.5f
 
             //Debug.Log(tmpReward);
-
-            agent.AddReward(tmpReward / 1000f);
         }
+        return tmpReward;
     }
     #endregion
 
@@ -456,6 +450,7 @@ public class Creature : MonoBehaviour
     }
     #endregion
 
+    /*
     #region 환경 초기화
     public Transform[] DummyPoints;
     public void resetEnv() 
@@ -475,8 +470,6 @@ public class Creature : MonoBehaviour
         }
 
         //DummyClear();
-
-        
     }
 
     void DummyClear(int count) 
@@ -517,6 +510,7 @@ public class Creature : MonoBehaviour
         }  
     }
     #endregion
+    */
 
 
     #region 왜곡장 

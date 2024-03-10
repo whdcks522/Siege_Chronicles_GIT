@@ -171,16 +171,15 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
             //가까운 적부터 사냥
             creature.RangeFirstRangeCalc();
 
-            //방향따라 점수 증가
-            creature.GetMatchingVelocityReward();
-
             //자동 실점
-            AddReward(-0.001f);
+            AddReward(-0.002f);
 
+            //방향따라 점수 증가
+            AddReward(creature.GetMatchingVelocityReward()/300f);
             //가만히 서있다면 실점
             if (actions.DiscreteActions[0] == 1 && actions.DiscreteActions[1] == 0)
             {
-                AddReward(-0.001f);
+                AddReward(-0.005f);
             }
 
             switch (actions.DiscreteActions[0])
@@ -215,9 +214,9 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
 
                         transform.LookAt(creature.curTarget);
 
-                        int r = UnityEngine.Random.Range(0, 2);
-                        if (r == 0) creature.anim.SetTrigger("isAttackLeft");
-                        else if (r == 1) creature.anim.SetTrigger("isAttackRight");
+                        slashCount = (slashCount+ 1) % 2;
+                        if (slashCount == 0) creature.anim.SetTrigger("isAttackLeft");
+                        else if (slashCount == 1) creature.anim.SetTrigger("isAttackRight");
                     }
                     break;
             }
@@ -225,6 +224,9 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
 
         //Debug.Log("spin: " + actions.DiscreteActions[0] + "action: " + actions.DiscreteActions[1]);
     }
+
+    //공격(액션)할 때 왼손, 오른손 번갈아가며 공격용
+    int slashCount = 0;
 
     //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\ppo\Siege_Creature.yaml" --run-id=Infantry_A2 --resum
 
@@ -302,8 +304,8 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
 
 
 
-    #region 주황색 참격 생성(shooter_A_Agent)
-    public override void AgentAction_1()//상속한 공격 1
+    #region 주황색 참격 생성, 상속한 액션 1
+    public override void AgentAction_1()
     {
         string bulletName = useBullet.name;
 
@@ -318,7 +320,7 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
             transform.rotation.eulerAngles.y - 180, transform.rotation.eulerAngles.z - 90);
 
         //활성화
-        slash_bullet.BulletOn(creature);
+        slash_bullet.BulletOnByCreature(creature);
     }
     #endregion
 }

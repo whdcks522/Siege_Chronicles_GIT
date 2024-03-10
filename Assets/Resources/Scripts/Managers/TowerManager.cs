@@ -4,6 +4,7 @@ using Unity.MLAgents;
 using UnityEngine;
 using UnityEngine.UI;
 using static Creature;
+using static Unity.Barracuda.BurstCPUOps;
 
 public class TowerManager : MonoBehaviour
 {
@@ -28,17 +29,16 @@ public class TowerManager : MonoBehaviour
 
     [Header("매니저")]
     public GameManager gameManager;
+    ObjectManager objectManager;
     UIManager UIManager;
     Transform cameraGround;
     Transform mainCamera;
-    AiManager aiManager;
     private void Awake()
     {
+        objectManager = gameManager.objectManager;
         UIManager = gameManager.uiManager;
         mainCamera = UIManager.cameraObj;
         cameraGround = UIManager.cameraGround;
-        aiManager = gameManager.aiManager;
-
 
         if (curTeamEnum == TeamEnum.Blue)
         {
@@ -62,7 +62,7 @@ public class TowerManager : MonoBehaviour
 
     [Header("상대팀이 들어있는 폴더")]
     public Transform enemyCreatureFolder;
-    
+
     private void Update()
     {
         // 물체 A에서 B를 바라보는 회전 구하기
@@ -72,16 +72,16 @@ public class TowerManager : MonoBehaviour
         // 물체 C에 회전 적용
         miniCanvas.transform.rotation = lookRotation;
 
-
+        curTime += Time.deltaTime;
     }
 
-    
+
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Bullet"))//총알과 충돌
         {
-            
+
             Bullet bullet = other.gameObject.GetComponent<Bullet>();
 
             if (bullet.curTeamEnum != curTeamEnum)//팀이 다를 경우만 피해 처리
@@ -97,64 +97,86 @@ public class TowerManager : MonoBehaviour
     }
 
 
-    float breakPoint = 20f;
+    #region 데미지 계산
     void damageControl(Bullet bullet)
     {
         //피해량 확인
         Agent bulletAgent = bullet.bulletHost.agent;
         float damage = bullet.bulletDamage;
 
-        float attackPoint = damage / 10f;
-        /*
-        //curHealth -= damage;
-        if (curHealth < 0) curHealth = 0;
-        else if (curHealth > maxHealth) curHealth = maxHealth;
+        float damagePoint = damage / 8f;
 
-        //UI관리
-        miniHealth.fillAmount = curHealth / maxHealth;
-        */
+        if (!gameManager.isML)
+        {
+            curHealth -= damage;
+
+            if (curHealth < 0) curHealth = 0;
+            else if (curHealth > maxHealth) curHealth = maxHealth;
+
+            //UI관리
+            miniHealth.fillAmount = curHealth / maxHealth;
+        }
+
 
         //충격 초기화
-        if (curHealth > 0)//피격하고 살아 있음
+        if (curHealth > 0)//타워가 피격하고 살아 있음
         {
             //공격자 점수 증가
-            bulletAgent.AddReward(attackPoint);
-            //Debug.Log("성 공격");
+            bulletAgent.AddReward(damagePoint);
         }
-        else if (curHealth <= 0) //파괴 완료됨
+        else if (curHealth <= 0) //게임 종료
         {
-            //bulletAgent.AddReward(breakPoint);
 
-            //시나리오 종료
-            //bulletAgent.EndEpisode();
-
-
-            aiManager.MlCreature.resetEnv();
         }
-
     }
-    /*
-    void Dead() 
+    #endregion
+
+    #region 대포 조절
+
+    public float maxTime = 0.3f;
+    public float curTime = 0;
+
+    public void RadarControl(Transform targetPos, bool isDirect)
     {
-        
-        if (aiManager.isML)
+        //반사체 회전
+        if (isDirect) 
         {
-            //모두 초기화
-            if (curTeamEnum == TeamEnum.Blue)//파랑 타워가 죽음
-            {
-                //aiManager.AiEnd(-1);//빨강 득점
-            }
-            if (curTeamEnum == TeamEnum.Red)//빨강 타워가 죽음
-            {
-                //aiManager.AiEnd(1);//파랑 득점
-            }
+            
+            bulletStartPoint.transform.LookAt(targetPos);
         }
-        
+        else if (!isDirect)
+        {
+            //반사체 회전
+            bulletStartPoint.transform.LookAt(targetPos);
+            bulletStartPoint.transform.rotation = Quaternion.Euler(-61.503f, bulletStartPoint.transform.rotation.eulerAngles.y, 180);
+        }
+
+        if(curTime >= maxTime) 
+        {
+            curTime = 0;
+
+            string bulletName = "Tower_Gun";
+
+            GameObject bullet = objectManager.CreateObj(bulletName, ObjectManager.PoolTypes.BulletPool);
+            Bullet bullet_bullet = bullet.GetComponent<Bullet>();
+            Rigidbody bullet_rigid = bullet.GetComponent<Rigidbody>();
+
+            bullet_bullet.gameManager = gameManager;
+            bullet_bullet.Init();
+
+
+            //이동
+            bullet.transform.position = bulletStartPoint.position;
+            //가속
+            bullet_rigid.velocity = (targetPos.position - bulletStartPoint.position).normalized * bullet_bullet.bulletSpeed;
+            //회전
+            Quaternion targetRotation = Quaternion.LookRotation(bullet_rigid.velocity);
+            bullet.transform.rotation = targetRotation;
+
+            //활성화
+            bullet_bullet.BulletOnByTower(curTeamEnum);
+
+        }
     }
-*/
-    public void TowerOn() //타워 활성화
-    {
-        curHealth = maxHealth;
-        miniHealth.fillAmount = 1;
-    }
+    #endregion
 }

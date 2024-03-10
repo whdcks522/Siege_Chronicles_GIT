@@ -16,16 +16,7 @@ public class GameManager : MonoBehaviour
     public ObjectManager objectManager;
     public UIManager uiManager;
     public AudioManager audioManager;
-    public AiManager aiManager;
-    
 
-    #region 머신 러닝 환경 초기화
-    public void ClearEnv()
-    {
-        
-    }
-    #endregion
-
-
-
+    [Header("머신러닝중인지")]
+    public bool isML;
 }

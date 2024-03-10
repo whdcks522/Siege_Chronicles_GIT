@@ -14,11 +14,10 @@ public class UIManager : MonoBehaviour
     [Header("카메라가 바라보는 지점")]
     public Transform cameraGround;
 
+    Transform blueTower;//파란 성의 생성 지점
+    TowerManager blueTowerManager;//파란 성의 스크립트
 
-    //[Header("파란 성의 생성 지점")]
-    Transform blueTower;
-    //[Header("빨간 성의 생성 지점")]
-    Transform redTower;
+    Transform redTower;//빨간 성의 생성 지점
 
     int mul = 45;//카메라 회전 속도
     int curRot = -160;//현재 회전값
@@ -34,6 +33,7 @@ public class UIManager : MonoBehaviour
     {
         objectManager = gameManager.objectManager;
         blueTower = gameManager.blueTower;
+        blueTowerManager = blueTower.GetComponent<TowerManager>();  
         redTower = gameManager.redTower;
 
         //시작 할 때, 카메라 위치 고정
@@ -74,12 +74,15 @@ public class UIManager : MonoBehaviour
     void MapClick()
     {
         int layerMask = LayerMask.GetMask("MainMap"); // "Default" 레이어와 충돌하도록 설정
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask, QueryTriggerInteraction.Ignore))
             // 트리거는 무시한다
             clickPoint.position = hit.point;
+
+        blueTowerManager.RadarControl(clickPoint, true);
     }
     #endregion
 

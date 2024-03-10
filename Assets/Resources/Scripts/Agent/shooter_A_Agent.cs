@@ -7,14 +7,16 @@ using Unity.MLAgents.Sensors;
 using UnityEngine;
 using static Creature;
 
-public class Shooter_A_Agent : Agent
+public class Shooter_A_Agent : SuperAgent
 {
     //레이가 적에게 맞았는지
     RaycastHit hit;
+    //레이가 맞았는지 저장
     bool isCast;
 
-    
+    //적과의 직선 경로가 막혔는지 확인하는 구체의 반지름
     public float radius = 2f;
+    //적과의 직선 경로가 막혔는지 확인하는 구체를 이동시키는 거리
     public float high = 2f;
 
     public override void OnActionReceived(ActionBuffers actions)//액션 기입(가능한 동작), 매 번 호출 
@@ -25,7 +27,7 @@ public class Shooter_A_Agent : Agent
             creature.RangeFirstRangeCalc();
 
             //방향따라 점수 증가
-            creature.GetMatchingVelocityReward();
+            AddReward(creature.GetMatchingVelocityReward() / 1000f);
 
             //자동 실점
             AddReward(-0.001f);
@@ -34,7 +36,7 @@ public class Shooter_A_Agent : Agent
             if (actions.DiscreteActions[0] == 1 && actions.DiscreteActions[1] == 0)
                 AddReward(-0.0002f);
 
-
+            //레이어 인덱스
             int bulletLayerMask = LayerMask.GetMask("Creature", "MainMap", "Default");
         
             if (Physics.SphereCast(transform.position + Vector3.back * 0.5f + Vector3.up * high, radius, creature.goalVec, out hit, creature.maxRange, bulletLayerMask))
@@ -167,4 +169,27 @@ public class Shooter_A_Agent : Agent
     {
         creature.Revive();
     }
+
+    #region 초록 투사체 생성, 상속한 액션 1
+    public override void AgentAction_1()
+    {
+        string bulletName = useBullet.name;
+
+        GameObject tracer = creature.objectManager.CreateObj(bulletName, ObjectManager.PoolTypes.BulletPool);
+        Bullet tracer_bullet = tracer.GetComponent<Bullet>();
+        Rigidbody tracer_rigid = tracer.GetComponent<Rigidbody>();
+
+        tracer_bullet.gameManager = creature.gameManager;
+        tracer_bullet.Init();
+
+
+        //이동
+        tracer.transform.position = creature.bulletStartPoint.position;
+        //가속
+        tracer_rigid.velocity = creature.goalVec * tracer_bullet.bulletSpeed;
+
+        //활성화
+        tracer_bullet.BulletOnByCreature(creature);
+    }
+    #endregion
 }
