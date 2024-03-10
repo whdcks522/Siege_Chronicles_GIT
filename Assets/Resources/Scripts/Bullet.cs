@@ -66,11 +66,6 @@ public class Bullet : MonoBehaviour
         {
             bulletCollider.enabled = false;
         }
-
-        if (curBulletMoveEnum != BulletMoveEnum.Slash)
-        {
-            Debug.Log(transform.position);
-        }
     }
 
     #region ÃÑ¾Ë È°¼º

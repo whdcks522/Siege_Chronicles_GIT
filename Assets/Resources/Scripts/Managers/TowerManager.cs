@@ -166,7 +166,7 @@ public class TowerManager : MonoBehaviour
 
 
             //이동
-            bullet.transform.position = bulletStartPoint.position;
+            bullet.transform.position = bulletStartPoint.position + bulletStartPoint.forward * 5;
             //가속
             bullet_rigid.velocity = (targetPos.position - bulletStartPoint.position).normalized * bullet_bullet.bulletSpeed;
             //회전
