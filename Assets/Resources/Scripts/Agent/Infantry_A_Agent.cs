@@ -10,7 +10,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static Creature;
 
-public class Infantry_A_Agent : Agent
+public class Infantry_A_Agent : SuperAgent
 {
     /*
      D:\Unities\Github_DeskTop\ML_EX_GIT\config\ppo
@@ -226,7 +226,7 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
         //Debug.Log("spin: " + actions.DiscreteActions[0] + "action: " + actions.DiscreteActions[1]);
     }
 
-    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\ppo\Siege_Creature.yaml" --run-id=Infantry_A1 --resum
+    //mlagents-learn "D:\Unities\Github_DeskTop\ML_EX_GIT\config\ppo\Siege_Creature.yaml" --run-id=Infantry_A2 --resum
 
     #region 휴리스틱: 키보드를 통해 에이전트를 조정
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -299,4 +299,26 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
     {
         creature.Revive();
     }
+
+
+
+    #region 주황색 참격 생성(shooter_A_Agent)
+    public override void AgentAction_1()//상속한 공격 1
+    {
+        string bulletName = useBullet.name;
+
+        GameObject slash = creature.objectManager.CreateObj(bulletName, ObjectManager.PoolTypes.BulletPool);
+        Bullet slash_bullet = slash.GetComponent<Bullet>();
+
+        //이동
+        slash.transform.position = transform.position + transform.forward + UnityEngine.Vector3.up * 3;
+
+        //회전
+        slash.transform.rotation = UnityEngine.Quaternion.Euler(transform.rotation.eulerAngles.x + 90,
+            transform.rotation.eulerAngles.y - 180, transform.rotation.eulerAngles.z - 90);
+
+        //활성화
+        slash_bullet.BulletOn(creature);
+    }
+    #endregion
 }
