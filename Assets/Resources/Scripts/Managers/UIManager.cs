@@ -33,6 +33,12 @@ public class UIManager : MonoBehaviour
     float curPlayerResource;
     //플레이어의 최대 자원
     float maxPlayerResource;
+    [Header("UI를 그리는 메인 캔퍼스")]
+    public GameObject MainCanvas;
+
+
+    [Header("선택창")]
+    public GameObject SelectObj;
 
 
     private void Awake()
@@ -108,7 +114,7 @@ public class UIManager : MonoBehaviour
     //버튼으로 카메라 조작
     public void CameraSpin(int _spin) => addRot = _spin;
 
-    int speed = 1;
+    int speed = 0;
     public Text SpeedControlText;
     public void SpeedControl() 
     {

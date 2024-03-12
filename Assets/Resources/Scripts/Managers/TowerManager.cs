@@ -30,15 +30,18 @@ public class TowerManager : MonoBehaviour
     [Header("¸Å´ÏÀú")]
     public GameManager gameManager;
     ObjectManager objectManager;
-    UIManager UIManager;
+    UIManager UiManager;
+    AudioManager audioManager;
+    
     Transform cameraGround;
     Transform mainCamera;
     private void Awake()
     {
         objectManager = gameManager.objectManager;
-        UIManager = gameManager.uiManager;
-        mainCamera = UIManager.cameraObj;
-        cameraGround = UIManager.cameraGround;
+        UiManager = gameManager.uiManager;
+        audioManager = gameManager.audioManager;
+        mainCamera = UiManager.cameraObj;
+        cameraGround = UiManager.cameraGround;
 
         if (curTeamEnum == TeamEnum.Blue)
         {
