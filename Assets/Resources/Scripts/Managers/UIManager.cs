@@ -29,6 +29,12 @@ public class UIManager : MonoBehaviour
     public GameManager gameManager;
     ObjectManager objectManager;
 
+    //플레이어의 현재 자원
+    float curPlayerResource;
+    //플레이어의 최대 자원
+    float maxPlayerResource;
+
+
     private void Awake()
     {
         objectManager = gameManager.objectManager;
@@ -52,6 +58,19 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
+        if (maxPlayerResource > curPlayerResource ) 
+        {
+            //스펠 사용을 위한 자원 증가
+            curPlayerResource += Time.deltaTime;
+        }
+        else if (maxPlayerResource <= curPlayerResource)
+        {
+            //현재 자원량이 최대치를 넘지 않도록
+            maxPlayerResource = curPlayerResource;
+        }
+
+
+
         //사이드 화살표 버튼 누르면 카메라 회전
         curRot += addRot * 2;
 
@@ -103,6 +122,8 @@ public class UIManager : MonoBehaviour
 
     //[CreateAssetMenu(fileName = "SingleInfoData", menuName = "Scriptable Ojbect/SingleInfo")]
     //ScriptableObject//스크립타블 오브젝트 상속
+
+
 
     #region 스펠 버튼 클릭
     public void spellBtn()

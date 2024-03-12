@@ -172,14 +172,14 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
             creature.RangeFirstRangeCalc();
 
             //자동 실점
-            AddReward(-0.002f);
+            AddReward(-0.004f);
 
             //방향따라 점수 증가
-            AddReward(creature.GetMatchingVelocityReward()/300f);
+            AddReward(creature.GetMatchingVelocityReward()/100f);
             //가만히 서있다면 실점
             if (actions.DiscreteActions[0] == 1 && actions.DiscreteActions[1] == 0)
             {
-                AddReward(-0.005f);
+                AddReward(-0.1f);//0.001
             }
 
             switch (actions.DiscreteActions[0])
