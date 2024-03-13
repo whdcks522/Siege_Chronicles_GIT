@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3920584867422586876}
   - component: {fileID: 3005962474802799519}
   m_Layer: 8
-  m_Name: Infantry_A_Slash
+  m_Name: Infantry_Slash
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

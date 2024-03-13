@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -5408856047565953560}
   - component: {fileID: 4035777649766217421}
   m_Layer: 8
-  m_Name: Shooter_A_Tracer
+  m_Name: Shooter_Tracer
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

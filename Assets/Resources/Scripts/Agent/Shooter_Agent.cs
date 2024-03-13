@@ -7,17 +7,17 @@ using Unity.MLAgents.Sensors;
 using UnityEngine;
 using static Creature;
 
-public class Shooter_A_Agent : SuperAgent
+public class Shooter_Agent : SuperAgent
 {
     //레이가 적에게 맞았는지
-    RaycastHit hit;
+    //RaycastHit hit;
     //레이가 맞았는지 저장
-    bool isCast;
+    //bool isCast;
 
     //적과의 직선 경로가 막혔는지 확인하는 구체의 반지름
-    public float radius = 2f;
+    //public float radius = 2f;
     //적과의 직선 경로가 막혔는지 확인하는 구체를 이동시키는 거리
-    public float high = 2f;
+    //public float high = 2f;
 
     public override void OnActionReceived(ActionBuffers actions)//액션 기입(가능한 동작), 매 번 호출 
     {
@@ -35,7 +35,7 @@ public class Shooter_A_Agent : SuperAgent
             //가만히 서있다면 실점
             if (actions.DiscreteActions[0] == 1 && actions.DiscreteActions[1] == 0)
                 AddReward(-0.0002f);
-
+            /*
             //레이어 인덱스
             int bulletLayerMask = LayerMask.GetMask("Creature", "MainMap", "Default");
         
@@ -49,9 +49,9 @@ public class Shooter_A_Agent : SuperAgent
                 else
                 {
                     isCast = false;
-                }
-                    
+                }   
             }
+            */
 
             switch (actions.DiscreteActions[0])
             {
@@ -76,8 +76,8 @@ public class Shooter_A_Agent : SuperAgent
                     break;
                 case 2://공격
                     if (creature.curRange <= creature.maxRange &&
-                        gameObject.layer == LayerMask.NameToLayer("Creature") &&
-                        isCast)
+                        gameObject.layer == LayerMask.NameToLayer("Creature") //&&isCast
+                        )
                     {
                         //애니메이션 관리
                         creature.curCreatureSpinEnum = CreatureSpinEnum.None;

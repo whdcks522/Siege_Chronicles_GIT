@@ -18,6 +18,9 @@ public class SpellData : ScriptableObject
     [Header("스펠 아이콘")]
     public Sprite spellIcon;
 
+    [Header("스펠 이름")]
+    public string spellName;
+
     [Header("스펠 비용")]
     public int spellValue;
 

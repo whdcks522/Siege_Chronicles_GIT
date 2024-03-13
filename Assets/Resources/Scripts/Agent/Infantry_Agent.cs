@@ -10,7 +10,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static Creature;
 
-public class Infantry_A_Agent : SuperAgent
+public class Infantry_Agent : SuperAgent
 {
     /*
      D:\Unities\Github_DeskTop\ML_EX_GIT\config\ppo

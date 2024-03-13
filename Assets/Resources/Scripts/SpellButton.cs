@@ -1,18 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpellButton : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Header("스펠 버튼의 아이콘")]
+    public Image SpellBtnIcon;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [Header("스펠 스크립타블 객체")]
+    public SpellData SpellData;
 }
