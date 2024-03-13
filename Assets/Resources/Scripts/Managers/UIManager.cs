@@ -26,8 +26,7 @@ public class UIManager : MonoBehaviour
 
     int fly = 50;//카메라를 하늘에서 띄운 정도
 
-    public GameManager gameManager;
-    ObjectManager objectManager;
+   
 
     //플레이어의 현재 자원
     float curPlayerResource;
@@ -37,8 +36,10 @@ public class UIManager : MonoBehaviour
     public GameObject MainCanvas;
 
 
-    [Header("선택창")]
-    public GameObject SelectObj;
+    [Header("매니저")]
+    public SelectManager selectManager;
+    public GameManager gameManager;
+    ObjectManager objectManager;
 
 
     private void Awake()
@@ -125,16 +126,4 @@ public class UIManager : MonoBehaviour
 
         SpeedControlText.text = "x" + (speed + 1);
     }
-
-    //[CreateAssetMenu(fileName = "SingleInfoData", menuName = "Scriptable Ojbect/SingleInfo")]
-    //ScriptableObject//스크립타블 오브젝트 상속
-
-
-
-    #region 스펠 버튼 클릭
-    public void spellBtn()
-    {
-
-    }
-    #endregion
 }

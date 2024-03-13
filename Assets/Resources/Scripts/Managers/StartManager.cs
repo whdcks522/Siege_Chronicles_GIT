@@ -24,7 +24,7 @@ public class StartManager : MonoBehaviour
         gameObject.SetActive(false);
 
         //선택창 열기
-        UiManager.SelectObj.SetActive(true);
+        UiManager.selectManager.gameObject.SetActive(true);
     }
 
     public void ExitGame()

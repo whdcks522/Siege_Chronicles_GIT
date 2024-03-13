@@ -12,14 +12,14 @@ public class SpellData : ScriptableObject
         Creature, Weapon
     }
 
-    [Header("Ω∫∆Á ≈∏¿‘")]
-    public SpellType singleType;
-
     [Header("Ω∫∆Á æ∆¿Ãƒ‹")]
     public Sprite spellIcon;
 
     [Header("Ω∫∆Á ¿Ã∏ß")]
     public string spellName;
+
+    [Header("Ω∫∆Á ≈∏¿‘")]
+    public SpellType spellType;
 
     [Header("Ω∫∆Á ∫ÒøÎ")]
     public int spellValue;

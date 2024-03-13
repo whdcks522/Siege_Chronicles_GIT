@@ -2,11 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static SpellData;
 
 public class SelectManager : MonoBehaviour
 {
-    public GameManager gameManager;
+    [Header("선택된 스펠 아이콘")]
+    public Image selectedSpellIcon;
 
+    [Header("선택된 스펠 이름")]
+    public Text selectedSpellName;
+
+    [Header("선택된 스펠 타입")]
+    public Text selectedSpellType;
+
+    [Header("선택된 스펠 비용")]
+    public Text selectedSpellValue;
+
+    [Header("선택된 스펠 설명")]
+    public Text selectedSpellDesc;
+
+
+    [Header("매니저")]
+    public GameManager gameManager;
     UIManager UiManager;
     AudioManager audioManager;
 
