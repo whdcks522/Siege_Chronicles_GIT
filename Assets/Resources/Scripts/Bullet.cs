@@ -37,8 +37,6 @@ public class Bullet : MonoBehaviour
     public ObjectManager objectManager;
     Rigidbody rigid;
 
-    bool isAlreadyHit = false;
-
     [Header("크리쳐의 총알인지")]
     public bool isCreature;
 
@@ -90,8 +88,6 @@ public class Bullet : MonoBehaviour
     {
         //시간 동기화
         curTime = 0f;
-        //이미 충돌했는지 확인 값 초기화
-        isAlreadyHit = false;
         //충돌 영역 활성화
         bulletCollider.enabled = true;
         //게임오브젝트 활성화
@@ -130,20 +126,20 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.CompareTag("Untagged") && !isAlreadyHit) //맵과 충돌하면 감점
+        if (other.transform.CompareTag("Untagged")) //맵과 충돌하면 감점
         {
-            //Debug.Log("충돌");
-            //여러번 충돌 방지
-            //isAlreadyHit = true;
-
-            EndBulletOn();
-
-            if (curBulletMoveEnum != BulletMoveEnum.Slash)
+            if (curBulletMoveEnum == BulletMoveEnum.Canon)
             {
-                //총알 비활성화
-                //BulletOff();
+                BulletOff();
+                EndBulletOn();
             }
-            
+            else if (curBulletMoveEnum != BulletMoveEnum.Canon) 
+            {
+                if (other.gameObject.name != "InvisibleWall")
+                {
+                    EndBulletOn();
+                }
+            }
         }
     }
 }

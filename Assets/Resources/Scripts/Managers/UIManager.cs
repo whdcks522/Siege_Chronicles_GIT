@@ -29,11 +29,12 @@ public class UIManager : MonoBehaviour
    
 
     //플레이어의 현재 자원
-    float curPlayerResource;
+    float curPlayerResource = 0f;
     //플레이어의 최대 자원
-    float maxPlayerResource;
-    [Header("UI를 그리는 메인 캔퍼스")]
-    public GameObject MainCanvas;
+    float maxPlayerResource = 10f;
+
+    public Slider PlayerResourceSlider;
+
 
 
     [Header("매니저")]
@@ -61,7 +62,21 @@ public class UIManager : MonoBehaviour
         //a.transform.position = redCameraTarget.position;
     }
 
-    
+    #region 버튼으로 카메라 조작
+    public void CameraSpin(int _spin) => addRot = _spin;
+
+    int speed = 0;
+    public Text SpeedControlText;
+    public void SpeedControl()
+    {
+        speed++;
+        speed = (speed % 3);
+
+        Time.timeScale = (speed + 1);
+
+        SpeedControlText.text = "x" + (speed + 1);
+    }
+    #endregion
 
     private void Update()
     {
@@ -75,6 +90,7 @@ public class UIManager : MonoBehaviour
             //현재 자원량이 최대치를 넘지 않도록
             maxPlayerResource = curPlayerResource;
         }
+        PlayerResourceSlider.value = curPlayerResource / maxPlayerResource;
 
 
 
@@ -88,14 +104,15 @@ public class UIManager : MonoBehaviour
         //카메라가 향하도록 관리
         cameraObj.LookAt((blueTower.position + redTower.position) / 2f);
 
-        //카메라 누르기
-        if(Input.GetMouseButton(0))
-            MapClick();
+        //스킬 범위 이동
+        MapClick();
     }
 
     #region 맵 클릭하기
     [Header("클릭한 곳")]
     public Transform clickPoint;
+
+    public SpellData spellData;
     
     void MapClick()
     {
@@ -108,22 +125,48 @@ public class UIManager : MonoBehaviour
             // 트리거는 무시한다
             clickPoint.position = hit.point;
 
-        blueTowerManager.RadarControl(clickPoint, true);
+        //타워 레이더 조작
+        blueTowerManager.RadarControl(clickPoint);
+
+        if (Input.GetMouseButton(0) && curPlayerResource >= spellData.spellValue)//좌클릭 spellData.spellType == SpellData.SpellType.Weapon
+        {
+            //무기 비용 처리
+            curPlayerResource -= spellData.spellValue;
+
+            //무기별 함수 실행
+            switch (spellData.spellPrefab.name) 
+            {
+                case "Tower_Flame":
+                    MapClick_Flame();
+                    break;
+                default:
+                    Debug.LogError("아무것도 없음");
+                    break;
+            }
+        }
     }
     #endregion
 
-    //버튼으로 카메라 조작
-    public void CameraSpin(int _spin) => addRot = _spin;
 
-    int speed = 0;
-    public Text SpeedControlText;
-    public void SpeedControl() 
+    #region 파이어볼
+    void MapClick_Flame() 
     {
-        speed++;
-        speed = (speed % 3);
+        GameObject bullet = objectManager.CreateObj("Tower_Flame", ObjectManager.PoolTypes.BulletPool);
+        Bullet bullet_bullet = bullet.GetComponent<Bullet>();
+        Rigidbody bullet_rigid = bullet.GetComponent<Rigidbody>();
 
-        Time.timeScale = (speed + 1);
+        bullet_bullet.gameManager = gameManager;
+        bullet_bullet.Init();
 
-        SpeedControlText.text = "x" + (speed + 1);
+
+        //이동
+        bullet.transform.position = cameraCloud.position;
+        //가속
+        bullet_rigid.velocity = (clickPoint.position - bullet.transform.position).normalized * bullet_bullet.bulletSpeed;
+
+        //활성화
+        bullet_bullet.BulletOnByTower(Creature.TeamEnum.Blue);
     }
+    #endregion
+
 }

@@ -11,14 +11,14 @@ GameObject:
   - component: {fileID: 4399021083629618}
   - component: {fileID: 198504742122032616}
   - component: {fileID: 199476382804827976}
-  - component: {fileID: 114981672378350052}
+  - component: {fileID: 1150594668215851747}
   - component: {fileID: 54488790111006576}
   - component: {fileID: 135219337407746228}
   - component: {fileID: 108919900232066054}
   - component: {fileID: 9117977202936439102}
-  m_Layer: 0
-  m_Name: Projectile 7
-  m_TagString: Untagged
+  m_Layer: 8
+  m_Name: Tower_Flame
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 1254724754748870}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4648228566563176}
@@ -4904,7 +4904,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &114981672378350052
+--- !u!114 &1150594668215851747
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4913,17 +4913,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1254724754748870}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 605a456cfc02f6b499a64717539a27e8, type: 3}
+  m_Script: {fileID: 11500000, guid: 39d7777aa57d16941af8bd7f6040a3c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
-  hitOffset: 0.1
-  UseFirePointRotation: 0
-  rotationOffset: {x: 0, y: 0, z: 0}
-  hit: {fileID: 1845764070681338, guid: ac2312a3e32471549882f1a6da5568e6, type: 3}
-  flash: {fileID: 1023540632372170, guid: 12c5a36b60a39734f80150bc3e23e850, type: 3}
-  Detached:
-  - {fileID: 1853683965846254}
+  maxTime: 3
+  colTime: 0
+  bulletDamage: 100
+  bulletSpeed: 35
+  bulletCollider: {fileID: 135219337407746228}
+  bulletHost: {fileID: 0}
+  curTeamEnum: 2
+  curBulletMoveEnum: 1
+  endBullet: {fileID: 4082612673821794, guid: 074ae60ffaf275f4ab376cd2afc45514, type: 3}
+  gameManager: {fileID: 0}
+  objectManager: {fileID: 0}
+  isCreature: 0
 --- !u!54 &54488790111006576
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4966,11 +4970,11 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.05
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!108 &108919900232066054
 Light:
@@ -4979,7 +4983,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1254724754748870}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
@@ -5068,7 +5072,7 @@ GameObject:
   - component: {fileID: 4000204042258922}
   - component: {fileID: 198347292852406180}
   - component: {fileID: 199381448505880882}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9917,7 +9921,7 @@ GameObject:
   - component: {fileID: 4648228566563176}
   - component: {fileID: 198904408555212570}
   - component: {fileID: 199042042599827284}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}

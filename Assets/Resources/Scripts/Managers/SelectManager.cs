@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using static SpellData;
 
 public class SelectManager : MonoBehaviour
@@ -21,26 +22,30 @@ public class SelectManager : MonoBehaviour
     [Header("선택된 스펠 설명")]
     public Text selectedSpellDesc;
 
+    [Header("선택된 스펠버튼 배열")]
+    public SpellButton[] spellBtnArr = new SpellButton[4];
 
     [Header("매니저")]
     public GameManager gameManager;
-    UIManager UiManager;
     AudioManager audioManager;
+
+    
 
     void Awake()
     {
-        UiManager = gameManager.uiManager;
         audioManager = gameManager.audioManager;
     }
-
 
     public void StartGame()//게임 시작
     {
         gameObject.SetActive(false);
+        Time.timeScale = 1;
     }
 
-    public void aa() 
+    public void RestartGame()//게임 초기화
     {
-    
+        SceneManager.LoadScene(0);
     }
+
+
 }

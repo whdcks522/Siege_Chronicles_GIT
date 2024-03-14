@@ -74,8 +74,6 @@ public class TowerManager : MonoBehaviour
 
         // 물체 C에 회전 적용
         miniCanvas.transform.rotation = lookRotation;
-
-        curTime += Time.deltaTime;
     }
 
 
@@ -135,30 +133,25 @@ public class TowerManager : MonoBehaviour
     #endregion
 
     #region 대포 조절
-
-    public float maxTime = 0.3f;
-    public float curTime = 0;
-
-    public void RadarControl(Transform targetPos, bool isDirect)
+    public void RadarControl(Transform targetPos)
     {
         //반사체 회전
-        if (isDirect) 
-        {
-            
-            bulletStartPoint.transform.LookAt(targetPos);
-        }
-        else if (!isDirect)
+        bulletStartPoint.transform.LookAt(targetPos);
+        /*
+        if (!isDirect)
         {
             //반사체 회전
             bulletStartPoint.transform.LookAt(targetPos);
             bulletStartPoint.transform.rotation = Quaternion.Euler(-61.503f, bulletStartPoint.transform.rotation.eulerAngles.y, 180);
         }
-
+        */
+        /*
         if(curTime >= maxTime) 
         {
             curTime = 0;
 
-            string bulletName = "Tower_Gun";
+            //string bulletName = "Tower_Gun";
+            string bulletName = "Tower_Flame";
 
             GameObject bullet = objectManager.CreateObj(bulletName, ObjectManager.PoolTypes.BulletPool);
             Bullet bullet_bullet = bullet.GetComponent<Bullet>();
@@ -180,6 +173,7 @@ public class TowerManager : MonoBehaviour
             bullet_bullet.BulletOnByTower(curTeamEnum);
 
         }
+        */
     }
     #endregion
 }
