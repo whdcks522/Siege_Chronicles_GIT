@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8364354642521973303
 Transform:
   m_ObjectHideFlags: 0
@@ -176,14 +176,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseTexture: {fileID: 2800000, guid: 0673901d7bb3e1a408ffd1754ad3e8cd, type: 3}
   skinnedMeshRenderer: {fileID: 4136840119831701257}
-  meshRenderer: {fileID: 0}
   maxHealth: 100
   curHealth: 0
   isAttack: 0
   ourTower: {fileID: 0}
   ourTowerManager: {fileID: 0}
+  ourCreatureFolder: {fileID: 0}
   enemyTower: {fileID: 0}
   enemyTowerManager: {fileID: 0}
+  enemyCreatureFolder: {fileID: 0}
   startPoint: {fileID: 0}
   bulletStartPoint: {fileID: 0}
   miniCanvas: {fileID: 1735232647855550576}
@@ -194,11 +195,9 @@ MonoBehaviour:
   teamIndex: -1
   curCreatureMoveEnum: 0
   curCreatureSpinEnum: 1
-  curCreatureTypeEnum: 1
   rigid: {fileID: 5137104300073328733}
   anim: {fileID: 7388106785048407052}
   agent: {fileID: 1703850358029723869}
-  enemyCreatureFolder: {fileID: 0}
   behaviorParameters: {fileID: 8131292589408315668}
   gameManager: {fileID: 0}
   objectManager: {fileID: 0}

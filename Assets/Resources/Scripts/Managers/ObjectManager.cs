@@ -8,10 +8,11 @@ public class ObjectManager : MonoBehaviour
     [Header("총알을 저장할 폴더")]
     public Transform bulletFolder;
 
-
-    [Header("블루팀 적을 저장할 폴더")]
+    [Header("중립 적을 저장할 폴더")]
+    public Transform grayCreatureFolder;
+    [Header("블루팀 크리쳐를 저장할 폴더")]
     public Transform blueCreatureFolder;
-    [Header("레드팀 적를 저장할 폴더")]
+    [Header("레드팀 크리쳐를 저장할 폴더")]
     public Transform redCreatureFolder;
 
     //적 리스트
@@ -92,6 +93,7 @@ public class ObjectManager : MonoBehaviour
                 case PoolTypes.CreaturePool:
                     path = "Creature/" + tmpNames[index]; // 서브 폴더명을 포함하여 경로 설정
                     tmpGameObject = Instantiate(Resources.Load<GameObject>(path), Vector3.zero, Quaternion.identity);
+                    tmpGameObject.transform.parent = grayCreatureFolder;
                     break;
             }
 

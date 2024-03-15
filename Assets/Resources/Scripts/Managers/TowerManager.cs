@@ -66,8 +66,25 @@ public class TowerManager : MonoBehaviour
     [Header("상대팀이 들어있는 폴더")]
     public Transform enemyCreatureFolder;
 
+    //플레이어의 현재 자원
+    public float curTowerResource = 0f;
+    //플레이어의 최대 자원
+    public float maxTowerResource = 10f;
+
     private void Update()
     {
+        if (maxTowerResource > curTowerResource)
+        {
+            //스펠 사용을 위한 자원 증가
+            curTowerResource += Time.deltaTime;
+        }
+        else if (maxTowerResource <= curTowerResource)
+        {
+            //현재 자원량이 최대치를 넘지 않도록
+            maxTowerResource = curTowerResource;
+        }
+        
+
         // 물체 A에서 B를 바라보는 회전 구하기
         cameraVec = cameraGround.transform.position - mainCamera.transform.position;
         lookRotation = Quaternion.LookRotation(cameraVec);
@@ -88,7 +105,7 @@ public class TowerManager : MonoBehaviour
             if (bullet.curTeamEnum != curTeamEnum)//팀이 다를 경우만 피해 처리
             {
                 //피해 관리
-                damageControl(bullet);
+                DamageControl(bullet);
 
                 //피격한 총알 후처리
                 if (bullet.curBulletMoveEnum != Bullet.BulletMoveEnum.Slash)
@@ -99,13 +116,13 @@ public class TowerManager : MonoBehaviour
 
 
     #region 데미지 계산
-    void damageControl(Bullet bullet)
+    void DamageControl(Bullet bullet)
     {
         //피해량 확인
         Agent bulletAgent = bullet.bulletHost.agent;
         float damage = bullet.bulletDamage;
 
-        float damagePoint = damage / 8f;
+        float damageReward = damage / 8f;
 
         if (!gameManager.isML)
         {
@@ -116,19 +133,23 @@ public class TowerManager : MonoBehaviour
 
             //UI관리
             miniHealth.fillAmount = curHealth / maxHealth;
-        }
 
-
-        //충격 초기화
-        if (curHealth > 0)//타워가 피격하고 살아 있음
-        {
-            //공격자 점수 증가
-            bulletAgent.AddReward(damagePoint);
+            if (curHealth <= 0) //게임 종료
+            {
+                
+            }
         }
-        else if (curHealth <= 0) //게임 종료
-        {
+    }
+    #endregion
 
-        }
+    #region 크리쳐 소환
+    public void SpawnCreature(string tmpCreatureName)
+    {
+        //생명체 생성
+        GameObject obj = objectManager.CreateObj(tmpCreatureName, ObjectManager.PoolTypes.CreaturePool);
+        Creature creature = obj.GetComponent<Creature>();
+        //활동 전에 설정
+        creature.BeforeRevive(curTeamEnum, gameManager);
     }
     #endregion
 

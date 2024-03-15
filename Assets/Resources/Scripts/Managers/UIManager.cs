@@ -27,12 +27,6 @@ public class UIManager : MonoBehaviour
     int fly = 50;//카메라를 하늘에서 띄운 정도
 
    
-
-    //플레이어의 현재 자원
-    float curPlayerResource = 0f;
-    //플레이어의 최대 자원
-    float maxPlayerResource = 10f;
-
     public Slider PlayerResourceSlider;
 
 
@@ -55,13 +49,6 @@ public class UIManager : MonoBehaviour
         cameraCloud.transform.position = Vector3.up * fly + cameraGround.position;
     }
 
-    private void Start()
-    {
-        //생명체 생성
-        //GameObject a = objectManager.CreateObj("Infantry_A", PoolTypes.CreaturePool);
-        //a.transform.position = redCameraTarget.position;
-    }
-
     #region 버튼으로 카메라 조작
     public void CameraSpin(int _spin) => addRot = _spin;
 
@@ -80,20 +67,6 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (maxPlayerResource > curPlayerResource ) 
-        {
-            //스펠 사용을 위한 자원 증가
-            curPlayerResource += Time.deltaTime;
-        }
-        else if (maxPlayerResource <= curPlayerResource)
-        {
-            //현재 자원량이 최대치를 넘지 않도록
-            maxPlayerResource = curPlayerResource;
-        }
-        PlayerResourceSlider.value = curPlayerResource / maxPlayerResource;
-
-
-
         //사이드 화살표 버튼 누르면 카메라 회전
         curRot += addRot * 2;
 
@@ -105,15 +78,51 @@ public class UIManager : MonoBehaviour
         cameraObj.LookAt((blueTower.position + redTower.position) / 2f);
 
         //스킬 범위 이동
-        MapClick();
+        //MapClick();
+
+        //자원 게이지 관리
+        PlayerResourceSlider.value = blueTowerManager.curTowerResource / blueTowerManager.maxTowerResource;
+        //스펠 비율 보여주기
+        for (int i = 0; i < spellBtnArr.Length; i++)
+        {
+            if (spellBtnArr[i].spellData != null)
+            {
+                spellBtnArr[i].spellBtnIcon.fillAmount = blueTowerManager.curTowerResource / spellBtnArr[i].spellData.spellValue;
+            }
+        }
+
+    }
+
+    public void OnClick(int _index) 
+    {
+        SpellData spellData = spellBtnArr[_index].GetComponent<SpellButton>().spellData;
+
+        //비용
+        int value = spellData.spellValue;
+
+        if (blueTowerManager.curTowerResource >= value)
+        {
+            blueTowerManager.curTowerResource -= value;
+
+            if (spellData.spellType == SpellData.SpellType.Creature)
+            {
+                blueTowerManager.SpawnCreature(spellData.spellPrefab.name);
+            }
+        }
+        else if (blueTowerManager.curTowerResource < value) //값이 모자람
+        {
+            //실패 효과음
+        }
+
     }
 
     #region 맵 클릭하기
     [Header("클릭한 곳")]
     public Transform clickPoint;
 
-    public SpellData spellData;
-    
+    [Header("전투 스펠버튼 배열")]
+    public SpellButton[] spellBtnArr = new SpellButton[4];
+    /*
     void MapClick()
     {
         int layerMask = LayerMask.GetMask("MainMap"); // "Default" 레이어와 충돌하도록 설정
@@ -136,6 +145,9 @@ public class UIManager : MonoBehaviour
             //무기별 함수 실행
             switch (spellData.spellPrefab.name) 
             {
+                case "Tower_Gun":
+                    MapClick_Gun();
+                    break;
                 case "Tower_Flame":
                     MapClick_Flame();
                     break;
@@ -145,8 +157,33 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+    */
     #endregion
 
+    #region 미니건
+    void MapClick_Gun()
+    {
+        Debug.Log("Gun");
+
+        return;
+
+        GameObject bullet = objectManager.CreateObj("Tower_Gun", ObjectManager.PoolTypes.BulletPool);
+        Bullet bullet_bullet = bullet.GetComponent<Bullet>();
+        Rigidbody bullet_rigid = bullet.GetComponent<Rigidbody>();
+
+        bullet_bullet.gameManager = gameManager;
+        bullet_bullet.Init();
+
+
+        //이동
+        bullet.transform.position = cameraCloud.position;
+        //가속
+        bullet_rigid.velocity = (clickPoint.position - bullet.transform.position).normalized * bullet_bullet.bulletSpeed;
+
+        //활성화
+        bullet_bullet.BulletOnByTower(Creature.TeamEnum.Blue);
+    }
+    #endregion
 
     #region 파이어볼
     void MapClick_Flame() 

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce41fe8cd173d384a8ce1fcc9f2c3811, type: 3}
-  m_Name: Shooter_Spell
+  m_Name: Tower_Gun_Spell
   m_EditorClassIdentifier: 
-  spellIcon: {fileID: 21300000, guid: 81a8a4bf7a6c6f146a15445837ed2aa4, type: 3}
-  spellName: "\uC0AC\uC218"
-  spellType: 0
+  spellIcon: {fileID: 21300000, guid: 7f930c95fb03541c696364cf3ea33fc3, type: 3}
+  spellName: "\uBBF8\uB2C8\uAC74"
+  spellType: 1
   spellValue: 2
-  spellDesc: "\uC0AC\uC218 \uC124\uBA85"
-  spellPrefab: {fileID: 7076029219765752721, guid: 224c1cd34f67d1d4bad4ccdaa75b836b,
+  spellDesc: "\uBBF8\uB2C8\uAC74 \uC124\uBA85"
+  spellPrefab: {fileID: 1254724754748870, guid: 779187cab68f2ca4baa0f59accff9b56,
     type: 3}
