@@ -9,7 +9,10 @@ public class SpellButton : MonoBehaviour
     [Header("스펠 버튼의 종류")]
     public SpellBtnEnum curSpellBtnEnum;
 
-    [Header("스펠 버튼의 아이콘")]
+    [Header("스펠 버튼의 비용 텍스트")]
+    public Text spellBtnValue;
+
+    [Header("스펠 버튼의 아이콘 이미지")]
     public Image spellBtnIcon;
 
     [Header("스펠 버튼의 체크")]
@@ -34,7 +37,7 @@ public class SpellButton : MonoBehaviour
         audioManager = gameManager.audioManager;
 
 
-        if (spellData != null)//스펠 데이터가 없으면
+        if (spellData != null)//스펠 데이터가 있으면
         {
             IconChange(this);
         }
@@ -47,7 +50,12 @@ public class SpellButton : MonoBehaviour
 
     public void ButtonOff() 
     {
+        //비용 텍스트 관리
+        spellBtnValue.gameObject.SetActive(false);
+        //아이콘 이미지 관리
         spellBtnIcon.gameObject.SetActive(false);
+
+        //버튼 이미지 비활성화
         GetComponent<Button>().interactable = false;
         GetComponent<Outline>().enabled = false;
     }
@@ -55,8 +63,13 @@ public class SpellButton : MonoBehaviour
     #region 아이콘 이미지 갱신
     public void IconChange(SpellButton tmpSpellBtn) 
     {
-        if (tmpSpellBtn.spellData != null) 
+        if (tmpSpellBtn.spellData != null) //스펠 데이터가 있다면
         {
+            //비용 텍스트 관리
+            tmpSpellBtn.spellBtnValue.gameObject.SetActive(true);
+            tmpSpellBtn.spellBtnValue.text = tmpSpellBtn.spellData.spellValue.ToString();
+
+            //아이콘 이미지 관리
             tmpSpellBtn.spellBtnIcon.sprite = spellData.spellIcon;
 
             if (spellData.spellType == SpellData.SpellType.Weapon)
@@ -68,9 +81,11 @@ public class SpellButton : MonoBehaviour
                 tmpSpellBtn.spellBtnIcon.color = Color.white;
             }
         }
-        else if (tmpSpellBtn.spellData == null)
+        else if (tmpSpellBtn.spellData == null)//스펠 데이터가 없다면
         {
-            //이미지 삭제
+            //비용 텍스트 관리
+            tmpSpellBtn.spellBtnValue.gameObject.SetActive(false);
+            //아이콘 이미지 관리
             tmpSpellBtn.spellBtnIcon.sprite = null;
             //색 초기화
             tmpSpellBtn.spellBtnIcon.color = Color.white;
@@ -83,6 +98,9 @@ public class SpellButton : MonoBehaviour
     {
         if (curSpellBtnEnum == SpellBtnEnum.LeftBtn || curSpellBtnEnum == SpellBtnEnum.SelectBtn && spellData != null) 
         {
+            //오른쪽 패널 활성화
+            selectManager.rightPanel.SetActive(true);
+
             //스펠 버튼 아이콘 바꾸기
             selectManager.selectedSpellBtn.spellData = spellData;
             IconChange(selectManager.selectedSpellBtn);
@@ -93,15 +111,15 @@ public class SpellButton : MonoBehaviour
             //스펠 타입 바꾸기
             if (spellData.spellType == SpellData.SpellType.Creature) 
             {
-                selectManager.selectedSpellType.text = "타입: 병사";
+                selectManager.selectedSpellType.text = "병사";
             }
             else if (spellData.spellType == SpellData.SpellType.Weapon)
             {
-                selectManager.selectedSpellType.text = "타입: 무기";
+                selectManager.selectedSpellType.text = "무기";
             }
 
             //스펠 비용 바꾸기
-            selectManager.selectedSpellValue.text = "비용: " + spellData.spellValue;
+            selectManager.selectedSpellValue.text = spellData.spellValue.ToString();
             //스펠 설명 바꾸기
             selectManager.selectedSpellDesc.text = "설명: " + spellData.spellDesc;
 

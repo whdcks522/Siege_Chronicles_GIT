@@ -28,18 +28,21 @@ public class SelectManager : MonoBehaviour
     [Header("스펠버튼 배열")]
     public SpellButton[] spellBtnArr = new SpellButton[4];
 
+    [Header("오른쪽 패널")]
+    public GameObject rightPanel;
+
     [Header("매니저")]
     public GameManager gameManager;
     UIManager uiManager;
     AudioManager audioManager;
     
-
-    
-
     void Awake()
     {
         uiManager = gameManager.uiManager;
         audioManager = gameManager.audioManager;
+
+        //오른쪽 패널 비활성화
+        rightPanel.SetActive(false);
     }
 
     public void StartGame()//게임 시작
@@ -61,6 +64,7 @@ public class SelectManager : MonoBehaviour
             }
         }
 
+        //전투 환경 초기화
         gameManager.resetEnv();
     }
 
@@ -68,6 +72,4 @@ public class SelectManager : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
-
-
 }
