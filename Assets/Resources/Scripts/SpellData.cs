@@ -12,6 +12,9 @@ public class SpellData : ScriptableObject
         Creature, Weapon
     }
 
+    [Header("무기 스펠인 경우, 영역 설정을 위한 포커스를 사용하는 지 여부")]
+    public bool isFocus;
+
     [Header("스펠 아이콘")]
     public Sprite spellIcon;
 

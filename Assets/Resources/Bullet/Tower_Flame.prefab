@@ -4919,7 +4919,7 @@ MonoBehaviour:
   maxTime: 3
   colTime: 0
   bulletDamage: 100
-  bulletSpeed: 35
+  bulletSpeed: 50
   bulletCollider: {fileID: 135219337407746228}
   bulletHost: {fileID: 0}
   curTeamEnum: 2

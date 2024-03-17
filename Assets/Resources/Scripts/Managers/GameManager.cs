@@ -30,26 +30,40 @@ public class GameManager : MonoBehaviour
     public UIManager uiManager;
     public AudioManager audioManager;
 
+    #region 전투 환경 초기화
     public void resetEnv()
     {
-        
-
         //총알 초기화
-        foreach (GameObject tmpBullet in objectManager.bulletFolder) 
+        for (int i = 0; i < objectManager.bulletFolder.childCount; i++)
         {
-            tmpBullet.SetActive(false);
+            objectManager.bulletFolder.GetChild(i).gameObject.SetActive(false);
         }
+        //파랑 크리쳐 초기화
+        for (int i = 0; i < objectManager.blueCreatureFolder.childCount; i++)
+        {
+            objectManager.blueCreatureFolder.GetChild(i).gameObject.SetActive(false);
+        }
+        //빨강 크리쳐 초기화
+        for (int i = 0; i < objectManager.redCreatureFolder.childCount; i++)
+        {
+            objectManager.redCreatureFolder.GetChild(i).gameObject.SetActive(false);
+        }
+
 
         //타워 체력 초기화
         blueTowerManager.curHealth = blueTowerManager.maxHealth;
         redTowerManager.curHealth = redTowerManager.maxHealth;
-
-        //크리쳐
-
-        //마나 초기화
+        //타워 자원 초기화
         blueTowerManager.curTowerResource = 0;
         redTowerManager.curTowerResource = 0;
 
+        //크리쳐 소환(테스트용)
+        redTowerManager.SpawnCreature(Shooter.name);
+        redTowerManager.SpawnCreature(Shooter.name);
+
+        //UI 초기화
+        uiManager.FocusControl(false, true);
 
     }
+    #endregion
 }

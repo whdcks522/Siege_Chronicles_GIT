@@ -119,10 +119,14 @@ public class TowerManager : MonoBehaviour
     void DamageControl(Bullet bullet)
     {
         //피해량 확인
-        Agent bulletAgent = bullet.bulletHost.agent;
         float damage = bullet.bulletDamage;
 
-        float damageReward = damage / 8f;
+        if (bullet.isCreature)
+        {
+            Agent bulletAgent = bullet.bulletHost.agent;
+            //공격자 점수 증가
+            bulletAgent.AddReward(damage / 10f);
+        }
 
         if (!gameManager.isML)
         {
@@ -142,6 +146,9 @@ public class TowerManager : MonoBehaviour
     }
     #endregion
 
+    //대포 포대 각도 조절
+    public void RadarControl(Vector3 targetVec) => bulletStartPoint.transform.LookAt(targetVec);
+
     #region 크리쳐 소환
     public void SpawnCreature(string tmpCreatureName)
     {
@@ -153,48 +160,76 @@ public class TowerManager : MonoBehaviour
     }
     #endregion
 
-    #region 대포 조절
-    public void RadarControl(Transform targetPos)
+
+    #region 무기 사용 분류
+
+    Vector3 enemyVec;
+
+    public void WeaponSort(string tmpWeaponName) 
     {
-        //반사체 회전
-        bulletStartPoint.transform.LookAt(targetPos);
-        /*
-        if (!isDirect)
+        if (tmpWeaponName == gameManager.Gun.name) Tower_Gun();
+        else if (tmpWeaponName == gameManager.Flame.name) Tower_Flame();
+    }
+    #endregion
+
+    #region 미니건 난사
+    void Tower_Gun()
+    {
+        bool isShot = false;
+        //적 크리쳐 위치 파악
+        for (int i = 0; i < enemyCreatureFolder.childCount; i++)
         {
-            //반사체 회전
-            bulletStartPoint.transform.LookAt(targetPos);
-            bulletStartPoint.transform.rotation = Quaternion.Euler(-61.503f, bulletStartPoint.transform.rotation.eulerAngles.y, 180);
+            if (enemyCreatureFolder.GetChild(i).gameObject.activeSelf && 
+                enemyCreatureFolder.GetChild(i).gameObject.layer == LayerMask.NameToLayer("Creature")) 
+            {
+                isShot = true;
+
+                enemyVec = enemyCreatureFolder.GetChild(i).transform.position;
+
+                GameObject bullet = objectManager.CreateObj("Tower_Gun", ObjectManager.PoolTypes.BulletPool);
+                Bullet bullet_bullet = bullet.GetComponent<Bullet>();
+                Rigidbody bullet_rigid = bullet.GetComponent<Rigidbody>();
+
+                bullet_bullet.gameManager = gameManager;
+                bullet_bullet.Init();
+
+
+                //이동
+                bullet.transform.position = bulletStartPoint.position;
+                //가속
+                bullet_rigid.velocity = (enemyVec - bullet.transform.position).normalized * bullet_bullet.bulletSpeed;
+                //회전
+                Quaternion targetRotation = Quaternion.LookRotation(bullet_rigid.velocity);
+                bullet.transform.rotation = targetRotation;
+
+                //활성화
+                bullet_bullet.BulletOnByTower(Creature.TeamEnum.Blue);
+            }
         }
-        */
-        /*
-        if(curTime >= maxTime) 
-        {
-            curTime = 0;
+        if(isShot)
+            RadarControl(enemyVec);
+        else if (!isShot)
+            RadarControl(enemyTower.transform.position);
+    }
+    #endregion
 
-            //string bulletName = "Tower_Gun";
-            string bulletName = "Tower_Flame";
+    #region 파이어볼
+    void Tower_Flame()//적이 사용할 경우 가속쪽에 clickPoint 코드 변경 필요
+    {
+        GameObject bullet = objectManager.CreateObj("Tower_Flame", ObjectManager.PoolTypes.BulletPool);
+        Bullet bullet_bullet = bullet.GetComponent<Bullet>();
+        Rigidbody bullet_rigid = bullet.GetComponent<Rigidbody>();
 
-            GameObject bullet = objectManager.CreateObj(bulletName, ObjectManager.PoolTypes.BulletPool);
-            Bullet bullet_bullet = bullet.GetComponent<Bullet>();
-            Rigidbody bullet_rigid = bullet.GetComponent<Rigidbody>();
+        bullet_bullet.gameManager = gameManager;
+        bullet_bullet.Init();
 
-            bullet_bullet.gameManager = gameManager;
-            bullet_bullet.Init();
+        //이동
+        bullet.transform.position = UiManager.cameraCloud.position;
+        //가속
+        bullet_rigid.velocity = (UiManager.clickPoint.position - bullet.transform.position).normalized * bullet_bullet.bulletSpeed;
 
-
-            //이동
-            bullet.transform.position = bulletStartPoint.position + bulletStartPoint.forward * 5;
-            //가속
-            bullet_rigid.velocity = (targetPos.position - bulletStartPoint.position).normalized * bullet_bullet.bulletSpeed;
-            //회전
-            Quaternion targetRotation = Quaternion.LookRotation(bullet_rigid.velocity);
-            bullet.transform.rotation = targetRotation;
-
-            //활성화
-            bullet_bullet.BulletOnByTower(curTeamEnum);
-
-        }
-        */
+        //활성화
+        bullet_bullet.BulletOnByTower(Creature.TeamEnum.Blue);
     }
     #endregion
 }

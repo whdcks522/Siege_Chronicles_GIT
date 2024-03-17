@@ -26,16 +26,21 @@ public class UIManager : MonoBehaviour
 
     int fly = 50;//카메라를 하늘에서 띄운 정도
 
-   
-    public Slider PlayerResourceSlider;
 
+    [Header("전투 UI")]
+    public Slider PlayerResourceSlider;//자원 슬라이더
+    public Text PlayerResourceText;//자원 텍스트
 
+    //맵을 클릭해서 무기를 사용할 준비 완료 여부
+    bool isFocus;
+
+    //최근에 사용한 스펠의 데이터
+    SpellData recentSpellData;
 
     [Header("매니저")]
     public SelectManager selectManager;
     public GameManager gameManager;
     ObjectManager objectManager;
-
 
     private void Awake()
     {
@@ -77,11 +82,10 @@ public class UIManager : MonoBehaviour
         //카메라가 향하도록 관리
         cameraObj.LookAt((blueTower.position + redTower.position) / 2f);
 
-        //스킬 범위 이동
-        //MapClick();
-
         //자원 게이지 관리
         PlayerResourceSlider.value = blueTowerManager.curTowerResource / blueTowerManager.maxTowerResource;
+        PlayerResourceText.text = blueTowerManager.curTowerResource.ToString("F1") + "/" + blueTowerManager.maxTowerResource.ToString("F0");
+
         //스펠 비율 보여주기
         for (int i = 0; i < spellBtnArr.Length; i++)
         {
@@ -91,8 +95,15 @@ public class UIManager : MonoBehaviour
             }
         }
 
+        //스킬 범위 이동
+        if(isFocus)
+            ShowWeaponArea();
     }
 
+    #region 전투 씬에서 스펠 버튼 클릭
+
+    [Header("전투 스펠버튼 배열")]
+    public SpellButton[] spellBtnArr = new SpellButton[4];
     public void OnClick(int _index) 
     {
         SpellData spellData = spellBtnArr[_index].GetComponent<SpellButton>().spellData;
@@ -100,30 +111,63 @@ public class UIManager : MonoBehaviour
         //비용
         int value = spellData.spellValue;
 
-        if (blueTowerManager.curTowerResource >= value)
+        if (blueTowerManager.curTowerResource >= value)//비용이 충분한 경우
         {
             blueTowerManager.curTowerResource -= value;
 
-            if (spellData.spellType == SpellData.SpellType.Creature)
+            if (spellData.spellType == SpellData.SpellType.Creature)//크리쳐를 누른 경우
             {
                 blueTowerManager.SpawnCreature(spellData.spellPrefab.name);
             }
+            else if(spellData.spellType == SpellData.SpellType.Weapon)//무기를 누른 경우
+            {
+                if (spellData.isFocus) 
+                {
+                    recentSpellData = spellData;
+                    FocusControl(true, true);
+                }
+                else if(!spellData.isFocus)
+                {
+                    blueTowerManager.WeaponSort(spellData.spellPrefab.name);
+                } 
+            }
         }
-        else if (blueTowerManager.curTowerResource < value) //값이 모자람
+        else if (blueTowerManager.curTowerResource < value) //비용이 모자른 경우
         {
-            //실패 효과음
+            //비용 부족 효과음
+        }
+    }
+    #endregion
+
+    #region 포커스 관리
+
+    //포커스 상태 전환
+    public void FocusControl(bool _isFocus, bool _isUse) //포커스 했는지 여부, 사용한건지 취소한건지 여부
+    {
+        if (!_isFocus && !_isUse) //포커스를 취소한 경우
+        {
+            //자원 반환
+            blueTowerManager.curTowerResource += recentSpellData.spellValue;
         }
 
+        //ui 비활성화
+        isFocus = _isFocus;
+        //영역 관리
+        clickPoint.gameObject.SetActive(_isFocus);
+
+        //버튼 비활성화
+        for (int i = 0; i < spellBtnArr.Length; i++)
+        {
+            spellBtnArr[i].gameObject.SetActive(!_isFocus);
+        }
     }
+    #endregion
 
-    #region 맵 클릭하기
-    [Header("클릭한 곳")]
-    public Transform clickPoint;
+    #region 무기 영역 표시;
 
-    [Header("전투 스펠버튼 배열")]
-    public SpellButton[] spellBtnArr = new SpellButton[4];
-    /*
-    void MapClick()
+    public Transform clickPoint;//클릭한 곳
+
+    void ShowWeaponArea()
     {
         int layerMask = LayerMask.GetMask("MainMap"); // "Default" 레이어와 충돌하도록 설정
 
@@ -135,75 +179,19 @@ public class UIManager : MonoBehaviour
             clickPoint.position = hit.point;
 
         //타워 레이더 조작
-        blueTowerManager.RadarControl(clickPoint);
+        blueTowerManager.RadarControl(clickPoint.position);
 
-        if (Input.GetMouseButton(0) && curPlayerResource >= spellData.spellValue)//좌클릭 spellData.spellType == SpellData.SpellType.Weapon
+        if (Input.GetMouseButton(0))//좌클릭 spellData.spellType == SpellData.SpellType.Weapon
         {
-            //무기 비용 처리
-            curPlayerResource -= spellData.spellValue;
-
-            //무기별 함수 실행
-            switch (spellData.spellPrefab.name) 
-            {
-                case "Tower_Gun":
-                    MapClick_Gun();
-                    break;
-                case "Tower_Flame":
-                    MapClick_Flame();
-                    break;
-                default:
-                    Debug.LogError("아무것도 없음");
-                    break;
-            }
+            blueTowerManager.WeaponSort(recentSpellData.spellPrefab.name);
+            FocusControl(false, true);
+        }
+        else if (Input.GetMouseButton(1))//좌클릭 spellData.spellType == SpellData.SpellType.Weapon
+        {
+            FocusControl(false, false);
         }
     }
-    */
-    #endregion
-
-    #region 미니건
-    void MapClick_Gun()
-    {
-        Debug.Log("Gun");
-
-        return;
-
-        GameObject bullet = objectManager.CreateObj("Tower_Gun", ObjectManager.PoolTypes.BulletPool);
-        Bullet bullet_bullet = bullet.GetComponent<Bullet>();
-        Rigidbody bullet_rigid = bullet.GetComponent<Rigidbody>();
-
-        bullet_bullet.gameManager = gameManager;
-        bullet_bullet.Init();
-
-
-        //이동
-        bullet.transform.position = cameraCloud.position;
-        //가속
-        bullet_rigid.velocity = (clickPoint.position - bullet.transform.position).normalized * bullet_bullet.bulletSpeed;
-
-        //활성화
-        bullet_bullet.BulletOnByTower(Creature.TeamEnum.Blue);
-    }
-    #endregion
-
-    #region 파이어볼
-    void MapClick_Flame() 
-    {
-        GameObject bullet = objectManager.CreateObj("Tower_Flame", ObjectManager.PoolTypes.BulletPool);
-        Bullet bullet_bullet = bullet.GetComponent<Bullet>();
-        Rigidbody bullet_rigid = bullet.GetComponent<Rigidbody>();
-
-        bullet_bullet.gameManager = gameManager;
-        bullet_bullet.Init();
-
-
-        //이동
-        bullet.transform.position = cameraCloud.position;
-        //가속
-        bullet_rigid.velocity = (clickPoint.position - bullet.transform.position).normalized * bullet_bullet.bulletSpeed;
-
-        //활성화
-        bullet_bullet.BulletOnByTower(Creature.TeamEnum.Blue);
-    }
+    
     #endregion
 
 }

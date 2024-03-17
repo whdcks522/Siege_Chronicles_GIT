@@ -8,7 +8,7 @@ public class ObjectManager : MonoBehaviour
     [Header("총알을 저장할 폴더")]
     public Transform bulletFolder;
 
-    [Header("중립 적을 저장할 폴더")]
+    [Header("중립 크리쳐 저장할 폴더")]
     public Transform grayCreatureFolder;
     [Header("블루팀 크리쳐를 저장할 폴더")]
     public Transform blueCreatureFolder;
@@ -78,9 +78,11 @@ public class ObjectManager : MonoBehaviour
             }
         }
 
-        //없으면 생성하고 select에 할당
+        //없으면 생성
         if (!tmpGameObject)
         {
+            Debug.Log("생성");
+
             string path = "";
 
             switch (poolTypes)
@@ -109,7 +111,6 @@ public class ObjectManager : MonoBehaviour
                 case PoolTypes.BulletPool:
                     bulletPools = tmpPools;
                     break;
-                
             }
         }
         return tmpGameObject;

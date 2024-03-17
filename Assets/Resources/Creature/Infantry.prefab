@@ -182,6 +182,7 @@ MonoBehaviour:
   ourTower: {fileID: 0}
   ourTowerManager: {fileID: 0}
   ourCreatureFolder: {fileID: 0}
+  grayCreatureFolder: {fileID: 0}
   enemyTower: {fileID: 0}
   enemyTowerManager: {fileID: 0}
   enemyCreatureFolder: {fileID: 0}

@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce41fe8cd173d384a8ce1fcc9f2c3811, type: 3}
   m_Name: Tower_Gun_Spell
   m_EditorClassIdentifier: 
+  isFocus: 0
   spellIcon: {fileID: 21300000, guid: 7f930c95fb03541c696364cf3ea33fc3, type: 3}
-  spellName: "\uBBF8\uB2C8\uAC74"
+  spellName: "\uC0AC\uACA9"
   spellType: 1
   spellValue: 2
-  spellDesc: "\uBBF8\uB2C8\uAC74 \uC124\uBA85"
-  spellPrefab: {fileID: 1254724754748870, guid: 779187cab68f2ca4baa0f59accff9b56,
+  spellDesc: "\uC0AC\uACA9 \uC124\uBA85"
+  spellPrefab: {fileID: 1795072395756124, guid: 5135a03674bb17e4aae98e805b20d536,
     type: 3}

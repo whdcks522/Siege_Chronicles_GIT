@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce41fe8cd173d384a8ce1fcc9f2c3811, type: 3}
   m_Name: Tower_Flame_Spell
   m_EditorClassIdentifier: 
+  isFocus: 1
   spellIcon: {fileID: 21300000, guid: 7db48ffcba5274062b9fd2837121eefc, type: 3}
   spellName: "\uBD88\uB369\uC774"
   spellType: 1

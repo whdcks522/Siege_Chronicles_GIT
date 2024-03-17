@@ -35,11 +35,13 @@ public class SelectManager : MonoBehaviour
     public GameManager gameManager;
     UIManager uiManager;
     AudioManager audioManager;
+    ObjectManager objectManager;
     
     void Awake()
     {
         uiManager = gameManager.uiManager;
         audioManager = gameManager.audioManager;
+        objectManager = gameManager.objectManager;
 
         //오른쪽 패널 비활성화
         rightPanel.SetActive(false);
@@ -53,16 +55,39 @@ public class SelectManager : MonoBehaviour
         //battleUI로 스펠 전달
         for(int i = 0; i < spellBtnArr.Length; i++)
         {
-            if (spellBtnArr[i].spellData != null)
+            if (spellBtnArr[i].spellData != null)//스펠이 있는 경우 이미지 갱신
             {
                 uiManager.spellBtnArr[i].spellData = spellBtnArr[i].spellData;
                 spellBtnArr[i].IconChange(uiManager.spellBtnArr[i]);
+
+                //오브젝트 풀링을 위해 미리 생성
+                if (spellBtnArr[i].spellData.spellType == SpellType.Weapon)
+                {
+                    for (int j = 0; j < 10; j++)
+                    {
+                        Debug.Log("wj:" + j);
+                        objectManager.CreateObj(spellBtnArr[i].spellData.spellPrefab.name, ObjectManager.PoolTypes.BulletPool); 
+                    }
+                }
+                else if (spellBtnArr[i].spellData.spellType == SpellType.Creature)
+                {
+                    for (int j = 0; j < 5; j++)
+                    {
+                        GameObject obj = objectManager.CreateObj(spellBtnArr[i].spellData.spellPrefab.name, ObjectManager.PoolTypes.CreaturePool);
+                        Creature creature = obj.GetComponent<Creature>();
+                        //활동 전에 설정
+                        creature.BeforeRevive(Creature.TeamEnum.Blue, gameManager);
+                    }
+                }
+
+
             }
-            else if (spellBtnArr[i].spellData == null) 
+            else if (spellBtnArr[i].spellData == null)//없는 경우 버튼 비활성화
             {
                 uiManager.spellBtnArr[i].ButtonOff();
             }
         }
+
 
         //전투 환경 초기화
         gameManager.resetEnv();
