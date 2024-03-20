@@ -31,6 +31,10 @@ public class SelectManager : MonoBehaviour
     [Header("오른쪽 패널")]
     public GameObject rightPanel;
 
+
+    [Header("레벨 슬라이더")]
+    public Slider levelSlider;
+
     [Header("매니저")]
     public GameManager gameManager;
     UIManager uiManager;
@@ -49,14 +53,18 @@ public class SelectManager : MonoBehaviour
 
     public void StartGame()//게임 시작
     {
+        //UI 비활성화
         gameObject.SetActive(false);
-        Time.timeScale = 1;//0은 설정 안함
+
+        //게임 레벨 설정
+        gameManager.gameLevel = (int)levelSlider.value;
 
         //battleUI로 스펠 전달
-        for(int i = 0; i < spellBtnArr.Length; i++)
+        for (int i = 0; i < spellBtnArr.Length; i++)
         {
             if (spellBtnArr[i].spellData != null)//스펠이 있는 경우 이미지 갱신
             {
+                //버튼에 스펠데이터 전달
                 uiManager.spellBtnArr[i].spellData = spellBtnArr[i].spellData;
                 spellBtnArr[i].IconChange(uiManager.spellBtnArr[i]);
 
@@ -65,7 +73,7 @@ public class SelectManager : MonoBehaviour
                 {
                     for (int j = 0; j < 10; j++)
                     {
-                        Debug.Log("wj:" + j);
+                        //Debug.Log("wj:" + j);
                         objectManager.CreateObj(spellBtnArr[i].spellData.spellPrefab.name, ObjectManager.PoolTypes.BulletPool); 
                     }
                 }
@@ -79,8 +87,6 @@ public class SelectManager : MonoBehaviour
                         creature.BeforeRevive(Creature.TeamEnum.Blue, gameManager);
                     }
                 }
-
-
             }
             else if (spellBtnArr[i].spellData == null)//없는 경우 버튼 비활성화
             {

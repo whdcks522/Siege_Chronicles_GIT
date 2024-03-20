@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     public Transform redTower;
     public TowerManager redTowerManager;
 
+    [Header("게임 난이도")]//1, 2 ,3(기본: 2)
+    public int gameLevel;
+
     [Header("Infantry 프리펩")]
     public GameObject Infantry;
     [Header("Shooter 프리펩")]
@@ -29,6 +32,8 @@ public class GameManager : MonoBehaviour
     public ObjectManager objectManager;
     public UIManager uiManager;
     public AudioManager audioManager;
+
+
 
     #region 전투 환경 초기화
     public void resetEnv()
@@ -49,19 +54,15 @@ public class GameManager : MonoBehaviour
             objectManager.redCreatureFolder.GetChild(i).gameObject.SetActive(false);
         }
 
-
         //타워 체력 초기화
-        blueTowerManager.curHealth = blueTowerManager.maxHealth;
-        redTowerManager.curHealth = redTowerManager.maxHealth;
-        //타워 자원 초기화
-        blueTowerManager.curTowerResource = 0;
-        redTowerManager.curTowerResource = 0;
+        blueTowerManager.ResetTower();
+        redTowerManager.ResetTower();
 
         //크리쳐 소환(테스트용)
-        redTowerManager.SpawnCreature(Shooter.name);
-        redTowerManager.SpawnCreature(Shooter.name);
+        //redTowerManager.SpawnCreature(Shooter.name);
+        //redTowerManager.SpawnCreature(Shooter.name);
 
-        //UI 초기화
+        //포커스 초기화
         uiManager.FocusControl(false, true);
 
     }

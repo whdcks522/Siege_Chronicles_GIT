@@ -27,6 +27,10 @@ public class TowerManager : MonoBehaviour
     public GameObject miniCanvas;
     public Image miniHealth;
 
+    [Header("타워의 크리쳐 제한 정보")]
+    public int curCreatureCount = 0;    //크리쳐의 현재 수
+    public int maxCreatureCount = 8;    //크리쳐의 최대 수
+
     [Header("매니저")]
     public GameManager gameManager;
     ObjectManager objectManager;
@@ -66,17 +70,17 @@ public class TowerManager : MonoBehaviour
     [Header("상대팀이 들어있는 폴더")]
     public Transform enemyCreatureFolder;
 
-    //플레이어의 현재 자원
-    public float curTowerResource = 0f;
-    //플레이어의 최대 자원
-    public float maxTowerResource = 10f;
+    [Header("타워의 자원 정보")]
+    public float curTowerResource = 0f;     //플레이어의 현재 자원
+    public float maxTowerResource = 10f;    //플레이어의 최대 자원
 
     private void Update()
     {
         if (maxTowerResource > curTowerResource)
         {
             //스펠 사용을 위한 자원 증가
-            curTowerResource += Time.deltaTime;
+            //Debug.LogWarning(BankSpeedArr[curBankIndex]);
+            curTowerResource += Time.deltaTime * BankSpeedArr[curBankIndex];
         }
         else if (maxTowerResource <= curTowerResource)
         {
@@ -92,6 +96,24 @@ public class TowerManager : MonoBehaviour
         // 물체 C에 회전 적용
         miniCanvas.transform.rotation = lookRotation;
     }
+
+    #region 타워 요소 초기화;
+
+    [Header("뱅크 관련 요소들")]
+    public int[] BankValueArr = { 5, 6, 7, 8 };//뱅크 버튼을 누르기 위해 필요한 비용 배열
+    float[] BankSpeedArr = { 0.6f, 0.7f, 0.8f, 0.9f, 1f };//뱅크 버튼을 눌러서 자원이 증가하게 되는 속도 배열
+    public int curBankIndex = 0;//현재 뱅크 레벨이 몇인지
+
+    public void ResetTower() 
+    {
+        //타워 체력 초기화
+        curHealth = maxHealth;
+        //타워 자원 초기화
+        curTowerResource = 0;
+        //타워 은행 초기화
+        curBankIndex = 0;
+    }
+    #endregion
 
 
 
@@ -128,7 +150,7 @@ public class TowerManager : MonoBehaviour
             bulletAgent.AddReward(damage / 10f);
         }
 
-        if (!gameManager.isML)
+        if (!gameManager.isML)//머신러닝이 아닌경우
         {
             curHealth -= damage;
 

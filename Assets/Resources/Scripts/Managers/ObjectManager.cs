@@ -81,8 +81,6 @@ public class ObjectManager : MonoBehaviour
         //绝栏搁 积己
         if (!tmpGameObject)
         {
-            Debug.Log("积己");
-
             string path = "";
 
             switch (poolTypes)
