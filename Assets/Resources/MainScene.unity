@@ -26293,7 +26293,7 @@ GameObject:
   - component: {fileID: 300820276}
   - component: {fileID: 300820275}
   m_Layer: 5
-  m_Name: CreatureCountText
+  m_Name: FocusLeftText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73686,8 +73686,8 @@ MonoBehaviour:
   - {fileID: 1743045085}
   clickPoint: {fileID: 1339375369}
   focusCanvas: {fileID: 2081677110}
-  FocusLeftText: {fileID: 300820276}
-  FocusRightText: {fileID: 1369957709}
+  focusLeftText: {fileID: 300820276}
+  focusRightText: {fileID: 1369957709}
 --- !u!1 &1046419637
 GameObject:
   m_ObjectHideFlags: 0
@@ -114640,7 +114640,7 @@ GameObject:
   - component: {fileID: 1369957709}
   - component: {fileID: 1369957708}
   m_Layer: 5
-  m_Name: CreatureCountText
+  m_Name: FocusRightText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -132546,7 +132546,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.5}
   m_SizeDelta: {x: 2640, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2081677112
