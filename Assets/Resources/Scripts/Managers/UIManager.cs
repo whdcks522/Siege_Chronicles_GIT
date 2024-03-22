@@ -210,12 +210,11 @@ public class UIManager : MonoBehaviour
         isFocus = _isFocus;
         //영역 관리
         clickPoint.gameObject.SetActive(_isFocus);
-        FocusObj.gameObject.SetActive(_isFocus);
 
         if (_isFocus)
         {
-            FocusLeftText.text = "스펠 '" + recentSpellData.spellName + "' 사용";
-            FocusRightText.text = "자원 '" + recentSpellData.spellValue + "' 반환";
+            focusLeftText.text = "스펠 '" + recentSpellData.spellName + "' 사용";
+            focusRightText.text = "자원 '" + recentSpellData.spellValue + "' 반환";
 
             //버튼 클릭 비활성화
             for (int i = 0; i < spellBtnArr.Length; i++)
@@ -237,10 +236,11 @@ public class UIManager : MonoBehaviour
 
     #region 무기 영역 표시;
 
+    [Header("클릭 포커스 관련 요소들")]
     public Transform clickPoint;//클릭한 곳
-    public GameObject FocusObj;//포커스 관련 UI
-    public Text FocusLeftText;//포커스했을 때, 나올 왼쪽 텍스트
-    public Text FocusRightText;//포커스했을 때, 나올 오른쪽 텍스트
+    public GameObject focusCanvas;//포커스 관련 UI
+    public Text focusLeftText;//포커스했을 때, 나올 왼쪽 텍스트
+    public Text focusRightText;//포커스했을 때, 나올 오른쪽 텍스트
     void ShowWeaponArea()
     {
         int layerMask = LayerMask.GetMask("MainMap"); // "Default" 레이어와 충돌하도록 설정
@@ -255,6 +255,11 @@ public class UIManager : MonoBehaviour
         //타워 레이더 조작
         blueTowerManager.RadarControl(clickPoint.position);
 
+        //포커스 UI 방향 조작
+        focusVec = cameraObj.transform.position - cameraGround.transform.position;
+        lookRotation = Quaternion.LookRotation(focusVec);
+        focusCanvas.transform.rotation = lookRotation;
+
         if (Input.GetMouseButton(0))        //좌클릭
         {
             blueTowerManager.WeaponSort(recentSpellData.spellPrefab.name);
@@ -265,7 +270,10 @@ public class UIManager : MonoBehaviour
             FocusControl(false, false);
         }
     }
-    
+    //카메라 회전값
+    Vector3 focusVec;
+    Quaternion lookRotation;
+
     #endregion
 
 }
