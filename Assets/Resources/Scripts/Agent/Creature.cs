@@ -277,7 +277,7 @@ public class Creature : MonoBehaviour
         if (other.gameObject.CompareTag("Bullet"))//폭탄과 충돌했을 때
         {
             Bullet bullet = other.GetComponent<Bullet>();
-            if (bullet.curBulletEffectEnum == Bullet.BulleEffectEnum.Damage) 
+            if (bullet.curBulletEffectEnum == Bullet.BulleEffectEnum.Damage)
             {
                 if (bullet.curTeamEnum != curTeamEnum)//팀이 다를 경우
                 {
@@ -290,6 +290,21 @@ public class Creature : MonoBehaviour
                         //공격자 점수 증가
                         bulletAgent.AddReward(damage / 10f);
                     }
+
+                    //피해 관리
+                    damageControl(damage);
+
+                    //피격한 총알 후처리
+                    if (bullet.curBulletMoveEnum != Bullet.BulletMoveEnum.Slash)
+                        bullet.BulletOff();
+                }
+            }
+            else if (bullet.curBulletEffectEnum == Bullet.BulleEffectEnum.Cure) 
+            {
+                if (bullet.curTeamEnum == curTeamEnum)//팀이 다를 경우
+                {
+                    //피해량 확인
+                    float damage = bullet.bulletDamage;
 
                     //피해 관리
                     damageControl(damage);
@@ -313,6 +328,18 @@ public class Creature : MonoBehaviour
 
         //UI관리
         miniHealth.fillAmount = curHealth / maxHealth;
+
+        //효과음 관리
+        /*
+        if (_dmg >= 0) 
+        {
+        
+        }
+        else if (_dmg < 0)
+        {
+
+        }
+        */
 
         //충격 초기화
         if (curHealth <= 0)

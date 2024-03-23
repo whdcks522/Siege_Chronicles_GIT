@@ -85,7 +85,7 @@ public class TowerManager : MonoBehaviour
         else if (maxTowerResource <= curTowerResource)
         {
             //현재 자원량이 최대치를 넘지 않도록
-            maxTowerResource = curTowerResource;
+             curTowerResource = maxTowerResource;
         }
         
 
@@ -191,6 +191,7 @@ public class TowerManager : MonoBehaviour
     {
         if (tmpWeaponName == gameManager.Gun.name) Tower_Gun();
         else if (tmpWeaponName == gameManager.Flame.name) Tower_Flame();
+        else if (tmpWeaponName == gameManager.GrandCure.name) Tower_GrandCure();
     }
     #endregion
 
@@ -225,7 +226,7 @@ public class TowerManager : MonoBehaviour
                 bullet.transform.rotation = targetRotation;
 
                 //활성화
-                bullet_bullet.BulletOnByTower(Creature.TeamEnum.Blue);
+                bullet_bullet.BulletOnByTower(curTeamEnum);
             }
         }
         if(isShot)
@@ -251,7 +252,24 @@ public class TowerManager : MonoBehaviour
         bullet_rigid.velocity = (UiManager.clickPoint.position - bullet.transform.position).normalized * bullet_bullet.bulletSpeed;
 
         //활성화
-        bullet_bullet.BulletOnByTower(Creature.TeamEnum.Blue);
+        bullet_bullet.BulletOnByTower(curTeamEnum);
+    }
+    #endregion
+
+    #region 대회복
+    void Tower_GrandCure()
+    {
+        GameObject bullet = objectManager.CreateObj("Tower_GrandCure", ObjectManager.PoolTypes.BulletPool);
+        Bullet bullet_bullet = bullet.GetComponent<Bullet>();
+        //Rigidbody bullet_rigid = bullet.GetComponent<Rigidbody>();
+
+        bullet_bullet.gameManager = gameManager;
+        bullet_bullet.Init();
+
+        //이동
+        bullet.transform.position = UiManager.clickPoint.position;
+        //활성화
+        bullet_bullet.BulletOnByTower(curTeamEnum);
     }
     #endregion
 }

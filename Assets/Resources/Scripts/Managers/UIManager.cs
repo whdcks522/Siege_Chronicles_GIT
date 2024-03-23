@@ -179,7 +179,13 @@ public class UIManager : MonoBehaviour
             {
                 if (spellData.isFocus) 
                 {
+                    //무기 데이터 임시 저장
                     recentSpellData = spellData;
+
+                    //클릭 포인트의 매터리얼 변화
+                    clickMat.SetColor("_AlphaColor", spellData.focusColor);
+
+                    //포커스 활성화
                     FocusControl(true, true);
                 }
                 else if(!spellData.isFocus)
@@ -203,7 +209,7 @@ public class UIManager : MonoBehaviour
         if (!_isFocus && !_isUse) //포커스를 취소한 경우
         {
             //자원 반환
-            //blueTowerManager.curTowerResource += recentSpellData.spellValue;
+            blueTowerManager.curTowerResource += recentSpellData.spellValue;
         }
 
         //ui 비활성화
@@ -238,6 +244,7 @@ public class UIManager : MonoBehaviour
 
     [Header("클릭 포커스 관련 요소들")]
     public Transform clickPoint;//클릭한 곳
+    public Material clickMat;//클릭한 곳의 매터리얼 
     public GameObject focusCanvas;//포커스 관련 UI
     public Text focusLeftText;//포커스했을 때, 나올 왼쪽 텍스트
     public Text focusRightText;//포커스했을 때, 나올 오른쪽 텍스트

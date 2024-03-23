@@ -73685,6 +73685,7 @@ MonoBehaviour:
   - {fileID: 975152787}
   - {fileID: 1743045085}
   clickPoint: {fileID: 1339375369}
+  clickMat: {fileID: 2100000, guid: 6fe18fe8f2424e34a8a11490ef5e14a4, type: 2}
   focusCanvas: {fileID: 2081677110}
   focusLeftText: {fileID: 300820276}
   focusRightText: {fileID: 1369957709}
@@ -133598,6 +133599,12 @@ PrefabInstance:
       propertyPath: Infantry
       value: 
       objectReference: {fileID: 7076029219765752721, guid: 0d13f62ecda91574aa45be5a56b837b9,
+        type: 3}
+    - target: {fileID: 5147855406567923278, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: GrandCure
+      value: 
+      objectReference: {fileID: 1498152551406518, guid: 408af7a30a0f3e54eb56d985a4471da0,
         type: 3}
     - target: {fileID: 5147855406567923278, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}

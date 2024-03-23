@@ -14,6 +14,7 @@ public class SpellData : ScriptableObject
 
     [Header("무기 스펠인 경우, 영역 설정을 위한 포커스를 사용하는 지 여부")]
     public bool isFocus;
+    public Color focusColor; //포커스에서 보여줄 색상
 
     [Header("스펠 아이콘")]
     public Sprite spellIcon;

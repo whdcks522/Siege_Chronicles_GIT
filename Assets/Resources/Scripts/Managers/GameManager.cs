@@ -21,10 +21,13 @@ public class GameManager : MonoBehaviour
     public GameObject Infantry;
     [Header("Shooter ÇÁ¸®Æé")]
     public GameObject Shooter;
+
     [Header("Gun ÇÁ¸®Æé")]
     public GameObject Gun;
     [Header("Flame ÇÁ¸®Æé")]
     public GameObject Flame;
+    [Header("GrandCure ÇÁ¸®Æé")]
+    public GameObject GrandCure;
 
 
 
