@@ -186,8 +186,15 @@ public class UIManager : MonoBehaviour
 
                     //클릭 포인트의 매터리얼 변화
                     clickMat.SetColor("_AlphaColor", spellData.focusColor);
+
+
                     //클릭 포인트의 크기 변화
                     float size = spellData.spellPrefab.transform.localScale.x;
+                    Bullet bullet = spellData.spellPrefab.GetComponent<Bullet>();
+
+                    if (bullet.endBullet != null)//자식이 있으면 자식의 크기로 설정
+                        size = bullet.endBullet.transform.localScale.x;
+
                     clickScaleVec = new Vector3(size, size, size);
                     clickSphere.localScale = clickScaleVec;
 

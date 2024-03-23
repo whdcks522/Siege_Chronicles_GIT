@@ -113,7 +113,7 @@ public class Bullet : MonoBehaviour
 
     public void EndBulletOn()
     {
-        if (endBullet != null)
+        if (endBullet != null && gameObject.activeSelf)
         {
             //ÆÄ±« ÃÑ¾Ë È°¼º
             string bulletName = endBullet.name;
@@ -137,8 +137,8 @@ public class Bullet : MonoBehaviour
         {
             if (curBulletMoveEnum == BulletMoveEnum.Canon)
             {
-                BulletOff();
                 EndBulletOn();
+                BulletOff();
             }
             else if (curBulletMoveEnum != BulletMoveEnum.Canon) 
             {

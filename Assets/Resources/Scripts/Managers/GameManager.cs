@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
     [Header("머신러닝중인지")]
     public bool isML;
 
+    [Header("소리 재생 여부")]
+    public bool isSound;
+
     [Header("블루팀 성")]
     public Transform blueTower;
     public TowerManager blueTowerManager;

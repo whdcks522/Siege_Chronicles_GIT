@@ -51,7 +51,7 @@ public class SelectManager : MonoBehaviour
         rightPanel.SetActive(false);
     }
 
-    public void StartGame()//게임 시작
+    public void StartGame()//게임 시작, 진행 퍼센트 보여주기 힘듬
     {
         //UI 비활성화
         gameObject.SetActive(false);
@@ -69,22 +69,24 @@ public class SelectManager : MonoBehaviour
                 spellBtnArr[i].IconChange(uiManager.spellBtnArr[i]);
 
                 //오브젝트 풀링을 위해 미리 생성
-                if (spellBtnArr[i].spellData.spellType == SpellType.Weapon)
+                if (spellBtnArr[i].spellData.spellType == SpellType.Weapon)//무기의 경우
                 {
-                    for (int j = 0; j < 10; j++)
+                    for (int j = 0; j < 8; j++)
                     {
-                        //Debug.Log("wj:" + j);
-                        objectManager.CreateObj(spellBtnArr[i].spellData.spellPrefab.name, ObjectManager.PoolTypes.BulletPool); 
+                        GameObject obj = objectManager.CreateObj(spellBtnArr[i].spellData.spellPrefab.name, ObjectManager.PoolTypes.BulletPool);
+                        Bullet bullet = obj.GetComponent<Bullet>();
+                        if(bullet.endBullet != null)
+                            objectManager.CreateObj(bullet.endBullet.name, ObjectManager.PoolTypes.BulletPool);
                     }
                 }
-                else if (spellBtnArr[i].spellData.spellType == SpellType.Creature)
+                else if (spellBtnArr[i].spellData.spellType == SpellType.Creature)//생명체의 경우
                 {
-                    for (int j = 0; j < 5; j++)
+                    for (int j = 0; j < 8; j++)
                     {
                         GameObject obj = objectManager.CreateObj(spellBtnArr[i].spellData.spellPrefab.name, ObjectManager.PoolTypes.CreaturePool);
                         Creature creature = obj.GetComponent<Creature>();
                         //활동 전에 설정
-                        creature.BeforeRevive(Creature.TeamEnum.Blue, gameManager);
+                        creature.BeforeRevive(Creature.TeamEnum.Blue, gameManager);//블루로 안하면 갈 곳 없다고 오류남
                     }
                 }
             }

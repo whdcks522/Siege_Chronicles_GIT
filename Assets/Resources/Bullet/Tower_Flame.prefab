@@ -4923,7 +4923,8 @@ MonoBehaviour:
   bulletCollider: {fileID: 135219337407746228}
   bulletHost: {fileID: 0}
   curTeamEnum: 2
-  curBulletMoveEnum: 1
+  curBulletMoveEnum: 2
+  curBulletEffectEnum: 0
   endBullet: {fileID: 4082612673821794, guid: 074ae60ffaf275f4ab376cd2afc45514, type: 3}
   gameManager: {fileID: 0}
   objectManager: {fileID: 0}
