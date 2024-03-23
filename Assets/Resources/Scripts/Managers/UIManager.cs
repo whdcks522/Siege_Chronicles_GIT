@@ -203,7 +203,7 @@ public class UIManager : MonoBehaviour
         if (!_isFocus && !_isUse) //포커스를 취소한 경우
         {
             //자원 반환
-            blueTowerManager.curTowerResource += recentSpellData.spellValue;
+            //blueTowerManager.curTowerResource += recentSpellData.spellValue;
         }
 
         //ui 비활성화

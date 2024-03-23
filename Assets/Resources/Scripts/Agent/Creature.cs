@@ -277,24 +277,27 @@ public class Creature : MonoBehaviour
         if (other.gameObject.CompareTag("Bullet"))//폭탄과 충돌했을 때
         {
             Bullet bullet = other.GetComponent<Bullet>();
-            if (bullet.curTeamEnum != curTeamEnum)//팀이 다를 경우
+            if (bullet.curBulletEffectEnum == Bullet.BulleEffectEnum.Damage) 
             {
-                //피해량 확인
-                float damage = bullet.bulletDamage;
-
-                if (bullet.isCreature) 
+                if (bullet.curTeamEnum != curTeamEnum)//팀이 다를 경우
                 {
-                    Agent bulletAgent = bullet.bulletHost.agent;
-                    //공격자 점수 증가
-                    bulletAgent.AddReward(damage / 10f);
+                    //피해량 확인
+                    float damage = bullet.bulletDamage;
+
+                    if (bullet.isCreature)
+                    {
+                        Agent bulletAgent = bullet.bulletHost.agent;
+                        //공격자 점수 증가
+                        bulletAgent.AddReward(damage / 10f);
+                    }
+
+                    //피해 관리
+                    damageControl(damage);
+
+                    //피격한 총알 후처리
+                    if (bullet.curBulletMoveEnum != Bullet.BulletMoveEnum.Slash)
+                        bullet.BulletOff();
                 }
-
-                //피해 관리
-                damageControl(damage);
-
-                //피격한 총알 후처리
-                if (bullet.curBulletMoveEnum != Bullet.BulletMoveEnum.Slash)
-                    bullet.BulletOff();
             }
         }
     }
@@ -304,17 +307,16 @@ public class Creature : MonoBehaviour
     {
         //피해량 계산
         curHealth -= _dmg;
+
         if (curHealth < 0) curHealth = 0;
         else if (curHealth > maxHealth) curHealth = maxHealth;
+
         //UI관리
         miniHealth.fillAmount = curHealth / maxHealth;
 
         //충격 초기화
-        if (curHealth > 0 && !isAttack)//피격당하고 살아 있으면서, 공격중이 아니라면
-        {
-            //anim.SetTrigger("isHit");
-        }
-        else if (curHealth <= 0) AlmostDead();
+        if (curHealth <= 0)
+            AlmostDead();
 
     }
     #endregion

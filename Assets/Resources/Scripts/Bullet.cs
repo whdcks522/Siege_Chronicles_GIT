@@ -30,6 +30,13 @@ public class Bullet : MonoBehaviour
     [Header("총알의 이동 방식")]
     public BulletMoveEnum curBulletMoveEnum;
 
+    public enum BulleEffectEnum
+    {
+        Damage, Cure
+    }
+    [Header("총알의 특수효과 방식")]
+    public BulleEffectEnum curBulletEffectEnum;
+
     [Header("사라질 때, 생성되는 총알")]
     public Transform endBullet;
 
