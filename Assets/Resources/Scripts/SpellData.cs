@@ -5,14 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SpellData", menuName = "Scriptable Ojbect/SpellData")]
 public class SpellData : ScriptableObject
 {
-    
-
-    public enum SpellType
-    {
-        Creature, Weapon
-    }
-
-    [Header("무기 스펠인 경우, 영역 설정을 위한 포커스를 사용하는 지 여부")]
+    [Header("포커스를 사용하는 지 여부")]
     public bool isFocus;
     public Color focusColor; //포커스에서 보여줄 색상
 
@@ -22,8 +15,13 @@ public class SpellData : ScriptableObject
     [Header("스펠 이름")]
     public string spellName;
 
+    public enum SpellType
+    {
+        Creature, Weapon
+    }
     [Header("스펠 타입")]
     public SpellType spellType;
+
 
     [Header("스펠 비용")]
     public int spellValue;
@@ -34,6 +32,4 @@ public class SpellData : ScriptableObject
 
     [Header("스펠 프레팹")]
     public GameObject spellPrefab;
-
-
 }

@@ -24534,7 +24534,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4002364020883128
 Transform:
   m_ObjectHideFlags: 0
@@ -34371,6 +34371,7 @@ MonoBehaviour:
   bulletHost: {fileID: 0}
   curTeamEnum: 2
   curBulletMoveEnum: 0
+  curBulletEffectEnum: 0
   endBullet: {fileID: 0}
   gameManager: {fileID: 0}
   objectManager: {fileID: 0}
@@ -34421,7 +34422,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.4649999
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1950984331986788
 GameObject:

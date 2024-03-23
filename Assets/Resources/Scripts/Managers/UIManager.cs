@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static ObjectManager;
@@ -160,6 +161,7 @@ public class UIManager : MonoBehaviour
 
     [Header("전투 스펠버튼 배열")]
     public SpellButton[] spellBtnArr = new SpellButton[4];
+    Vector3 clickScaleVec;
     public void OnClick(int _index) 
     {
         SpellData spellData = spellBtnArr[_index].GetComponent<SpellButton>().spellData;
@@ -184,6 +186,10 @@ public class UIManager : MonoBehaviour
 
                     //클릭 포인트의 매터리얼 변화
                     clickMat.SetColor("_AlphaColor", spellData.focusColor);
+                    //클릭 포인트의 크기 변화
+                    float size = spellData.spellPrefab.transform.localScale.x;
+                    clickScaleVec = new Vector3(size, size, size);
+                    clickSphere.localScale = clickScaleVec;
 
                     //포커스 활성화
                     FocusControl(true, true);
@@ -244,7 +250,8 @@ public class UIManager : MonoBehaviour
 
     [Header("클릭 포커스 관련 요소들")]
     public Transform clickPoint;//클릭한 곳
-    public Material clickMat;//클릭한 곳의 매터리얼 
+    public Transform clickSphere;//클릭한 곳의 원형 영역
+    public Material clickMat;//클릭한 곳의 원형 영역의 매터리얼 
     public GameObject focusCanvas;//포커스 관련 UI
     public Text focusLeftText;//포커스했을 때, 나올 왼쪽 텍스트
     public Text focusRightText;//포커스했을 때, 나올 오른쪽 텍스트
