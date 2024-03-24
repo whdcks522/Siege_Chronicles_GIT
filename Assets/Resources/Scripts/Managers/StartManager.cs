@@ -48,7 +48,7 @@ public class StartManager : MonoBehaviour
         public PanelPageInfo[] panelPageInfo;
     }
     [Header("패널 디스플레이의 정보 배열")]
-    public PanelPageInfoArray[] panelPageInfoArray;
+    public PanelPageInfo[] panelPageInfoArray;
 
     [Header("팁 패널")]
     public GameObject tipPanel;
