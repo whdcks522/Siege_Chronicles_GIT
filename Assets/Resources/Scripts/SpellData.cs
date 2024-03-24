@@ -32,4 +32,26 @@ public class SpellData : ScriptableObject
 
     [Header("스펠 프레팹")]
     public GameObject spellPrefab;
+
+    /*
+     
+    #region 적 정보 클래스
+    [Serializable]//필요하더라
+    public class EnemySpawnInfo
+    {
+        public EnemyType enemyType;
+        public int generateIndex;
+    }
+
+    [Serializable]
+    public class EnemySpawnInfoArray
+    {
+        public EnemySpawnInfo[] enemySpawnInfo;
+    }
+
+    public EnemySpawnInfoArray[] enemySpawnInfoArray;//챕터 전체에서 소환할 적의 목록
+    private List<EnemySpawnInfo> enemySpawnList;//이번 스테이지에서 소환할 적의 목록
+    #endregion
+     
+     */
 }
