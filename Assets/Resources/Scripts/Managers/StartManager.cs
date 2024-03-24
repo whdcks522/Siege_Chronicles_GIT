@@ -42,11 +42,6 @@ public class StartManager : MonoBehaviour
         [TextArea]
         public string pageStr;
     }
-    [Serializable]
-    public class PanelPageInfoArray
-    {
-        public PanelPageInfo[] panelPageInfo;
-    }
     [Header("패널 디스플레이의 정보 배열")]
     public PanelPageInfo[] panelPageInfoArray;
 
@@ -61,6 +56,11 @@ public class StartManager : MonoBehaviour
     [Header("팁 패널의 페이지 텍스트")]
     public Text tipPanelPageText;
 
+    [Header("팁 패널의 페이지 왼쪽 버튼")]
+    public Button tipPanelPageLeftBtn;
+
+    [Header("팁 패널의 페이지 오른쪽 버튼")]
+    public Button tipPanelPageRightBtn;
 
     public void PanelActivateControl(bool isActivate) //패널 활성, 비활성 관리
     {
@@ -70,14 +70,39 @@ public class StartManager : MonoBehaviour
         if (isActivate) //패널을 여는 경우
         {
             //패널 상태를 초기화
+            PanelPageControl(0);
         }
     }
 
+    int curPageindex = 0;
     public void PanelPageControl(int pageIndex) //패널 페이지 컨트롤
     {
         //0이면 초기 화면, -1이면 왼쪽, +1이면 오른쪽
+        if (pageIndex == 0) //0으로 초기화
+            curPageindex = 0;
+        else if (pageIndex == -1)//왼쪽으로 넘기기
+            curPageindex -= 1;
+        else if (pageIndex == 1)//오른쪽으로 넘기기
+            curPageindex += 1;
 
-        //해당 페이지 펼치기
+        //오류 조정
+        tipPanelPageLeftBtn.interactable = true;
+        tipPanelPageRightBtn.interactable = true;
+        if (curPageindex <= 0)
+        {
+            curPageindex = 0;
+            tipPanelPageLeftBtn.interactable = false;
+        }
+        else if (curPageindex >= panelPageInfoArray.Length - 1)
+        {
+            curPageindex = panelPageInfoArray.Length - 1;
+            tipPanelPageRightBtn.interactable = false;
+        }
 
+        //해당 페이지 정보 받아오기
+        tipPanelDisplay.sprite = panelPageInfoArray[curPageindex].pageSprite;
+        tipPanelText.text = panelPageInfoArray[curPageindex].pageStr;
+
+        tipPanelPageText.text = (curPageindex + 1) + "/" + panelPageInfoArray.Length;
     }
 }
