@@ -164,6 +164,7 @@ public class UIManager : MonoBehaviour
     Vector3 clickScaleVec;
     public void OnClick(int _index) 
     {
+        //클릭한 버튼의 비용
         SpellData spellData = spellBtnArr[_index].GetComponent<SpellButton>().spellData;
 
         //비용
@@ -283,10 +284,12 @@ public class UIManager : MonoBehaviour
 
         if (Input.GetMouseButton(0))        //좌클릭
         {
+
             blueTowerManager.WeaponSort(recentSpellData.spellPrefab.name);
+            //포커스 해제
             FocusControl(false, true);
         }
-        else if (Input.GetMouseButton(1))   //우클릭
+        else if (Input.GetMouseButtonUp(0))   //우클릭
         {
             FocusControl(false, false);
         }
