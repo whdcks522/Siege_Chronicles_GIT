@@ -99,8 +99,6 @@ public class SelectManager : MonoBehaviour
                 uiManager.spellBtnArr[i].ButtonOff();
             }
         }
-        
-
                 //전투 환경 초기화
                 gameManager.resetEnv();
     }

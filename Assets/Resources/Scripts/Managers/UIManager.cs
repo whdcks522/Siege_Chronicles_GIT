@@ -229,7 +229,6 @@ public class UIManager : MonoBehaviour
             }
             else if (clickPoint.gameObject.activeSelf) //무기 사용
             {
-                Debug.Log(curSpellData);
                 blueTowerManager.WeaponSort(curSpellData.spellPrefab.name);
                 curSpellData = null;
             }

@@ -67,7 +67,8 @@ public class GameManager : MonoBehaviour
         redTowerManager.ResetTower();
 
         //크리쳐 소환(테스트용)
-        //redTowerManager.SpawnCreature(Shooter.name);
+        redTowerManager.SpawnCreature(Shooter.name);
+        redTowerManager.SpawnCreature(Shooter.name);
 
         //포커스 초기화
         uiManager.FocusOff(false);
