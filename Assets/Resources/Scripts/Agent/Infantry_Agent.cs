@@ -291,11 +291,7 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
         }
     }
     #endregion
-    [Header("크리쳐")]
-    public Creature creature;
-
-    [Header("사용하는 총알")]
-    public Transform useBullet;
+    
 
     public override void OnEpisodeBegin()//아무것도 안하면 처음 한 번만 실행됨
     {
@@ -307,9 +303,7 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
     #region 주황색 참격 생성, 상속한 액션 1
     public override void AgentAction_1()
     {
-        string bulletName = useBullet.name;
-
-        GameObject slash = creature.objectManager.CreateObj(bulletName, ObjectManager.PoolTypes.BulletPool);
+        GameObject slash = creature.objectManager.CreateObj(useBullet.name, ObjectManager.PoolTypes.BulletPool);
         Bullet slash_bullet = slash.GetComponent<Bullet>();
 
         //이동

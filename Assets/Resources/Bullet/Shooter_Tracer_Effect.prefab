@@ -4946,6 +4946,7 @@ MonoBehaviour:
   bulletHost: {fileID: 0}
   curTeamEnum: 2
   curBulletMoveEnum: 0
+  curBulletEffectEnum: 0
   endBullet: {fileID: 0}
   gameManager: {fileID: 0}
   objectManager: {fileID: 0}

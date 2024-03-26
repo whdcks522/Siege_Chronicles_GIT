@@ -69,17 +69,7 @@ public class SelectManager : MonoBehaviour
                 spellBtnArr[i].IconChange(uiManager.spellBtnArr[i]);
 
                 //오브젝트 풀링을 위해 미리 생성
-                if (spellBtnArr[i].spellData.spellType == SpellType.Weapon)//무기의 경우
-                {
-                    for (int j = 0; j < 8; j++)
-                    {
-                        GameObject obj = objectManager.CreateObj(spellBtnArr[i].spellData.spellPrefab.name, ObjectManager.PoolTypes.BulletPool);
-                        Bullet bullet = obj.GetComponent<Bullet>();
-                        if(bullet.endBullet != null)//자식 총알도 생성
-                            objectManager.CreateObj(bullet.endBullet.name, ObjectManager.PoolTypes.BulletPool);
-                    }
-                }
-                else if (spellBtnArr[i].spellData.spellType == SpellType.Creature)//생명체의 경우
+                if (spellBtnArr[i].spellData.spellType == SpellType.Creature)//생명체의 경우
                 {
                     for (int j = 0; j < 8; j++)
                     {
@@ -87,7 +77,18 @@ public class SelectManager : MonoBehaviour
                         Creature creature = obj.GetComponent<Creature>();
                         //활동 전에 설정
                         creature.BeforeRevive(Creature.TeamEnum.Blue, gameManager);//블루로 안하면 갈 곳 없다고 오류남
-                        
+                        SuperAgent superAgent = obj.GetComponent<SuperAgent>();
+                        //superAgent.useBullet
+                    }
+                }
+                else if (spellBtnArr[i].spellData.spellType == SpellType.Weapon)//무기의 경우
+                {
+                    for (int j = 0; j < 8; j++)
+                    {
+                        GameObject obj = objectManager.CreateObj(spellBtnArr[i].spellData.spellPrefab.name, ObjectManager.PoolTypes.BulletPool);
+                        Bullet bullet = obj.GetComponent<Bullet>();
+                        if (bullet.endBullet != null)//자식 총알도 생성
+                            objectManager.CreateObj(bullet.endBullet.name, ObjectManager.PoolTypes.BulletPool);
                     }
                 }
             }
@@ -96,11 +97,11 @@ public class SelectManager : MonoBehaviour
                 uiManager.spellBtnArr[i].ButtonOff();
             }
         }
-
-
         //전투 환경 초기화
         gameManager.resetEnv();
     }
+
+
 
     public void RestartGame()//게임 초기화
     {

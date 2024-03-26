@@ -21,7 +21,7 @@ public class ObjectManager : MonoBehaviour
     List<GameObject>[] creaturePools;
 
     //총알 리스트
-    string[] bulletNames = { "Infantry_Slash", "Shooter_Tracer", "Shooter_Tracer_Effect",
+    string[] bulletNames = { "Infantry_Effect", "Shooter_Tracer", "Shooter_Tracer_Effect",
         "Tower_Gun", "Tower_Gun_Effect", "Tower_Flame", "Tower_Flame_Effect","Tower_GrandCure"};
     //총알 주소가 저장될 곳
     List<GameObject>[] bulletPools;
@@ -43,19 +43,27 @@ public class ObjectManager : MonoBehaviour
         //총알 풀 초기화
         bulletPools = new List<GameObject>[bulletNames.Length];
         for (int index = 0; index < bulletNames.Length; index++)//풀 하나하나 초기화
-            bulletPools[index] = new List<GameObject>();
-
-        
+            bulletPools[index] = new List<GameObject>(); 
     }
+
+    #region 게임 오브젝트 반환
+    //게임 오브젝트를 담을 임시 객체
+    GameObject tmpGameObject = null;
+    //게임오브젝트 목록
+    string[] tmpNames = null;
+    //게임오브젝트 별 리스트
+    List<GameObject>[] tmpPools;
+    
+    //폴더의 경로
+    string path = "";
 
     public GameObject CreateObj(string _name, PoolTypes poolTypes) //있으면 적 부르고, 없으면 생성
     {
         //반드시 매번 초기화
-        GameObject tmpGameObject = null;
-
-        List<GameObject>[] tmpPools = null;
-        string[] tmpNames = null;
-
+        tmpGameObject = null;
+        tmpNames = null;
+        tmpPools = null;
+        
         switch (poolTypes)
         {
             case PoolTypes.CreaturePool:
@@ -82,8 +90,6 @@ public class ObjectManager : MonoBehaviour
         //없으면 생성
         if (!tmpGameObject)
         {
-            string path = "";
-
             switch (poolTypes)
             {
                 case PoolTypes.BulletPool:
@@ -114,6 +120,7 @@ public class ObjectManager : MonoBehaviour
         }
         return tmpGameObject;
     }
+    #endregion
 
     #region 오브젝트 풀링에서 순서 출력
     int NametoIndex(string[] tmpNames, string _name)

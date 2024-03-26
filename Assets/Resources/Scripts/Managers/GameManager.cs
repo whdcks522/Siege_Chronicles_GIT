@@ -20,11 +20,13 @@ public class GameManager : MonoBehaviour
     [Header("게임 난이도")]//1, 2 ,3(기본: 2)
     public int gameLevel;
 
+    //게임매니저에서 실험용으로 크리쳐 소환하는 용도
     [Header("Infantry 프리펩")]
     public GameObject Infantry;
     [Header("Shooter 프리펩")]
     public GameObject Shooter;
 
+    //타워 매너저에서 무기를 분류하는 용도
     [Header("Gun 프리펩")]
     public GameObject Gun;
     [Header("Flame 프리펩")]
@@ -65,8 +67,7 @@ public class GameManager : MonoBehaviour
         redTowerManager.ResetTower();
 
         //크리쳐 소환(테스트용)
-        redTowerManager.SpawnCreature(Shooter.name);
-        redTowerManager.SpawnCreature(Shooter.name);
+        //redTowerManager.SpawnCreature(Shooter.name);
 
         //포커스 초기화
         uiManager.FocusControl(false, true);

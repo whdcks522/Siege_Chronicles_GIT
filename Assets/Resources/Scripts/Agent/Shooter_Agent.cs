@@ -159,12 +159,6 @@ public class Shooter_Agent : SuperAgent
     }
     #endregion
 
-    [Header("크리쳐")]
-    public Creature creature;
-
-    [Header("사용하는 총알")]
-    public Transform useBullet;
-
     public override void OnEpisodeBegin()
     {
         creature.Revive();
@@ -173,9 +167,7 @@ public class Shooter_Agent : SuperAgent
     #region 초록 투사체 생성, 상속한 액션 1
     public override void AgentAction_1()
     {
-        string bulletName = useBullet.name;
-
-        GameObject tracer = creature.objectManager.CreateObj(bulletName, ObjectManager.PoolTypes.BulletPool);
+        GameObject tracer = creature.objectManager.CreateObj(useBullet.name, ObjectManager.PoolTypes.BulletPool);
         Bullet tracer_bullet = tracer.GetComponent<Bullet>();
         Rigidbody tracer_rigid = tracer.GetComponent<Rigidbody>();
 

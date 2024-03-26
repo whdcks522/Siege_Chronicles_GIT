@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3920584867422586876}
   - component: {fileID: 3005962474802799519}
   m_Layer: 8
-  m_Name: Infantry_Slash
+  m_Name: Infantry_Effect
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4926,10 +4926,11 @@ MonoBehaviour:
   colTime: 0.7
   bulletDamage: 25
   bulletSpeed: 0
-  bulletCollider: {fileID: 0}
+  bulletCollider: {fileID: 3920584867422586876}
   bulletHost: {fileID: 0}
   curTeamEnum: 2
   curBulletMoveEnum: 0
+  curBulletEffectEnum: 0
   endBullet: {fileID: 0}
   gameManager: {fileID: 0}
   objectManager: {fileID: 0}
