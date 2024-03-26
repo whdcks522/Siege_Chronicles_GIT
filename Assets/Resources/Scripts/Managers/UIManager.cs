@@ -33,10 +33,10 @@ public class UIManager : MonoBehaviour
     public Text PlayerResourceText;//자원 텍스트
 
     //맵을 클릭해서 무기를 사용할 준비 완료 여부
-    bool isFocus;
+    //bool isFocus;
 
     //최근에 사용한 스펠의 데이터
-    SpellData recentSpellData;
+    public SpellData curSpellData;
 
     [Header("매니저")]
     public SelectManager selectManager;
@@ -143,7 +143,7 @@ public class UIManager : MonoBehaviour
             }
 
             //스킬 범위 이동
-            if (isFocus)
+            if (clickPoint.gameObject.activeSelf)
                 ShowWeaponArea();
 
             //은행 버튼 활성화 관리
@@ -170,7 +170,7 @@ public class UIManager : MonoBehaviour
         //비용
         int value = spellData.spellValue;
 
-        if (blueTowerManager.curTowerResource >= value && !isFocus)//비용이 충분한 경우
+        if (blueTowerManager.curTowerResource >= value && curSpellData == null)//비용이 충분한 경우
         {
             blueTowerManager.curTowerResource -= value;
 
@@ -183,7 +183,7 @@ public class UIManager : MonoBehaviour
                 if (spellData.isFocus) 
                 {
                     //무기 데이터 임시 저장
-                    recentSpellData = spellData;
+                    curSpellData = spellData;
 
                     //클릭 포인트의 매터리얼 변화
                     clickMat.SetColor("_AlphaColor", spellData.focusColor);
@@ -200,7 +200,7 @@ public class UIManager : MonoBehaviour
                     clickSphere.localScale = clickScaleVec;
 
                     //포커스 활성화
-                    FocusControl(true, true);
+                    //FocusOn();
                 }
                 else if(!spellData.isFocus)
                 {
@@ -215,44 +215,37 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
-    #region 포커스 관리
+    #region 포커스 상태 전환
 
-    //포커스 상태 전환
-    public void FocusControl(bool _isFocus, bool _isUse) //포커스 했는지 여부, 사용한건지 취소한건지 여부
+    public void FocusOff(bool isEffect) //자원 반환 여부
     {
-        if (!_isFocus && !_isUse) //포커스를 취소한 경우
+        //-1: 자원 반환, 0: 영역만 비활성화, 1: 무기 사용 
+        if (curSpellData != null && isEffect) 
         {
-            //자원 반환
-            blueTowerManager.curTowerResource += recentSpellData.spellValue;
+            if (!clickPoint.gameObject.activeSelf) //자원 반환
+            {
+                blueTowerManager.curTowerResource += curSpellData.spellValue;
+                curSpellData = null;
+            }
+            else if (clickPoint.gameObject.activeSelf) //무기 사용
+            {
+                Debug.Log(curSpellData);
+                blueTowerManager.WeaponSort(curSpellData.spellPrefab.name);
+                curSpellData = null;
+            }
         }
-
-        //ui 비활성화
-        isFocus = _isFocus;
         //영역 관리
-        clickPoint.gameObject.SetActive(_isFocus);
-
-        if (_isFocus)
-        {
-            focusLeftText.text = "스펠 '" + recentSpellData.spellName + "' 사용";
-            focusRightText.text = "자원 '" + recentSpellData.spellValue + "' 반환";
-
-            //버튼 클릭 비활성화
-            for (int i = 0; i < spellBtnArr.Length; i++)
-            {
-                spellBtnArr[i].GetComponent<Button>().interactable = false;
-            }
-        }
-        else if (!_isFocus)
-        {
-            //버튼 클릭 활성화
-            for (int i = 0; i < spellBtnArr.Length; i++)
-            {
-                if (spellBtnArr[i].spellData != null)
-                    spellBtnArr[i].GetComponent<Button>().interactable = true;
-            }
-        }
+        clickPoint.gameObject.SetActive(false);
     }
     #endregion
+    public void FocusOn() 
+    {
+        if (curSpellData != null) 
+        {
+            //영역 관리
+            clickPoint.gameObject.SetActive(true);
+        }
+    }
 
     #region 무기 영역 표시;
 
@@ -281,23 +274,10 @@ public class UIManager : MonoBehaviour
         focusVec = cameraObj.transform.position - cameraGround.transform.position;
         lookRotation = Quaternion.LookRotation(focusVec);
         focusCanvas.transform.rotation = lookRotation;
-
-        if (Input.GetMouseButton(0))        //좌클릭
-        {
-
-            blueTowerManager.WeaponSort(recentSpellData.spellPrefab.name);
-            //포커스 해제
-            FocusControl(false, true);
-        }
-        else if (Input.GetMouseButtonUp(0))   //우클릭
-        {
-            FocusControl(false, false);
-        }
     }
     //카메라 회전값
     Vector3 focusVec;
     Quaternion lookRotation;
 
     #endregion
-
 }

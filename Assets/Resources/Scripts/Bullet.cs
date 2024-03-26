@@ -136,7 +136,7 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.CompareTag("Untagged")) //¸Ê°ú Ãæµ¹
+        if (other.transform.CompareTag("Untagged") && other.gameObject.name != "InvisibleWall") //¸Ê°ú Ãæµ¹
         {
             if (curBulletMoveEnum == BulletMoveEnum.Canon)//Ä³³í(=È­¿°±¸)
             {
@@ -144,10 +144,7 @@ public class Bullet : MonoBehaviour
             }
             else if (curBulletMoveEnum == BulletMoveEnum.Tracer)//ÃÑ¾Ë(=»ç°Ý, »ç¼ö)
             {
-                if (other.gameObject.name != "InvisibleWall")
-                {
-                    EndBulletOn();
-                }
+                EndBulletOn();
             }
         }
     }

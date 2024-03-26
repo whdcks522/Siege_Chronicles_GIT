@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
         //redTowerManager.SpawnCreature(Shooter.name);
 
         //포커스 초기화
-        uiManager.FocusControl(false, true);
+        uiManager.FocusOff(false);
 
     }
     #endregion

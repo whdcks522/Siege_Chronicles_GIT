@@ -68,7 +68,7 @@ public class SelectManager : MonoBehaviour
                 uiManager.spellBtnArr[i].spellData = spellBtnArr[i].spellData;
                 spellBtnArr[i].IconChange(uiManager.spellBtnArr[i]);
 
-                /*
+                
                 //오브젝트 풀링을 위해 미리 생성
                 if (spellBtnArr[i].spellData.spellType == SpellType.Creature)//생명체의 경우
                 {
@@ -92,7 +92,7 @@ public class SelectManager : MonoBehaviour
                             objectManager.CreateObj(bullet.endBullet.name, ObjectManager.PoolTypes.BulletPool);
                     }
                 }
-                */
+                
             }
             else if (spellBtnArr[i].spellData == null)//없는 경우 버튼 비활성화
             {
