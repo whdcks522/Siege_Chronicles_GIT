@@ -75,7 +75,7 @@ public class SelectManager : MonoBehaviour
                     {
                         GameObject obj = objectManager.CreateObj(spellBtnArr[i].spellData.spellPrefab.name, ObjectManager.PoolTypes.BulletPool);
                         Bullet bullet = obj.GetComponent<Bullet>();
-                        if(bullet.endBullet != null)
+                        if(bullet.endBullet != null)//자식 총알도 생성
                             objectManager.CreateObj(bullet.endBullet.name, ObjectManager.PoolTypes.BulletPool);
                     }
                 }
@@ -87,6 +87,7 @@ public class SelectManager : MonoBehaviour
                         Creature creature = obj.GetComponent<Creature>();
                         //활동 전에 설정
                         creature.BeforeRevive(Creature.TeamEnum.Blue, gameManager);//블루로 안하면 갈 곳 없다고 오류남
+                        
                     }
                 }
             }

@@ -105,12 +105,15 @@ public class Bullet : MonoBehaviour
     #region 총알 비활성
     public void BulletOff()
     {
+        //자식 총알 생성
+        EndBulletOn();
+
         //총알 비활성화
         gameObject.SetActive(false);
-
-        EndBulletOn();
     }
+    #endregion
 
+    #region 자식 총알 생성
     public void EndBulletOn()
     {
         if (endBullet != null && gameObject.activeSelf)
@@ -133,14 +136,13 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.CompareTag("Untagged")) //맵과 충돌하면 감점
+        if (other.transform.CompareTag("Untagged")) //맵과 충돌
         {
-            if (curBulletMoveEnum == BulletMoveEnum.Canon)
+            if (curBulletMoveEnum == BulletMoveEnum.Canon)//캐논(=화염구)
             {
-                EndBulletOn();
                 BulletOff();
             }
-            else if (curBulletMoveEnum != BulletMoveEnum.Canon) 
+            else if (curBulletMoveEnum == BulletMoveEnum.Tracer)//총알(=사격, 사수)
             {
                 if (other.gameObject.name != "InvisibleWall")
                 {

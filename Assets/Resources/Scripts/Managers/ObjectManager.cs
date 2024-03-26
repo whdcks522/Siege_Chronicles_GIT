@@ -21,8 +21,8 @@ public class ObjectManager : MonoBehaviour
     List<GameObject>[] creaturePools;
 
     //총알 리스트
-    string[] bulletNames = { "Infantry_Slash", "Shooter_Tracer", "Shooter_Slash", "Tower_Gun", "Tower_Gun_Effect", "Tower_Flame", "Tower_Flame_Effect",
-                                "Tower_GrandCure"};
+    string[] bulletNames = { "Infantry_Slash", "Shooter_Tracer", "Shooter_Tracer_Effect",
+        "Tower_Gun", "Tower_Gun_Effect", "Tower_Flame", "Tower_Flame_Effect","Tower_GrandCure"};
     //총알 주소가 저장될 곳
     List<GameObject>[] bulletPools;
     
@@ -60,7 +60,7 @@ public class ObjectManager : MonoBehaviour
         {
             case PoolTypes.CreaturePool:
                 tmpPools = creaturePools;
-                tmpNames = creatureNames;//awake에서 선언했니
+                tmpNames = creatureNames;//awake에서 선언했니다
                 break;
             case PoolTypes.BulletPool:
                 tmpPools = bulletPools;

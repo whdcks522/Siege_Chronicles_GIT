@@ -6,11 +6,8 @@ using UnityEngine.UI;
 
 public class StartManager : MonoBehaviour
 {
+    [Header("매니저")]
     public GameManager gameManager;
-    
-
-    
-
     UIManager UiManager;
     AudioManager audioManager;
 
@@ -23,7 +20,7 @@ public class StartManager : MonoBehaviour
         //Screen.SetResolution(1920, 1080, false);
     }
     
-    public void StartGame() 
+    public void StartGame()//Select로 넘어가기
     {
         //시작 창 닫기
         gameObject.SetActive(false);
@@ -32,7 +29,7 @@ public class StartManager : MonoBehaviour
         UiManager.selectManager.gameObject.SetActive(true);
     }
 
-    public void ExitGame()=> Application.Quit();
+    public void QuitGame()=> Application.Quit();
 
 
     [Serializable]//필요하더라

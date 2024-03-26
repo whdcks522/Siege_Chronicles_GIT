@@ -296,22 +296,17 @@ public class Creature : MonoBehaviour
 
                     //피격한 총알 후처리
                     if (bullet.curBulletMoveEnum != Bullet.BulletMoveEnum.Slash)
+                    {
                         bullet.BulletOff();
+                    }
                 }
             }
             else if (bullet.curBulletEffectEnum == Bullet.BulleEffectEnum.Cure) 
             {
                 if (bullet.curTeamEnum == curTeamEnum)//팀이 다를 경우
                 {
-                    //피해량 확인
-                    float damage = bullet.bulletDamage;
-
                     //피해 관리
-                    damageControl(damage);
-
-                    //피격한 총알 후처리
-                    if (bullet.curBulletMoveEnum != Bullet.BulletMoveEnum.Slash)
-                        bullet.BulletOff();
+                    damageControl(bullet.bulletDamage);
                 }
             }
         }

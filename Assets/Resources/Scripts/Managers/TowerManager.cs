@@ -131,7 +131,9 @@ public class TowerManager : MonoBehaviour
 
                 //피격한 총알 후처리
                 if (bullet.curBulletMoveEnum != Bullet.BulletMoveEnum.Slash)
+                {
                     bullet.BulletOff();
+                }
             }
         }
     }
