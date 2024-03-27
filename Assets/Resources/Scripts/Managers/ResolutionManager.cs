@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class ResolutionManager : MonoBehaviour
 {
+    public Camera mainCamera;
+
     void Awake() 
     {
-        var camera = GetComponent<Camera>();
-        var r = camera.rect;
+        var r = mainCamera.rect;
         var scaleheight = ((float)Screen.width / Screen.height) / (16f / 9f);
         var scalewidth = 1f / scaleheight;
         if (scaleheight < 1f) {
@@ -19,10 +20,7 @@ public class ResolutionManager : MonoBehaviour
             r.width = scalewidth;
             r.x = (1f - scalewidth) / 2f; 
         }
-        camera.rect = r;
+        mainCamera.rect = r;
 
-        OnPreCull();
     }
-
-    void OnPreCull() => GL.Clear(true, true, Color.black);
 }

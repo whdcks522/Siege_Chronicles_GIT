@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18121827, g: 0.22681499, b: 0.30733907, a: 1}
+  m_IndirectSpecularColor: {r: 0.18121877, g: 0.22681566, b: 0.30734056, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -10777,7 +10777,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 25, y: 126}
+  m_AnchoredPosition: {x: 25, y: 0}
   m_SizeDelta: {x: 1000, y: -352}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &119469176
@@ -37079,7 +37079,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &500256251
 RectTransform:
   m_ObjectHideFlags: 0
@@ -37385,7 +37385,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -71, y: -319}
+  m_AnchoredPosition: {x: -71, y: 0}
   m_SizeDelta: {x: 650, y: 300}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &567753720
@@ -52193,8 +52193,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -25, y: 175}
-  m_SizeDelta: {x: 750, y: -450}
+  m_AnchoredPosition: {x: -25, y: 0}
+  m_SizeDelta: {x: 750, y: -456}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &711393064
 MonoBehaviour:
@@ -120071,7 +120071,7 @@ PrefabInstance:
     - target: {fileID: 2542188347146071400, guid: 635e715c63b5fb44991045f256ef3baf,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -85
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2542188347146071400, guid: 635e715c63b5fb44991045f256ef3baf,
         type: 3}
@@ -131025,7 +131025,6 @@ GameObject:
   - component: {fileID: 1705989931}
   - component: {fileID: 1705989933}
   - component: {fileID: 1705989932}
-  - component: {fileID: 1705989934}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -131143,18 +131142,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &1705989934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1705989930}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36ff0af3d0f9a3d4d8f7d01bed5fa357, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1730745321 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5353312735597383467, guid: 635e715c63b5fb44991045f256ef3baf,
@@ -133386,7 +133373,7 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
-  m_ScreenMatchMode: 0
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -133744,6 +133731,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PrefabEnv
+      objectReference: {fileID: 0}
+    - target: {fileID: 846312324336442269, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 913074925462087691, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
