@@ -41,11 +41,9 @@ public class GameManager : MonoBehaviour
     public UIManager uiManager;
     public AudioManager audioManager;
 
-
-
-    #region 전투 환경 초기화
-    public void resetEnv()
-    {
+        #region 전투 환경 초기화
+        public void resetEnv()
+        {
         //총알 초기화
         for (int i = 0; i < objectManager.bulletFolder.childCount; i++)
         {
@@ -67,8 +65,8 @@ public class GameManager : MonoBehaviour
         redTowerManager.ResetTower();
 
         //크리쳐 소환(테스트용)
-        redTowerManager.SpawnCreature(Shooter.name);
-        redTowerManager.SpawnCreature(Shooter.name);
+        //redTowerManager.SpawnCreature(Shooter.name);
+        //redTowerManager.SpawnCreature(Shooter.name);
 
         //포커스 초기화
         uiManager.FocusOff(false);
