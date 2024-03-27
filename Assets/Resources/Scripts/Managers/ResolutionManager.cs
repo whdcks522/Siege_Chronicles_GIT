@@ -20,5 +20,9 @@ public class ResolutionManager : MonoBehaviour
             r.x = (1f - scalewidth) / 2f; 
         }
         camera.rect = r;
+
+        OnPreCull();
     }
+
+    void OnPreCull() => GL.Clear(true, true, Color.black);
 }
