@@ -215,8 +215,44 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
-    #region 포커스 상태 전환
+    #region 세팅 버튼 기능
+    [Header("세팅 배경")]
+    public GameObject settingBackground;
+    public void SettingControl(bool isOpen) 
+    {
+        //배경 조절
+        settingBackground.SetActive(isOpen);
 
+        //시간 조절
+        if (isOpen)
+            Time.timeScale = 0.001f;
+        else if (!isOpen)
+        {
+            SpeedControl();
+            SpeedControl();
+            SpeedControl();
+        }
+    }
+    #endregion
+
+
+
+    #region 포커스 상태 전환
+    [Header("월드의 빛")]
+    public GameObject worldLight;
+
+    public void FocusOn()
+    {
+        if (curSpellData != null)
+        {
+            //무기 영역 활성화
+            clickPoint.gameObject.SetActive(true);
+            //빛 비활성화
+            worldLight.SetActive(false);
+            //시간 감속
+            Time.timeScale = 0.2f;
+        }
+    }
     public void FocusOff(bool isEffect) //자원 반환 여부
     {
         //-1: 자원 반환, 0: 영역만 비활성화, 1: 무기 사용 
@@ -233,18 +269,17 @@ public class UIManager : MonoBehaviour
                 curSpellData = null;
             }
         }
-        //영역 관리
+        //무기 영역 비활성화
         clickPoint.gameObject.SetActive(false);
+        //빛 활성화
+        worldLight.SetActive(true);
+        //시간 정상화
+        SpeedControl();
+        SpeedControl();
+        SpeedControl();
     }
     #endregion
-    public void FocusOn() 
-    {
-        if (curSpellData != null) 
-        {
-            //영역 관리
-            clickPoint.gameObject.SetActive(true);
-        }
-    }
+
 
     #region 무기 영역 표시;
 

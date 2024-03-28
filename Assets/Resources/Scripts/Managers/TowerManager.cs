@@ -76,17 +76,21 @@ public class TowerManager : MonoBehaviour
 
     private void Update()
     {
-        if (maxTowerResource > curTowerResource)
+        //if (Time.timeScale != 0) 
         {
-            //스펠 사용을 위한 자원 증가
-            //Debug.LogWarning(BankSpeedArr[curBankIndex]);
-            curTowerResource += Time.deltaTime * BankSpeedArr[curBankIndex];
+            if (maxTowerResource > curTowerResource)
+            {
+                //스펠 사용을 위한 자원 증가
+                //Debug.LogWarning(BankSpeedArr[curBankIndex]);
+                curTowerResource += Time.deltaTime * BankSpeedArr[curBankIndex];
+            }
+            else if (maxTowerResource <= curTowerResource)
+            {
+                //현재 자원량이 최대치를 넘지 않도록
+                curTowerResource = maxTowerResource;
+            }
         }
-        else if (maxTowerResource <= curTowerResource)
-        {
-            //현재 자원량이 최대치를 넘지 않도록
-             curTowerResource = maxTowerResource;
-        }
+        
         
 
         // 물체 A에서 B를 바라보는 회전 구하기

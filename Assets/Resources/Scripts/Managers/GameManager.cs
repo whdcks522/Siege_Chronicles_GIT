@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -41,8 +42,8 @@ public class GameManager : MonoBehaviour
     public UIManager uiManager;
     public AudioManager audioManager;
 
-        #region 전투 환경 초기화
-        public void resetEnv()
+    #region 현재 스펠 그대로 게임을 '재시도'
+    public void RetryGame()
         {
         //총알 초기화
         for (int i = 0; i < objectManager.bulletFolder.childCount; i++)
@@ -73,4 +74,10 @@ public class GameManager : MonoBehaviour
 
     }
     #endregion
+
+    //게임을 '처음으로'
+    public void ResetGame()=> SceneManager.LoadScene(0);
+
+    //게임을 '종료하기'
+    public void QuitGame() => Application.Quit();
 }
