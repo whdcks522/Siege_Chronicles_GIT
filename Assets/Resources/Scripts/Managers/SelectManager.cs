@@ -51,8 +51,15 @@ public class SelectManager : MonoBehaviour
         rightPanel.SetActive(false);
     }
 
-    public void StartGame()//게임 시작, 진행 퍼센트 보여주기 힘듬
+    #region 게임 시작, 진행 퍼센트 보여주기 힘듬
+    [Header("로딩 아이콘")]
+    public GameObject loadIcon;
+    public int maxCreatureCount; //타워 매니저에 ui용 겹쳐서 존재
+    public void StartGame()
     {
+        //로딩 아이콘 활성화
+        loadIcon.gameObject.SetActive(true);
+
         //UI 비활성화
         gameObject.SetActive(false);
 
@@ -72,7 +79,7 @@ public class SelectManager : MonoBehaviour
                 //오브젝트 풀링을 위해 미리 생성
                 if (spellBtnArr[i].spellData.spellType == SpellType.Creature)//생명체의 경우
                 {
-                    for (int j = 0; j < 8; j++)
+                    for (int j = 0; j < 4; j++)
                     {
                         GameObject obj = objectManager.CreateObj(spellBtnArr[i].spellData.spellPrefab.name, ObjectManager.PoolTypes.CreaturePool);
                         Creature creature = obj.GetComponent<Creature>();
@@ -84,7 +91,11 @@ public class SelectManager : MonoBehaviour
                 }
                 else if (spellBtnArr[i].spellData.spellType == SpellType.Weapon)//무기의 경우
                 {
-                    for (int j = 0; j < 8; j++)
+                    int mul = 1;
+                    if (spellBtnArr[i].spellData.spellPrefab.name == gameManager.Gun.name)
+                        mul = 3;
+
+                    for (int j = 0; j < 4 * mul; j++)
                     {
                         GameObject obj = objectManager.CreateObj(spellBtnArr[i].spellData.spellPrefab.name, ObjectManager.PoolTypes.BulletPool);
                         Bullet bullet = obj.GetComponent<Bullet>();
@@ -102,4 +113,30 @@ public class SelectManager : MonoBehaviour
         //전투 환경 초기화
         gameManager.RetryGame();
     }
+    #endregion
+
+
+
+
+    /*
+    private IEnumerator LoadSceneAsyncCoroutine(string sceneName)//비동기적으로 scene 로드(렉 걸릴때 사용)
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+        asyncLoad.allowSceneActivation = false; // 로딩이 끝나도 바로 활성화하지 않음
+
+        // 로딩이 끝날 때까지 대기
+        while (!asyncLoad.isDone)
+        {
+            float progress = Mathf.Clamp01(asyncLoad.progress / 0.9f); // 0.9는 로딩이 끝났을 때의 값
+
+            //loadText.text = "로딩 중: " + Mathf.Floor(progress * 100) + "%";
+            if (progress >= 1f)
+            {
+                asyncLoad.allowSceneActivation = true; // 활성화
+            }
+
+            yield return null;
+        }
+    }
+    */
 }
