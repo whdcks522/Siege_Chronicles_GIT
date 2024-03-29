@@ -57,6 +57,7 @@ public class SelectManager : MonoBehaviour
     public int maxCreatureCount; //타워 매니저에 ui용 겹쳐서 존재
     public void StartGame()
     {
+        /*
         //로딩 아이콘 활성화
         loadIcon.gameObject.SetActive(true);
 
@@ -112,9 +113,95 @@ public class SelectManager : MonoBehaviour
         }
         //전투 환경 초기화
         gameManager.RetryGame();
+
+        */
+        // 로딩 아이콘 활성화
+        loadIcon.gameObject.SetActive(true);
+
+        // 게임 레벨 설정
+        gameManager.gameLevel = (int)levelSlider.value;
+
+        // 게임 시작 함수 호출
+        //StartCoroutine(StartGameCoroutine());
+        StartActualGame();
     }
     #endregion
 
+
+    // 게임 시작 코루틴
+    private IEnumerator StartGameCoroutine()
+    {
+        // 여기서 게임 시작 전 필요한 작업들을 수행합니다.
+
+        // 예시로 5초간의 가상 로딩 시간을 줍니다.
+        float timer = 0f;
+        float loadingTime = 5f; // 5초 동안 로딩
+        while (timer < loadingTime)
+        {
+            timer += Time.deltaTime;
+            // 진행 바 업데이트
+            Debug.Log((int)(timer / loadingTime * 100));
+            yield return null;
+        }
+
+        // 로딩이 끝나면 실제로 게임을 시작하는 함수 호출
+        StartActualGame();
+    }
+
+
+    // 실제 게임 시작 함수
+    private void StartActualGame()
+    {
+        //battleUI로 스펠 전달
+        for (int i = 0; i < spellBtnArr.Length; i++)
+        {
+            if (spellBtnArr[i].spellData != null)//스펠이 있는 경우 이미지 갱신
+            {
+                //버튼에 스펠데이터 전달
+                uiManager.spellBtnArr[i].spellData = spellBtnArr[i].spellData;
+                spellBtnArr[i].IconChange(uiManager.spellBtnArr[i]);
+
+
+                //오브젝트 풀링을 위해 미리 생성
+                if (spellBtnArr[i].spellData.spellType == SpellType.Creature)//생명체의 경우
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        GameObject obj = objectManager.CreateObj(spellBtnArr[i].spellData.spellPrefab.name, ObjectManager.PoolTypes.CreaturePool);
+                        Creature creature = obj.GetComponent<Creature>();
+                        //활동 전에 설정
+                        creature.BeforeRevive(Creature.TeamEnum.Blue, gameManager);//블루로 안하면 갈 곳 없다고 오류남
+                        SuperAgent superAgent = obj.GetComponent<SuperAgent>();
+                        //superAgent.useBullet
+                    }
+                }
+                else if (spellBtnArr[i].spellData.spellType == SpellType.Weapon)//무기의 경우
+                {
+                    int mul = 1;
+                    if (spellBtnArr[i].spellData.spellPrefab.name == gameManager.Gun.name)
+                        mul = 3;
+
+                    for (int j = 0; j < 4 * mul; j++)
+                    {
+                        GameObject obj = objectManager.CreateObj(spellBtnArr[i].spellData.spellPrefab.name, ObjectManager.PoolTypes.BulletPool);
+                        Bullet bullet = obj.GetComponent<Bullet>();
+                        if (bullet.endBullet != null)//자식 총알도 생성
+                            objectManager.CreateObj(bullet.endBullet.name, ObjectManager.PoolTypes.BulletPool);
+                    }
+                }
+
+            }
+            else if (spellBtnArr[i].spellData == null)//없는 경우 버튼 비활성화
+            {
+                uiManager.spellBtnArr[i].ButtonOff();
+            }
+        }
+        //전투 환경 초기화
+        gameManager.RetryGame();
+
+        // UI 비활성화
+        gameObject.SetActive(false);
+    }
 
 
 

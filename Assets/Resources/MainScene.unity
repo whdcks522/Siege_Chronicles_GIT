@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18121877, g: 0.22681566, b: 0.30734056, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -79215,6 +79215,8 @@ MonoBehaviour:
   rightPanel: {fileID: 711393062}
   levelSlider: {fileID: 1919094960}
   gameManager: {fileID: 966097539}
+  loadIcon: {fileID: 1990685976}
+  maxCreatureCount: 0
 --- !u!1 &1066679566
 GameObject:
   m_ObjectHideFlags: 0
@@ -84274,7 +84276,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &1111799628
 Light:
   m_ObjectHideFlags: 0
@@ -133674,7 +133676,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1990685977
 RectTransform:
   m_ObjectHideFlags: 0
