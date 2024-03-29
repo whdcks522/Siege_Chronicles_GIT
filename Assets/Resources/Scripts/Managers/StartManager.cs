@@ -29,7 +29,7 @@ public class StartManager : MonoBehaviour
         UiManager.selectManager.gameObject.SetActive(true);
     }
 
-    
+
 
 
     [Serializable]//필요하더라

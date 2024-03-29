@@ -4,23 +4,30 @@ using UnityEngine;
 
 public class ResolutionManager : MonoBehaviour
 {
-    public Camera mainCamera;
-
-    void Awake() 
+    void Start()
     {
-        var r = mainCamera.rect;
-        var scaleheight = ((float)Screen.width / Screen.height) / (16f / 9f);
-        var scalewidth = 1f / scaleheight;
-        if (scaleheight < 1f) {
-            r.height = scaleheight; 
-            r.y = (1f - scaleheight) / 2f; 
-        } 
-        else 
+        Camera camera = GetComponent<Camera>();
+        Rect rect = camera.rect;
+        float scaleheight = ((float)Screen.width / Screen.height) / ((float)16 / 9); // (가로 / 세로)
+        float scalewidth = 1f / scaleheight;
+        if (scaleheight < 1)
         {
-            r.width = scalewidth;
-            r.x = (1f - scalewidth) / 2f; 
+            rect.height = scaleheight;
+            rect.y = (1f - scaleheight) / 2f;
         }
-        mainCamera.rect = r;
+        else
+        {
+            rect.width = scalewidth;
+            rect.x = (1f - scalewidth) / 2f;
+        }
+        camera.rect = rect;
 
+        //OnPreCull();
     }
+    /*
+    void OnPreCull() 
+    {
+        GL.Clear(true, true, Color.black);
+    }
+    */
 }
