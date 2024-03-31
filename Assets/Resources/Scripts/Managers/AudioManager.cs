@@ -164,7 +164,6 @@ public class AudioManager : MonoBehaviour
 
                 int sfxIndex = tmpSfxClips.Length == 1 ? 0 : Random.Range(0, tmpSfxClips.Length);
                 //int sfxIndex = Random.Range(0, tmpSfxClips.Length);
-                Debug.Log(sfxIndex);
 
                 curIndex = loopIndex;
                 sfxPlayers[loopIndex].clip = tmpSfxClips[sfxIndex];//(int)sfx
