@@ -1,0 +1,119 @@
+{
+    "Infantry_A": {
+        "checkpoints": [
+            {
+                "steps": 499973,
+                "file_path": "results\\Infantry_A2\\Infantry_A\\Infantry_A-499973.onnx",
+                "reward": 6.662268977425993,
+                "creation_time": 1709874093.5794687,
+                "auxillary_file_paths": [
+                    "results\\Infantry_A2\\Infantry_A\\Infantry_A-499973.pt"
+                ]
+            },
+            {
+                "steps": 849187,
+                "file_path": "results\\Infantry_A2\\Infantry_A\\Infantry_A-849187.onnx",
+                "reward": 6.825814019537197,
+                "creation_time": 1709876630.105664,
+                "auxillary_file_paths": [
+                    "results\\Infantry_A2\\Infantry_A\\Infantry_A-849187.pt"
+                ]
+            },
+            {
+                "steps": 999977,
+                "file_path": "results\\Infantry_A2\\Infantry_A\\Infantry_A-999977.onnx",
+                "reward": 7.458969769030809,
+                "creation_time": 1709878322.7372968,
+                "auxillary_file_paths": [
+                    "results\\Infantry_A2\\Infantry_A\\Infantry_A-999977.pt"
+                ]
+            },
+            {
+                "steps": 1499985,
+                "file_path": "results\\Infantry_A2\\Infantry_A\\Infantry_A-1499985.onnx",
+                "reward": 7.35755943717366,
+                "creation_time": 1709881832.4953241,
+                "auxillary_file_paths": [
+                    "results\\Infantry_A2\\Infantry_A\\Infantry_A-1499985.pt"
+                ]
+            },
+            {
+                "steps": 1999983,
+                "file_path": "results\\Infantry_A2\\Infantry_A\\Infantry_A-1999983.onnx",
+                "reward": 7.462610128609573,
+                "creation_time": 1709885359.6542742,
+                "auxillary_file_paths": [
+                    "results\\Infantry_A2\\Infantry_A\\Infantry_A-1999983.pt"
+                ]
+            },
+            {
+                "steps": 2499999,
+                "file_path": "results\\Infantry_A2\\Infantry_A\\Infantry_A-2499999.onnx",
+                "reward": 7.421515257264941,
+                "creation_time": 1709888865.876296,
+                "auxillary_file_paths": [
+                    "results\\Infantry_A2\\Infantry_A\\Infantry_A-2499999.pt"
+                ]
+            },
+            {
+                "steps": 2804540,
+                "file_path": "results\\Infantry_A2\\Infantry_A\\Infantry_A-2804540.onnx",
+                "reward": 6.557992472108138,
+                "creation_time": 1709891064.5760264,
+                "auxillary_file_paths": [
+                    "results\\Infantry_A2\\Infantry_A\\Infantry_A-2804540.pt"
+                ]
+            },
+            {
+                "steps": 2811260,
+                "file_path": "results\\Infantry_A2\\Infantry_A\\Infantry_A-2811260.onnx",
+                "reward": null,
+                "creation_time": 1709891143.8741968,
+                "auxillary_file_paths": [
+                    "results\\Infantry_A2\\Infantry_A\\Infantry_A-2811260.pt"
+                ]
+            },
+            {
+                "steps": 17999973,
+                "file_path": "results\\Infantry_A2\\Infantry_A\\Infantry_A-17999973.onnx",
+                "reward": null,
+                "creation_time": 1710063884.8621116,
+                "auxillary_file_paths": [
+                    "results\\Infantry_A2\\Infantry_A\\Infantry_A-17999973.pt"
+                ]
+            },
+            {
+                "steps": 18499998,
+                "file_path": "results\\Infantry_A2\\Infantry_A\\Infantry_A-18499998.onnx",
+                "reward": 10.886944247616661,
+                "creation_time": 1710066634.945002,
+                "auxillary_file_paths": [
+                    "results\\Infantry_A2\\Infantry_A\\Infantry_A-18499998.pt"
+                ]
+            },
+            {
+                "steps": 18804607,
+                "file_path": "results\\Infantry_A2\\Infantry_A\\Infantry_A-18804607.onnx",
+                "reward": 6.558257210661065,
+                "creation_time": 1710068364.703824,
+                "auxillary_file_paths": [
+                    "results\\Infantry_A2\\Infantry_A\\Infantry_A-18804607.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 18804607,
+            "file_path": "results\\Infantry_A2\\Infantry_A.onnx",
+            "reward": 6.558257210661065,
+            "creation_time": 1710068364.703824,
+            "auxillary_file_paths": [
+                "results\\Infantry_A2\\Infantry_A\\Infantry_A-18804607.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.28.0",
+        "torch_version": "1.13.1+cpu"
+    }
+}

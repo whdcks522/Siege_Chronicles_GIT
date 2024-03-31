@@ -1,0 +1,155 @@
+{
+    "Shooter_A": {
+        "checkpoints": [
+            {
+                "steps": 999989,
+                "file_path": "results\\Shooter_A4\\Shooter_A\\Shooter_A-999989.onnx",
+                "reward": null,
+                "creation_time": 1709610423.874315,
+                "auxillary_file_paths": [
+                    "results\\Shooter_A4\\Shooter_A\\Shooter_A-999989.pt"
+                ]
+            },
+            {
+                "steps": 1084971,
+                "file_path": "results\\Shooter_A4\\Shooter_A\\Shooter_A-1084971.onnx",
+                "reward": 2.5143199719488623,
+                "creation_time": 1709611028.430756,
+                "auxillary_file_paths": [
+                    "results\\Shooter_A4\\Shooter_A\\Shooter_A-1084971.pt"
+                ]
+            },
+            {
+                "steps": 1499971,
+                "file_path": "results\\Shooter_A4\\Shooter_A\\Shooter_A-1499971.onnx",
+                "reward": 2.3921548211947083,
+                "creation_time": 1709613376.9319806,
+                "auxillary_file_paths": [
+                    "results\\Shooter_A4\\Shooter_A\\Shooter_A-1499971.pt"
+                ]
+            },
+            {
+                "steps": 1999985,
+                "file_path": "results\\Shooter_A4\\Shooter_A\\Shooter_A-1999985.onnx",
+                "reward": 1.9976907181739807,
+                "creation_time": 1709616296.7593071,
+                "auxillary_file_paths": [
+                    "results\\Shooter_A4\\Shooter_A\\Shooter_A-1999985.pt"
+                ]
+            },
+            {
+                "steps": 2499989,
+                "file_path": "results\\Shooter_A4\\Shooter_A\\Shooter_A-2499989.onnx",
+                "reward": 33.14714056253433,
+                "creation_time": 1709619290.2544215,
+                "auxillary_file_paths": [
+                    "results\\Shooter_A4\\Shooter_A\\Shooter_A-2499989.pt"
+                ]
+            },
+            {
+                "steps": 2680649,
+                "file_path": "results\\Shooter_A4\\Shooter_A\\Shooter_A-2680649.onnx",
+                "reward": 1.0264001674950123,
+                "creation_time": 1709620424.8241577,
+                "auxillary_file_paths": [
+                    "results\\Shooter_A4\\Shooter_A\\Shooter_A-2680649.pt"
+                ]
+            },
+            {
+                "steps": 5499994,
+                "file_path": "results\\Shooter_A4\\Shooter_A\\Shooter_A-5499994.onnx",
+                "reward": null,
+                "creation_time": 1709638549.1487293,
+                "auxillary_file_paths": [
+                    "results\\Shooter_A4\\Shooter_A\\Shooter_A-5499994.pt"
+                ]
+            },
+            {
+                "steps": 5559890,
+                "file_path": "results\\Shooter_A4\\Shooter_A\\Shooter_A-5559890.onnx",
+                "reward": -0.028281057563920815,
+                "creation_time": 1709638850.3517585,
+                "auxillary_file_paths": [
+                    "results\\Shooter_A4\\Shooter_A\\Shooter_A-5559890.pt"
+                ]
+            },
+            {
+                "steps": 5687678,
+                "file_path": "results\\Shooter_A4\\Shooter_A\\Shooter_A-5687678.onnx",
+                "reward": 6.011301656637122,
+                "creation_time": 1709639840.8820388,
+                "auxillary_file_paths": [
+                    "results\\Shooter_A4\\Shooter_A\\Shooter_A-5687678.pt"
+                ]
+            },
+            {
+                "steps": 6499990,
+                "file_path": "results\\Shooter_A4\\Shooter_A\\Shooter_A-6499990.onnx",
+                "reward": null,
+                "creation_time": 1709697868.283358,
+                "auxillary_file_paths": [
+                    "results\\Shooter_A4\\Shooter_A\\Shooter_A-6499990.pt"
+                ]
+            },
+            {
+                "steps": 6503870,
+                "file_path": "results\\Shooter_A4\\Shooter_A\\Shooter_A-6503870.onnx",
+                "reward": 3.726694780867547,
+                "creation_time": 1709697967.314654,
+                "auxillary_file_paths": [
+                    "results\\Shooter_A4\\Shooter_A\\Shooter_A-6503870.pt"
+                ]
+            },
+            {
+                "steps": 6999985,
+                "file_path": "results\\Shooter_A4\\Shooter_A\\Shooter_A-6999985.onnx",
+                "reward": 6.058289103003012,
+                "creation_time": 1709703107.3338597,
+                "auxillary_file_paths": [
+                    "results\\Shooter_A4\\Shooter_A\\Shooter_A-6999985.pt"
+                ]
+            },
+            {
+                "steps": 7499979,
+                "file_path": "results\\Shooter_A4\\Shooter_A\\Shooter_A-7499979.onnx",
+                "reward": 3.4273742729907526,
+                "creation_time": 1709706613.0493057,
+                "auxillary_file_paths": [
+                    "results\\Shooter_A4\\Shooter_A\\Shooter_A-7499979.pt"
+                ]
+            },
+            {
+                "steps": 7999969,
+                "file_path": "results\\Shooter_A4\\Shooter_A\\Shooter_A-7999969.onnx",
+                "reward": -0.6104748922365683,
+                "creation_time": 1709709980.9623704,
+                "auxillary_file_paths": [
+                    "results\\Shooter_A4\\Shooter_A\\Shooter_A-7999969.pt"
+                ]
+            },
+            {
+                "steps": 8202401,
+                "file_path": "results\\Shooter_A4\\Shooter_A\\Shooter_A-8202401.onnx",
+                "reward": -2.792753715895944,
+                "creation_time": 1709711316.882672,
+                "auxillary_file_paths": [
+                    "results\\Shooter_A4\\Shooter_A\\Shooter_A-8202401.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 8202401,
+            "file_path": "results\\Shooter_A4\\Shooter_A.onnx",
+            "reward": -2.792753715895944,
+            "creation_time": 1709711316.882672,
+            "auxillary_file_paths": [
+                "results\\Shooter_A4\\Shooter_A\\Shooter_A-8202401.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.28.0",
+        "torch_version": "1.13.1+cpu"
+    }
+}
