@@ -122,8 +122,8 @@ public class SelectManager : MonoBehaviour
         gameManager.gameLevel = (int)levelSlider.value;
 
         // 게임 시작 함수 호출
-        //StartCoroutine(StartGameCoroutine());
-        StartActualGame();
+        StartCoroutine(StartGameCoroutine());
+        //StartActualGame();
     }
     #endregion
 
@@ -135,7 +135,7 @@ public class SelectManager : MonoBehaviour
 
         // 예시로 5초간의 가상 로딩 시간을 줍니다.
         float timer = 0f;
-        float loadingTime = 5f; // 5초 동안 로딩
+        float loadingTime = 15f; // 5초 동안 로딩
         while (timer < loadingTime)
         {
             timer += Time.deltaTime;

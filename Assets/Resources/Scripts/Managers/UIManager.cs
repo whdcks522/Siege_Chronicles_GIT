@@ -56,14 +56,35 @@ public class UIManager : MonoBehaviour
         cameraGround.transform.position = (blueTower.position + redTower.transform.position) / 2f;
         cameraCloud.transform.position = Vector3.up * fly + cameraGround.position;
 
-        //은행 텍스트 조작
-        bankText.text = "Lv." + (blueTowerManager.curBankIndex + 1) + "(" + blueTowerManager.BankValueArr[blueTowerManager.curBankIndex] + ")";
+        
     }
 
     //버튼으로 카메라 조작
     public void CameraSpin(int _spin) => addRot = _spin;
 
+    #region UI 정보 초기화
+    void resetUI() 
+    {
+        //은행 초기화
+        blueTowerManager.curBankIndex = 0;
+        bankText.text = "Lv." + (blueTowerManager.curBankIndex + 1) + "(" + blueTowerManager.BankValueArr[blueTowerManager.curBankIndex] + ")";
+
+        //배속 초기화
+        if (speed == 1) 
+        {
+            SpeedControl();
+            SpeedControl();
+        }
+        else if (speed == 2)
+        {
+            SpeedControl();
+        }
+    }
+    #endregion
+
     #region 배속 조정
+
+
 
     int speed = 0;
     public Text SpeedControlText;
@@ -86,8 +107,8 @@ public class UIManager : MonoBehaviour
     {
         if (blueTowerManager.curTowerResource >= blueTowerManager.BankValueArr[blueTowerManager.curBankIndex])//비용이 충분한 경우
         {
-            //처리 성공 효과음
-            audioManager.PlaySfx(AudioManager.Sfx.spellSuccessSfx);
+            //은행 효과음
+            audioManager.PlaySfx(AudioManager.Sfx.BankSfx);
 
             //비용 처리
             blueTowerManager.curTowerResource -= blueTowerManager.BankValueArr[blueTowerManager.curBankIndex];
@@ -175,6 +196,10 @@ public class UIManager : MonoBehaviour
 
         if (blueTowerManager.curTowerResource >= value && curSpellData == null)//비용이 충분한 경우
         {
+            //스펠 성공 효과음
+            audioManager.PlaySfx(AudioManager.Sfx.spellSuccessSfx);
+
+            //비용 감소
             blueTowerManager.curTowerResource -= value;
 
             if (spellData.spellType == SpellData.SpellType.Creature)//크리쳐를 누른 경우
@@ -191,7 +216,6 @@ public class UIManager : MonoBehaviour
                     //클릭 포인트의 매터리얼 변화
                     clickMat.SetColor("_AlphaColor", spellData.focusColor);
 
-
                     //클릭 포인트의 크기 변화
                     float size = spellData.spellPrefab.transform.localScale.x;
                     Bullet bullet = spellData.spellPrefab.GetComponent<Bullet>();
@@ -201,9 +225,6 @@ public class UIManager : MonoBehaviour
 
                     clickScaleVec = new Vector3(size, size, size);
                     clickSphere.localScale = clickScaleVec;
-
-                    //포커스 활성화
-                    //FocusOn();
                 }
                 else if(!spellData.isFocus)
                 {
@@ -213,7 +234,8 @@ public class UIManager : MonoBehaviour
         }
         else if (blueTowerManager.curTowerResource < value) //비용이 모자른 경우
         {
-            //비용 부족 효과음
+            //스펠 실패 효과음
+            audioManager.PlaySfx(AudioManager.Sfx.spellFailSfx);
         }
     }
     #endregion

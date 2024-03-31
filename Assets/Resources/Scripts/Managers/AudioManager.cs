@@ -16,21 +16,24 @@ public class AudioManager : MonoBehaviour
     #region 초기화
     private void Awake()
     {
-        //배경음 플레이어 초기화
-        GameObject bgmObject = new GameObject("BgmPlayer");
-        bgmObject.transform.parent = transform;
-        bgmPlayer = bgmObject.AddComponent<AudioSource>();//bgmPlayer에 저장하면서 동시에 컴포넌트 삽입
-        bgmPlayer.playOnAwake = false;
-        bgmPlayer.loop = true;
-
-        //효과음 플레이어 초기화
-        GameObject sfxObject = new GameObject("SfxPlayers");
-        sfxObject.transform.parent = transform;
-        sfxPlayers = new AudioSource[channels];//Audio Source 배열 초기화
-        for (int index = 0; index < channels; index++)
+        if (!gameManager.isML) 
         {
-            sfxPlayers[index] = sfxObject.AddComponent<AudioSource>();
-            sfxPlayers[index].playOnAwake = false;
+            //배경음 플레이어 초기화
+            GameObject bgmObject = new GameObject("BgmPlayer");
+            bgmObject.transform.parent = transform;
+            bgmPlayer = bgmObject.AddComponent<AudioSource>();//bgmPlayer에 저장하면서 동시에 컴포넌트 삽입
+            bgmPlayer.playOnAwake = false;
+            bgmPlayer.loop = true;
+
+            //효과음 플레이어 초기화
+            GameObject sfxObject = new GameObject("SfxPlayers");
+            sfxObject.transform.parent = transform;
+            sfxPlayers = new AudioSource[channels];//Audio Source 배열 초기화
+            for (int index = 0; index < channels; index++)
+            {
+                sfxPlayers[index] = sfxObject.AddComponent<AudioSource>();
+                sfxPlayers[index].playOnAwake = false;
+            }
         }
     }
     #endregion
@@ -88,7 +91,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip[] bankSfxClips;
     [Header("승리 Sfx")]
     public AudioClip[] winSfxClips;
-    [Header("승리 Sfx")]
+    [Header("패배 Sfx")]
     public AudioClip[] loseSfxClips;
     public void PlaySfx(Sfx sfx)
     {
