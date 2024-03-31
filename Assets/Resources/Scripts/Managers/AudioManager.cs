@@ -4,19 +4,10 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    //Bgm 플레이어
-    AudioSource bgmPlayer;
-    public enum BgmMulty { Lobby, PvP }
-    [Header("멀티 Bgm")]
-    public AudioClip[] multyBgmClips;
-
-    [Header("매니저")]
-    public GameManager gameManager;
-
     #region 초기화
     private void Awake()
     {
-        if (!gameManager.isML) 
+        if (!gameManager.isML)
         {
             //배경음 플레이어 초기화
             GameObject bgmObject = new GameObject("BgmPlayer");
@@ -38,26 +29,35 @@ public class AudioManager : MonoBehaviour
     }
     #endregion
 
-    public void StopBgm() //배경 음악 멈추기
-    {
-        bgmPlayer.Stop();
-    }
-    /*
-    public void PlayBgm(BgmStatic _bgm)//스태틱 BGM 재생
-    {
+    //Bgm 플레이어
+    AudioSource bgmPlayer;
+    public enum Bgm { Start, Select, Battle }
+    [Header("멀티 Bgm")]
+    public AudioClip[] BgmClips;
 
-        bgmPlayer.Stop();
-        switch (_bgm)
+    #region BGM 재생
+    public void PlayBgm(Bgm _bgm)//스태틱 BGM 재생
+    {
+        if (!gameManager.isML) 
         {
-            case BgmStatic.Home:
-                bgmPlayer.clip = staticBgmClips[0];
-                //bgmPlayer.volume = 0.5f;
-                break;
-        }
-        bgmPlayer.Play();
+            bgmPlayer.Stop();
+            switch (_bgm)
+            {
+                case Bgm.Start:
+                    bgmPlayer.clip = BgmClips[0];
+                    //bgmPlayer.volume = 0.5f;
+                    break;
+                case Bgm.Select:
+                    bgmPlayer.clip = BgmClips[1];
+                    break;
+                case Bgm.Battle:
+                    bgmPlayer.clip = BgmClips[2];
+                    break;
+            }
+            bgmPlayer.Play();
+        }    
     }
-    */
-
+    #endregion
 
     #region SFX 재생
 
@@ -66,11 +66,16 @@ public class AudioManager : MonoBehaviour
     public int channels;
     int curIndex;//현재 실행 중 인 플레이어 번호
 
-    public enum Sfx
+    public enum Sfx//효과음의 종류
     {
+        //타워나 생명체 피격
         TowerCrashSfx,
+        //총알
         GunSfx, FlameSfx, GrandCureSfx,
-        PaperSfx, spellSuccessSfx, spellFailSfx, BankSfx, WinSfx, LoseSfx
+        //UI
+        PaperSfx, LevelControlSfx, spellSuccessSfx, spellFailSfx, BankSfx, SpeedSfx,
+        //승리와 패배
+        WinSfx, LoseSfx
     }
 
     [Header("타워 파괴 Sfx")]
@@ -81,18 +86,26 @@ public class AudioManager : MonoBehaviour
     public AudioClip[] flameSfxClips;
     [Header("대회복 Sfx")]
     public AudioClip[] grandCureSfxClips;
-    [Header("종이 넘기기 Sfx")]
+
+    [Header("종이 Sfx")]
     public AudioClip[] paperSfxClips;
+    [Header("레벨 조절 Sfx")]
+    public AudioClip[] levelControlSfxClips;
     [Header("스펠 성공 Sfx")]
     public AudioClip[] spellSuccessSfxClips;
     [Header("스펠 실패 Sfx")]
     public AudioClip[] spellFailSfxClips;
     [Header("은행 Sfx")]
     public AudioClip[] bankSfxClips;
+    [Header("가속 Sfx")]
+    public AudioClip[] speedSfxClips;
+
     [Header("승리 Sfx")]
     public AudioClip[] winSfxClips;
     [Header("패배 Sfx")]
     public AudioClip[] loseSfxClips;
+
+    AudioClip[] tmpSfxClips;
     public void PlaySfx(Sfx sfx)
     {
         if (!gameManager.isML) 
@@ -100,15 +113,17 @@ public class AudioManager : MonoBehaviour
             for (int index = 0; index < sfxPlayers.Length; index++)
             {
                 int loopIndex = (index + curIndex) % sfxPlayers.Length;//최근에 사용한 인덱스에서 0부터 증가해가며 가능한 것 탐색
-                if (sfxPlayers[loopIndex].isPlaying) continue;//실행중이라면 continue
+                if (sfxPlayers[loopIndex].isPlaying)//실행중이라면 continue
+                    continue;
 
-                AudioClip[] tmpSfxClips = null;
+                tmpSfxClips = null;
 
                 switch (sfx)
                 {
                     case Sfx.TowerCrashSfx:
                         tmpSfxClips = towerCrashSfxClips;
                         break;
+
                     case Sfx.GunSfx:
                         tmpSfxClips = gunSfxClips;
                         break;
@@ -118,8 +133,12 @@ public class AudioManager : MonoBehaviour
                     case Sfx.GrandCureSfx:
                         tmpSfxClips = grandCureSfxClips;
                         break;
+
                     case Sfx.PaperSfx:
                         tmpSfxClips = paperSfxClips;
+                        break;
+                    case Sfx.LevelControlSfx:
+                        tmpSfxClips = levelControlSfxClips;
                         break;
                     case Sfx.spellSuccessSfx:
                         tmpSfxClips = spellSuccessSfxClips;
@@ -130,6 +149,7 @@ public class AudioManager : MonoBehaviour
                     case Sfx.BankSfx:
                         tmpSfxClips = bankSfxClips;
                         break;
+
                     case Sfx.WinSfx:
                         tmpSfxClips = winSfxClips;
                         break;
@@ -142,7 +162,9 @@ public class AudioManager : MonoBehaviour
                         break;
                 }
 
-                int sfxIndex = Random.Range(0, tmpSfxClips.Length);
+                int sfxIndex = tmpSfxClips.Length == 1 ? 0 : Random.Range(0, tmpSfxClips.Length);
+                //int sfxIndex = Random.Range(0, tmpSfxClips.Length);
+                Debug.Log(sfxIndex);
 
                 curIndex = loopIndex;
                 sfxPlayers[loopIndex].clip = tmpSfxClips[sfxIndex];//(int)sfx
@@ -152,4 +174,7 @@ public class AudioManager : MonoBehaviour
         }
     }
     #endregion
+
+    [Header("매니저")]
+    public GameManager gameManager;
 }

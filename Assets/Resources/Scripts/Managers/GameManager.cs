@@ -72,29 +72,29 @@ public class GameManager : MonoBehaviour
         //redTowerManager.SpawnCreature(Shooter.name);
         //redTowerManager.SpawnCreature(Shooter.name);
 
-        //포커스 초기화
-        uiManager.FocusOff(false);
+        //UI 초기화
+        uiManager.resetUI();
 
     }
     #endregion
 
 
     public void ResetGame()     //게임을 '처음으로'
-    { 
-        //화면을 처음 화면으로
-        SceneManager.LoadScene(0);
-
+    {
         //종이 넘기는 효과음
         audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
+
+        //화면을 처음 화면으로
+        SceneManager.LoadScene(0);
     }
 
 
     public void QuitGame()     //게임을 '종료하기'
     {
-        //게임 종료
-        Application.Quit();
-
         //종이 넘기는 효과음
         audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
+
+        //게임 종료
+        Application.Quit();
     }
 }

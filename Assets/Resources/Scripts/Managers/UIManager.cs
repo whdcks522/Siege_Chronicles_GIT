@@ -63,8 +63,11 @@ public class UIManager : MonoBehaviour
     public void CameraSpin(int _spin) => addRot = _spin;
 
     #region UI 정보 초기화
-    void resetUI() 
+    public void resetUI() 
     {
+        //포커스 초기화
+        FocusOff(false);
+
         //은행 초기화
         blueTowerManager.curBankIndex = 0;
         bankText.text = "Lv." + (blueTowerManager.curBankIndex + 1) + "(" + blueTowerManager.BankValueArr[blueTowerManager.curBankIndex] + ")";
