@@ -23,3 +23,11 @@ mlagents-learn --help
 
 7)AttributeError: 'str' object has no attribute '_key'오류 발생 시
 pip install importlib-metadata==4.4
+------------------------------------------------------------------------------------------------------------
+<<컴파일 속도 최적화>>
+Project Settings => Editor => Enter Play Mode Options 체크 (활성화)
+Reload Domain 체크 해제 (비활성화)
+<https://virtualdever.tistory.com/298>
+
+오토 리프레쉬 비활성화
+<https://virtualdever.tistory.com/101>
