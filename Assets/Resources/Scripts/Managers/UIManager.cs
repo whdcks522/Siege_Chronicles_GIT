@@ -42,10 +42,12 @@ public class UIManager : MonoBehaviour
     public SelectManager selectManager;
     public GameManager gameManager;
     ObjectManager objectManager;
+    AudioManager audioManager;
 
     private void Awake()
     {
         objectManager = gameManager.objectManager;
+        audioManager = gameManager.audioManager;
         blueTower = gameManager.blueTower;
         blueTowerManager = blueTower.GetComponent<TowerManager>();  
         redTower = gameManager.redTower;
@@ -85,7 +87,7 @@ public class UIManager : MonoBehaviour
         if (blueTowerManager.curTowerResource >= blueTowerManager.BankValueArr[blueTowerManager.curBankIndex])//비용이 충분한 경우
         {
             //처리 성공 효과음
-
+            audioManager.PlaySfx(AudioManager.Sfx.spellSuccessSfx);
 
             //비용 처리
             blueTowerManager.curTowerResource -= blueTowerManager.BankValueArr[blueTowerManager.curBankIndex];
@@ -111,6 +113,7 @@ public class UIManager : MonoBehaviour
         else if (blueTowerManager.curTowerResource < blueTowerManager.BankValueArr[blueTowerManager.curBankIndex]) //비용이 모자른 경우
         {
             //비용 부족 효과음
+            audioManager.PlaySfx(AudioManager.Sfx.spellFailSfx);
         }
     }
     #endregion

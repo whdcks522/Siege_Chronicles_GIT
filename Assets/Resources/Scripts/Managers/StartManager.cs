@@ -15,9 +15,6 @@ public class StartManager : MonoBehaviour
     {
         UiManager = gameManager.uiManager;
         audioManager = gameManager.audioManager;
-
-        //해상도 조정(x길이, y길이, 전체화면 여부), 남은 부분은 자동으로 검은색 처리
-        //Screen.SetResolution(1920, 1080, false);
     }
     
     public void StartGame()//Select로 넘어가기
@@ -27,6 +24,9 @@ public class StartManager : MonoBehaviour
 
         //선택 창 열기
         UiManager.selectManager.gameObject.SetActive(true);
+
+        //종이 넘기는 효과음
+        audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
     }
 
 
@@ -69,11 +69,19 @@ public class StartManager : MonoBehaviour
             //패널 상태를 초기화
             PanelPageControl(0);
         }
+        else if (!isActivate) 
+        {
+            //종이 넘기는 효과음
+            audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
+        }
     }
 
     int curPageindex = 0;
     public void PanelPageControl(int pageIndex) //패널 페이지 컨트롤
     {
+        //종이 넘기는 효과음
+        audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
+
         //0이면 초기 화면, -1이면 왼쪽, +1이면 오른쪽
         if (pageIndex == 0) //0으로 초기화
             curPageindex = 0;

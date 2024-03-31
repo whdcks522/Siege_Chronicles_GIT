@@ -10,28 +10,6 @@ public class AudioManager : MonoBehaviour
     [Header("멀티 Bgm")]
     public AudioClip[] multyBgmClips;
 
-
-    AudioSource[] sfxPlayers;//Sfx 플레이어 배열
-    [Header("만들 Sfx 플레이어의 개수")]
-    public int channels;
-    int curIndex;//현재 실행 중 인 플레이어 번호
-    
-    public enum Sfx
-    {
-
-        TowerCrash, Gun, Flame, GrandCure,
-        Paper, Spawn, Upgrade, Warning, Win, Lose
-    }
-
-    [Header("타워 파괴 Sfx")]
-    public AudioClip[] towerCrashSfxClips;
-    [Header("사격 Sfx")]
-    public AudioClip[] gunSfxClips;
-    [Header("화염구 Sfx")]
-    public AudioClip[] flameSfxClips;
-    [Header("대회복 Sfx")]
-    public AudioClip[] grandCureSfxClips;
-
     [Header("매니저")]
     public GameManager gameManager;
 
@@ -78,12 +56,43 @@ public class AudioManager : MonoBehaviour
     */
 
 
-    
-
     #region SFX 재생
+
+    AudioSource[] sfxPlayers;//Sfx 플레이어 배열
+    [Header("만들 Sfx 플레이어의 개수")]
+    public int channels;
+    int curIndex;//현재 실행 중 인 플레이어 번호
+
+    public enum Sfx
+    {
+        TowerCrashSfx,
+        GunSfx, FlameSfx, GrandCureSfx,
+        PaperSfx, spellSuccessSfx, spellFailSfx, BankSfx, WinSfx, LoseSfx
+    }
+
+    [Header("타워 파괴 Sfx")]
+    public AudioClip[] towerCrashSfxClips;
+    [Header("사격 Sfx")]
+    public AudioClip[] gunSfxClips;
+    [Header("화염구 Sfx")]
+    public AudioClip[] flameSfxClips;
+    [Header("대회복 Sfx")]
+    public AudioClip[] grandCureSfxClips;
+    [Header("종이 넘기기 Sfx")]
+    public AudioClip[] paperSfxClips;
+    [Header("스펠 성공 Sfx")]
+    public AudioClip[] spellSuccessSfxClips;
+    [Header("스펠 실패 Sfx")]
+    public AudioClip[] spellFailSfxClips;
+    [Header("은행 Sfx")]
+    public AudioClip[] bankSfxClips;
+    [Header("승리 Sfx")]
+    public AudioClip[] winSfxClips;
+    [Header("승리 Sfx")]
+    public AudioClip[] loseSfxClips;
     public void PlaySfx(Sfx sfx)
     {
-        if (!gameManager.isSound) 
+        if (!gameManager.isML) 
         {
             for (int index = 0; index < sfxPlayers.Length; index++)
             {
@@ -94,17 +103,39 @@ public class AudioManager : MonoBehaviour
 
                 switch (sfx)
                 {
-                    case Sfx.TowerCrash:
+                    case Sfx.TowerCrashSfx:
                         tmpSfxClips = towerCrashSfxClips;
                         break;
-                    case Sfx.Gun:
+                    case Sfx.GunSfx:
                         tmpSfxClips = gunSfxClips;
                         break;
-                    case Sfx.Flame:
+                    case Sfx.FlameSfx:
                         tmpSfxClips = flameSfxClips;
                         break;
-                    case Sfx.GrandCure:
+                    case Sfx.GrandCureSfx:
                         tmpSfxClips = grandCureSfxClips;
+                        break;
+                    case Sfx.PaperSfx:
+                        tmpSfxClips = paperSfxClips;
+                        break;
+                    case Sfx.spellSuccessSfx:
+                        tmpSfxClips = spellSuccessSfxClips;
+                        break;
+                    case Sfx.spellFailSfx:
+                        tmpSfxClips = spellFailSfxClips;
+                        break;
+                    case Sfx.BankSfx:
+                        tmpSfxClips = bankSfxClips;
+                        break;
+                    case Sfx.WinSfx:
+                        tmpSfxClips = winSfxClips;
+                        break;
+                    case Sfx.LoseSfx:
+                        tmpSfxClips = loseSfxClips;
+                        break;
+
+                    default:
+                        Debug.Log("Sfx 없음");
                         break;
                 }
 

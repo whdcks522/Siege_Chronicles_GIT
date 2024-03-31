@@ -76,22 +76,17 @@ public class TowerManager : MonoBehaviour
 
     private void Update()
     {
-        //if (Time.timeScale != 0) 
+        if (maxTowerResource > curTowerResource)
         {
-            if (maxTowerResource > curTowerResource)
-            {
-                //스펠 사용을 위한 자원 증가
-                //Debug.LogWarning(BankSpeedArr[curBankIndex]);
-                curTowerResource += Time.deltaTime * BankSpeedArr[curBankIndex];
-            }
-            else if (maxTowerResource <= curTowerResource)
-            {
-                //현재 자원량이 최대치를 넘지 않도록
-                curTowerResource = maxTowerResource;
-            }
+            //스펠 사용을 위한 자원 증가
+            //Debug.LogWarning(BankSpeedArr[curBankIndex]);
+            curTowerResource += Time.deltaTime * BankSpeedArr[curBankIndex];
         }
-        
-        
+        else if (maxTowerResource <= curTowerResource)
+        {
+            //현재 자원량이 최대치를 넘지 않도록
+            curTowerResource = maxTowerResource;
+        }
 
         // 물체 A에서 B를 바라보는 회전 구하기
         cameraVec = cameraGround.transform.position - mainCamera.transform.position;
@@ -163,8 +158,10 @@ public class TowerManager : MonoBehaviour
             if (curHealth < 0) curHealth = 0;
             else if (curHealth > maxHealth) curHealth = maxHealth;
 
-            //UI관리
+            //타워 체력바 관리
             miniHealth.fillAmount = curHealth / maxHealth;
+            //타워 피격 효과음
+            audioManager.PlaySfx(AudioManager.Sfx.TowerCrashSfx);
 
             if (curHealth <= 0) //게임 종료
             {
@@ -189,10 +186,8 @@ public class TowerManager : MonoBehaviour
     #endregion
 
 
-    #region 무기 사용 분류
-
+    #region 스펠(무기) 사용 분류
     Vector3 enemyVec;
-
     public void WeaponSort(string tmpWeaponName) 
     {
         if (tmpWeaponName == gameManager.Gun.name) Tower_Gun();

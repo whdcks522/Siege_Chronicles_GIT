@@ -8,8 +8,8 @@ public class GameManager : MonoBehaviour
     [Header("머신러닝중인지")]
     public bool isML;
 
-    [Header("소리 재생 여부")]
-    public bool isSound;
+    //[Header("소리 재생 여부")]
+    //public bool isSound;
 
     [Header("블루팀 성")]
     public Transform blueTower;
@@ -44,7 +44,10 @@ public class GameManager : MonoBehaviour
 
     #region 현재 스펠 그대로 게임을 '재시도'
     public void RetryGame()
-        {
+    {
+        //종이 넘기는 효과음
+        audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
+
         //총알 초기화
         for (int i = 0; i < objectManager.bulletFolder.childCount; i++)
         {
@@ -75,9 +78,23 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    //게임을 '처음으로'
-    public void ResetGame()=> SceneManager.LoadScene(0);
 
-    //게임을 '종료하기'
-    public void QuitGame() => Application.Quit();
+    public void ResetGame()     //게임을 '처음으로'
+    { 
+        //화면을 처음 화면으로
+        SceneManager.LoadScene(0);
+
+        //종이 넘기는 효과음
+        audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
+    }
+
+
+    public void QuitGame()     //게임을 '종료하기'
+    {
+        //게임 종료
+        Application.Quit();
+
+        //종이 넘기는 효과음
+        audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
+    }
 }
