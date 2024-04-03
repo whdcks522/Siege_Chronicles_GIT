@@ -26,7 +26,6 @@ public class ObjectManager : MonoBehaviour
     //총알 주소가 저장될 곳
     List<GameObject>[] bulletPools;
     
-    
 
     public enum PoolTypes
     {

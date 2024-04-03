@@ -11,7 +11,7 @@ public class SuperAgent : Agent
     [Header("사용하는 총알")]
     public Transform useBullet;
 
-    virtual public void AgentAction_1()
+    virtual public void AgentAction_1()//상속해서 각자 공격하는 용 함수
     {
 
     }

@@ -29,11 +29,8 @@ public class UIManager : MonoBehaviour
 
 
     [Header("전투 UI")]
-    public Slider PlayerResourceSlider;//자원 슬라이더
-    public Text PlayerResourceText;//자원 텍스트
-
-    //맵을 클릭해서 무기를 사용할 준비 완료 여부
-    //bool isFocus;
+    public Slider PlayerResourceSlider;//플레이어의 자원 슬라이더
+    public Text PlayerResourceText;//플레이어의 자원 텍스트
 
     //최근에 사용한 스펠의 데이터
     public SpellData curSpellData;
@@ -52,11 +49,9 @@ public class UIManager : MonoBehaviour
         blueTowerManager = blueTower.GetComponent<TowerManager>();  
         redTower = gameManager.redTower;
 
-        //시작 할 때, 카메라 위치 고정
+        //시작 할 때, 카메라 축 위치 확인
         cameraGround.transform.position = (blueTower.position + redTower.transform.position) / 2f;
         cameraCloud.transform.position = Vector3.up * fly + cameraGround.position;
-
-        
     }
 
     //버튼으로 카메라 조작
@@ -96,16 +91,18 @@ public class UIManager : MonoBehaviour
         speed++;
         speed = (speed % 3);
 
+        //시간 조절
         Time.timeScale = (speed + 1);
 
+        //글자 변환
         SpeedControlText.text = "x" + (speed + 1);
     }
     #endregion
 
     #region 은행 관리
     [Header("은행 관련 UI")]
-    public Image bankBtn;
-    public Text bankText;
+    public Image bankBtn;//은행 이미지
+    public Text bankText;//은행 텍스ㅡㅌ
     public void BankControl() 
     {
         if (blueTowerManager.curTowerResource >= blueTowerManager.BankValueArr[blueTowerManager.curBankIndex])//비용이 충분한 경우
@@ -160,7 +157,7 @@ public class UIManager : MonoBehaviour
             PlayerResourceSlider.value = blueTowerManager.curTowerResource / blueTowerManager.maxTowerResource;
             PlayerResourceText.text = blueTowerManager.curTowerResource.ToString("F1") + "/" + blueTowerManager.maxTowerResource.ToString("F0");
 
-            //스펠 비율 보여주기
+            //스펠 자원 비율 보여주기
             for (int i = 0; i < spellBtnArr.Length; i++)
             {
                 if (spellBtnArr[i].spellData != null)
@@ -169,7 +166,7 @@ public class UIManager : MonoBehaviour
                 }
             }
 
-            //스킬 범위 이동
+            //포커스됐으면 스킬 범위 이동
             if (clickPoint.gameObject.activeSelf)
                 ShowWeaponArea();
 
@@ -246,9 +243,9 @@ public class UIManager : MonoBehaviour
     #region 세팅 버튼 기능
     [Header("세팅 배경")]
     public GameObject settingBackground;
-    public void SettingControl(bool isOpen) 
+    public void SettingControl(bool isOpen)//세팅 활성화 관리
     {
-        //배경 조절
+        //이미지 조절
         settingBackground.SetActive(isOpen);
 
         //시간 조절
@@ -262,8 +259,6 @@ public class UIManager : MonoBehaviour
         }
     }
     #endregion
-
-
 
     #region 포커스 상태 전환
     [Header("월드의 빛")]
@@ -316,7 +311,7 @@ public class UIManager : MonoBehaviour
     public Transform clickSphere;//클릭한 곳의 원형 영역
     public Material clickMat;//클릭한 곳의 원형 영역의 매터리얼 
 
-    void ShowWeaponArea()
+    void ShowWeaponArea()//화면 누르는 위치를 보여줌
     {
         int layerMask = LayerMask.GetMask("MainMap"); // "Default" 레이어와 충돌하도록 설정
 

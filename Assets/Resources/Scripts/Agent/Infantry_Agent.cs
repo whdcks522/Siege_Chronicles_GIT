@@ -163,7 +163,6 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
      */
 
 
-
     public override void OnActionReceived(ActionBuffers actions)//액션 기입(가능한 동작), 매 번 호출 
     {
         if (!creature.isAttack && gameObject.layer == LayerMask.NameToLayer("Creature")) 
@@ -174,8 +173,9 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
             //자동 실점
             AddReward(-0.004f);
 
-            //방향따라 점수 증가
+            //이동 방향 따라서 점수 증가
             AddReward(creature.GetMatchingVelocityReward()/100f);
+
             //가만히 서있다면 실점
             if (actions.DiscreteActions[0] == 1 && actions.DiscreteActions[1] == 0)
             {

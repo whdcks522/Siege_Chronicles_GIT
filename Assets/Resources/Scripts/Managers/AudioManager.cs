@@ -63,7 +63,7 @@ public class AudioManager : MonoBehaviour
 
     AudioSource[] sfxPlayers;//Sfx 플레이어 배열
     [Header("만들 Sfx 플레이어의 개수")]
-    public int channels;
+    public int channels;//한 번에 몇개의 효과음을 출력 가능한지
     int curIndex;//현재 실행 중 인 플레이어 번호
 
     public enum Sfx//효과음의 종류

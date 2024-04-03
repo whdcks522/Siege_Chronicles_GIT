@@ -61,8 +61,6 @@ public class TowerManager : MonoBehaviour
         }
     }
 
-
-
     //카메라 회전값
     Vector3 cameraVec;
     Quaternion lookRotation;
@@ -74,7 +72,7 @@ public class TowerManager : MonoBehaviour
     public float curTowerResource = 0f;     //플레이어의 현재 자원
     public float maxTowerResource = 10f;    //플레이어의 최대 자원
 
-    private void Update()
+    private void Update()//Update있으면 매초마다 증가
     {
         if (maxTowerResource > curTowerResource)
         {
@@ -92,7 +90,7 @@ public class TowerManager : MonoBehaviour
         cameraVec = cameraGround.transform.position - mainCamera.transform.position;
         lookRotation = Quaternion.LookRotation(cameraVec);
 
-        // 물체 C에 회전 적용
+        // 캔퍼스에 회전 적용
         miniCanvas.transform.rotation = lookRotation;
     }
 
@@ -116,11 +114,10 @@ public class TowerManager : MonoBehaviour
 
 
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)//부딪힘
     {
         if (other.gameObject.CompareTag("Bullet"))//총알과 충돌
         {
-
             Bullet bullet = other.gameObject.GetComponent<Bullet>();
 
             if (bullet.curTeamEnum != curTeamEnum)//팀이 다를 경우만 피해 처리
@@ -237,7 +234,7 @@ public class TowerManager : MonoBehaviour
     }
     #endregion
 
-    #region 파이어볼
+    #region 화염구
     void Tower_Flame()//적이 사용할 경우 가속쪽에 clickPoint 코드 변경 필요
     {
         GameObject bullet = objectManager.CreateObj("Tower_Flame", ObjectManager.PoolTypes.BulletPool);

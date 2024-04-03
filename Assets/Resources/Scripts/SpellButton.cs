@@ -48,7 +48,7 @@ public class SpellButton : MonoBehaviour
         }
     }
 
-    public void ButtonOff() 
+    public void ButtonOff() //버튼 비활성화
     {
         //비용 텍스트 관리
         spellBtnValue.gameObject.SetActive(false);

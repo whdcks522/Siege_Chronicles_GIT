@@ -30,8 +30,6 @@ public class StartManager : MonoBehaviour
     }
 
 
-
-
     [Serializable]//필요하더라
     public class PanelPageInfo
     {
@@ -76,6 +74,7 @@ public class StartManager : MonoBehaviour
         }
     }
 
+    //현재 페이지 인덱스
     int curPageindex = 0;
     public void PanelPageControl(int pageIndex) //패널 페이지 컨트롤
     {

@@ -12,7 +12,7 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class Creature : MonoBehaviour
 {
-    [Header("쉐이더에 쓰일 텍스쳐")]
+    [Header("쉐이더에 쓰일 텍스쳐")]//천천히 보이는 용
     public Texture baseTexture;
     public SkinnedMeshRenderer skinnedMeshRenderer;//쉐이더에 쓰일 스킨 렌더러
 
@@ -21,7 +21,7 @@ public class Creature : MonoBehaviour
     [Header("생명체의 현재 체력")]
     public float curHealth;
 
-    [Header("현재 공격 중인지")]
+    [Header("현재 공격 중인지")]//연속 공격 방식
     public bool isAttack = false;
 
 
@@ -43,18 +43,19 @@ public class Creature : MonoBehaviour
     public Transform bulletStartPoint;
 
     public GameObject miniCanvas;//캐릭터 위의 미니 UI
-    public Image miniHealth;
-    public Text curReward;
+    public Image miniHealth;//체력바
+    public Text curReward;//현재 안씀, 차후 삭제
 
     [Header("달리는 속도")]
     public int runSpd;
     int rotSpd = 120;//회전 속도
 
-    Vector3 moveVec;//이동용 벡터
+    Vector3 moveVec;//이동용 벡터(몰라도 됨)
     public enum TeamEnum {Blue, Red, Gray}//속하는 팀
     [Header("속하는 팀")]
     public TeamEnum curTeamEnum;
-    public int teamIndex;
+
+    public int teamIndex;//팀 인덱스, 강화학습용
 
     public enum CreatureMoveEnum { Idle, Run }//머신러닝으로 취할수 있는 행동
     public CreatureMoveEnum curCreatureMoveEnum;
@@ -62,9 +63,9 @@ public class Creature : MonoBehaviour
     public enum CreatureSpinEnum { LeftSpin, None, RightSpin }//머신러닝으로 취할수 있는 회전
     public CreatureSpinEnum curCreatureSpinEnum;
 
-    public Rigidbody rigid;
-    public Animator anim;
-    public Agent agent;
+    public Rigidbody rigid;//물리법칙
+    public Animator anim;//애니메이션
+    public Agent agent;//강화학습 에이전트
 
     public BehaviorParameters behaviorParameters;//디폴트에서도 조작이 되므로 방지하기 위함
 
@@ -161,7 +162,7 @@ public class Creature : MonoBehaviour
         Revive();
     }
 
-    public void Revive()
+    public void Revive()//크리쳐 부활시 설정 초기화
     {
         //위치 초기화
         transform.position = startPoint.position;
@@ -199,11 +200,10 @@ public class Creature : MonoBehaviour
 
 
     #region 물리 동작
-    private void FixedUpdate()
+    private void FixedUpdate()//Update: 매 프레임
     {
         if (gameObject.layer == LayerMask.NameToLayer("Creature"))
         {
-
             //행동 관리
             switch (curCreatureMoveEnum)
             {
@@ -212,7 +212,6 @@ public class Creature : MonoBehaviour
                     if (moveVec.y >= 0)
                         moveVec.y = 0;
                     rigid.velocity = moveVec;
-
 
                     anim.SetBool("isRun", false);
                     break;
@@ -228,7 +227,7 @@ public class Creature : MonoBehaviour
             }
             switch (curCreatureSpinEnum)
             {
-                case CreatureSpinEnum.LeftSpin:
+                case CreatureSpinEnum.LeftSpin://좌회전
                     moveVec = transform.rotation.eulerAngles;
                     // 왼쪽으로 조금 회전합니다 (여기서는 y축 값만 조정합니다)
                     moveVec.y -= rotSpd * Time.deltaTime;
@@ -236,7 +235,7 @@ public class Creature : MonoBehaviour
                     transform.rotation = Quaternion.Euler(moveVec);
 
                     break;
-                case CreatureSpinEnum.None:
+                case CreatureSpinEnum.None://앞쪽 바라보기
                     //회전 가속도 초기화
                     moveVec = transform.rotation.eulerAngles;
                     moveVec.x = 0;
@@ -246,7 +245,7 @@ public class Creature : MonoBehaviour
                     rigid.angularVelocity = Vector3.zero;
                     break;
 
-                case CreatureSpinEnum.RightSpin:
+                case CreatureSpinEnum.RightSpin://우회전
                     moveVec = transform.rotation.eulerAngles;
                     // 왼쪽으로 조금 회전합니다 (여기서는 y축 값만 조정합니다)
                     moveVec.y += rotSpd * Time.deltaTime;
@@ -272,7 +271,7 @@ public class Creature : MonoBehaviour
         miniCanvas.transform.rotation = lookRotation;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)//
     {
         if (other.gameObject.CompareTag("Bullet"))//폭탄과 충돌했을 때
         {
@@ -366,14 +365,13 @@ public class Creature : MonoBehaviour
         }
     }
 
-    //완전히 죽음
+    //투명해진 후에, 완전히 죽음
     public void CompletelyDead() 
     {
         //생명체 비활성화
         gameObject.SetActive(false);
         //중립 폴더로 옮기기
         transform.parent = objectManager.grayCreatureFolder;
-
     }
     #endregion
 
@@ -445,7 +443,7 @@ public class Creature : MonoBehaviour
         }
     }
 
-    public void RangeFirstRangeCalc()//가까운 적부터 사냥
+    public void RangeFirstRangeCalc()//가까운 적(타워포함)부터 사냥
     {
 
         curRange = (enemyTower.position - transform.position).magnitude - 2;//일단 적을 타워로 설정

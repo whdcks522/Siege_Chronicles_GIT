@@ -23,6 +23,6 @@ public class AnimatorSupport : MonoBehaviour
         creature.CompletelyDead();
     }
 
-    //에이전트별 액션 1(각자 다형성 적용해서 커스텀)
+    //에이전트별 액션 1(각자 다형성 적용해서 커스텀), 
     public void AgentAction_1() => superAgent.AgentAction_1();
 }
