@@ -73,7 +73,7 @@ public class AudioManager : MonoBehaviour
         //총알
         GunSfx, FlameSfx, GrandCureSfx,
         //UI
-        PaperSfx, LevelControlSfx, spellSuccessSfx, spellFailSfx, BankSfx, SpeedSfx,
+        PaperSfx, LevelControlSfx, SpellSuccessSfx, SpellFailSfx, BankSfx, SpeedSfx,
         //승리와 패배
         WinSfx, LoseSfx
     }
@@ -140,14 +140,17 @@ public class AudioManager : MonoBehaviour
                     case Sfx.LevelControlSfx:
                         tmpSfxClips = levelControlSfxClips;
                         break;
-                    case Sfx.spellSuccessSfx:
+                    case Sfx.SpellSuccessSfx:
                         tmpSfxClips = spellSuccessSfxClips;
                         break;
-                    case Sfx.spellFailSfx:
+                    case Sfx.SpellFailSfx:
                         tmpSfxClips = spellFailSfxClips;
                         break;
                     case Sfx.BankSfx:
                         tmpSfxClips = bankSfxClips;
+                        break;
+                    case Sfx.SpeedSfx:
+                        tmpSfxClips = speedSfxClips;
                         break;
 
                     case Sfx.WinSfx:
@@ -162,9 +165,10 @@ public class AudioManager : MonoBehaviour
                         break;
                 }
 
+                //효과음의 배열의 크기가 1이 아닌 경우만 랜덤으로 구함
                 int sfxIndex = tmpSfxClips.Length == 1 ? 0 : Random.Range(0, tmpSfxClips.Length);
-                //int sfxIndex = Random.Range(0, tmpSfxClips.Length);
 
+                //현재 쉬고 있는 플레이어에서 효과음 재생
                 curIndex = loopIndex;
                 sfxPlayers[loopIndex].clip = tmpSfxClips[sfxIndex];//(int)sfx
                 sfxPlayers[loopIndex].Play();

@@ -52,7 +52,11 @@ public class SelectManager : MonoBehaviour
     }
 
     //레벨 슬라이더 조정
-    public void LevelControl()=> audioManager.PlaySfx(AudioManager.Sfx.LevelControlSfx);
+    public void LevelControl() 
+    {
+        if(audioManager != null)
+            audioManager.PlaySfx(AudioManager.Sfx.LevelControlSfx);
+    }
 
     #region 게임 시작, 진행 퍼센트 보여주기 힘듬
     [Header("로딩 패널")]
@@ -70,7 +74,7 @@ public class SelectManager : MonoBehaviour
 
 
     Color fadeColor;
-    IEnumerator StartFadeOut()//페이드 아웃
+    IEnumerator StartFadeOut()//페이드 아웃을 시작함(투명해지는 것)
     {
         // 로딩 아이콘 활성화
         loadPanel.gameObject.SetActive(true);

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class SpellButton : MonoBehaviour
 {
-    public enum SpellBtnEnum {LeftBtn, RightBtn, SelectBtn, BattleBtn }//속하는 팀
+    public enum SpellBtnEnum {LeftBtn, RightBtn, SelectBtn, BattleBtn }//어떤 종류의 스펠 버튼인지
     [Header("스펠 버튼의 종류")]
     public SpellBtnEnum curSpellBtnEnum;
 
@@ -96,7 +96,7 @@ public class SpellButton : MonoBehaviour
     #region 스펠 버튼 클릭
     public void OnClick()
     {
-        if (curSpellBtnEnum == SpellBtnEnum.LeftBtn || curSpellBtnEnum == SpellBtnEnum.SelectBtn && spellData != null) 
+        if ((curSpellBtnEnum == SpellBtnEnum.LeftBtn || curSpellBtnEnum == SpellBtnEnum.SelectBtn) && spellData != null) 
         {
             //오른쪽 패널 활성화
             selectManager.rightPanel.SetActive(true);
@@ -123,7 +123,7 @@ public class SpellButton : MonoBehaviour
             //스펠 설명 바꾸기
             selectManager.selectedSpellDesc.text = "설명: " + spellData.spellDesc;
 
-            if (curSpellBtnEnum == SpellBtnEnum.LeftBtn) 
+            if (curSpellBtnEnum == SpellBtnEnum.LeftBtn)
             {
                 bool isWork = true;
 
@@ -131,6 +131,9 @@ public class SpellButton : MonoBehaviour
                 {
                     if (spellBtn.originSpellBtn == GetComponent<SpellButton>())//이미 눌렀던 버튼이였다면
                     {
+                        //스펠 버튼 클릭 실패 효과음 출력
+                        audioManager.PlaySfx(AudioManager.Sfx.SpellFailSfx);
+
                         //체크 아이콘 조작
                         spellBtnCheck.SetActive(false);
 
@@ -155,6 +158,9 @@ public class SpellButton : MonoBehaviour
                     {
                         if (spellBtn.originSpellBtn == null)//선점자가 없다면
                         {
+                            //스펠 버튼 클릭 성공 효과음 출력
+                            audioManager.PlaySfx(AudioManager.Sfx.SpellSuccessSfx);
+
                             //체크 아이콘 조작
                             spellBtnCheck.SetActive(true);
 
@@ -172,6 +178,11 @@ public class SpellButton : MonoBehaviour
                         }
                     }
                 }
+            }
+            else if (curSpellBtnEnum == SpellBtnEnum.SelectBtn) 
+            {
+                //스펠 버튼 클릭 성공 효과음 출력
+                audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
             }
         }
     }

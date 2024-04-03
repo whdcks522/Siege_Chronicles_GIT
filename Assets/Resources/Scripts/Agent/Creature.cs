@@ -43,8 +43,7 @@ public class Creature : MonoBehaviour
     public Transform bulletStartPoint;
 
     public GameObject miniCanvas;//캐릭터 위의 미니 UI
-    public Image miniHealth;//체력바
-    public Text curReward;//현재 안씀, 차후 삭제
+    public Image miniHealth;//크리쳐의 체력 게이지
 
     [Header("달리는 속도")]
     public int runSpd;
@@ -67,18 +66,18 @@ public class Creature : MonoBehaviour
     public Animator anim;//애니메이션
     public Agent agent;//강화학습 에이전트
 
-    public BehaviorParameters behaviorParameters;//디폴트에서도 조작이 되므로 방지하기 위함
+    public BehaviorParameters behaviorParameters;//머신러닝 디폴트에서도 조작이 되므로 방지하기 위함
+
+    Transform cameraGround;//카메라가 관찰하는 땅의 지점
+
+    Transform mainCamera;//메인 카메라 객체(체력바가 그 곳을 바라 보도록)
 
     [Header("매니저")]
     public GameManager gameManager;
     public ObjectManager objectManager;
 
     UIManager UIManager;//
-    Transform cameraGround;//카메라가 관찰하는 곳
     
-    Transform mainCamera;//메인 카메라 객체
-    //--------
-
 
     /*
     이동하면 점수
@@ -413,36 +412,6 @@ public class Creature : MonoBehaviour
     public float curRange;
     [Header("가장 가까운 대상")]
     public Transform curTarget;
-
-    public void EnemyFirstRangeCalc()//모든 적을 잡고 나서 공성
-    {
-        bool isLive = false;
-        curRange = 9999;
-
-        foreach (Transform obj in enemyCreatureFolder) 
-        {
-
-            if (obj.gameObject.layer == LayerMask.NameToLayer("Creature")) 
-            {
-                isLive = true;
-
-                //적과의 거리
-                float tmpRange = (obj.position - transform.position).magnitude;
-                if (tmpRange < curRange)
-                {
-                    curRange = tmpRange;
-                    curTarget = obj;
-                }
-            } 
-        }
-
-        if (!isLive)//남은 적이 없다면
-        {
-            curTarget = enemyTower;
-            curRange = (curTarget.position - transform.position).magnitude - 2;//타워의 두께 계산
-        }
-    }
-
     public void RangeFirstRangeCalc()//가까운 적(타워포함)부터 사냥
     {
 

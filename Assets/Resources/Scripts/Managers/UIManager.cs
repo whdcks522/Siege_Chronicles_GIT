@@ -70,24 +70,28 @@ public class UIManager : MonoBehaviour
         //배속 초기화
         if (speed == 1) 
         {
-            SpeedControl();
-            SpeedControl();
+            SpeedControl(false);
+            SpeedControl(false);
         }
         else if (speed == 2)
         {
-            SpeedControl();
+            SpeedControl(false);
         }
     }
     #endregion
 
     #region 배속 조정
-
-
-
     int speed = 0;
     public Text SpeedControlText;
-    public void SpeedControl()
+    public void SpeedControl(bool isSfx)
     {
+        if (isSfx) 
+        {
+            //속도 조절 효과음 출력
+            audioManager.PlaySfx(AudioManager.Sfx.SpeedSfx);
+        }
+
+        //속도 조정
         speed++;
         speed = (speed % 3);
 
@@ -134,7 +138,7 @@ public class UIManager : MonoBehaviour
         else if (blueTowerManager.curTowerResource < blueTowerManager.BankValueArr[blueTowerManager.curBankIndex]) //비용이 모자른 경우
         {
             //비용 부족 효과음
-            audioManager.PlaySfx(AudioManager.Sfx.spellFailSfx);
+            audioManager.PlaySfx(AudioManager.Sfx.SpellFailSfx);
         }
     }
     #endregion
@@ -197,7 +201,7 @@ public class UIManager : MonoBehaviour
         if (blueTowerManager.curTowerResource >= value && curSpellData == null)//비용이 충분한 경우
         {
             //스펠 성공 효과음
-            audioManager.PlaySfx(AudioManager.Sfx.spellSuccessSfx);
+            audioManager.PlaySfx(AudioManager.Sfx.SpellSuccessSfx);
 
             //비용 감소
             blueTowerManager.curTowerResource -= value;
@@ -235,7 +239,7 @@ public class UIManager : MonoBehaviour
         else if (blueTowerManager.curTowerResource < value) //비용이 모자른 경우
         {
             //스펠 실패 효과음
-            audioManager.PlaySfx(AudioManager.Sfx.spellFailSfx);
+            audioManager.PlaySfx(AudioManager.Sfx.SpellFailSfx);
         }
     }
     #endregion
@@ -245,6 +249,9 @@ public class UIManager : MonoBehaviour
     public GameObject settingBackground;
     public void SettingControl(bool isOpen)//세팅 활성화 관리
     {
+        //페이지 효과음
+        audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
+
         //이미지 조절
         settingBackground.SetActive(isOpen);
 
@@ -253,9 +260,9 @@ public class UIManager : MonoBehaviour
             Time.timeScale = 0.001f;
         else if (!isOpen)
         {
-            SpeedControl();
-            SpeedControl();
-            SpeedControl();
+            SpeedControl(false);
+            SpeedControl(false);
+            SpeedControl(false);
         }
     }
     #endregion
@@ -297,9 +304,9 @@ public class UIManager : MonoBehaviour
         //빛 활성화
         worldLight.SetActive(true);
         //시간 정상화
-        SpeedControl();
-        SpeedControl();
-        SpeedControl();
+        SpeedControl(false);
+        SpeedControl(false);
+        SpeedControl(false);
     }
     #endregion
 
