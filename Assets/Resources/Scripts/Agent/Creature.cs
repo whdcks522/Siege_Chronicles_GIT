@@ -75,8 +75,7 @@ public class Creature : MonoBehaviour
     [Header("¸Å´ÏÀú")]
     public GameManager gameManager;
     public ObjectManager objectManager;
-
-    UIManager UIManager;//
+    UIManager UIManager;
     
 
     /*

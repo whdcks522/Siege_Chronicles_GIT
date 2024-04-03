@@ -21,7 +21,7 @@ public class UIManager : MonoBehaviour
     Transform redTower;//빨간 성의 생성 지점
 
     int mul = 45;//카메라 회전 속도
-    int curRot = -160;//현재 회전값
+    int curRot = -160;//현재 카메라 회전값
     int addRot = 0;//버튼으로 회전할 때 사용하는 논리값
     Vector3 cameraVec;//카메라 회전용 벡터
 
@@ -77,6 +77,9 @@ public class UIManager : MonoBehaviour
         {
             SpeedControl(false);
         }
+
+        //카메라 회전 초기화
+        curRot = -160;
     }
     #endregion
 
