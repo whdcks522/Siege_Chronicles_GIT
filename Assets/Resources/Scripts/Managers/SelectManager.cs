@@ -68,7 +68,9 @@ public class SelectManager : MonoBehaviour
         audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
 
         // 게임 시작 함수 호출
-        StartCoroutine(StartFadeOut());
+        //StartCoroutine(StartFadeOut());
+
+        StartActualGame();
     }
     #endregion
 
@@ -124,6 +126,7 @@ public class SelectManager : MonoBehaviour
                 uiManager.spellBtnArr[i].ButtonOff();
             }
         }
+
         //전투 환경 초기화
         gameManager.RetryGame();
 
