@@ -68,9 +68,9 @@ public class SelectManager : MonoBehaviour
         audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
 
         // 게임 시작 함수 호출
-        //StartCoroutine(StartFadeOut());
+        StartCoroutine(StartFadeOut());
 
-        StartActualGame();
+        //StartActualGame();
     }
     #endregion
 
@@ -98,12 +98,11 @@ public class SelectManager : MonoBehaviour
     }
 
     // 실제 게임 시작 함수
-    private void StartActualGame()
+    void StartActualGame()
     {
         //battleUI로 스펠 전달
         for (int i = 0; i < spellBtnArr.Length; i++)
         {
-
 
             if (spellBtnArr[i].spellData != null)//스펠이 있는 경우 이미지 갱신
             {

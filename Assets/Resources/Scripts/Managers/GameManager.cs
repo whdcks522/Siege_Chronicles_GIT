@@ -80,8 +80,8 @@ public class GameManager : MonoBehaviour
 
     public void ResetGame()     //게임을 '처음으로'
     {
-        //종이 넘기는 효과음
-        audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
+        //시간 배속을 1로
+        Time.timeScale = 1;
 
         //화면을 처음 화면으로
         SceneManager.LoadScene(0);
@@ -90,9 +90,6 @@ public class GameManager : MonoBehaviour
 
     public void QuitGame()     //게임을 '종료하기'
     {
-        //종이 넘기는 효과음
-        audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
-
         //게임 종료
         Application.Quit();
     }
