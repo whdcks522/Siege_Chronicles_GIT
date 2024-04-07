@@ -51,12 +51,16 @@ public class TowerManager : MonoBehaviour
         {
             miniHealth.color = Color.blue;
             enemyTower = gameManager.redTower;
+
+            ourCreatureFolder = gameManager.objectManager.blueCreatureFolder;
             enemyCreatureFolder = gameManager.objectManager.redCreatureFolder;
         }
         else if (curTeamEnum == TeamEnum.Red)
         {
             miniHealth.color = Color.red;
             enemyTower = gameManager.blueTower;
+
+            ourCreatureFolder = gameManager.objectManager.redCreatureFolder;
             enemyCreatureFolder = gameManager.objectManager.blueCreatureFolder;
         }
     }
@@ -65,7 +69,9 @@ public class TowerManager : MonoBehaviour
     Vector3 cameraVec;
     Quaternion lookRotation;
 
-    [Header("상대팀이 들어있는 폴더")]
+    [Header("상대팀이 들어있는 폴더(스펠_시체폭발용)")]
+    public Transform ourCreatureFolder;
+    [Header("상대팀이 들어있는 폴더(스펠_사격용)")]
     public Transform enemyCreatureFolder;
 
     [Header("타워의 자원 정보")]
@@ -190,6 +196,7 @@ public class TowerManager : MonoBehaviour
         if (tmpWeaponName == gameManager.Gun.name) Tower_Gun();
         else if (tmpWeaponName == gameManager.Flame.name) Tower_Flame();
         else if (tmpWeaponName == gameManager.GrandCure.name) Tower_GrandCure();
+        else if (tmpWeaponName == gameManager.CorpseExplosion.name) Tower_CorpseExplosion();
     }
     #endregion
 
@@ -268,6 +275,20 @@ public class TowerManager : MonoBehaviour
         bullet.transform.position = UiManager.clickPoint.position;
         //활성화
         bullet_bullet.BulletOnByTower(curTeamEnum);
+    }
+    #endregion
+
+    #region 시체폭발
+    void Tower_CorpseExplosion()
+    {
+        foreach (Transform obj in ourCreatureFolder)
+        {
+            if (obj.gameObject.layer == LayerMask.NameToLayer("Creature"))
+            {
+                //시체 폭발 아이콘 활성화
+
+            }
+        }
     }
     #endregion
 }

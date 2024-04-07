@@ -189,9 +189,9 @@ public class Creature : MonoBehaviour
         //기상 애니메이션
         curCreatureSpinEnum = CreatureSpinEnum.None;
         curCreatureMoveEnum = CreatureMoveEnum.Idle;
-
         anim.SetTrigger("isRage");
 
+        //점차 보이도록
         VisibleWarp();
     }
     #endregion
@@ -413,7 +413,6 @@ public class Creature : MonoBehaviour
     public Transform curTarget;
     public void RangeFirstRangeCalc()//가까운 적(타워포함)부터 사냥
     {
-
         curRange = (enemyTower.position - transform.position).magnitude - 2;//일단 적을 타워로 설정
         curTarget = enemyTower;
 
