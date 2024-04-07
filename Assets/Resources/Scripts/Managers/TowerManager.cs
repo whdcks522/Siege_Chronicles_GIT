@@ -234,9 +234,9 @@ public class TowerManager : MonoBehaviour
                 bullet_bullet.BulletOnByTower(curTeamEnum);
             }
         }
-        if(isShot)
+        if(isShot)//사격 대상이 있는 경우, 타워의 레이더가 마지막 대상을 바라봄
             RadarControl(enemyVec);
-        else if (!isShot)
+        else if (!isShot)//대상이 없는 경우, 적 타워를 바라봄
             RadarControl(enemyTower.transform.position);
     }
     #endregion

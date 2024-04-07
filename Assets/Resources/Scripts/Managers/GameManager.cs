@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
         redTowerManager.ResetTower();
 
         //크리쳐 소환(테스트용)
-        redTowerManager.SpawnCreature(Infantry.name);
+        //redTowerManager.SpawnCreature(Infantry.name);
         //redTowerManager.SpawnCreature(Shooter.name);
 
         //UI 초기화

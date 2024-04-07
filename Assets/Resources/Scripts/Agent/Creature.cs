@@ -72,6 +72,8 @@ public class Creature : MonoBehaviour
 
     Transform mainCamera;//메인 카메라 객체(체력바가 그 곳을 바라 보도록)
 
+    public bool isCorpseExplosion;//시체폭발이 활성화돼 있는지
+
     [Header("매니저")]
     public GameManager gameManager;
     public ObjectManager objectManager;
