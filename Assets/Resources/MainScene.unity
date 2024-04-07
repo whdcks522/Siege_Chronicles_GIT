@@ -5845,6 +5845,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5316267316043917884, guid: 635e715c63b5fb44991045f256ef3baf,
         type: 3}
+      propertyPath: spellData
+      value: 
+      objectReference: {fileID: 11400000, guid: 9b815f55c474d884aa8735b090f0edbe,
+        type: 2}
+    - target: {fileID: 5316267316043917884, guid: 635e715c63b5fb44991045f256ef3baf,
+        type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 966097539}
@@ -135732,6 +135738,12 @@ PrefabInstance:
       propertyPath: audioManager
       value: 
       objectReference: {fileID: 511560928}
+    - target: {fileID: 5147855406567923278, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: CorpseExplosion
+      value: 
+      objectReference: {fileID: 1242051555635342, guid: 1798e797728b6c446932cee8ca214f93,
+        type: 3}
     - target: {fileID: 5147855406567923278, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: redTowerManager

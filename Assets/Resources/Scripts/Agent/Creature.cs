@@ -44,6 +44,7 @@ public class Creature : MonoBehaviour
 
     public GameObject miniCanvas;//캐릭터 위의 미니 UI
     public Image miniHealth;//크리쳐의 체력 게이지
+    public GameObject CorpseExplosionObj;//시체폭발이 활성화돼 있는지 나타내는 아이콘
 
     [Header("달리는 속도")]
     public int runSpd;
@@ -72,7 +73,7 @@ public class Creature : MonoBehaviour
 
     Transform mainCamera;//메인 카메라 객체(체력바가 그 곳을 바라 보도록)
 
-    public GameObject CorpseExplosionObj;//시체폭발이 활성화돼 있는지 나타내는 아이콘
+    
 
     [Header("매니저")]
     public GameManager gameManager;

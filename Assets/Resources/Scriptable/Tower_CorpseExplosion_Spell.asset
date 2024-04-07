@@ -19,5 +19,5 @@ MonoBehaviour:
   spellType: 1
   spellValue: 5
   spellDesc: "\uC2DC\uCCB4\uD3ED\uBC1C \uC124\uBA85"
-  spellPrefab: {fileID: 1795072395756124, guid: 5135a03674bb17e4aae98e805b20d536,
+  spellPrefab: {fileID: 1242051555635342, guid: 1798e797728b6c446932cee8ca214f93,
     type: 3}

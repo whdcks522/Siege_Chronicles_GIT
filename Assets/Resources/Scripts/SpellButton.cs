@@ -115,7 +115,7 @@ public class SpellButton : MonoBehaviour
             }
             else if (spellData.spellType == SpellData.SpellType.Weapon)
             {
-                selectManager.selectedSpellType.text = "무기";
+                selectManager.selectedSpellType.text = "주술";
             }
 
             //스펠 비용 바꾸기
