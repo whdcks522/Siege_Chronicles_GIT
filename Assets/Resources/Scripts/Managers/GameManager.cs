@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
     public GameObject Flame;
     [Header("GrandCure 프리펩")]
     public GameObject GrandCure;
+    [Header("CorpseExplosion 프리펩")]
+    public GameObject CorpseExplosion;
 
 
 
@@ -69,7 +71,7 @@ public class GameManager : MonoBehaviour
         redTowerManager.ResetTower();
 
         //크리쳐 소환(테스트용)
-        //redTowerManager.SpawnCreature(Shooter.name);
+        redTowerManager.SpawnCreature(Shooter.name);
         //redTowerManager.SpawnCreature(Shooter.name);
 
         //UI 초기화

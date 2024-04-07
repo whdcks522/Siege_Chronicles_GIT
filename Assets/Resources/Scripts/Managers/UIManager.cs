@@ -63,7 +63,7 @@ public class UIManager : MonoBehaviour
         //포커스 초기화
         FocusOff(false);
 
-        //은행 초기화
+        //플레이어 은행 초기화
         blueTowerManager.curBankIndex = 0;
         bankText.text = "Lv." + (blueTowerManager.curBankIndex + 1) + "(" + blueTowerManager.BankValueArr[blueTowerManager.curBankIndex] + ")";
 

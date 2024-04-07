@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ResolutionManager : MonoBehaviour
 {
-    void Start()
+    void Start()//해상도 비율 고정, 어떤 화면이든 화면 비율을 16:9로
     {
         Camera camera = GetComponent<Camera>();
         Rect rect = camera.rect;
@@ -24,6 +24,7 @@ public class ResolutionManager : MonoBehaviour
 
         //OnPreCull();
     }
+
     /*
     void OnPreCull() 
     {
