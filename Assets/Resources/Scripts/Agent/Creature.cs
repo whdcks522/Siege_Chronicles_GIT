@@ -72,7 +72,7 @@ public class Creature : MonoBehaviour
 
     Transform mainCamera;//메인 카메라 객체(체력바가 그 곳을 바라 보도록)
 
-    public bool isCorpseExplosion;//시체폭발이 활성화돼 있는지
+    public GameObject CorpseExplosionObj;//시체폭발이 활성화돼 있는지 나타내는 아이콘
 
     [Header("매니저")]
     public GameManager gameManager;
@@ -176,10 +176,10 @@ public class Creature : MonoBehaviour
         //체력 회복
         curHealth = maxHealth;
 
-
         //체력 UI 관리
         miniCanvas.SetActive(true);
         miniHealth.fillAmount = 1;
+        CorpseExplosionObj.SetActive(false);
 
         if (curTeamEnum == TeamEnum.Blue)
             miniHealth.color = Color.blue;
@@ -360,6 +360,12 @@ public class Creature : MonoBehaviour
             //미니 UI 닫기
             miniCanvas.SetActive(false);
 
+            //시체 폭발 여부
+            if (CorpseExplosionObj.activeSelf)
+            {
+                
+            }
+
             //왜곡장
             InvisibleWarp();
         }
@@ -370,6 +376,7 @@ public class Creature : MonoBehaviour
     {
         //생명체 비활성화
         gameObject.SetActive(false);
+
         //중립 폴더로 옮기기
         transform.parent = objectManager.grayCreatureFolder;
     }
@@ -477,6 +484,7 @@ public class Creature : MonoBehaviour
         }
         skinnedMeshRenderer.material.SetFloat("_AlphaFloat", targetValue);
 
+
         if (InVisible)//안보이도록
         {
             //피격당하지 않도록, 레이어 변경
@@ -487,7 +495,6 @@ public class Creature : MonoBehaviour
             //피격당하도록, 레이어 변경
             gameObject.layer = LayerMask.NameToLayer("Creature");
         }
-         
     }
     #endregion
 }

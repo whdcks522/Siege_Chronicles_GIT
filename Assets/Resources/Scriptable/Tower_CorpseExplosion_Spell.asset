@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce41fe8cd173d384a8ce1fcc9f2c3811, type: 3}
+  m_Name: Tower_CorpseExplosion_Spell
+  m_EditorClassIdentifier: 
+  isFocus: 0
+  focusColor: {r: 0, g: 0, b: 0, a: 0}
+  spellIcon: {fileID: 21300000, guid: ecdc3a730ef39441cb0d100b4db83407, type: 3}
+  spellName: "\uC2DC\uCCB4\uD3ED\uBC1C"
+  spellType: 1
+  spellValue: 5
+  spellDesc: "\uC2DC\uCCB4\uD3ED\uBC1C \uC124\uBA85"
+  spellPrefab: {fileID: 1795072395756124, guid: 5135a03674bb17e4aae98e805b20d536,
+    type: 3}

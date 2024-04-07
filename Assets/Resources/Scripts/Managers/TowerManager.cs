@@ -286,7 +286,8 @@ public class TowerManager : MonoBehaviour
             if (obj.gameObject.layer == LayerMask.NameToLayer("Creature"))
             {
                 //시체 폭발 아이콘 활성화
-
+                Creature creature = obj.gameObject.GetComponent<Creature>();
+                creature.CorpseExplosionObj.SetActive(true);
             }
         }
     }
