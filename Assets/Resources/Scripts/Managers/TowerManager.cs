@@ -281,10 +281,16 @@ public class TowerManager : MonoBehaviour
     #region 시체폭발
     void Tower_CorpseExplosion()
     {
+        int i = 0;
+
         foreach (Transform obj in ourCreatureFolder)
         {
+            Debug.Log(i);
+
             if (obj.gameObject.layer == LayerMask.NameToLayer("Creature"))
             {
+                Debug.Log(i+'/');
+
                 //시체 폭발 아이콘 활성화
                 Creature creature = obj.gameObject.GetComponent<Creature>();
                 creature.CorpseExplosionObj.SetActive(true);

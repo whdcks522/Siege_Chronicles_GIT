@@ -53308,7 +53308,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 61}
   m_SizeDelta: {x: -100, y: 120}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &755663154
@@ -132123,7 +132123,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1674843803}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -132132,7 +132132,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 81}
   m_SizeDelta: {x: -200, y: -250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1674843805
@@ -135830,6 +135830,12 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 5147855406567923278, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
+      propertyPath: Shielder
+      value: 
+      objectReference: {fileID: 265478299795778748, guid: d92276ff4474078418f7e3ab32286e88,
+        type: 3}
+    - target: {fileID: 5147855406567923278, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
       propertyPath: GrandCure
       value: 
       objectReference: {fileID: 1498152551406518, guid: 408af7a30a0f3e54eb56d985a4471da0,
@@ -135838,6 +135844,11 @@ PrefabInstance:
         type: 3}
       propertyPath: aiManager
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5147855406567923278, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: gameLevel
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5147855406567923278, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -135865,6 +135876,11 @@ PrefabInstance:
       propertyPath: blueTowerManager
       value: 
       objectReference: {fileID: 753130670}
+    - target: {fileID: 5162680583531873395, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5227961256852131138, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_BrainParameters.VectorObservationSize
@@ -136840,6 +136856,7 @@ PrefabInstance:
     - {fileID: 1224140379293030540, guid: db2cb3219c99a864ab050374a2f4777d, type: 3}
     - {fileID: 7651505666601485688, guid: db2cb3219c99a864ab050374a2f4777d, type: 3}
     - {fileID: 6057331744120327735, guid: db2cb3219c99a864ab050374a2f4777d, type: 3}
+    - {fileID: 2427764449847052879, guid: db2cb3219c99a864ab050374a2f4777d, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 291537929413982126, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
