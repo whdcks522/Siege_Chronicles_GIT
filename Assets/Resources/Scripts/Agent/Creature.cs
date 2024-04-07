@@ -12,18 +12,20 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class Creature : MonoBehaviour
 {
-    [Header("쉐이더에 쓰일 텍스쳐")]//천천히 보이는 용
-    public Texture baseTexture;
-    public SkinnedMeshRenderer skinnedMeshRenderer;//쉐이더에 쓰일 스킨 렌더러
+    public float maxHealth;//생명체의 최대 체력
+    public float curHealth;//생명체의 현재 체력
+    public Transform bulletStartPoint;//총알이 시작되는 곳
+    public int runSpd;//달리는 속도
+    int rotSpd = 120;//회전 속도
 
-    [Header("생명체의 최대 체력")]
-    public float maxHealth;
-    [Header("생명체의 현재 체력")]
-    public float curHealth;
+    Vector3 moveVec;//이동용 벡터(몰라도 됨)
 
     [Header("현재 공격 중인지")]//연속 공격 방식
     public bool isAttack = false;
 
+    [Header("텍스쳐")]//천천히 보이는 용
+    public Texture baseTexture;
+    public SkinnedMeshRenderer skinnedMeshRenderer;//쉐이더에 쓰일 스킨 렌더러
 
     [Header("우리 타워")]
     public Transform ourTower;
@@ -38,19 +40,14 @@ public class Creature : MonoBehaviour
     [Header("우리 타워에서 시작할 장소")]
     public Transform startPoint;
 
+    
 
-    [Header("총알이 시작되는 곳")]
-    public Transform bulletStartPoint;
-
+    [Header("UI 관련")]
     public GameObject miniCanvas;//캐릭터 위의 미니 UI
     public Image miniHealth;//크리쳐의 체력 게이지
     public GameObject CorpseExplosionObj;//시체폭발이 활성화돼 있는지 나타내는 아이콘
 
-    [Header("달리는 속도")]
-    public int runSpd;
-    int rotSpd = 120;//회전 속도
-
-    Vector3 moveVec;//이동용 벡터(몰라도 됨)
+    
     public enum TeamEnum {Blue, Red, Gray}//속하는 팀
     [Header("속하는 팀")]
     public TeamEnum curTeamEnum;
@@ -272,38 +269,46 @@ public class Creature : MonoBehaviour
         miniCanvas.transform.rotation = lookRotation;
     }
 
-    private void OnTriggerEnter(Collider other)//
+    //보호막을 갖고 있는지(크리쳐에 의해서만 피해를 받음)
+    public bool isShield;
+
+    private void OnTriggerEnter(Collider other)//무언가와 충돌했을 시
     {
         if (other.gameObject.CompareTag("Bullet"))//폭탄과 충돌했을 때
         {
             Bullet bullet = other.GetComponent<Bullet>();
-            if (bullet.curBulletEffectEnum == Bullet.BulleEffectEnum.Damage)
+            if (bullet.curBulletEffectEnum == Bullet.BulleEffectEnum.Damage)//피해를 주는 것과 충돌
             {
                 if (bullet.curTeamEnum != curTeamEnum)//팀이 다를 경우
                 {
                     //피해량 확인
                     float damage = bullet.bulletDamage;
 
-                    if (bullet.isCreature)
+                    if (bullet.isCreature)//크리쳐에 의한 공격이면
                     {
                         Agent bulletAgent = bullet.bulletHost.agent;
                         //공격자 점수 증가
                         bulletAgent.AddReward(damage / 10f);
-                    }
 
-                    //피해 관리
-                    damageControl(damage);
+                        if (!isShield)
+                            damageControl(damage);
+                    }
+                    else if (bullet.isCreature)//타워에 의한 공격이면
+                    {
+                        damageControl(damage);
+                    }          
 
                     //피격한 총알 후처리
                     if (bullet.curBulletMoveEnum != Bullet.BulletMoveEnum.Slash)
                     {
+                        //총알 비활성화
                         bullet.BulletOff();
                     }
                 }
             }
-            else if (bullet.curBulletEffectEnum == Bullet.BulleEffectEnum.Cure) 
+            else if (bullet.curBulletEffectEnum == Bullet.BulleEffectEnum.Cure) //회복하는 것과 충돌
             {
-                if (bullet.curTeamEnum == curTeamEnum)//팀이 다를 경우
+                if (bullet.curTeamEnum == curTeamEnum)//팀이 같을 경우
                 {
                     //피해 관리
                     damageControl(bullet.bulletDamage);

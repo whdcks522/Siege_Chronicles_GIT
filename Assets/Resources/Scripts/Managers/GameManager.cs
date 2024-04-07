@@ -22,20 +22,17 @@ public class GameManager : MonoBehaviour
     public int gameLevel;
 
     //게임매니저에서 실험용으로 크리쳐 소환하는 용도
-    [Header("Infantry 프리펩")]
-    public GameObject Infantry;
-    [Header("Shooter 프리펩")]
-    public GameObject Shooter;
+    [Header("크리쳐 프리펩")]
+    public GameObject Infantry;//Infantry 프리펩
+    public GameObject Shooter;//Shooter 프리펩
+    public GameObject Shielder;//Shielder 프리펩
 
     //타워 매너저에서 무기를 분류하는 용도
-    [Header("Gun 프리펩")]
-    public GameObject Gun;
-    [Header("Flame 프리펩")]
-    public GameObject Flame;
-    [Header("GrandCure 프리펩")]
-    public GameObject GrandCure;
-    [Header("CorpseExplosion 프리펩")]
-    public GameObject CorpseExplosion;
+    [Header("무기 프리펩")]
+    public GameObject Gun;//Gun 프리펩
+    public GameObject Flame;//Flame 프리펩
+    public GameObject GrandCure;//GrandCure 프리펩
+    public GameObject CorpseExplosion;//CorpseExplosion 프리펩
 
 
 

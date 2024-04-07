@@ -134209,6 +134209,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5316267316043917884, guid: 635e715c63b5fb44991045f256ef3baf,
         type: 3}
+      propertyPath: spellData
+      value: 
+      objectReference: {fileID: 11400000, guid: a8fe445c4ab2dcd4aa52f33a8f40f87a,
+        type: 2}
+    - target: {fileID: 5316267316043917884, guid: 635e715c63b5fb44991045f256ef3baf,
+        type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 966097539}

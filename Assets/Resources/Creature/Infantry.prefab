@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8364354642521973303
 Transform:
   m_ObjectHideFlags: 0
@@ -190,6 +190,7 @@ MonoBehaviour:
   bulletStartPoint: {fileID: 0}
   miniCanvas: {fileID: 1735232647855550576}
   miniHealth: {fileID: 8454607891872545176}
+  CorpseExplosionObj: {fileID: 3437364110036440724}
   runSpd: 6
   curTeamEnum: 0
   teamIndex: -1
@@ -199,7 +200,6 @@ MonoBehaviour:
   anim: {fileID: 7388106785048407052}
   agent: {fileID: 1703850358029723869}
   behaviorParameters: {fileID: 8131292589408315668}
-  CorpseExplosionObj: {fileID: 3437364110036440724}
   gameManager: {fileID: 0}
   objectManager: {fileID: 0}
   goalVec: {x: 0, y: 0, z: 0}

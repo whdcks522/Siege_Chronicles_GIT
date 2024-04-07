@@ -190,6 +190,7 @@ MonoBehaviour:
   bulletStartPoint: {fileID: 8520013805693020062}
   miniCanvas: {fileID: 5908633637094029029}
   miniHealth: {fileID: 4377405447275560717}
+  CorpseExplosionObj: {fileID: 7374818562195116033}
   runSpd: 4
   curTeamEnum: 0
   teamIndex: -1
@@ -199,7 +200,6 @@ MonoBehaviour:
   anim: {fileID: 1241195992810873}
   agent: {fileID: 4646125403814747638}
   behaviorParameters: {fileID: 3767533950753847470}
-  CorpseExplosionObj: {fileID: 7374818562195116033}
   gameManager: {fileID: 0}
   objectManager: {fileID: 0}
   goalVec: {x: 0, y: 0, z: 0}
@@ -387,6 +387,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8364354642521973303}
     m_Modifications:
+    - target: {fileID: 546464771842088833, guid: 01a8371238a4e6242bea6367eeb2ae16,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3752876336939196588, guid: 01a8371238a4e6242bea6367eeb2ae16,
         type: 3}
       propertyPath: m_Pivot.x

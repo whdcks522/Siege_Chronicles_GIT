@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce41fe8cd173d384a8ce1fcc9f2c3811, type: 3}
+  m_Name: Shielder_Spell
+  m_EditorClassIdentifier: 
+  isFocus: 0
+  focusColor: {r: 0, g: 0, b: 0, a: 0}
+  spellIcon: {fileID: 21300000, guid: ccb5baa32cf198245b1c14fb3e20de73, type: 3}
+  spellName: "\uBC29\uD328\uBCD1"
+  spellType: 0
+  spellValue: 2
+  spellDesc: "\uBC29\uD328\uBCD1 \uC124\uBA85"
+  spellPrefab: {fileID: 265478299795778748, guid: d92276ff4474078418f7e3ab32286e88,
+    type: 3}
