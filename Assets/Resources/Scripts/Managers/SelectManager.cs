@@ -138,7 +138,7 @@ public class SelectManager : MonoBehaviour
     }
 
     #region 크리쳐 소환
-    void SpawnCreature(int _index) //_index: 몇 번째 버튼인지
+    void SpawnCreature(int _index) //_index: 전투씬에서 아래에 있는 버튼 중 몇 번째 버튼인지
     {
         for (int j = 0; j < 4; j++)
         {
@@ -146,8 +146,8 @@ public class SelectManager : MonoBehaviour
             Creature creature = obj.GetComponent<Creature>();
             //활동 전에 설정
             creature.BeforeRevive(Creature.TeamEnum.Blue, gameManager);//블루로 안하면 갈 곳 없다고 오류남
-            SuperAgent superAgent = obj.GetComponent<SuperAgent>();
-            if (superAgent.useBullet != null)
+            //SuperAgent superAgent = obj.GetComponent<SuperAgent>();
+            //if (superAgent.useBullet != null)
             {
 
             }

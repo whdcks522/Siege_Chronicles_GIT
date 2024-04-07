@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2876385243824511748
 Transform:
   m_ObjectHideFlags: 0
@@ -48,11 +48,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fee1e6a78de7644493b111244b33748, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseTexture: {fileID: 2800000, guid: 5a0f52c86180b6741af4b37bae089eae, type: 3}
-  skinnedMeshRenderer: {fileID: 1500288436340799874}
   maxHealth: 100
   curHealth: 0
+  bulletStartPoint: {fileID: 0}
+  runSpd: 6
   isAttack: 0
+  baseTexture: {fileID: 2800000, guid: 5a0f52c86180b6741af4b37bae089eae, type: 3}
+  skinnedMeshRenderer: {fileID: 1500288436340799874}
   ourTower: {fileID: 0}
   ourTowerManager: {fileID: 0}
   ourCreatureFolder: {fileID: 0}
@@ -61,11 +63,9 @@ MonoBehaviour:
   enemyTowerManager: {fileID: 0}
   enemyCreatureFolder: {fileID: 0}
   startPoint: {fileID: 0}
-  bulletStartPoint: {fileID: 0}
   miniCanvas: {fileID: 5789380154166528156}
   miniHealth: {fileID: 4402276747380982132}
   CorpseExplosionObj: {fileID: 7493763314283703928}
-  runSpd: 6
   curTeamEnum: 0
   teamIndex: -1
   curCreatureMoveEnum: 0
@@ -76,6 +76,7 @@ MonoBehaviour:
   behaviorParameters: {fileID: 0}
   gameManager: {fileID: 0}
   objectManager: {fileID: 0}
+  isShield: 0
   goalVec: {x: 0, y: 0, z: 0}
   maxRange: 4
   curRange: 0
