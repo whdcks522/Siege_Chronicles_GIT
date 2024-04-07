@@ -1,6 +1,5 @@
 /*
- 
-<»ç¿ëÇÑ ¿¡¼Â>
+<ì‚¬ìš©í•œ ì—ì…‹>
     Monsters Pack 04
     Toon Projectiles
     Support package for Hovl Studio assets
@@ -11,9 +10,9 @@
     Stylized Slash VFX
     Item Pickup VFX - UR
  
-¹Ì»ç¿ë ÄÚµå
+ë¯¸ì‚¬ìš© ì½”ë“œ
 
-public void EnemyFirstRangeCalc()//¸ğµç ÀûÀ» Àâ°í ³ª¼­, Å¸¿ö·Î ÇâÇÔ
+public void EnemyFirstRangeCalc()//ëª¨ë“  ì ì„ ì¡ê³  ë‚˜ì„œ, íƒ€ì›Œë¡œ í–¥í•¨
     {
         bool isLive = false;
         curRange = 9999;
@@ -25,7 +24,7 @@ public void EnemyFirstRangeCalc()//¸ğµç ÀûÀ» Àâ°í ³ª¼­, Å¸¿ö·Î ÇâÇÔ
             {
                 isLive = true;
 
-                //Àû°úÀÇ °Å¸®
+                //ì ê³¼ì˜ ê±°ë¦¬
                 float tmpRange = (obj.position - transform.position).magnitude;
                 if (tmpRange < curRange)
                 {
@@ -35,10 +34,10 @@ public void EnemyFirstRangeCalc()//¸ğµç ÀûÀ» Àâ°í ³ª¼­, Å¸¿ö·Î ÇâÇÔ
             } 
         }
 
-        if (!isLive)//³²Àº ÀûÀÌ ¾ø´Ù¸é
+        if (!isLive)//ë‚¨ì€ ì ì´ ì—†ë‹¤ë©´
         {
             curTarget = enemyTower;
-            curRange = (curTarget.position - transform.position).magnitude - 2;//Å¸¿öÀÇ µÎ²² °è»ê
+            curRange = (curTarget.position - transform.position).magnitude - 2;//íƒ€ì›Œì˜ ë‘ê»˜ ê³„ì‚°
         }
     }
  */

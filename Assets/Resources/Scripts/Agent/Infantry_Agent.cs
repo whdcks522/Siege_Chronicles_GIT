@@ -301,13 +301,15 @@ c:\users\happy\appdata\local\programs\python\python37\lib\site-packages\mlagents
 
 
     #region 주황색 참격 생성, 상속한 액션 1
+    public int yUp;//공격 이펙트 소환 위치
+    public int zUp;//공격 이펙트 소환 위치
     public override void AgentAction_1()
     {
         GameObject slash = creature.objectManager.CreateObj(useBullet.name, ObjectManager.PoolTypes.BulletPool);
         Bullet slash_bullet = slash.GetComponent<Bullet>();
 
         //이동
-        slash.transform.position = transform.position + transform.forward + UnityEngine.Vector3.up * 3;
+        slash.transform.position = transform.position + transform.forward * zUp + UnityEngine.Vector3.up * yUp;//위로 3, 앞으로 1
 
         //회전
         slash.transform.rotation = UnityEngine.Quaternion.Euler(transform.rotation.eulerAngles.x + 90,

@@ -226,6 +226,8 @@ MonoBehaviour:
   creature: {fileID: 4120125501966113268}
   useBullet: {fileID: 1041126755279568644, guid: 372d9605c09874c40b09c0105492664c,
     type: 3}
+  yUp: 3
+  zUp: 1
 --- !u!114 &8131292589408315668
 MonoBehaviour:
   m_ObjectHideFlags: 0

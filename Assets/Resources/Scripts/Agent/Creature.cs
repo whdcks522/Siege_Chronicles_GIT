@@ -390,9 +390,9 @@ public class Creature : MonoBehaviour
 
     #region 맞는 방향으로 가고 있는지
 
-    //목표 방향 벡터
+    //목표 방향 벡터(원거리 공격용으로도 사용)
     public Vector3 goalVec;
-    //이동하는 벡터
+    //실제 이동하는 벡터
     Vector3 curVec;
 
     public float GetMatchingVelocityReward()

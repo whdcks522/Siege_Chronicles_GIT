@@ -6,19 +6,19 @@ using UnityEngine;
 
 public class AiManager : MonoBehaviour
 {
-    //[Header("¸Ó½Å·¯´×ÁßÀÎÁö ¿©ºÎ È®ÀÎ")]
+    //[Header("ë¨¸ì‹ ëŸ¬ë‹ì¤‘ì¸ì§€ ì—¬ë¶€ í™•ì¸")]
     //public bool isML;
 
-    [Header("¸Ó½Å ·¯´×ÀÇ ÃÖ´ë ½Ã°£")]
+    [Header("ë¨¸ì‹  ëŸ¬ë‹ì˜ ìµœëŒ€ ì‹œê°„")]
     public float maxStep;
-    [Header("¸Ó½Å ·¯´×ÀÇ ÇöÀç ½Ã°£")]
+    [Header("ë¨¸ì‹  ëŸ¬ë‹ì˜ í˜„ì¬ ì‹œê°„")]
     public float curStep = 0f;
 
-    [Header("¸Å´ÏÀú")]
+    [Header("ë§¤ë‹ˆì €")]
     public GameManager gameManager;
     ObjectManager objectManager;
 
-    //±×·ì ¹øÈ£ ¼³Á¤ ÇÊ¿ä(±×³É ÇÏ¸é unityagentsexception: onepisodebegin called recursively. this might happen if you call environmentstep() or endepisode() from custom code such as collectobservations() or onactionreceived().)
+    //ê·¸ë£¹ ë²ˆí˜¸ ì„¤ì • í•„ìš”(ê·¸ëƒ¥ í•˜ë©´ unityagentsexception: onepisodebegin called recursively. this might happen if you call environmentstep() or endepisode() from custom code such as collectobservations() or onactionreceived().)
     //public SimpleMultiAgentGroup blueAgentGroup;
     //public SimpleMultiAgentGroup redAgentGroup;
 
@@ -54,7 +54,7 @@ public class AiManager : MonoBehaviour
 
 
 
-    if (curStep >= maxStep && maxStep > 0)//Å¸ÀÓ ¿À¹ö
+    if (curStep >= maxStep && maxStep > 0)//íƒ€ì„ ì˜¤ë²„
     {
         blueAgentGroup.AddGroupReward(-1f);
         redAgentGroup.AddGroupReward(-1f);
@@ -67,13 +67,13 @@ public class AiManager : MonoBehaviour
 */
     /*
 
-    #region ½Ã°£ÀÌ ´ÙµÇ°Å³ª, ¼ºÀÌ ÆÄ±«µÇ¸é ÃÊ±âÈ­
+    #region ì‹œê°„ì´ ë‹¤ë˜ê±°ë‚˜, ì„±ì´ íŒŒê´´ë˜ë©´ ì´ˆê¸°í™”
     public void AiEnd(int warIndex)
     {
         //warIndex
-        // 1ÀÌ¸é ÆÄ¶õ ÆÀ ½Â¸®
-        // 0ÀÌ¸é ¹«½ÂºÎ
-        // -1ÀÌ¸é »¡°£ ÆÀ ½Â¸®
+        // 1ì´ë©´ íŒŒë€ íŒ€ ìŠ¹ë¦¬
+        // 0ì´ë©´ ë¬´ìŠ¹ë¶€
+        // -1ì´ë©´ ë¹¨ê°„ íŒ€ ìŠ¹ë¦¬
 
         if (warIndex == 0)
         {
@@ -82,12 +82,12 @@ public class AiManager : MonoBehaviour
         }
         else if (warIndex != 0) 
         {
-            if (warIndex == 1) //ÆÄ¶û ½Â
+            if (warIndex == 1) //íŒŒë‘ ìŠ¹
             {
                 blueAgentGroup.AddGroupReward(20f);
                 redAgentGroup.AddGroupReward(-10f);
             }
-            else if (warIndex == -1) //»¡°­ ½Â
+            else if (warIndex == -1) //ë¹¨ê°• ìŠ¹
             {
                 blueAgentGroup.AddGroupReward(-10f);
                 redAgentGroup.AddGroupReward(20f);
@@ -103,21 +103,21 @@ public class AiManager : MonoBehaviour
     
     void AiClear() 
     {
-        //½Ã°£ ÃÊ±âÈ­
+        //ì‹œê°„ ì´ˆê¸°í™”
         curStep = 0f;
 
-        //ÃÑ¾Ë ºñÈ°¼ºÈ­
+        //ì´ì•Œ ë¹„í™œì„±í™”
         for (int i = 0; i < objectManager.bulletFolder.childCount; i++)
         {
             objectManager.bulletFolder.GetChild(i).gameObject.SetActive(false);
         }
 
-        //°Ç¹° Ã¼·Â ÃÊ±âÈ­
+        //ê±´ë¬¼ ì²´ë ¥ ì´ˆê¸°í™”
         gameManager.blueTower.GetComponent<TowerManager>().TowerOn();
         gameManager.redTower.GetComponent<TowerManager>().TowerOn();
 
-        //Å©¸®ÃÄ ÃÊ±âÈ­
-        int creatureSize = objectManager.blueCreatureFolder.childCount;//ÆÄ¶õ ÆÀ
+        //í¬ë¦¬ì³ ì´ˆê¸°í™”
+        int creatureSize = objectManager.blueCreatureFolder.childCount;//íŒŒë€ íŒ€
         if (creatureSize > 0)
         {
             for (int i = 0; i < creatureSize; i++)
@@ -127,7 +127,7 @@ public class AiManager : MonoBehaviour
             }
         }
 
-        creatureSize = objectManager.redCreatureFolder.childCount;//»¡°£ ÆÀ
+        creatureSize = objectManager.redCreatureFolder.childCount;//ë¹¨ê°„ íŒ€
         if (creatureSize > 0)
         {
             for (int i = 0; i < creatureSize; i++)

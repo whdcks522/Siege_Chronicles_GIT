@@ -111,8 +111,11 @@ public class TowerManager : MonoBehaviour
     {
         //타워 체력 초기화
         curHealth = maxHealth;
+        miniHealth.fillAmount = 1;
+
         //타워 자원 초기화
         curTowerResource = 0;
+
         //타워 은행 초기화
         curBankIndex = 0;
     }

@@ -103,6 +103,8 @@ public class SelectManager : MonoBehaviour
         //battleUI로 스펠 전달
         for (int i = 0; i < spellBtnArr.Length; i++)
         {
+
+
             if (spellBtnArr[i].spellData != null)//스펠이 있는 경우 이미지 갱신
             {
                 //버튼에 스펠 데이터 전달

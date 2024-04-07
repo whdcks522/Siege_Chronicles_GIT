@@ -10945,7 +10945,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 25, y: -18.749939}
+  m_AnchoredPosition: {x: 25, y: -18.749924}
   m_SizeDelta: {x: 1200, y: -12.500008}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &119469176
@@ -52774,7 +52774,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -25, y: -18.749939}
+  m_AnchoredPosition: {x: -25, y: -18.749924}
   m_SizeDelta: {x: 650, y: -12.5}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &711393064
@@ -136857,6 +136857,7 @@ PrefabInstance:
     - {fileID: 7651505666601485688, guid: db2cb3219c99a864ab050374a2f4777d, type: 3}
     - {fileID: 6057331744120327735, guid: db2cb3219c99a864ab050374a2f4777d, type: 3}
     - {fileID: 2427764449847052879, guid: db2cb3219c99a864ab050374a2f4777d, type: 3}
+    - {fileID: 916423724872690692, guid: db2cb3219c99a864ab050374a2f4777d, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 291537929413982126, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}

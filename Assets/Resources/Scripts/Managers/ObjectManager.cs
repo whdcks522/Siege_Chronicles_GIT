@@ -21,7 +21,7 @@ public class ObjectManager : MonoBehaviour
     List<GameObject>[] creaturePools;
 
     //총알 리스트
-    string[] bulletNames = { "Infantry_Effect", "Shooter_Tracer", "Shooter_Tracer_Effect",
+    string[] bulletNames = { "Infantry_Effect", "Shooter_Tracer", "Shooter_Tracer_Effect", "Shielder_Effect",
         "Tower_Gun", "Tower_Gun_Effect", "Tower_Flame", "Tower_Flame_Effect","Tower_GrandCure", "Tower_CorpseExplosion"};
     //총알 주소가 저장될 곳
     List<GameObject>[] bulletPools;
