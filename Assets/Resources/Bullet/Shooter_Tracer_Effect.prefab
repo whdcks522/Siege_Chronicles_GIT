@@ -4940,7 +4940,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxTime: 1
   colTime: 0.5
-  bulletDamage: 5
+  bulletDamage: 0
   bulletSpeed: 0
   bulletCollider: {fileID: 0}
   bulletHost: {fileID: 0}

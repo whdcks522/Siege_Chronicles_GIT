@@ -83,7 +83,6 @@ public class TowerManager : MonoBehaviour
         if (maxTowerResource > curTowerResource)
         {
             //스펠 사용을 위한 자원 증가
-            //Debug.LogWarning(BankSpeedArr[curBankIndex]);
             curTowerResource += Time.deltaTime * BankSpeedArr[curBankIndex];
         }
         else if (maxTowerResource <= curTowerResource)
@@ -167,7 +166,8 @@ public class TowerManager : MonoBehaviour
             //타워 체력바 관리
             miniHealth.fillAmount = curHealth / maxHealth;
             //타워 피격 효과음
-            audioManager.PlaySfx(AudioManager.Sfx.TowerCrashSfx);
+            if(damage != 0)
+                audioManager.PlaySfx(AudioManager.Sfx.TowerCrashSfx);
 
             if (curHealth <= 0) //게임 종료
             {
@@ -284,15 +284,15 @@ public class TowerManager : MonoBehaviour
     #region 시체폭발
     void Tower_CorpseExplosion()
     {
-        int i = 0;
+        //int i = 0;
 
         foreach (Transform obj in ourCreatureFolder)
         {
-            Debug.Log(i);
+            //Debug.Log(i);
 
             if (obj.gameObject.layer == LayerMask.NameToLayer("Creature"))
             {
-                Debug.Log(i+'/');
+                //Debug.Log(i+'/');
 
                 //시체 폭발 아이콘 활성화
                 Creature creature = obj.gameObject.GetComponent<Creature>();

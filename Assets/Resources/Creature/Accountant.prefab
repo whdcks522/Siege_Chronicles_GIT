@@ -130,7 +130,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8364354642521973303}
   - component: {fileID: 8970133142904246844}
-  - component: {fileID: 2365627579614671224}
   - component: {fileID: 8859611456032614066}
   - component: {fileID: 4642144316704214004}
   - component: {fileID: 9117646816545698203}
@@ -161,7 +160,7 @@ Transform:
   - {fileID: 4747459651045306397}
   - {fileID: 2359216431032671297}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8970133142904246844
 MonoBehaviour:
@@ -200,7 +199,7 @@ MonoBehaviour:
   rigid: {fileID: 309387906446215184}
   anim: {fileID: 879624010465842278}
   agent: {fileID: 8859611456032614066}
-  behaviorParameters: {fileID: 2365627579614671224}
+  behaviorParameters: {fileID: 0}
   gameManager: {fileID: 0}
   objectManager: {fileID: 0}
   isShield: 0
@@ -209,36 +208,6 @@ MonoBehaviour:
   maxRange: 12
   curRange: 0
   curTarget: {fileID: 0}
---- !u!114 &2365627579614671224
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7076029219765752721}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BrainParameters:
-    VectorObservationSize: 9
-    NumStackedVectorObservations: 2
-    m_ActionSpec:
-      m_NumContinuousActions: 0
-      BranchSizes: 0300000003000000
-    VectorActionSize: 0300000003000000
-    VectorActionDescriptions: []
-    VectorActionSpaceType: 0
-    hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: b5074ba5f1537774c89c767f3e10829e, type: 3}
-  m_InferenceDevice: 2
-  m_BehaviorType: 2
-  m_BehaviorName: Shooter_A
-  TeamId: 0
-  m_UseChildSensors: 1
-  m_UseChildActuators: 1
-  m_ObservableAttributeHandling: 0
 --- !u!114 &8859611456032614066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,9 +224,8 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  creature: {fileID: 1287777390633518934, guid: 224c1cd34f67d1d4bad4ccdaa75b836b,
-    type: 3}
-  useBullet: {fileID: 4878814061148674, guid: 07347af5d2586d442b04017cc060878a, type: 3}
+  creature: {fileID: 8970133142904246844}
+  useBullet: {fileID: 4496466355404242, guid: 28937aa6b384f87439b4cc6534ec2f66, type: 3}
 --- !u!114 &4642144316704214004
 MonoBehaviour:
   m_ObjectHideFlags: 0

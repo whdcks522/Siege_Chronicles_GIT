@@ -298,12 +298,12 @@ public class Creature : MonoBehaviour
                         //공격자 점수 증가
                         bulletAgent.AddReward(damage / 10f);
 
-                        if (!isShield)
-                            damageControl(damage);
-                    }
-                    else if (bullet.isCreature)//타워에 의한 공격이면
-                    {
                         damageControl(damage);
+                    }
+                    else if (!bullet.isCreature)//타워에 의한 공격이면
+                    {
+                        if (!isShield)//보호막은 주술에 의한 공격을 무효화
+                            damageControl(damage);
                     }          
 
                     //피격한 총알 후처리
