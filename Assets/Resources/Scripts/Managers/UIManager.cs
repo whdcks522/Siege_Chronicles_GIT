@@ -71,11 +71,6 @@ public class UIManager : MonoBehaviour
         if (speed == 1) 
         {
             SpeedControl(false);
-            SpeedControl(false);
-        }
-        else if (speed == 2)
-        {
-            SpeedControl(false);
         }
 
         //카메라 회전 초기화
@@ -96,7 +91,7 @@ public class UIManager : MonoBehaviour
 
         //속도 조정
         speed++;
-        speed = (speed % 3);
+        speed = (speed % 2);
 
         //시간 조절
         Time.timeScale = (speed + 1);

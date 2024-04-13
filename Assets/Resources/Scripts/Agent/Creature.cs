@@ -267,10 +267,18 @@ public class Creature : MonoBehaviour
 
         // 물체 C에 회전 적용
         miniCanvas.transform.rotation = lookRotation;
+
+        if (!gameManager.isML && isCoinSteal != 0)//머신러닝 중이라면 할 필요 없으므로
+        {
+            //존재 자체로도 자원이 증가하는 유닛이 존재
+            ourTowerManager.curTowerResource += isCoinSteal;
+        }
     }
 
-    //보호막을 갖고 있는지(크리쳐에 의해서만 피해를 받음)
+    //보호막을 갖고 있는지(크리쳐에 의해서만 피해를 받음, 방패병만 소유)
     public bool isShield;
+    //존재 자체로 조금씩 자원이 증가하는 양(회계병만 소유, 나머지는 0)
+    public float isCoinSteal;
 
     private void OnTriggerEnter(Collider other)//무언가와 충돌했을 시
     {

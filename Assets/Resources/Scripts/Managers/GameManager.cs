@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     public GameObject Infantry;//Infantry 프리펩
     public GameObject Shooter;//Shooter 프리펩
     public GameObject Shielder;//Shielder 프리펩
+    public GameObject Accountant;//Accountant 프리펩
 
     //타워 매너저에서 무기를 분류하는 용도
     [Header("무기 프리펩")]
