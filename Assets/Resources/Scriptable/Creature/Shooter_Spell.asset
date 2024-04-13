@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce41fe8cd173d384a8ce1fcc9f2c3811, type: 3}
   m_Name: Shooter_Spell
   m_EditorClassIdentifier: 
+  isFocus: 0
+  focusColor: {r: 0, g: 0, b: 0, a: 0}
   spellIcon: {fileID: 21300000, guid: 81a8a4bf7a6c6f146a15445837ed2aa4, type: 3}
-  spellName: "\uC0AC\uC218"
+  spellName: "\uD654\uC0DD\uBC29\uBCD1"
   spellType: 0
   spellValue: 2
-  spellDesc: "\uC0AC\uC218 \uC124\uBA85"
+  spellDesc: "\uD654\uC0DD\uBC29\uBCD1 \uC124\uBA85"
   spellPrefab: {fileID: 7076029219765752721, guid: 224c1cd34f67d1d4bad4ccdaa75b836b,
     type: 3}
