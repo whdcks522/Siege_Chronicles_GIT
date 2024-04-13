@@ -191,7 +191,7 @@ MonoBehaviour:
   startPoint: {fileID: 0}
   miniCanvas: {fileID: 1735232647855550576}
   miniHealth: {fileID: 8454607891872545176}
-  CorpseExplosionObj: {fileID: 3437364110036440724}
+  CorpseExplosionObj: {fileID: 4476290687064816798}
   curTeamEnum: 0
   teamIndex: -1
   curCreatureMoveEnum: 0
@@ -501,6 +501,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4611216030818057709, guid: 01a8371238a4e6242bea6367eeb2ae16,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1700
+      objectReference: {fileID: 0}
     - target: {fileID: 5573707993925679682, guid: 01a8371238a4e6242bea6367eeb2ae16,
         type: 3}
       propertyPath: m_Name
@@ -517,9 +522,9 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 6146570189726468658}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &3437364110036440724 stripped
+--- !u!1 &4476290687064816798 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 8862795409425226918, guid: 01a8371238a4e6242bea6367eeb2ae16,
+  m_CorrespondingSourceObject: {fileID: 7733801702624982700, guid: 01a8371238a4e6242bea6367eeb2ae16,
     type: 3}
   m_PrefabInstance: {fileID: 6146570189726468658}
   m_PrefabAsset: {fileID: 0}
