@@ -12,11 +12,18 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class Creature : MonoBehaviour
 {
+    [Header("크리쳐 별 기본 능력")]
     public float maxHealth;//생명체의 최대 체력
     public float curHealth;//생명체의 현재 체력
     public Transform bulletStartPoint;//총알이 시작되는 곳
     public int runSpd;//달리는 속도
     int rotSpd = 120;//회전 속도
+
+    [Header("크리쳐 별 특수 능력 여부")]
+    //보호막을 갖고 있는지(크리쳐에 의해서만 피해를 받음, 방패병만 소유)
+    public bool isShield;
+    //존재 자체로 조금씩 자원이 증가하는 양(회계병만 소유, 나머지는 0)
+    public float isCoinSteal;
 
     Vector3 moveVec;//이동용 벡터(몰라도 됨)
 
@@ -275,10 +282,7 @@ public class Creature : MonoBehaviour
         }
     }
 
-    //보호막을 갖고 있는지(크리쳐에 의해서만 피해를 받음, 방패병만 소유)
-    public bool isShield;
-    //존재 자체로 조금씩 자원이 증가하는 양(회계병만 소유, 나머지는 0)
-    public float isCoinSteal;
+    
 
     private void OnTriggerEnter(Collider other)//무언가와 충돌했을 시
     {

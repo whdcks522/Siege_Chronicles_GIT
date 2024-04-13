@@ -178,6 +178,8 @@ MonoBehaviour:
   curHealth: 0
   bulletStartPoint: {fileID: 2778977439112604571}
   runSpd: 4
+  isShield: 0
+  isCoinSteal: 0.03
   isAttack: 0
   baseTexture: {fileID: 2800000, guid: 72c5bb31a23893644b76b01828627d41, type: 3}
   skinnedMeshRenderer: {fileID: 6317973679899884056}
@@ -202,8 +204,6 @@ MonoBehaviour:
   behaviorParameters: {fileID: 0}
   gameManager: {fileID: 0}
   objectManager: {fileID: 0}
-  isShield: 0
-  isCoinSteal: 0
   goalVec: {x: 0, y: 0, z: 0}
   maxRange: 12
   curRange: 0

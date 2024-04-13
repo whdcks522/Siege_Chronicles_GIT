@@ -83,6 +83,8 @@ public class UIManager : MonoBehaviour
     public Text SpeedControlText;
     public void SpeedControl(bool isSfx)
     {
+        Debug.Log("Click");
+
         if (isSfx) 
         {
             //속도 조절 효과음 출력
@@ -302,7 +304,6 @@ public class UIManager : MonoBehaviour
         //빛 활성화
         worldLight.SetActive(true);
         //시간 정상화
-        SpeedControl(false);
         SpeedControl(false);
         SpeedControl(false);
     }

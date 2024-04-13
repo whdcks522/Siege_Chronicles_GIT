@@ -135940,6 +135940,12 @@ PrefabInstance:
       objectReference: {fileID: 1029026972}
     - target: {fileID: 5147855406567923278, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
+      propertyPath: Accountant
+      value: 
+      objectReference: {fileID: 7076029219765752721, guid: 433834df3c4d5504f80a72c8d85acd86,
+        type: 3}
+    - target: {fileID: 5147855406567923278, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
       propertyPath: audioManager
       value: 
       objectReference: {fileID: 511560928}
