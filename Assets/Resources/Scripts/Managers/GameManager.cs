@@ -8,8 +8,8 @@ public class GameManager : MonoBehaviour
     [Header("머신러닝중인지")]
     public bool isML;
 
-    //[Header("소리 재생 여부")]
-    //public bool isSound;
+    [Header("선택 후에 활성화, 적 타워 인공지능 활성화")]
+    public bool isBattle;
 
     [Header("블루팀 성")]
     public Transform blueTower;

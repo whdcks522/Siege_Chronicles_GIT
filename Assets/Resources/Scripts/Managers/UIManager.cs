@@ -64,7 +64,7 @@ public class UIManager : MonoBehaviour
         FocusOff(false);
 
         //플레이어 은행 초기화
-        blueTowerManager.curBankIndex = 0;
+        //blueTowerManager.curBankIndex = 0;
         bankText.text = "Lv." + (blueTowerManager.curBankIndex + 1) + "(" + blueTowerManager.BankValueArr[blueTowerManager.curBankIndex] + ")";
 
         //배속 초기화
@@ -260,7 +260,6 @@ public class UIManager : MonoBehaviour
             Time.timeScale = 0.001f;
         else if (!isOpen)
         {
-            SpeedControl(false);
             SpeedControl(false);
             SpeedControl(false);
         }

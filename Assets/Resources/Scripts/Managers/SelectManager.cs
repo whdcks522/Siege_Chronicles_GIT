@@ -69,8 +69,6 @@ public class SelectManager : MonoBehaviour
 
         // 게임 시작 함수 호출
         StartCoroutine(StartFadeOut());
-
-        //StartActualGame();
     }
     #endregion
 
@@ -97,8 +95,7 @@ public class SelectManager : MonoBehaviour
         StartActualGame();
     }
 
-    // 실제 게임 시작 함수
-    void StartActualGame()
+    void StartActualGame()// 실제 게임 시작 함수
     {
         //battleUI로 스펠 전달
         for (int i = 0; i < spellBtnArr.Length; i++)
@@ -133,6 +130,9 @@ public class SelectManager : MonoBehaviour
 
         // UI 비활성화
         gameObject.SetActive(false);
+
+        //타워 코드 활성화를 위함
+        gameManager.isBattle = true;
 
         // 게임 레벨 설정
         gameManager.gameLevel = (int)levelSlider.value;

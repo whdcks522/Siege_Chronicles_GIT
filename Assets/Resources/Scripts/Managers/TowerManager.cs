@@ -28,8 +28,8 @@ public class TowerManager : MonoBehaviour
     public Image miniHealth;
 
     [Header("타워의 크리쳐 제한 정보")]
-    public int curCreatureCount = 0;    //크리쳐의 현재 수
-    public int maxCreatureCount = 8;    //크리쳐의 최대 수
+    public int curCreatureCount;    //크리쳐의 현재 수
+    public int maxCreatureCount;    //크리쳐의 최대 수
 
     [Header("매니저")]
     public GameManager gameManager;
@@ -78,25 +78,33 @@ public class TowerManager : MonoBehaviour
     public float curTowerResource = 0f;     //플레이어의 현재 자원
     public float maxTowerResource = 10f;    //플레이어의 최대 자원
 
-    private void Update()//Update있으면 매초마다 증가
+    private void Update()//Update는 매초마다 수행
     {
-        if (maxTowerResource > curTowerResource)
+        if (gameManager.isBattle && !gameManager.isML) 
         {
-            //스펠 사용을 위한 자원 증가
-            curTowerResource += Time.deltaTime * BankSpeedArr[curBankIndex];
-        }
-        else if (maxTowerResource <= curTowerResource)
-        {
-            //현재 자원량이 최대치를 넘지 않도록
-            curTowerResource = maxTowerResource;
-        }
+            if (maxTowerResource > curTowerResource)
+            {
+                //스펠 사용을 위한 자원 증가
+                curTowerResource += Time.deltaTime * BankSpeedArr[curBankIndex];
+            }
+            else if (maxTowerResource <= curTowerResource)
+            {
+                //현재 자원량이 최대치를 넘지 않도록
+                curTowerResource = maxTowerResource;
+            }
 
-        // 물체 A에서 B를 바라보는 회전 구하기
-        cameraVec = cameraGround.transform.position - mainCamera.transform.position;
-        lookRotation = Quaternion.LookRotation(cameraVec);
+            // 물체 A에서 B를 바라보는 회전 구하기
+            cameraVec = cameraGround.transform.position - mainCamera.transform.position;
+            lookRotation = Quaternion.LookRotation(cameraVec);
 
-        // 캔퍼스에 회전 적용
-        miniCanvas.transform.rotation = lookRotation;
+            // 캔퍼스에 회전 적용
+            miniCanvas.transform.rotation = lookRotation;
+
+            if (curTeamEnum == TeamEnum.Red) 
+            {
+                Debug.Log("빨강팀");
+            }
+        }
     }
 
     #region 타워 요소 초기화;
@@ -106,7 +114,7 @@ public class TowerManager : MonoBehaviour
     float[] BankSpeedArr = { 0.6f, 0.7f, 0.8f, 0.9f, 1f };//뱅크 버튼을 눌러서 자원이 증가하게 되는 속도 배열
     public int curBankIndex = 0;//현재 뱅크 레벨이 몇인지
 
-    public void ResetTower() 
+    public void ResetTower()//게임 재시작을 위해 타워 정보 초기화
     {
         //타워 체력 초기화
         curHealth = maxHealth;
@@ -115,7 +123,7 @@ public class TowerManager : MonoBehaviour
         //타워 자원 초기화
         curTowerResource = 0;
 
-        //타워 은행 초기화
+        //타워 은행 수치 초기화
         curBankIndex = 0;
     }
     #endregion

@@ -7,6 +7,8 @@ public class AudioManager : MonoBehaviour
     #region 초기화
     private void Awake()
     {
+        uiManager = gameManager.uiManager;
+
         if (!gameManager.isML)
         {
             //배경음 플레이어 초기화
@@ -108,8 +110,11 @@ public class AudioManager : MonoBehaviour
     AudioClip[] tmpSfxClips;
     public void PlaySfx(Sfx sfx)
     {
-        if (!gameManager.isML) 
+        if (!gameManager.isML)
         {
+            if (uiManager.settingBackground.activeSelf && sfx != Sfx.PaperSfx)
+                return;
+
             for (int index = 0; index < sfxPlayers.Length; index++)
             {
                 int loopIndex = (index + curIndex) % sfxPlayers.Length;//최근에 사용한 인덱스에서 0부터 증가해가며 가능한 것 탐색
@@ -180,4 +185,5 @@ public class AudioManager : MonoBehaviour
 
     [Header("매니저")]
     public GameManager gameManager;
+    UIManager uiManager;
 }
