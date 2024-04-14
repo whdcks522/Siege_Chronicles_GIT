@@ -86,13 +86,11 @@ public class Creature : MonoBehaviour
     
 
     /*
-    이동하면 점수
+    이동 방향에 따라 점수
+    가만히 서있으면 실점
 
     공격 맞추면 점수    
-    공격 못맞추면 실점
-
     타워 맞추면 득점
-    타워 이기는쪽은 득점, 나머지는 실점
     */
 
     private void Awake()
@@ -268,17 +266,20 @@ public class Creature : MonoBehaviour
     Quaternion lookRotation;
     private void LateUpdate()
     {
-        // 물체 A에서 B를 바라보는 회전 구하기
-        cameraVec = mainCamera.transform.position - cameraGround.transform.position;
-        lookRotation = Quaternion.LookRotation(cameraVec);
-
-        // 물체 C에 회전 적용
-        miniCanvas.transform.rotation = lookRotation;
-
-        if (!gameManager.isML && isCoinSteal != 0)//머신러닝 중이라면 할 필요 없으므로
+        if (!gameManager.isML)
         {
-            //존재 자체로도 자원이 증가하는 유닛이 존재
-            ourTowerManager.curTowerResource += isCoinSteal;
+            // 물체 A에서 B를 바라보는 회전 구하기
+            cameraVec = mainCamera.transform.position - cameraGround.transform.position;
+            lookRotation = Quaternion.LookRotation(cameraVec);
+
+            // 물체 C에 회전 적용
+            miniCanvas.transform.rotation = lookRotation;
+
+            if (isCoinSteal != 0)//머신러닝 중이라면 할 필요 없으므로
+            {
+                //존재 자체로도 자원이 증가하는 유닛이 존재
+                ourTowerManager.curTowerResource += isCoinSteal * Time.deltaTime;
+            }
         }
     }
 

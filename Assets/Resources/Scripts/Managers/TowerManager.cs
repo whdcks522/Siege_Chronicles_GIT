@@ -63,6 +63,11 @@ public class TowerManager : MonoBehaviour
             ourCreatureFolder = gameManager.objectManager.redCreatureFolder;
             enemyCreatureFolder = gameManager.objectManager.blueCreatureFolder;
         }
+
+        if (gameManager.isML) 
+        {
+            bulletStartPoint.gameObject.SetActive(false);
+        }
     }
 
     //Ä«¸Þ¶ó È¸Àü°ª
@@ -102,7 +107,7 @@ public class TowerManager : MonoBehaviour
 
             if (curTeamEnum == TeamEnum.Red) 
             {
-                Debug.Log("»¡°­ÆÀ");
+                
             }
         }
     }
