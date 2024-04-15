@@ -408,7 +408,7 @@ public class Creature : MonoBehaviour
     //실제 이동하는 벡터
     Vector3 curVec;
 
-    public float GetMatchingVelocityReward()
+    public float GetMatchingVelocityReward()//가장 가까운 적에게 다가가면 득점, 멀어지면 실점
     {
         float tmpReward = 0;
         //목표 방향 벡터
@@ -439,7 +439,7 @@ public class Creature : MonoBehaviour
     public float curRange;
     [Header("가장 가까운 대상")]
     public Transform curTarget;
-    public void RangeFirstRangeCalc()//가까운 적(타워포함)부터 사냥
+    public void RangeFirstRangeCalc()//가장 가까운 적이 누군지
     {
         curRange = (enemyTower.position - transform.position).magnitude - 2;//일단 적을 타워로 설정
         curTarget = enemyTower;
