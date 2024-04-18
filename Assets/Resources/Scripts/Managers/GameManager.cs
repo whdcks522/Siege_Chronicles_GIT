@@ -21,12 +21,9 @@ public class GameManager : MonoBehaviour
     [Header("게임 난이도")]//1, 2 ,3(기본: 2)
     public int gameLevel;
 
-    //게임매니저에서 실험용으로 크리쳐 소환하는 용도
-    [Header("크리쳐 프리펩")]
-    public GameObject Infantry;//Infantry 프리펩
-    public GameObject Shooter;//Shooter 프리펩
-    public GameObject Shielder;//Shielder 프리펩
-    public GameObject Accountant;//Accountant 프리펩
+    //적 타워가 소환하는 용도
+    [Header("크리쳐 스펠 데이터 프리펩 배열")]
+    public SpellData[] creatureSpellDataArr;//Infantry, Shooter, Shielder, Accountant 프리펩
 
     //타워 매너저에서 무기를 분류하는 용도
     [Header("무기 프리펩")]
@@ -34,8 +31,6 @@ public class GameManager : MonoBehaviour
     public GameObject Flame;//Flame 프리펩
     public GameObject GrandCure;//GrandCure 프리펩
     public GameObject CorpseExplosion;//CorpseExplosion 프리펩
-
-
 
     [Header("매니저 목록")]
     public ObjectManager objectManager;

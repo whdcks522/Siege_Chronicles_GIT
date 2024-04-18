@@ -83,6 +83,9 @@ public class TowerManager : MonoBehaviour
     public float curTowerResource = 0f;     //플레이어의 현재 자원
     public float maxTowerResource = 10f;    //플레이어의 최대 자원
 
+    [Header("적 타워가 앞으로 사용할 스펠 데이터")]
+    public SpellData futureSpellData;
+
     private void Update()//Update는 매초마다 수행
     {
         if (gameManager.isBattle && !gameManager.isML) 
@@ -107,7 +110,16 @@ public class TowerManager : MonoBehaviour
 
             if (curTeamEnum == TeamEnum.Red) 
             {
-                
+                if (futureSpellData == null) 
+                {
+                    int r = Random.Range(0, gameManager.creatureSpellDataArr.Length);
+                    Debug.Log(r);
+                    futureSpellData = gameManager.creatureSpellDataArr[r];
+                }
+                else if (futureSpellData != null)
+                {
+                    Debug.Log(futureSpellData.spellValue);
+                }
             }
         }
     }
