@@ -21,6 +21,10 @@ public class GameManager : MonoBehaviour
     [Header("게임 난이도")]//1, 2 ,3(기본: 2)
     public int gameLevel;
 
+    [Header("각 팀별로 소환가능한 크리쳐의 최대 수")]
+    public int maxCreatureCount;
+
+
     //적 타워가 소환하는 용도
     [Header("크리쳐 스펠 데이터 프리펩 배열")]
     public SpellData[] creatureSpellDataArr;//Infantry, Shooter, Shielder, Accountant 프리펩
@@ -86,7 +90,6 @@ public class GameManager : MonoBehaviour
 
     public void QuitGame()     //게임을 '종료하기'
     {
-        //게임 종료
         Application.Quit();
     }
 }

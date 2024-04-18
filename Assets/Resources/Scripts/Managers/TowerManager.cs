@@ -28,8 +28,8 @@ public class TowerManager : MonoBehaviour
     public Image miniHealth;
 
     [Header("타워의 크리쳐 제한 정보")]
-    public int curCreatureCount;    //크리쳐의 현재 수
-    public int maxCreatureCount;    //크리쳐의 최대 수
+    public int curCreatureCount;    //자기 팀 크리쳐의 현재 수
+
 
     [Header("매니저")]
     public GameManager gameManager;
@@ -110,15 +110,23 @@ public class TowerManager : MonoBehaviour
 
             if (curTeamEnum == TeamEnum.Red) 
             {
-                if (futureSpellData == null) 
-                {
-                    int r = Random.Range(0, gameManager.creatureSpellDataArr.Length);
-                    Debug.Log(r);
-                    futureSpellData = gameManager.creatureSpellDataArr[r];
-                }
-                else if (futureSpellData != null)
+                if (futureSpellData != null)
                 {
                     Debug.Log(futureSpellData.spellValue);
+                    if (curTowerResource < futureSpellData.spellValue)//자원이 부족함
+                    {
+                        Debug.Log("자원이 부족함");
+                    }
+                    if (curTowerResource >= futureSpellData.spellValue)//자원이 충분함
+                    {
+                        Debug.Log("자원이 충분함");
+                        //SpawnCreature();
+                    }
+                }
+                else if (futureSpellData == null)
+                {
+                    int r = Random.Range(0, gameManager.creatureSpellDataArr.Length);
+                    futureSpellData = gameManager.creatureSpellDataArr[r];
                 }
             }
         }

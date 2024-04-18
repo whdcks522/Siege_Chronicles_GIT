@@ -83,8 +83,6 @@ public class UIManager : MonoBehaviour
     public Text SpeedControlText;
     public void SpeedControl(bool isSfx)
     {
-        Debug.Log("Click");
-
         if (isSfx) 
         {
             //속도 조절 효과음 출력
@@ -179,7 +177,7 @@ public class UIManager : MonoBehaviour
                 bankBtn.fillAmount = blueTowerManager.curTowerResource / blueTowerManager.BankValueArr[blueTowerManager.curBankIndex];
 
                 //크리쳐 수 제한 표시
-                creatureCountText.text = blueTowerManager.curCreatureCount.ToString() + "/" + blueTowerManager.maxCreatureCount.ToString();
+                creatureCountText.text = blueTowerManager.curCreatureCount.ToString() + "/" + gameManager.maxCreatureCount.ToString();
         }
     }
     [Header("크리쳐 제한 텍스트")]
@@ -270,7 +268,7 @@ public class UIManager : MonoBehaviour
     [Header("월드의 빛")]
     public GameObject worldLight;
 
-    public void FocusOn()
+    public void FocusOn()//맵이 까매지며 주술 영역이 보임(포커스 실행)
     {
         if (curSpellData != null)
         {
@@ -282,7 +280,7 @@ public class UIManager : MonoBehaviour
             Time.timeScale = 0.2f;
         }
     }
-    public void FocusOff(bool isEffect) //자원 반환 여부
+    public void FocusOff(bool isEffect) //자원 반환 여부(포커스 해제)
     {
         //-1: 자원 반환, 0: 영역만 비활성화, 1: 무기 사용 
         if (curSpellData != null && isEffect) 
@@ -329,15 +327,6 @@ public class UIManager : MonoBehaviour
 
         //타워 레이더 조작
         blueTowerManager.RadarControl(clickPoint.position);
-
-        //포커스 UI 방향 조작
-        //focusVec = cameraObj.transform.position - cameraGround.transform.position;
-        //lookRotation = Quaternion.LookRotation(focusVec);
-        //focusCanvas.transform.rotation = lookRotation;
     }
-    //포커스용 캔버스 회전값
-    //Vector3 focusVec;
-    //Quaternion lookRotation;
-
     #endregion
 }
