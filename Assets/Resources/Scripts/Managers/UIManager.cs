@@ -176,8 +176,8 @@ public class UIManager : MonoBehaviour
             if(blueTowerManager.curBankIndex < blueTowerManager.BankValueArr.Length && bankBtn.GetComponent<Button>().interactable)
                 bankBtn.fillAmount = blueTowerManager.curTowerResource / blueTowerManager.BankValueArr[blueTowerManager.curBankIndex];
 
-                //크리쳐 수 제한 표시
-                creatureCountText.text = blueTowerManager.curCreatureCount.ToString() + "/" + gameManager.maxCreatureCount.ToString();
+            //크리쳐 수 제한 표시
+            creatureCountText.text = blueTowerManager.curCreatureCount.ToString() + "/" + gameManager.maxCreatureCount.ToString();
         }
     }
     [Header("크리쳐 제한 텍스트")]
@@ -188,7 +188,8 @@ public class UIManager : MonoBehaviour
     [Header("전투 스펠버튼 배열")]
     public SpellButton[] spellBtnArr = new SpellButton[4];
     Vector3 clickScaleVec;//주술의 스킬 영역을 보여주는데 사용되는 벡터
-    public void OnClick(int _index) 
+
+    public void OnClick(int _index) //전투 화면에서 밑의 4개의 버튼 중 1개를 클릭함
     {
         //클릭한 버튼의 비용
         SpellData spellData = spellBtnArr[_index].GetComponent<SpellButton>().spellData;

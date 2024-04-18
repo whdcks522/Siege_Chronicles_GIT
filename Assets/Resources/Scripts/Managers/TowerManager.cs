@@ -160,12 +160,12 @@ public class TowerManager : MonoBehaviour
     [Header("자기 팀 크리쳐의 현재 수")]
     public int curCreatureCount;  
 
-    public void CreatureCountControl()//게임 재시작을 위해 타워 정보 초기화
+    public void CreatureCountControl()//소환 가능한지
     {
 
         if (curTeamEnum == Creature.TeamEnum.Blue)//파랑팀이면 
         {
-            //UI도 표시
+
         }
     }
     #endregion
