@@ -187,7 +187,7 @@ public class UIManager : MonoBehaviour
 
     [Header("전투 스펠버튼 배열")]
     public SpellButton[] spellBtnArr = new SpellButton[4];
-    Vector3 clickScaleVec;
+    Vector3 clickScaleVec;//주술의 스킬 영역을 보여주는데 사용되는 벡터
     public void OnClick(int _index) 
     {
         //클릭한 버튼의 비용
@@ -329,4 +329,6 @@ public class UIManager : MonoBehaviour
         blueTowerManager.RadarControl(clickPoint.position);
     }
     #endregion
+
+    // scoreText.text = "<color=#AA00FF>"+ rankStrArr[(int)maxRank] + maxScore.ToString() +"</color>";
 }

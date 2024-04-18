@@ -27,8 +27,7 @@ public class TowerManager : MonoBehaviour
     public GameObject miniCanvas;
     public Image miniHealth;
 
-    [Header("타워의 크리쳐 제한 정보")]
-    public int curCreatureCount;    //자기 팀 크리쳐의 현재 수
+    
 
 
     [Header("매니저")]
@@ -150,10 +149,26 @@ public class TowerManager : MonoBehaviour
 
         //타워 은행 수치 초기화
         curBankIndex = 0;
+
+        //타워 크리쳐 수 초기화
+        curCreatureCount = 0;
     }
     #endregion
 
+    #region 크리쳐 수 제한 표시;
 
+    [Header("자기 팀 크리쳐의 현재 수")]
+    public int curCreatureCount;  
+
+    public void CreatureCountControl()//게임 재시작을 위해 타워 정보 초기화
+    {
+
+        if (curTeamEnum == Creature.TeamEnum.Blue)//파랑팀이면 
+        {
+            //UI도 표시
+        }
+    }
+    #endregion
 
     private void OnTriggerEnter(Collider other)//부딪힘
     {
@@ -221,9 +236,11 @@ public class TowerManager : MonoBehaviour
         Creature creature = obj.GetComponent<Creature>();
         //활동 전에 설정
         creature.BeforeRevive(curTeamEnum, gameManager);
+
+        //크리쳐 수 증가
+        curCreatureCount++;
     }
     #endregion
-
 
     #region 스펠(무기) 사용 분류
     Vector3 enemyVec;
@@ -239,7 +256,9 @@ public class TowerManager : MonoBehaviour
     #region 미니건 난사
     void Tower_Gun()
     {
+        //실제로 사격 했는지 여부
         bool isShot = false;
+
         //적 크리쳐 위치 파악
         for (int i = 0; i < enemyCreatureFolder.childCount; i++)
         {
@@ -317,16 +336,10 @@ public class TowerManager : MonoBehaviour
     #region 시체폭발
     void Tower_CorpseExplosion()
     {
-        //int i = 0;
-
         foreach (Transform obj in ourCreatureFolder)
         {
-            //Debug.Log(i);
-
             if (obj.gameObject.layer == LayerMask.NameToLayer("Creature"))
             {
-                //Debug.Log(i+'/');
-
                 //시체 폭발 아이콘 활성화
                 Creature creature = obj.gameObject.GetComponent<Creature>();
                 creature.CorpseExplosionObj.SetActive(true);

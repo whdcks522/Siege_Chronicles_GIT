@@ -135931,7 +135931,7 @@ PrefabInstance:
     - target: {fileID: 5147855406567923278, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: gameLevel
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5147855406567923278, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -135965,6 +135965,40 @@ PrefabInstance:
       propertyPath: blueTowerManager
       value: 
       objectReference: {fileID: 753130670}
+    - target: {fileID: 5147855406567923278, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: maxCreatureCount
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5147855406567923278, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: creatureSpellDataArr.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5147855406567923278, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: creatureSpellDataArr.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 73ec6dfeb22ad244aa70f9ee50131e59,
+        type: 2}
+    - target: {fileID: 5147855406567923278, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: creatureSpellDataArr.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 6c5cf3bab3102464a984333640a4efa7,
+        type: 2}
+    - target: {fileID: 5147855406567923278, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: creatureSpellDataArr.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: a8fe445c4ab2dcd4aa52f33a8f40f87a,
+        type: 2}
+    - target: {fileID: 5147855406567923278, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: creatureSpellDataArr.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 485c22cd932e0a64a8eaa7737a58a773,
+        type: 2}
     - target: {fileID: 5162680583531873395, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_IsActive

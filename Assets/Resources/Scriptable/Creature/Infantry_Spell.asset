@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce41fe8cd173d384a8ce1fcc9f2c3811, type: 3}
   m_Name: Infantry_Spell
   m_EditorClassIdentifier: 
+  isFocus: 0
+  focusColor: {r: 0, g: 0, b: 0, a: 0}
   spellIcon: {fileID: 21300000, guid: e4d2a6cb5badaf04a9c9802bbda3c9d8, type: 3}
   spellName: "\uBCF4\uBCD1"
   spellType: 0
   spellValue: 2
-  spellDesc: "\uBCF4\uBCD1 \uC124\uBA85"
+  spellDesc: "<color=#AA00FF> \uC0C9 \uBCC0\uACBD \uAC00\uB2A5</color> \uC774\uB807\uAC8C"
   spellPrefab: {fileID: 7076029219765752721, guid: 0d13f62ecda91574aa45be5a56b837b9,
     type: 3}

@@ -333,42 +333,44 @@ public class Creature : MonoBehaviour
     #region 피격 처리
     public void damageControl(float _dmg)
     {
-        //피해량 계산
-        curHealth -= _dmg;
-
-        if (curHealth < 0) curHealth = 0;
-        else if (curHealth > maxHealth) curHealth = maxHealth;
-
-        //UI관리
-        miniHealth.fillAmount = curHealth / maxHealth;
-
-        //효과음 관리
-        /*
-        if (_dmg >= 0) 
+        if (_dmg != 0) //폭발은 실제 데미지가 0이므로
         {
-        
+            //피해량 계산
+            curHealth -= _dmg;
+
+            if (curHealth < 0) curHealth = 0;
+            else if (curHealth > maxHealth) curHealth = maxHealth;
+
+            //UI관리
+            miniHealth.fillAmount = curHealth / maxHealth;
+
+            //효과음 관리
+            /*
+            if (_dmg >= 0) 
+            {
+
+            }
+            else if (_dmg < 0)
+            {
+
+            }
+            */
+
+            //충격 초기화
+            if (curHealth <= 0)
+                AlmostDead();
         }
-        else if (_dmg < 0)
-        {
-
-        }
-        */
-
-        //충격 초기화
-        if (curHealth <= 0)
-            AlmostDead();
-
     }
     #endregion
 
     #region 사망처리
     void AlmostDead()
     {
-        if (gameManager.isML)
+        if (gameManager.isML)//머신러닝 중이라면
         {
             agent.EndEpisode();
         }
-        else if (!gameManager.isML)
+        else if (!gameManager.isML)//일반 상황이라면
         {
             //피격당하지 않도록, 레이어 변경
             gameObject.layer = LayerMask.NameToLayer("WarpCreature");
@@ -380,7 +382,7 @@ public class Creature : MonoBehaviour
             miniCanvas.SetActive(false);
 
             //시체 폭발 여부
-            if (CorpseExplosionObj.activeSelf)
+            //if (CorpseExplosionObj.activeSelf)
             {
                 
             }
@@ -398,6 +400,9 @@ public class Creature : MonoBehaviour
 
         //중립 폴더로 옮기기
         transform.parent = objectManager.grayCreatureFolder;
+
+        //자기 타워에 등록된 크리쳐 수 감소
+        ourTowerManager.curCreatureCount--;
     }
     #endregion
 
