@@ -186,9 +186,15 @@ public class TowerManager : MonoBehaviour
         return canSpawn;
     }
 
-    public void CreatureCount() 
+    public void CreatureCountControl(int _value) //안씀
     {
-    
+        //크리쳐 현재 수 증감
+        curCreatureCount += _value;
+
+        if (curCreatureCount > gameManager.maxCreatureCount) //최대 수 보다 많을 때
+        {
+            curCreatureCount = gameManager.maxCreatureCount;
+        }
     }
     #endregion
 
