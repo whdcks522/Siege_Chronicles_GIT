@@ -6,6 +6,10 @@ using UnityEngine.UI;
 
 public class StartManager : MonoBehaviour
 {
+    [Header("애니메이션")]
+    public Animator startAnim;
+    public Animator tipAnim;
+
     [Header("매니저")]
     public GameManager gameManager;
     UIManager UiManager;
@@ -19,15 +23,16 @@ public class StartManager : MonoBehaviour
     
     public void StartGame()//Select로 넘어가기
     {
-        //시작 창 닫기
-        gameObject.SetActive(false);
-
-        //선택 창 열기
-        UiManager.selectManager.gameObject.SetActive(true);
+        startAnim.SetBool("isStart", false);
 
         //종이 넘기는 효과음
         audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
+
+        //선택 창 열기
+        //UiManager.selectManager.gameObject.SetActive(true);
     }
+
+
 
 
     [Serializable]//필요하더라
@@ -60,7 +65,9 @@ public class StartManager : MonoBehaviour
     public void PanelActivateControl(bool isActivate) //패널 활성, 비활성 관리
     {
         //패널 활성 비활성
-        tipPanel.SetActive(isActivate);
+        //tipPanel.SetActive(isActivate);
+
+        tipAnim.SetBool("isPanel", isActivate);
 
         if (isActivate) //패널을 여는 경우
         {
