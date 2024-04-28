@@ -175,9 +175,6 @@ public class UIManager : MonoBehaviour
             //은행 버튼 활성화 관리
             if(blueTowerManager.curBankIndex < blueTowerManager.BankValueArr.Length && bankBtn.GetComponent<Button>().interactable)
                 bankBtn.fillAmount = blueTowerManager.curTowerResource / blueTowerManager.BankValueArr[blueTowerManager.curBankIndex];
-
-            //크리쳐 수 제한 표시
-            creatureCountText.text = blueTowerManager.curCreatureCount.ToString() + "/" + gameManager.maxCreatureCount.ToString();
         }
     }
     [Header("크리쳐 제한 텍스트")]

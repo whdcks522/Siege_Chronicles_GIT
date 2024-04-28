@@ -395,14 +395,15 @@ public class Creature : MonoBehaviour
     //투명해진 후에, 완전히 죽음
     public void CompletelyDead() 
     {
+        //자기 타워에 등록된 크리쳐 수 감소
+        if(gameObject.activeSelf)
+            ourTowerManager.curCreatureCount--;
+
         //생명체 비활성화
         gameObject.SetActive(false);
 
         //중립 폴더로 옮기기
         transform.parent = objectManager.grayCreatureFolder;
-
-        //자기 타워에 등록된 크리쳐 수 감소
-        ourTowerManager.curCreatureCount--;
     }
     #endregion
 

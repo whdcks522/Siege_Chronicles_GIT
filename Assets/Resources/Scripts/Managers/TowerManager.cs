@@ -107,23 +107,23 @@ public class TowerManager : MonoBehaviour
             // 캔퍼스에 회전 적용
             miniCanvas.transform.rotation = lookRotation;
 
-            if (curTeamEnum == TeamEnum.Red) 
+            if (curTeamEnum == TeamEnum.Red) //빨강 팀 타워에서
             {
-                if (futureSpellData != null)
+                if (futureSpellData != null)//소환할 것이 정해졌다면
                 {
-                    Debug.Log(futureSpellData.spellValue);
-                    if (curTowerResource < futureSpellData.spellValue)//자원이 부족함
+                    Debug.Log("비용: " + futureSpellData.spellValue);
+                    if (curTowerResource >= futureSpellData.spellValue && CreatureCountCheck())//자원이 충분하면서 자신의 크리쳐 소환 여부가 충분할 때
                     {
-                        Debug.Log("자원이 부족함");
-                    }
-                    if (curTowerResource >= futureSpellData.spellValue)//자원이 충분함
-                    {
-                        Debug.Log("자원이 충분함");
-                        //SpawnCreature();
+                        Debug.Log("소환: " + futureSpellData.spellPrefab.name);
+                        //크리쳐 소환
+                        //SpawnCreature(futureSpellData.spellPrefab.name);
+                        //다른 것을 소환하기 위해 초기화
+                        futureSpellData = null;
                     }
                 }
-                else if (futureSpellData == null)
+                else if (futureSpellData == null)//소환할 것이 정해지지 않았다면
                 {
+                    //어떤 크리쳐를 소환할 지 무작위로 정함
                     int r = Random.Range(0, gameManager.creatureSpellDataArr.Length);
                     futureSpellData = gameManager.creatureSpellDataArr[r];
                 }
@@ -155,18 +155,40 @@ public class TowerManager : MonoBehaviour
     }
     #endregion
 
-    #region 크리쳐 수 제한 표시;
+    #region 크리쳐 수 제한;
 
     [Header("자기 팀 크리쳐의 현재 수")]
     public int curCreatureCount;  
 
-    public void CreatureCountControl()//소환 가능한지
+    public bool CreatureCountCheck()//소환 인수 증감 후, 가능 여부 반환
     {
+        bool canSpawn = false;
+
+        if (curCreatureCount < gameManager.maxCreatureCount)//소환 가능한 경우
+        {
+            //크리쳐 수 제한 변화
+            curCreatureCount++;
+            canSpawn = true;
+        }
+        else if (curCreatureCount >= gameManager.maxCreatureCount)//소환 불가능한 경우
+        {
+            canSpawn = false;
+        }
 
         if (curTeamEnum == Creature.TeamEnum.Blue)//파랑팀이면 
         {
+            //소환 제한 텍스트 갱신
+            UiManager.creatureCountText.text = curCreatureCount.ToString() + "/" + gameManager.maxCreatureCount.ToString();
+            //소환 제한 텍스트 진동 애니메이션
 
         }
+
+        return canSpawn;
+    }
+
+    public void CreatureCount() 
+    {
+    
     }
     #endregion
 
@@ -236,9 +258,6 @@ public class TowerManager : MonoBehaviour
         Creature creature = obj.GetComponent<Creature>();
         //활동 전에 설정
         creature.BeforeRevive(curTeamEnum, gameManager);
-
-        //크리쳐 수 증가
-        curCreatureCount++;
     }
     #endregion
 
@@ -291,7 +310,7 @@ public class TowerManager : MonoBehaviour
         }
         if(isShot)//사격 대상이 있는 경우, 타워의 레이더가 마지막 대상을 바라봄
             RadarControl(enemyVec);
-        else if (!isShot)//대상이 없는 경우, 적 타워를 바라봄
+        else if (!isShot)//대상이 없는 경우, 타워의 레이더가 적 타워를 바라봄
             RadarControl(enemyTower.transform.position);
     }
     #endregion
@@ -345,6 +364,9 @@ public class TowerManager : MonoBehaviour
                 creature.CorpseExplosionObj.SetActive(true);
             }
         }
+
+        //타워의 레이더가 적 타워를 바라봄
+        RadarControl(enemyTower.transform.position);
     }
     #endregion
 }
