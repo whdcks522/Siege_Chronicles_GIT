@@ -18,6 +18,9 @@ MonoBehaviour:
   spellName: "\uC2DC\uCCB4\uD3ED\uBC1C"
   spellType: 1
   spellValue: 5
-  spellDesc: "\uC2DC\uCCB4\uD3ED\uBC1C \uC124\uBA85"
+  spellDesc: "\uC544\uAD70 \uD06C\uB9AC\uCCD0 \uC804\uCCB4\uC5D0\uAC8C \uC2DC\uCCB4
+    \uD3ED\uBC1C\uC744 \uC801\uC6A9\uD569\uB2C8\uB2E4. \r\n\uC2DC\uCCB4 \uD3ED\uBC1C\uC774
+    \uC801\uC6A9\uB41C \uD06C\uB9AC\uCCD0 \uC0AC\uB9DD \uC2DC, \uC8FC\uC704\uC5D0
+    \uD53C\uD574\uB97C \uC90D\uB2C8\uB2E4."
   spellPrefab: {fileID: 1242051555635342, guid: 1798e797728b6c446932cee8ca214f93,
     type: 3}
