@@ -27,13 +27,27 @@ public class AnimatorSupport : MonoBehaviour
     public void AgentAction_1() => superAgent.AgentAction_1();
 
 
-
-    public GameObject selectManager;
+    public GameManager gameManager;
     public void MovetoSelect()//SelectManager 활성화 애니메이션 용(StartGame에 의해 호출)
     {
         transform.parent.gameObject.SetActive(false);
 
         //선택 창 열기
-        selectManager.SetActive(true);
+        gameManager.uiManager.selectManager.gameObject.SetActive(true);
     }
+    public void MovetoBattle()//BattleManager 활성화 애니메이션 용
+    {
+        Debug.Log(gameManager.uiManager.selectManager.index_Battle);
+
+        if (gameManager.uiManager.selectManager.index_Battle == 1)//전투 화면으로 전환
+        {
+            gameManager.uiManager.selectManager.StartActualGame();
+        }
+        else if (gameManager.uiManager.selectManager.index_Battle == 2) //게임 초기화
+        {
+            gameManager.ResetGame();
+        }
+    }
+
+
 }

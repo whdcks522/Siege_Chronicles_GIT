@@ -62,47 +62,28 @@ public class SelectManager : MonoBehaviour
 
     #region 게임 시작, 진행 퍼센트 보여주기 힘듬
     [Header("로딩 패널")]
-    public Image loadPanel;
     public int maxCreatureCount; //타워 매니저에 ui용 겹쳐서 존재
-    public void StartGame()
+
+    public int index_Battle;//선택 창 올리는 애니메이션 후, 전투 씬으로 이동할 것인지, 아니면 종료할 것인지
+
+    public void StartGame(int i)
     {
+        //애니메이션 후 시작할 지, 초기화 할지 설정
+        index_Battle = i;
+
         //종이 넘기는 효과음
         audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
 
         // 게임 시작 함수 호출
-        StartCoroutine(StartFadeOut());
+        anim.SetBool("isSelect", false);
     }
     #endregion
 
-
-    Color fadeColor;
-    IEnumerator StartFadeOut()//페이드 아웃을 시작함(투명해지는 것)
-    {
-        // 로딩 아이콘 활성화
-        loadPanel.gameObject.SetActive(true);
-
-        fadeColor = loadPanel.color;
-        float time = 1, minTime = 0;
-
-        while (time > minTime)
-        {
-            time -= Time.deltaTime;
-            float t = time / 1;//대기 시간
-
-            fadeColor.a = Mathf.Lerp(1, 0, t);
-            loadPanel.color = fadeColor;
-
-            yield return null;
-        }
-        StartActualGame();
-    }
-
-    void StartActualGame()// 실제 게임 시작 함수
+    public void StartActualGame()// 실제 게임 시작 함수
     {
         //battleUI로 스펠 전달
         for (int i = 0; i < spellBtnArr.Length; i++)
         {
-
             if (spellBtnArr[i].spellData != null)//스펠이 있는 경우 이미지 갱신
             {
                 //버튼에 스펠 데이터 전달
