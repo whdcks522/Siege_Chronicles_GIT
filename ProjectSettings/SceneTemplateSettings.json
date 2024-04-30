@@ -8,6 +8,11 @@
         },
         {
             "userAdded": false,
+            "type": "UnityEditor.Animations.AnimatorController",
+            "defaultInstantiationMode": 0
+        },
+        {
+            "userAdded": false,
             "type": "UnityEngine.AnimatorOverrideController",
             "defaultInstantiationMode": 0
         },

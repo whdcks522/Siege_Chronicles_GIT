@@ -7,6 +7,8 @@ using static SpellData;
 
 public class SelectManager : MonoBehaviour
 {
+    public Animator anim;
+
     [Header("선택된 스펠 버튼")]
     public SpellButton selectedSpellBtn;
 
@@ -48,7 +50,7 @@ public class SelectManager : MonoBehaviour
         objectManager = gameManager.objectManager;
 
         //오른쪽 패널 비활성화
-        rightPanel.SetActive(false);
+        anim.SetBool("isSelect", true);
     }
 
     //레벨 슬라이더 조정

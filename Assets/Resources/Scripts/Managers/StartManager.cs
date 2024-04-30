@@ -21,18 +21,13 @@ public class StartManager : MonoBehaviour
         audioManager = gameManager.audioManager;
     }
     
-    public void StartGame()//Select로 넘어가기
+    public void StartGame()//시작 버튼 누름
     {
         startAnim.SetBool("isStart", false);
 
         //종이 넘기는 효과음
         audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
-
-        //선택 창 열기
-        //UiManager.selectManager.gameObject.SetActive(true);
     }
-
-
 
 
     [Serializable]//필요하더라

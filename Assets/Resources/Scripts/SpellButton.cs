@@ -111,7 +111,7 @@ public class SpellButton : MonoBehaviour
             //스펠 타입 바꾸기
             if (spellData.spellType == SpellData.SpellType.Creature) 
             {
-                selectManager.selectedSpellType.text = "병사";
+                selectManager.selectedSpellType.text = "크리쳐";
             }
             else if (spellData.spellType == SpellData.SpellType.Weapon)
             {
@@ -121,7 +121,7 @@ public class SpellButton : MonoBehaviour
             //스펠 비용 바꾸기
             selectManager.selectedSpellValue.text = spellData.spellValue.ToString();
             //스펠 설명 바꾸기
-            selectManager.selectedSpellDesc.text = "설명: " + spellData.spellDesc;
+            selectManager.selectedSpellDesc.text = spellData.spellDesc;
 
             if (curSpellBtnEnum == SpellBtnEnum.LeftBtn)
             {
