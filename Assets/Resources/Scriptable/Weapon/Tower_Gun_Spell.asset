@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Tower_Gun_Spell
   m_EditorClassIdentifier: 
   isFocus: 0
+  focusColor: {r: 0, g: 0, b: 0, a: 0}
   spellIcon: {fileID: 21300000, guid: 7f930c95fb03541c696364cf3ea33fc3, type: 3}
   spellName: "\uC0AC\uACA9"
   spellType: 1
   spellValue: 2
-  spellDesc: "\uC0AC\uACA9 \uC124\uBA85"
+  spellDesc: "<color=#FF5555>\uC801\uAD70</color> <color=#DDAAFF>\uD06C\uB9AC\uCCD0</color>
+    \uC804\uCCB4\uB97C <color=#FFFF55>\uC0AC\uACA9</color>\uD569\uB2C8\uB2E4."
   spellPrefab: {fileID: 1795072395756124, guid: 5135a03674bb17e4aae98e805b20d536,
     type: 3}
