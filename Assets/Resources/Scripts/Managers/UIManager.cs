@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using static ObjectManager;
 
 public class UIManager : MonoBehaviour
 {
@@ -38,12 +37,10 @@ public class UIManager : MonoBehaviour
     [Header("매니저")]
     public SelectManager selectManager;
     public GameManager gameManager;
-    ObjectManager objectManager;
     AudioManager audioManager;
 
     private void Awake()
     {
-        objectManager = gameManager.objectManager;
         audioManager = gameManager.audioManager;
         blueTower = gameManager.blueTower;
         blueTowerManager = blueTower.GetComponent<TowerManager>();  
@@ -63,8 +60,10 @@ public class UIManager : MonoBehaviour
         //포커스 초기화
         FocusOff(false);
 
+        //크리쳐 수 제한 초기화
+        blueTowerManager.CreatureCountText();
+
         //플레이어 은행 초기화
-        //blueTowerManager.curBankIndex = 0;
         bankText.text = "Lv." + (blueTowerManager.curBankIndex + 1) + "(" + blueTowerManager.BankValueArr[blueTowerManager.curBankIndex] + ")";
 
         //배속 초기화
@@ -179,6 +178,7 @@ public class UIManager : MonoBehaviour
     }
     [Header("크리쳐 제한 텍스트")]
     public Text creatureCountText;
+    public Animator creatureCountAnim;
 
     #region 전투 씬에서 스펠 버튼 클릭
 
@@ -188,10 +188,9 @@ public class UIManager : MonoBehaviour
 
     public void OnClick(int _index) //전투 화면에서 밑의 4개의 버튼 중 1개를 클릭함
     {
-        //클릭한 버튼의 비용
+        //클릭한 버튼의 스펠 정보
         SpellData spellData = spellBtnArr[_index].GetComponent<SpellButton>().spellData;
-
-        //비용
+        //해당 스펠의 사용 비용
         int value = spellData.spellValue;
 
         if (blueTowerManager.curTowerResource >= value && curSpellData == null)//비용이 충분한 경우
@@ -199,15 +198,21 @@ public class UIManager : MonoBehaviour
             //스펠 성공 효과음
             audioManager.PlaySfx(AudioManager.Sfx.SpellSuccessSfx);
 
-            //비용 감소
-            blueTowerManager.curTowerResource -= value;
-
             if (spellData.spellType == SpellData.SpellType.Creature)//크리쳐를 누른 경우
             {
-                blueTowerManager.SpawnCreature(spellData.spellPrefab.name);
+                if (blueTowerManager.CreatureCountCheck()) 
+                {
+                    //비용 감소
+                    blueTowerManager.curTowerResource -= value;
+                    //해당 크리쳐 소환
+                    blueTowerManager.SpawnCreature(spellData.spellPrefab.name);
+                }    
             }
-            else if(spellData.spellType == SpellData.SpellType.Weapon)//무기를 누른 경우
+            else if(spellData.spellType == SpellData.SpellType.Weapon)//주술을 누른 경우
             {
+                //비용 감소
+                blueTowerManager.curTowerResource -= value;
+
                 if (spellData.isFocus) 
                 {
                     //무기 데이터 임시 저장
@@ -242,7 +247,10 @@ public class UIManager : MonoBehaviour
 
     #region 세팅 버튼 기능
     [Header("세팅 배경")]
-    public GameObject settingBackground;
+    public GameObject settingBackground;//설정 창 배경
+    public GameObject victoryTitle;//승리 시 나올 텍스트
+    public GameObject defeatTitle;//패배 시 나올 텍스트
+    public GameObject startBtn;//이어하기 버튼(게임 종료 시, 비활성화)
     public void SettingControl(bool isOpen)//세팅 활성화 관리
     {
         //페이지 효과음
@@ -327,6 +335,4 @@ public class UIManager : MonoBehaviour
         blueTowerManager.RadarControl(clickPoint.position);
     }
     #endregion
-
-    // scoreText.text = "<color=#AA00FF>"+ rankStrArr[(int)maxRank] + maxScore.ToString() +"</color>";
 }

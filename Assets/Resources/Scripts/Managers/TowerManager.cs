@@ -87,7 +87,7 @@ public class TowerManager : MonoBehaviour
 
     private void Update()//Update는 매초마다 수행
     {
-        if (gameManager.isBattle && !gameManager.isML) 
+        if (UiManager.selectManager.index_Battle == 1) 
         {
             if (maxTowerResource > curTowerResource)
             {
@@ -116,9 +116,17 @@ public class TowerManager : MonoBehaviour
                     {
                         Debug.Log("소환: " + futureSpellData.spellPrefab.name);
                         //크리쳐 소환
-                        //SpawnCreature(futureSpellData.spellPrefab.name);
+                        if (gameManager.isEnemySpawn) 
+                        {
+                            SpawnCreature(futureSpellData.spellPrefab.name);
+                            
+                        }
+                        //비용 처리
+                        curTowerResource -= futureSpellData.spellValue;
+
                         //다른 것을 소환하기 위해 초기화
                         futureSpellData = null;
+
                     }
                 }
                 else if (futureSpellData == null)//소환할 것이 정해지지 않았다면
@@ -160,7 +168,7 @@ public class TowerManager : MonoBehaviour
     [Header("자기 팀 크리쳐의 현재 수")]
     public int curCreatureCount;  
 
-    public bool CreatureCountCheck()//소환 인수 증감 후, 가능 여부 반환
+    public bool CreatureCountCheck()//소환 인수 증감 후, 소환 가능 여부 반환
     {
         bool canSpawn = false;
 
@@ -177,24 +185,18 @@ public class TowerManager : MonoBehaviour
 
         if (curTeamEnum == Creature.TeamEnum.Blue)//파랑팀이면 
         {
-            //소환 제한 텍스트 갱신
-            UiManager.creatureCountText.text = curCreatureCount.ToString() + "/" + gameManager.maxCreatureCount.ToString();
-            //소환 제한 텍스트 진동 애니메이션
-
+            CreatureCountText();
         }
 
         return canSpawn;
     }
 
-    public void CreatureCountControl(int _value) //안씀
+    public void CreatureCountText()//크리쳐 세는 텍스트 수정
     {
-        //크리쳐 현재 수 증감
-        curCreatureCount += _value;
-
-        if (curCreatureCount > gameManager.maxCreatureCount) //최대 수 보다 많을 때
-        {
-            curCreatureCount = gameManager.maxCreatureCount;
-        }
+        //소환 제한 텍스트 갱신
+        UiManager.creatureCountText.text = curCreatureCount.ToString() + "/" + gameManager.maxCreatureCount.ToString();
+        //소환 제한 텍스트 진동 애니메이션
+        UiManager.creatureCountAnim.SetTrigger("isCount");
     }
     #endregion
 
@@ -217,7 +219,6 @@ public class TowerManager : MonoBehaviour
             }
         }
     }
-
 
     #region 데미지 계산
     void DamageControl(Bullet bullet)
@@ -247,7 +248,20 @@ public class TowerManager : MonoBehaviour
 
             if (curHealth <= 0) //게임 종료
             {
-                
+                //설정 화면의 시작 버튼 비활성화
+                UiManager.startBtn.SetActive(false);
+                if (curTeamEnum == Creature.TeamEnum.Red)//빨간 팀이 진 경우
+                {
+                    //설정 화면의 텍스트 수정
+                    UiManager.victoryTitle.SetActive(true);
+                }
+                else if (curTeamEnum == Creature.TeamEnum.Blue) //파란 팀이 진 경우
+                {
+                    //설정 화면의 텍스트 수정
+                    UiManager.defeatTitle.SetActive(true);
+                }
+                //게임 종료를 위해 정지 시키기
+                UiManager.SettingControl(true);
             }
         }
     }

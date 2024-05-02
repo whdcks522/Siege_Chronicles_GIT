@@ -62,11 +62,10 @@ public class SelectManager : MonoBehaviour
 
     #region 게임 시작, 진행 퍼센트 보여주기 힘듬
     [Header("로딩 패널")]
-    public int maxCreatureCount; //타워 매니저에 ui용 겹쳐서 존재
-
     public int index_Battle;//선택 창 올리는 애니메이션 후, 전투 씬으로 이동할 것인지, 아니면 종료할 것인지
+    //0: 기본, 1: 게임 시작, 2: 게임 초기화,
 
-    public void StartGame(int i)
+    public void StartGame(int i)//선택창에서 시작 버튼 또는, 초기화 버튼 클릭
     {
         //애니메이션 후 시작할 지, 초기화 할지 설정
         index_Battle = i;
@@ -113,9 +112,6 @@ public class SelectManager : MonoBehaviour
 
         // UI 비활성화
         gameObject.SetActive(false);
-
-        //타워 코드 활성화를 위함
-        gameManager.isBattle = true;
 
         // 게임 레벨 설정
         gameManager.gameLevel = (int)levelSlider.value;

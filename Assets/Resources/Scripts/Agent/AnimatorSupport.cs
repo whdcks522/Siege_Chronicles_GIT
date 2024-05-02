@@ -37,8 +37,6 @@ public class AnimatorSupport : MonoBehaviour
     }
     public void MovetoBattle()//BattleManager 활성화 애니메이션 용
     {
-        Debug.Log(gameManager.uiManager.selectManager.index_Battle);
-
         if (gameManager.uiManager.selectManager.index_Battle == 1)//전투 화면으로 전환
         {
             gameManager.uiManager.selectManager.StartActualGame();
@@ -48,6 +46,4 @@ public class AnimatorSupport : MonoBehaviour
             gameManager.ResetGame();
         }
     }
-
-
 }

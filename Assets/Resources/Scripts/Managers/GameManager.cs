@@ -8,8 +8,8 @@ public class GameManager : MonoBehaviour
     [Header("머신러닝중인지")]
     public bool isML;
 
-    [Header("선택 후에 활성화, 적 타워 인공지능 활성화")]
-    public bool isBattle;
+    [Header("적이 크리쳐를 소환할 것인지")]
+    public bool isEnemySpawn;
 
     [Header("블루팀 성")]
     public Transform blueTower;
@@ -73,6 +73,10 @@ public class GameManager : MonoBehaviour
 
         //UI 초기화
         uiManager.resetUI();
+        //설정 화면의 초기화
+        uiManager.startBtn.SetActive(true);
+        uiManager.victoryTitle.SetActive(false);
+        uiManager.defeatTitle.SetActive(false);
 
     }
     #endregion
