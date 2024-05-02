@@ -65,6 +65,7 @@ public class UIManager : MonoBehaviour
 
         //플레이어 은행 초기화
         bankText.text = "Lv." + (blueTowerManager.curBankIndex + 1) + "(" + blueTowerManager.BankValueArr[blueTowerManager.curBankIndex] + ")";
+        bankAnim.SetTrigger("isFlash");
 
         //배속 초기화
         if (speed == 1) 
@@ -80,6 +81,7 @@ public class UIManager : MonoBehaviour
     #region 배속 조정
     int speed = 0;
     public Text SpeedControlText;
+    public Animator SpeedAnim;
     public void SpeedControl(bool isSfx)
     {
         if (isSfx) 
@@ -87,6 +89,7 @@ public class UIManager : MonoBehaviour
             //속도 조절 효과음 출력
             audioManager.PlaySfx(AudioManager.Sfx.SpeedSfx);
         }
+        SpeedAnim.SetBool("isFlash", true);
 
         //속도 조정
         speed++;
@@ -103,9 +106,12 @@ public class UIManager : MonoBehaviour
     #region 은행 관리
     [Header("은행 관련 UI")]
     public Image bankBtn;//은행 이미지
-    public Text bankText;//은행 텍스ㅡㅌ
-    public void BankControl() 
+    public Text bankText;//은행 텍스트
+    public Animator bankAnim;//은행 애니메이션
+    public void BankControl()//은행 버튼 클릭
     {
+        bankAnim.SetBool("isFlash", true);
+
         if (blueTowerManager.curTowerResource >= blueTowerManager.BankValueArr[blueTowerManager.curBankIndex])//비용이 충분한 경우
         {
             //은행 효과음
@@ -193,7 +199,7 @@ public class UIManager : MonoBehaviour
         //해당 스펠의 사용 비용
         int value = spellData.spellValue;
 
-        if (blueTowerManager.curTowerResource >= value && curSpellData == null)//비용이 충분한 경우
+        if (blueTowerManager.curTowerResource >= value && curSpellData == null)//비용이 충분하면서 포커스 중이 아니라면
         {
             //스펠 성공 효과음
             audioManager.PlaySfx(AudioManager.Sfx.SpellSuccessSfx);

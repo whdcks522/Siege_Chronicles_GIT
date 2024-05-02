@@ -196,7 +196,7 @@ public class TowerManager : MonoBehaviour
         //소환 제한 텍스트 갱신
         UiManager.creatureCountText.text = curCreatureCount.ToString() + "/" + gameManager.maxCreatureCount.ToString();
         //소환 제한 텍스트 진동 애니메이션
-        UiManager.creatureCountAnim.SetTrigger("isCount");
+        UiManager.creatureCountAnim.SetBool("isFlash", true);
     }
     #endregion
 

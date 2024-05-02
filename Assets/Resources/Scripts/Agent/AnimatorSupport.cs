@@ -12,6 +12,8 @@ public class AnimatorSupport : MonoBehaviour
     {
         creature = transform.parent.GetComponent<Creature>();
         superAgent = transform.parent.GetComponent<SuperAgent>();
+
+        anim = GetComponent<Animator>();
     }
 
     //공격 대기 초기화
@@ -45,5 +47,11 @@ public class AnimatorSupport : MonoBehaviour
         {
             gameManager.ResetGame();
         }
+    }
+
+    Animator anim;
+    public void FlashSupport()//전투 화면에서 텍스트 흔들리는 용
+    {
+        anim.SetBool("isFlash", false);
     }
 }
