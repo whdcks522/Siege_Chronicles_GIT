@@ -108,6 +108,7 @@ public class UIManager : MonoBehaviour
     public Image bankBtn;//은행 이미지
     public Text bankText;//은행 텍스트
     public Animator bankAnim;//은행 애니메이션
+    bool alreadyBankTouch = true;//꽉 채워진 순간 애니메이션을 위함
     public void BankControl()//은행 버튼 클릭
     {
         bankAnim.SetBool("isFlash", true);
@@ -178,8 +179,18 @@ public class UIManager : MonoBehaviour
                 ShowWeaponArea();
 
             //은행 버튼 활성화 관리
-            if(blueTowerManager.curBankIndex < blueTowerManager.BankValueArr.Length && bankBtn.GetComponent<Button>().interactable)
+
+
+            if (blueTowerManager.curBankIndex < blueTowerManager.BankValueArr.Length && bankBtn.GetComponent<Button>().interactable)
+            {
                 bankBtn.fillAmount = blueTowerManager.curTowerResource / blueTowerManager.BankValueArr[blueTowerManager.curBankIndex];
+                if (bankBtn.fillAmount >= 1 && alreadyBankTouch && alreadyBankTouch) 
+                {
+                    bankAnim.SetBool("isFlash", true);
+
+                    alreadyBankTouch = false;
+                }
+            }
         }
     }
     [Header("크리쳐 제한 텍스트")]

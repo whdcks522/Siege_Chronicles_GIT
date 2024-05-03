@@ -95,7 +95,7 @@ public class SelectManager : MonoBehaviour
                 if (spellBtnArr[i].spellData.spellType == SpellType.Creature)//생명체의 경우
                 {
                     if(!gameManager.isEnemySpawn)
-                    SpawnCreature(i);
+                    SpawnCreature(spellBtnArr[i].spellData.spellPrefab.name);
                 }
                 else if (spellBtnArr[i].spellData.spellType == SpellType.Weapon)//무기의 경우
                 {
@@ -107,11 +107,11 @@ public class SelectManager : MonoBehaviour
                 uiManager.spellBtnArr[i].ButtonOff();
             }
         }
-        if (!gameManager.isEnemySpawn) 
+        if (gameManager.isEnemySpawn) 
         {
             for (int i = 0; i < gameManager.creatureSpellDataArr.Length; i++)
             {
-                SpawnCreature(i);
+                SpawnCreature(gameManager.creatureSpellDataArr[i].spellPrefab.name);
             }
         }
         
@@ -127,11 +127,11 @@ public class SelectManager : MonoBehaviour
 
     #region 크리쳐 소환
     int spawnCreatureCount = 2;//소환하는 크리쳐의 수
-    void SpawnCreature(int _index) //_index: 전투씬에서 아래에 있는 버튼 중 몇 번째 버튼인지
+    void SpawnCreature(string _str) //_index: 전투씬에서 아래에 있는 버튼 중 몇 번째 버튼인지
     {
         for (int j = 0; j < spawnCreatureCount; j++)//크리쳐 별로 spawnCreatureCount개씩 소환
         {
-            GameObject obj = objectManager.CreateObj(spellBtnArr[_index].spellData.spellPrefab.name, ObjectManager.PoolTypes.CreaturePool);
+            GameObject obj = objectManager.CreateObj(_str, ObjectManager.PoolTypes.CreaturePool);
             Creature creature = obj.GetComponent<Creature>();
 
             //활동 전에 설정

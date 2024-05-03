@@ -20,8 +20,8 @@ public class Creature : MonoBehaviour
     int rotSpd = 120;//회전 속도
 
     [Header("크리쳐 별 특수 능력 여부")]
-    //보호막을 갖고 있는지(크리쳐에 의해서만 피해를 받음, 방패병만 소유)
-    public bool isShield;
+    //보호막을 갖고 있는지(피해를 받지 않음, 시간의 흐름에 따라 체력 감소, 방패병만 소유)
+    public float isShield;
     //존재 자체로 조금씩 자원이 증가하는 양(회계병만 소유, 나머지는 0)
     public float isCoinSteal;
 
@@ -278,9 +278,9 @@ public class Creature : MonoBehaviour
             // 물체 C에 회전 적용
             miniCanvas.transform.rotation = lookRotation;
 
-            if (isShield && curHealth > 0 )//보호막이 있으면 체력이 점차 감소
+            if (isShield != 0 && curHealth > 0 )//보호막이 있으면 체력이 점차 감소
             {
-                damageControl(maxHealth * 0.05f * Time.deltaTime, true);
+                damageControl(maxHealth * isShield * Time.deltaTime, true);
             }
             else if (isCoinSteal != 0)//존재 자체로도 자원이 증가하는 유닛 존재: 재정회계병
             {
@@ -309,12 +309,12 @@ public class Creature : MonoBehaviour
                         //공격자 점수 증가
                         bulletAgent.AddReward(damage / 10f);
 
-                        if (!isShield)//보호막: 공격 무효화
+                        if (isShield == 0)//보호막: 공격 무효화
                             damageControl(damage, true);
                     }
                     else if (!bullet.isCreature)//타워에 의한 공격이면
                     {
-                        if (!isShield)//보호막: 공격 무효화
+                        if (isShield == 0)//보호막: 공격 무효화
                             damageControl(damage, true);
                     }          
 
@@ -374,7 +374,7 @@ public class Creature : MonoBehaviour
             miniCanvas.SetActive(false);
 
             //시체 폭발 여부
-            //if (CorpseExplosionObj.activeSelf)
+            if (CorpseExplosionObj.activeSelf)
             {
                 
             }
@@ -387,9 +387,16 @@ public class Creature : MonoBehaviour
     //투명해진 후에, 완전히 죽음
     public void CompletelyDead() 
     {
+        Debug.Log(gameObject.activeSelf);
+
         //자기 타워에 등록된 크리쳐 수 감소
-        if(gameObject.activeSelf)
+        if (gameObject.activeSelf)
+        {
             ourTowerManager.curCreatureCount--;
+
+            if (curTeamEnum == TeamEnum.Blue)
+                ourTowerManager.CreatureCountText();
+        }
 
         //생명체 비활성화
         gameObject.SetActive(false);
