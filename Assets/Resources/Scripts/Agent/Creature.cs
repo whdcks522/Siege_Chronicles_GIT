@@ -153,18 +153,19 @@ public class Creature : MonoBehaviour
     }
 
     #region 생명체 활성화
-
+    
     public void BeforeRevive(TeamEnum tmpTeamEnum, GameManager tmpGameManager) 
     {
         //팀 설정
         curTeamEnum = tmpTeamEnum;
         //매니저 전달
         gameManager = tmpGameManager;
+        
 
         Awake();
         Revive();
     }
-
+    int gameLevel = 2;
     public void Revive()//크리쳐 부활시 설정 초기화
     {
         //위치 초기화
@@ -178,6 +179,8 @@ public class Creature : MonoBehaviour
         rigid.velocity = Vector3.zero;
         //체력 회복
         curHealth = maxHealth;
+        //레벨 설정
+        gameLevel = gameManager.gameLevel;
 
         //체력 UI 관리
         miniCanvas.SetActive(true);

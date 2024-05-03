@@ -94,11 +94,12 @@ public class SelectManager : MonoBehaviour
                 //오브젝트 풀링을 위해 미리 생성
                 if (spellBtnArr[i].spellData.spellType == SpellType.Creature)//생명체의 경우
                 {
+                    if(!gameManager.isEnemySpawn)
                     SpawnCreature(i);
                 }
                 else if (spellBtnArr[i].spellData.spellType == SpellType.Weapon)//무기의 경우
                 {
-                    SpawnWeapon(i);
+                    SpawnWeapon(spellBtnArr[i].spellData.spellPrefab.name);
                 }
             }
             else if (spellBtnArr[i].spellData == null)//없는 경우 버튼 비활성화
@@ -106,7 +107,14 @@ public class SelectManager : MonoBehaviour
                 uiManager.spellBtnArr[i].ButtonOff();
             }
         }
-
+        if (!gameManager.isEnemySpawn) 
+        {
+            for (int i = 0; i < gameManager.creatureSpellDataArr.Length; i++)
+            {
+                SpawnCreature(i);
+            }
+        }
+        
         //전투 환경 초기화
         gameManager.RetryGame();
 
@@ -132,23 +140,25 @@ public class SelectManager : MonoBehaviour
             SuperAgent superAgent = obj.GetComponent<SuperAgent>();
             if (superAgent.useBullet != null)
             {
-
+                SpawnWeapon(superAgent.useBullet.name);
             }
         }
     }
     #endregion
 
     #region 주술 소환
-    void SpawnWeapon(int _index)//_index: 몇 번째 버튼인지
+    void SpawnWeapon(string _str)//_index: 몇 번째 버튼인지
     {
-        int mul = 1;
-        if (spellBtnArr[_index].spellData.spellPrefab.name == gameManager.Gun.name)//사격은 게임 오브젝트를 추가로 생성
-            mul = 3;
+        int mul = 2;
 
-        for (int j = 0; j < 4 * mul; j++)
+        if (_str == gameManager.Gun.name)//사격은 총알 게임 오브젝트를 추가로 생성
+            mul *= spawnCreatureCount;
+
+        for (int j = 0; j < mul; j++)
         {
-            GameObject obj = objectManager.CreateObj(spellBtnArr[_index].spellData.spellPrefab.name, ObjectManager.PoolTypes.BulletPool);
+            GameObject obj = objectManager.CreateObj(_str, ObjectManager.PoolTypes.BulletPool);
             Bullet bullet = obj.GetComponent<Bullet>();
+
             if (bullet.endBullet != null)//자식 총알도 생성
                 objectManager.CreateObj(bullet.endBullet.name, ObjectManager.PoolTypes.BulletPool);
         }
