@@ -37723,9 +37723,21 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cee676216f4872c49b8406099b7e1e7d, type: 3}
   - {fileID: 8300000, guid: d439c0877cc773147b1afac3d3c74746, type: 3}
   - {fileID: 8300000, guid: 2406719d5ab36254285c75c8babd7db3, type: 3}
-  gunSfxClips: []
-  flameSfxClips: []
-  grandCureSfxClips: []
+  gunSfxClips:
+  - {fileID: 8300000, guid: 0d7e2962ec846014ea5f0f1e331c1d3f, type: 3}
+  - {fileID: 8300000, guid: 5380a67fe1df3fa4f98ee0348090aeed, type: 3}
+  - {fileID: 8300000, guid: 83eb755da6aa3904594c724dfe9ba8c5, type: 3}
+  - {fileID: 8300000, guid: e69fa7f6d7aa7244f8e22f2616855435, type: 3}
+  flameSfxClips:
+  - {fileID: 8300000, guid: 34e6b2a3059928b40a5d9ccbed9151a8, type: 3}
+  - {fileID: 8300000, guid: 706a36afdb82d2b48adbb2de2c926146, type: 3}
+  - {fileID: 8300000, guid: 14448e4243a546543a073b0ce1e7a728, type: 3}
+  - {fileID: 8300000, guid: 5a177d914c5a7ed4fbc5d2525060bb12, type: 3}
+  - {fileID: 8300000, guid: 1f500a8dc38a6c34eaa24aa1d240d225, type: 3}
+  grandCureSfxClips:
+  - {fileID: 8300000, guid: 50827ffdefe1dee4597dcf94cd7381b8, type: 3}
+  - {fileID: 8300000, guid: dc125635828bc1d4fa1049ce570f6cd8, type: 3}
+  corpseExplosionSfxClips: []
   paperSfxClips:
   - {fileID: 8300000, guid: 59c8a10e55e10b045a4ab2818c313f39, type: 3}
   - {fileID: 8300000, guid: c3ab270dcb7dac44ba0b80a3634a7ba1, type: 3}
@@ -37746,7 +37758,7 @@ MonoBehaviour:
   spellSuccessSfxClips:
   - {fileID: 8300000, guid: edffdb28d165d40b48df548ff763ee7e, type: 3}
   spellFailSfxClips:
-  - {fileID: 8300000, guid: f805f0c4f78b24ca393249583159b0a8, type: 3}
+  - {fileID: 8300000, guid: dfe5d2def8f0f47e58ba1e0d096317ff, type: 3}
   bankSfxClips:
   - {fileID: 8300000, guid: 33713d31432863a4c8816d57af275124, type: 3}
   speedSfxClips:
@@ -105255,7 +105267,7 @@ PrefabInstance:
     - target: {fileID: 8734676443165518081, guid: 4a548293fc7474fe89ef6a4cfabf7031,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8734676443165518081, guid: 4a548293fc7474fe89ef6a4cfabf7031,
         type: 3}
@@ -136518,6 +136530,11 @@ PrefabInstance:
       propertyPath: audioManager
       value: 
       objectReference: {fileID: 511560928}
+    - target: {fileID: 5147855406567923278, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: isEnemySpawn
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5147855406567923278, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: CorpseExplosion

@@ -275,9 +275,12 @@ public class Creature : MonoBehaviour
             // 물체 C에 회전 적용
             miniCanvas.transform.rotation = lookRotation;
 
-            if (isCoinSteal != 0)//머신러닝 중이라면 할 필요 없으므로
+            if (isShield && curHealth > 0 )//보호막이 있으면 체력이 점차 감소
             {
-                //존재 자체로도 자원이 증가하는 유닛이 존재
+                damageControl(maxHealth * 0.05f * Time.deltaTime, true);
+            }
+            else if (isCoinSteal != 0)//존재 자체로도 자원이 증가하는 유닛 존재: 재정회계병
+            {
                 ourTowerManager.curTowerResource += isCoinSteal * Time.deltaTime;
             }
         }
@@ -303,12 +306,13 @@ public class Creature : MonoBehaviour
                         //공격자 점수 증가
                         bulletAgent.AddReward(damage / 10f);
 
-                        damageControl(damage);
+                        if (!isShield)//보호막: 공격 무효화
+                            damageControl(damage, true);
                     }
                     else if (!bullet.isCreature)//타워에 의한 공격이면
                     {
-                        if (!isShield)//보호막은 주술에 의한 공격을 무효화
-                            damageControl(damage);
+                        if (!isShield)//보호막: 공격 무효화
+                            damageControl(damage, true);
                     }          
 
                     //피격한 총알 후처리
@@ -319,42 +323,27 @@ public class Creature : MonoBehaviour
                     }
                 }
             }
-            else if (bullet.curBulletEffectEnum == Bullet.BulleEffectEnum.Cure) //회복하는 것과 충돌
+            else if (bullet.curBulletEffectEnum == Bullet.BulleEffectEnum.Cure && bullet.curTeamEnum == curTeamEnum) //회복하는 것과 같은 팀이 충돌
             {
-                if (bullet.curTeamEnum == curTeamEnum)//팀이 같을 경우
-                {
-                    //피해 관리
-                    damageControl(bullet.bulletDamage);
-                }
+                //피해 관리
+                damageControl(bullet.bulletDamage, false);
             }
         }
     }
 
     #region 피격 처리
-    public void damageControl(float _dmg)
+    public void damageControl(float _dmg, bool isDamage)
     {
-        if (_dmg != 0) //폭발은 실제 데미지가 0이므로
+        if (_dmg != 0) //이펙트용 폭발은 실제 데미지가 0이므로
         {
-            //피해량 계산
-            curHealth -= _dmg;
+            //피해면 감소, 회복이면 증가
+            curHealth = isDamage ? curHealth -= _dmg : curHealth += _dmg;
 
             if (curHealth < 0) curHealth = 0;
             else if (curHealth > maxHealth) curHealth = maxHealth;
 
             //UI관리
             miniHealth.fillAmount = curHealth / maxHealth;
-
-            //효과음 관리
-            /*
-            if (_dmg >= 0) 
-            {
-
-            }
-            else if (_dmg < 0)
-            {
-
-            }
-            */
 
             //충격 초기화
             if (curHealth <= 0)

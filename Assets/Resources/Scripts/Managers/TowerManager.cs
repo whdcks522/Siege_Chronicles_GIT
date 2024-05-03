@@ -111,15 +111,12 @@ public class TowerManager : MonoBehaviour
             {
                 if (futureSpellData != null)//소환할 것이 정해졌다면
                 {
-                    Debug.Log("비용: " + futureSpellData.spellValue);
                     if (curTowerResource >= futureSpellData.spellValue && CreatureCountCheck())//자원이 충분하면서 자신의 크리쳐 소환 여부가 충분할 때
                     {
-                        Debug.Log("소환: " + futureSpellData.spellPrefab.name);
                         //크리쳐 소환
                         if (gameManager.isEnemySpawn) 
                         {
                             SpawnCreature(futureSpellData.spellPrefab.name);
-                            
                         }
                         //비용 처리
                         curTowerResource -= futureSpellData.spellValue;
@@ -295,6 +292,9 @@ public class TowerManager : MonoBehaviour
     #region 미니건 난사
     void Tower_Gun()
     {
+        //사격 효과음
+        audioManager.PlaySfx(AudioManager.Sfx.GunSfx);
+
         //실제로 사격 했는지 여부
         bool isShot = false;
 
@@ -338,6 +338,9 @@ public class TowerManager : MonoBehaviour
     #region 화염구
     void Tower_Flame()//적이 사용할 경우 가속쪽에 clickPoint 코드 변경 필요
     {
+        //화염구 효과음
+        audioManager.PlaySfx(AudioManager.Sfx.FlameSfx);
+
         GameObject bullet = objectManager.CreateObj("Tower_Flame", ObjectManager.PoolTypes.BulletPool);
         Bullet bullet_bullet = bullet.GetComponent<Bullet>();
         Rigidbody bullet_rigid = bullet.GetComponent<Rigidbody>();
@@ -358,9 +361,11 @@ public class TowerManager : MonoBehaviour
     #region 대회복
     void Tower_GrandCure()
     {
+        //대회복 효과음
+        audioManager.PlaySfx(AudioManager.Sfx.GrandCureSfx);
+
         GameObject bullet = objectManager.CreateObj("Tower_GrandCure", ObjectManager.PoolTypes.BulletPool);
         Bullet bullet_bullet = bullet.GetComponent<Bullet>();
-        //Rigidbody bullet_rigid = bullet.GetComponent<Rigidbody>();
 
         bullet_bullet.gameManager = gameManager;
         bullet_bullet.Init();
@@ -375,6 +380,9 @@ public class TowerManager : MonoBehaviour
     #region 시체폭발
     void Tower_CorpseExplosion()
     {
+        //시체폭발 효과음
+        audioManager.PlaySfx(AudioManager.Sfx.CorpseExplosionSfx);
+
         foreach (Transform obj in ourCreatureFolder)
         {
             if (obj.gameObject.layer == LayerMask.NameToLayer("Creature"))

@@ -118,16 +118,19 @@ public class SelectManager : MonoBehaviour
     }
 
     #region 크리쳐 소환
+    int spawnCreatureCount = 2;//소환하는 크리쳐의 수
     void SpawnCreature(int _index) //_index: 전투씬에서 아래에 있는 버튼 중 몇 번째 버튼인지
     {
-        for (int j = 0; j < 4; j++)
+        for (int j = 0; j < spawnCreatureCount; j++)//크리쳐 별로 spawnCreatureCount개씩 소환
         {
             GameObject obj = objectManager.CreateObj(spellBtnArr[_index].spellData.spellPrefab.name, ObjectManager.PoolTypes.CreaturePool);
             Creature creature = obj.GetComponent<Creature>();
+
             //활동 전에 설정
             creature.BeforeRevive(Creature.TeamEnum.Blue, gameManager);//블루로 안하면 갈 곳 없다고 오류남
-            //SuperAgent superAgent = obj.GetComponent<SuperAgent>();
-            //if (superAgent.useBullet != null)
+
+            SuperAgent superAgent = obj.GetComponent<SuperAgent>();
+            if (superAgent.useBullet != null)
             {
 
             }
@@ -135,11 +138,11 @@ public class SelectManager : MonoBehaviour
     }
     #endregion
 
-    #region 무기 소환
+    #region 주술 소환
     void SpawnWeapon(int _index)//_index: 몇 번째 버튼인지
     {
         int mul = 1;
-        if (spellBtnArr[_index].spellData.spellPrefab.name == gameManager.Gun.name)
+        if (spellBtnArr[_index].spellData.spellPrefab.name == gameManager.Gun.name)//사격은 게임 오브젝트를 추가로 생성
             mul = 3;
 
         for (int j = 0; j < 4 * mul; j++)
