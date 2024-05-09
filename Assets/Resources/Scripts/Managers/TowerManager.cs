@@ -121,6 +121,9 @@ public class TowerManager : MonoBehaviour
                         //비용 처리
                         curTowerResource -= futureSpellData.spellValue;
 
+                        //스펠 효과음
+                        audioManager.PlaySfx(AudioManager.Sfx.SpellSuccessSfx);
+
                         //다른 것을 소환하기 위해 초기화
                         futureSpellData = null;
 
@@ -380,8 +383,8 @@ public class TowerManager : MonoBehaviour
     #region 시체폭발
     void Tower_CorpseExplosion()
     {
-        //시체폭발 효과음
-        audioManager.PlaySfx(AudioManager.Sfx.CorpseExplosionSfx);
+        //시체폭발 적용 효과음
+        audioManager.PlaySfx(AudioManager.Sfx.CorpseExplosionAdaptSfx);
 
         foreach (Transform obj in ourCreatureFolder)
         {

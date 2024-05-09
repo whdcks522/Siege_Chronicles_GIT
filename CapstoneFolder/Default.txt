@@ -1,7 +1,6 @@
 클릭 이펙트
-적이 생성 가능하도록
-스킬 적용, 난이도 조절
-설명서 텍스트
+난이도
+가이드
 ----------------------------------------------------------------------------------------------------------------
 윈도우 녹화: Windows 로고 키+Alt+R
 
@@ -15,10 +14,12 @@ https://blog.naver.com/cheeryun/222301833530
 1)파이썬 3.7.9 다운
            환경 변수(path) 설정, 다운 후, 260자 제한 해제(https://ojui.tistory.com/8)
 
-2)python -m pip install mlagents==0.28.0
+2)파이썬 패키지 설치
+python -m pip install mlagents==0.28.0
 입력하면 오류 발생
 C:\Users\Happy\AppData\Local\Programs\Python\Python37\python.exe -m pip install --upgrade pip
 입력하면 해결된다고 cmd에 뜸
+python -m pip install mlagents==0.28.0 다시 입력
 
 3)파이토치
 pip3 install torch torchvision torchaudio

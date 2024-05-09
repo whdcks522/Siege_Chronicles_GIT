@@ -82,6 +82,7 @@ public class Creature : MonoBehaviour
     [Header("매니저")]
     public GameManager gameManager;
     public ObjectManager objectManager;
+    AudioManager audioManager;
     UIManager UIManager;
     
 
@@ -100,6 +101,7 @@ public class Creature : MonoBehaviour
         UIManager = gameManager.uiManager;
 
         objectManager = gameManager.objectManager;
+        audioManager = gameManager.audioManager;
         mainCamera = UIManager.cameraObj;
         cameraGround = UIManager.cameraGround;
 
@@ -153,19 +155,28 @@ public class Creature : MonoBehaviour
     }
 
     #region 생명체 활성화
-    
+    [Header("게임 난이도")]//1, 2 ,3(기본: 2)
+    public int gameLevel = 2;
     public void BeforeRevive(TeamEnum tmpTeamEnum, GameManager tmpGameManager) 
     {
         //팀 설정
         curTeamEnum = tmpTeamEnum;
         //매니저 전달
         gameManager = tmpGameManager;
-        
+        //난이도 설정
+        if (curTeamEnum == TeamEnum.Blue) 
+        {
+            gameLevel = 2;
+        }
+        else if (curTeamEnum == TeamEnum.Red)
+        {
+            gameLevel = gameManager.gameLevel;
+        }
 
         Awake();
         Revive();
     }
-    int gameLevel = 2;
+
     public void Revive()//크리쳐 부활시 설정 초기화
     {
         //위치 초기화
@@ -179,8 +190,6 @@ public class Creature : MonoBehaviour
         rigid.velocity = Vector3.zero;
         //체력 회복
         curHealth = maxHealth;
-        //레벨 설정
-        gameLevel = gameManager.gameLevel;
 
         //체력 UI 관리
         miniCanvas.SetActive(true);
@@ -300,8 +309,8 @@ public class Creature : MonoBehaviour
             {
                 if (bullet.curTeamEnum != curTeamEnum)//팀이 다를 경우
                 {
-                    //피해량 확인
-                    float damage = bullet.bulletDamage;
+                    //피해량 확인(게임 레벨에 따라 안아프게 맞음)
+                    float damage = bullet.bulletDamage / gameLevel;
 
                     if (bullet.isCreature)//크리쳐에 의한 공격이면
                     {
@@ -373,22 +382,32 @@ public class Creature : MonoBehaviour
             //미니 UI 닫기
             miniCanvas.SetActive(false);
 
-            //시체 폭발 여부
-            if (CorpseExplosionObj.activeSelf)
+            if (!CorpseExplosionObj.activeSelf)//시체 폭발이 아닌 경우
             {
-                
+                //시체폭발 폭발 효과음
+                //audioManager.PlaySfx(AudioManager.Sfx.CorpseExplosionAdaptSfx);
+            }
+            else if (CorpseExplosionObj.activeSelf)//시체폭발인 경우
+            {
+                //시체폭발 폭발 효과음
+                audioManager.PlaySfx(AudioManager.Sfx.CorpseExplosionAdaptSfx);
+
+                GameObject bomb = objectManager.CreateObj("Tower_CorpseExplosion", ObjectManager.PoolTypes.BulletPool);
+                Bullet bomb_bullet = bomb.GetComponent<Bullet>();
+                //시체 폭발의 이동
+                bomb.transform.position = transform.position;
+                //시체 폭발의 팀 설정
+                bomb_bullet.BulletOnByTower(curTeamEnum);
             }
 
-            //왜곡장
-            InvisibleWarp();
+                //왜곡장
+                InvisibleWarp();
         }
     }
 
     //투명해진 후에, 완전히 죽음
     public void CompletelyDead() 
     {
-        Debug.Log(gameObject.activeSelf);
-
         //자기 타워에 등록된 크리쳐 수 감소
         if (gameObject.activeSelf)
         {

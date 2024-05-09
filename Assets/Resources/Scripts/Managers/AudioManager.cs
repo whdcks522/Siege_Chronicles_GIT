@@ -73,7 +73,7 @@ public class AudioManager : MonoBehaviour
         //타워나 생명체 피격
         TowerCrashSfx,
         //주술
-        GunSfx, FlameSfx, GrandCureSfx, CorpseExplosionSfx,
+        GunSfx, FlameSfx, GrandCureSfx, CorpseExplosionAdaptSfx, CorpseExplosionBombSfx,
         //UI
         PaperSfx, LevelControlSfx, SpellSuccessSfx, SpellFailSfx, BankSfx, SpeedSfx,
         //승리와 패배
@@ -88,10 +88,12 @@ public class AudioManager : MonoBehaviour
     public AudioClip[] flameSfxClips;
     [Header("대회복 Sfx")]
     public AudioClip[] grandCureSfxClips;
-    [Header("시체폭발 Sfx")]
-    public AudioClip[] corpseExplosionSfxClips;
+    [Header("시체폭발 적용 Sfx")]
+    public AudioClip[] corpseExplosionAdaptSfxClips;
+    [Header("시체폭발 폭발 Sfx")]
+    public AudioClip[] corpseExplosionBombSfxClips;
 
-    [Header("종이 Sfx")]
+    [Header("종이(버튼) Sfx")]
     public AudioClip[] paperSfxClips;
     [Header("레벨 조절 Sfx")]
     public AudioClip[] levelControlSfxClips;
@@ -140,8 +142,11 @@ public class AudioManager : MonoBehaviour
                     case Sfx.GrandCureSfx:
                         tmpSfxClips = grandCureSfxClips;
                         break;
-                    case Sfx.CorpseExplosionSfx:
-                        tmpSfxClips = corpseExplosionSfxClips;
+                    case Sfx.CorpseExplosionAdaptSfx:
+                        tmpSfxClips = corpseExplosionAdaptSfxClips;
+                        break;
+                    case Sfx.CorpseExplosionBombSfx:
+                        tmpSfxClips = corpseExplosionBombSfxClips;
                         break;
 
                     case Sfx.PaperSfx:

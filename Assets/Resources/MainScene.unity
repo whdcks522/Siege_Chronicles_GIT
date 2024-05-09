@@ -37737,7 +37737,11 @@ MonoBehaviour:
   grandCureSfxClips:
   - {fileID: 8300000, guid: 50827ffdefe1dee4597dcf94cd7381b8, type: 3}
   - {fileID: 8300000, guid: dc125635828bc1d4fa1049ce570f6cd8, type: 3}
-  corpseExplosionSfxClips: []
+  corpseExplosionAdaptSfxClips:
+  - {fileID: 8300000, guid: 6396ed51d54088046ae60a184cc9e7b7, type: 3}
+  - {fileID: 8300000, guid: 69c66221605febf469aa8e14646430d4, type: 3}
+  - {fileID: 8300000, guid: 2e2cd47b86dcacf4ba8d65377f474de2, type: 3}
+  corpseExplosionBombSfxClips: []
   paperSfxClips:
   - {fileID: 8300000, guid: 59c8a10e55e10b045a4ab2818c313f39, type: 3}
   - {fileID: 8300000, guid: c3ab270dcb7dac44ba0b80a3634a7ba1, type: 3}
@@ -135756,17 +135760,17 @@ PrefabInstance:
     - target: {fileID: 181102556427967059, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -35.3
+      value: -24.46
       objectReference: {fileID: 0}
     - target: {fileID: 181102556427967059, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -12.64
+      value: -14.15
       objectReference: {fileID: 0}
     - target: {fileID: 181102556427967059, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -30.94
+      value: -31.96
       objectReference: {fileID: 0}
     - target: {fileID: 188500811800123255, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -136253,6 +136257,21 @@ PrefabInstance:
       propertyPath: m_TagString
       value: BlueTower
       objectReference: {fileID: 0}
+    - target: {fileID: 3707843660536334808, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 3707843660536334808, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -14.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3707843660536334808, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -30.91
+      objectReference: {fileID: 0}
     - target: {fileID: 3745930395640092763, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_TagString
@@ -136533,7 +136552,7 @@ PrefabInstance:
     - target: {fileID: 5147855406567923278, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: isEnemySpawn
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5147855406567923278, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
