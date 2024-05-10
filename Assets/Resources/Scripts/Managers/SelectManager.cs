@@ -30,10 +30,6 @@ public class SelectManager : MonoBehaviour
     [Header("스펠버튼 배열")]
     public SpellButton[] spellBtnArr = new SpellButton[4];
 
-    [Header("오른쪽 패널")]
-    public GameObject rightPanel;
-
-
     [Header("레벨 슬라이더")]
     public Slider levelSlider;
 
@@ -61,9 +57,8 @@ public class SelectManager : MonoBehaviour
     }
 
     #region 게임 시작, 진행 퍼센트 보여주기 힘듬
-    [Header("로딩 패널")]
-    public int index_Battle;//선택 창 올리는 애니메이션 후, 전투 씬으로 이동할 것인지, 아니면 종료할 것인지
-    //0: 기본, 1: 게임 시작, 2: 게임 초기화,
+    [Header("애니메이션 후 전투씬으로 이동할 것인지, 초기화할 것인지")]
+    public int index_Battle;//0: 기본, 1: 게임 시작, 2: 게임 초기화,
 
     public void StartGame(int i)//선택창에서 시작 버튼 또는, 초기화 버튼 클릭
     {

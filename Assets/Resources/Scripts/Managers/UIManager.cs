@@ -65,7 +65,7 @@ public class UIManager : MonoBehaviour
 
         //플레이어 은행 초기화
         bankText.text = "Lv." + (blueTowerManager.curBankIndex + 1) + "(" + blueTowerManager.BankValueArr[blueTowerManager.curBankIndex] + ")";
-        bankAnim.SetTrigger("isFlash");
+        bankAnim.SetBool("isFlash", true);
 
         //배속 초기화
         if (speed == 1) 
@@ -84,12 +84,15 @@ public class UIManager : MonoBehaviour
     public Animator SpeedAnim;
     public void SpeedControl(bool isSfx)
     {
+        //Debug.Log("SpeedAnim");
+
         if (isSfx) 
         {
             //속도 조절 효과음 출력
             audioManager.PlaySfx(AudioManager.Sfx.SpeedSfx);
+
+            SpeedAnim.SetBool("isFlash", true);
         }
-        SpeedAnim.SetBool("isFlash", true);
 
         //속도 조정
         speed++;
@@ -305,16 +308,20 @@ public class UIManager : MonoBehaviour
     }
     public void FocusOff(bool isEffect) //자원 반환 여부(포커스 해제)
     {
-        //-1: 자원 반환, 0: 영역만 비활성화, 1: 무기 사용 
+        Debug.Log("FocusOff");
+
+        //-1: 자원 반환, 0: 영역만 비활성화, 1: 주술() 사용 
         if (curSpellData != null && isEffect) 
         {
-            if (!clickPoint.gameObject.activeSelf) //자원 반환
+            if (!clickPoint.gameObject.activeSelf) 
             {
+                //자원 반환
                 blueTowerManager.curTowerResource += curSpellData.spellValue;
                 curSpellData = null;
             }
-            else if (clickPoint.gameObject.activeSelf) //무기 사용
+            else if (clickPoint.gameObject.activeSelf) 
             {
+                //주술(스킬) 사용
                 blueTowerManager.WeaponSort(curSpellData.spellPrefab.name);
                 curSpellData = null;
             }
@@ -330,7 +337,7 @@ public class UIManager : MonoBehaviour
     #endregion
 
 
-    #region 무기 영역 표시;
+    #region 주술(스킬) 영역 표시;
 
     [Header("클릭 포커스 관련 요소들")]
     public Transform clickPoint;//클릭한 곳
@@ -339,9 +346,9 @@ public class UIManager : MonoBehaviour
 
     void ShowWeaponArea()//화면 누르는 위치를 보여줌
     {
-        int layerMask = LayerMask.GetMask("MainMap"); // "Default" 레이어와 충돌하도록 설정
+        int layerMask = LayerMask.GetMask("MainMap"); // "MainMap" 레이어와 충돌하도록 설정
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);//카메라에서 가상의 선을 전송해 교차점 확인
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask, QueryTriggerInteraction.Ignore))

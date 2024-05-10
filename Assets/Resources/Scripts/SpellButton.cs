@@ -98,9 +98,6 @@ public class SpellButton : MonoBehaviour
     {
         if ((curSpellBtnEnum == SpellBtnEnum.LeftBtn || curSpellBtnEnum == SpellBtnEnum.SelectBtn) && spellData != null) 
         {
-            //오른쪽 패널 활성화
-            selectManager.rightPanel.SetActive(true);
-
             //스펠 버튼 아이콘 바꾸기
             selectManager.selectedSpellBtn.spellData = spellData;
             IconChange(selectManager.selectedSpellBtn);
