@@ -79729,7 +79729,6 @@ MonoBehaviour:
   - {fileID: 1766156670}
   - {fileID: 880713407}
   - {fileID: 1804752024}
-  rightPanel: {fileID: 711393062}
   levelSlider: {fileID: 1919094960}
   gameManager: {fileID: 966097539}
   index_Battle: 0

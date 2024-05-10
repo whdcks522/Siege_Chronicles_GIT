@@ -308,7 +308,7 @@ public class UIManager : MonoBehaviour
     }
     public void FocusOff(bool isEffect) //자원 반환 여부(포커스 해제)
     {
-        Debug.Log("FocusOff");
+        //Debug.Log("FocusOff");
 
         //-1: 자원 반환, 0: 영역만 비활성화, 1: 주술() 사용 
         if (curSpellData != null && isEffect) 
