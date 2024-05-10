@@ -66,12 +66,14 @@ public class UIManager : MonoBehaviour
         //플레이어 은행 초기화
         bankText.text = "Lv." + (blueTowerManager.curBankIndex + 1) + "(" + blueTowerManager.BankValueArr[blueTowerManager.curBankIndex] + ")";
         bankAnim.SetBool("isFlash", true);
+        bankBtn.GetComponent<Button>().interactable = true;
 
         //배속 초기화
         if (speed == 1) 
         {
             SpeedControl(false);
         }
+        SpeedAnim.SetBool("isFlash", true);
 
         //카메라 회전 초기화
         curRot = -160;
@@ -84,7 +86,6 @@ public class UIManager : MonoBehaviour
     public Animator SpeedAnim;
     public void SpeedControl(bool isSfx)
     {
-        //Debug.Log("SpeedAnim");
 
         if (isSfx) 
         {
@@ -181,17 +182,19 @@ public class UIManager : MonoBehaviour
             if (clickPoint.gameObject.activeSelf)
                 ShowWeaponArea();
 
-            //은행 버튼 활성화 관리
-
-
-            if (blueTowerManager.curBankIndex < blueTowerManager.BankValueArr.Length && bankBtn.GetComponent<Button>().interactable)
+            //은행 버튼 활성화 관리, 은행이 최고 수준이 아니면서 상호작용 가능할 때
+            if (bankBtn.GetComponent<Button>().interactable)//blueTowerManager.curBankIndex < blueTowerManager.BankValueArr.Length && 
             {
                 bankBtn.fillAmount = blueTowerManager.curTowerResource / blueTowerManager.BankValueArr[blueTowerManager.curBankIndex];
-                if (bankBtn.fillAmount >= 1 && alreadyBankTouch && alreadyBankTouch) 
+                if (bankBtn.fillAmount >= 1 && alreadyBankTouch)
                 {
                     bankAnim.SetBool("isFlash", true);
 
                     alreadyBankTouch = false;
+                }
+                else if (bankBtn.fillAmount < 1) 
+                {
+                    alreadyBankTouch = true;
                 }
             }
         }
