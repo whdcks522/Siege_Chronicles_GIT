@@ -311,28 +311,33 @@ public class Creature : MonoBehaviour
                 {
                     //피해량 확인(게임 레벨에 따라 안아프게 맞음)
                     float damage = bullet.bulletDamage / gameLevel;
-
-                    if (bullet.isCreature)//크리쳐에 의한 공격이면
+                    if (damage != 0) 
                     {
-                        Agent bulletAgent = bullet.bulletHost.agent;
-                        //공격자 점수 증가
-                        bulletAgent.AddReward(damage / 10f);
+                        //크리쳐 피격 효과음
+                        audioManager.PlaySfx(AudioManager.Sfx.CreatureHitSfx);
 
-                        if (isShield == 0)//보호막: 공격 무효화
-                            damageControl(damage, true);
-                    }
-                    else if (!bullet.isCreature)//타워에 의한 공격이면
-                    {
-                        if (isShield == 0)//보호막: 공격 무효화
-                            damageControl(damage, true);
-                    }          
+                        if (bullet.isCreature)//크리쳐에 의한 공격이면
+                        {
+                            Agent bulletAgent = bullet.bulletHost.agent;
+                            //공격자 점수 증가
+                            bulletAgent.AddReward(damage / 10f);
 
-                    //피격한 총알 후처리
-                    if (bullet.curBulletMoveEnum != Bullet.BulletMoveEnum.Slash)
-                    {
-                        //총알 비활성화
-                        bullet.BulletOff();
-                    }
+                            if (isShield == 0)//보호막: 공격 무효화
+                                damageControl(damage, true);
+                        }
+                        else if (!bullet.isCreature)//타워에 의한 공격이면
+                        {
+                            if (isShield == 0)//보호막: 공격 무효화
+                                damageControl(damage, true);
+                        }
+
+                        //피격한 총알 후처리
+                        if (bullet.curBulletMoveEnum != Bullet.BulletMoveEnum.Slash)
+                        {
+                            //총알 비활성화
+                            bullet.BulletOff();
+                        }
+                    }  
                 }
             }
             else if (bullet.curBulletEffectEnum == Bullet.BulleEffectEnum.Cure && bullet.curTeamEnum == curTeamEnum) //회복하는 것과 같은 팀이 충돌
@@ -384,8 +389,8 @@ public class Creature : MonoBehaviour
 
             if (!CorpseExplosionObj.activeSelf)//시체 폭발이 아닌 경우
             {
-                //시체폭발 폭발 효과음
-                //audioManager.PlaySfx(AudioManager.Sfx.CorpseExplosionAdaptSfx);
+                //크리쳐 피격 효과음
+                audioManager.PlaySfx(AudioManager.Sfx.CreatureHitSfx);
             }
             else if (CorpseExplosionObj.activeSelf)//시체폭발인 경우
             {

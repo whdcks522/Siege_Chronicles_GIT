@@ -37717,12 +37717,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BgmClips: []
-  channels: 8
+  channels: 12
   towerCrashSfxClips:
   - {fileID: 8300000, guid: f2a4c0bbdb8d8c84c828aba1aaaacfbc, type: 3}
   - {fileID: 8300000, guid: cee676216f4872c49b8406099b7e1e7d, type: 3}
   - {fileID: 8300000, guid: d439c0877cc773147b1afac3d3c74746, type: 3}
   - {fileID: 8300000, guid: 2406719d5ab36254285c75c8babd7db3, type: 3}
+  winSfxClips:
+  - {fileID: 8300000, guid: c7a8dbdb438f746298f3c7cd62f45d80, type: 3}
+  loseSfxClips:
+  - {fileID: 8300000, guid: 2c94a5a3120774b68ba6349d2f33987e, type: 3}
+  creatureHitSfxClips:
+  - {fileID: 8300000, guid: 0d883de9f385cf448bbc92d7e4c00267, type: 3}
+  - {fileID: 8300000, guid: ffef416cda9436d47a251e3c0c4c5b1b, type: 3}
+  - {fileID: 8300000, guid: cd0832736397ea64fa1f9df78c88bb03, type: 3}
+  - {fileID: 8300000, guid: 281d94b100acd7f4080067b9b3daa1f0, type: 3}
+  - {fileID: 8300000, guid: 97766e879efb4d24f960e90b874bd101, type: 3}
+  - {fileID: 8300000, guid: 99c45ce6d473cb745b21a7e248dff19a, type: 3}
+  - {fileID: 8300000, guid: bed79244e21a66c4dab048a1c386f15e, type: 3}
+  - {fileID: 8300000, guid: f4477800d0fd2724f9826d6d009e6bf8, type: 3}
+  - {fileID: 8300000, guid: e4e2c47a3ed1dd34f8b5bc1d4846eec8, type: 3}
+  - {fileID: 8300000, guid: f246412b06087c14883f93f2429c366b, type: 3}
+  - {fileID: 8300000, guid: dbeeb71dd60fc4a46885512a433cbb2b, type: 3}
+  creatureDeadSfxClips: []
   gunSfxClips:
   - {fileID: 8300000, guid: 0d7e2962ec846014ea5f0f1e331c1d3f, type: 3}
   - {fileID: 8300000, guid: 5380a67fe1df3fa4f98ee0348090aeed, type: 3}
@@ -37741,7 +37758,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6396ed51d54088046ae60a184cc9e7b7, type: 3}
   - {fileID: 8300000, guid: 69c66221605febf469aa8e14646430d4, type: 3}
   - {fileID: 8300000, guid: 2e2cd47b86dcacf4ba8d65377f474de2, type: 3}
-  corpseExplosionBombSfxClips: []
+  corpseExplosionBombSfxClips:
+  - {fileID: 8300000, guid: 975b85304084c4a4eb2398dc4ea0b033, type: 3}
+  - {fileID: 8300000, guid: 97a9225fa9e0adc48ad267c1fe947362, type: 3}
+  - {fileID: 8300000, guid: 0a79dc2a015dad3409dc6bf03901a7e4, type: 3}
   paperSfxClips:
   - {fileID: 8300000, guid: 59c8a10e55e10b045a4ab2818c313f39, type: 3}
   - {fileID: 8300000, guid: c3ab270dcb7dac44ba0b80a3634a7ba1, type: 3}
@@ -37767,10 +37787,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 33713d31432863a4c8816d57af275124, type: 3}
   speedSfxClips:
   - {fileID: 8300000, guid: 9d4e6d024831e4366a46f5287f1e1a43, type: 3}
-  winSfxClips:
-  - {fileID: 8300000, guid: c7a8dbdb438f746298f3c7cd62f45d80, type: 3}
-  loseSfxClips:
-  - {fileID: 8300000, guid: 2c94a5a3120774b68ba6349d2f33987e, type: 3}
   gameManager: {fileID: 966097539}
 --- !u!4 &536097929 stripped
 Transform:
@@ -136552,7 +136568,7 @@ PrefabInstance:
     - target: {fileID: 5147855406567923278, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: isEnemySpawn
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5147855406567923278, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}

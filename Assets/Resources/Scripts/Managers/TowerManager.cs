@@ -237,28 +237,36 @@ public class TowerManager : MonoBehaviour
         {
             curHealth -= damage;
 
-            if (curHealth < 0) curHealth = 0;
-            else if (curHealth > maxHealth) curHealth = maxHealth;
-
             //타워 체력바 관리
             miniHealth.fillAmount = curHealth / maxHealth;
-            //타워 피격 효과음
-            if(damage != 0)
-                audioManager.PlaySfx(AudioManager.Sfx.TowerCrashSfx);
-
-            if (curHealth <= 0) //게임 종료
+            
+            if (curHealth > 0) 
             {
+                if (damage != 0)
+                    audioManager.PlaySfx(AudioManager.Sfx.TowerCrashSfx);
+            }
+            else if (curHealth <= 0) //게임 종료
+            {
+                curHealth = 0;
+
                 //설정 화면의 시작 버튼 비활성화
                 UiManager.startBtn.SetActive(false);
+
                 if (curTeamEnum == Creature.TeamEnum.Red)//빨간 팀이 진 경우
                 {
                     //설정 화면의 텍스트 수정
                     UiManager.victoryTitle.SetActive(true);
+
+                    //승리 효과음
+                    audioManager.PlaySfx(AudioManager.Sfx.WinSfx);
                 }
                 else if (curTeamEnum == Creature.TeamEnum.Blue) //파란 팀이 진 경우
                 {
                     //설정 화면의 텍스트 수정
                     UiManager.defeatTitle.SetActive(true);
+
+                    //패배 효과음
+                    audioManager.PlaySfx(AudioManager.Sfx.LoseSfx);
                 }
                 //게임 종료를 위해 정지 시키기
                 UiManager.SettingControl(true);
@@ -267,7 +275,7 @@ public class TowerManager : MonoBehaviour
     }
     #endregion
 
-    //대포 포대 각도 조절
+    //타워 주술용(스킬용) 대포 각도 조절
     public void RadarControl(Vector3 targetVec) => bulletStartPoint.transform.LookAt(targetVec);
 
     #region 크리쳐 소환

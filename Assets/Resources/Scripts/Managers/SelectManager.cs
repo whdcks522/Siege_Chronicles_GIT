@@ -107,11 +107,15 @@ public class SelectManager : MonoBehaviour
                 uiManager.spellBtnArr[i].ButtonOff();
             }
         }
+
         if (gameManager.isEnemySpawn) 
         {
             for (int i = 0; i < gameManager.creatureSpellDataArr.Length; i++)
             {
-                SpawnCreature(gameManager.creatureSpellDataArr[i].spellPrefab.name);
+                for (int j = 0; j < 2; j++)
+                {
+                    SpawnCreature(gameManager.creatureSpellDataArr[i].spellPrefab.name);
+                }
             }
         }
         
@@ -126,10 +130,9 @@ public class SelectManager : MonoBehaviour
     }
 
     #region 크리쳐 소환
-    int spawnCreatureCount = 2;//소환하는 크리쳐의 수
-    void SpawnCreature(string _str) //_index: 전투씬에서 아래에 있는 버튼 중 몇 번째 버튼인지
+    void SpawnCreature(string _str) //str 크리쳐를 gameManager.maxCreatureCount개씩 소환
     {
-        for (int j = 0; j < spawnCreatureCount; j++)//크리쳐 별로 spawnCreatureCount개씩 소환
+        for (int j = 0; j < gameManager.maxCreatureCount; j++)//크리쳐 별로 gameManager.maxCreatureCount개씩 소환
         {
             GameObject obj = objectManager.CreateObj(_str, ObjectManager.PoolTypes.CreaturePool);
             Creature creature = obj.GetComponent<Creature>();
@@ -146,13 +149,15 @@ public class SelectManager : MonoBehaviour
     }
     #endregion
 
-    #region 주술 소환
-    void SpawnWeapon(string _str)//_index: 몇 번째 버튼인지
+    #region 주술(스킬) 소환
+    void SpawnWeapon(string _str)//str 주술을 spawnCreatureCount개씩 소환
     {
         int mul = 2;
 
-        if (_str == gameManager.Gun.name)//사격은 총알 게임 오브젝트를 추가로 생성
-            mul *= spawnCreatureCount;
+        if (_str == gameManager.Gun.name)//사격은 총알 오브젝트를 추가로 생성
+            mul *= gameManager.maxCreatureCount;
+        else if (_str == gameManager.CorpseExplosion.name)//시체폭발은 게임 오브젝트를 추가로 생성
+            mul = gameManager.maxCreatureCount;
 
         for (int j = 0; j < mul; j++)
         {

@@ -70,18 +70,25 @@ public class AudioManager : MonoBehaviour
 
     public enum Sfx//효과음의 종류
     {
-        //타워나 생명체 피격
-        TowerCrashSfx,
-        //주술
+        //타워 피격, 타워 파괴, 크리쳐 피격, 크리쳐 사망
+        TowerCrashSfx, WinSfx, LoseSfx, CreatureHitSfx, CreatureDeadSfx, 
+        //주술(스킬)
         GunSfx, FlameSfx, GrandCureSfx, CorpseExplosionAdaptSfx, CorpseExplosionBombSfx,
         //UI
         PaperSfx, LevelControlSfx, SpellSuccessSfx, SpellFailSfx, BankSfx, SpeedSfx,
-        //승리와 패배
-        WinSfx, LoseSfx
     }
 
     [Header("타워 파괴 Sfx")]
     public AudioClip[] towerCrashSfxClips;
+    [Header("승리 Sfx")]
+    public AudioClip[] winSfxClips;
+    [Header("패배 Sfx")]
+    public AudioClip[] loseSfxClips;
+    [Header("크리쳐 피격 Sfx")]
+    public AudioClip[] creatureHitSfxClips;
+    [Header("크리쳐 사망 Sfx")]
+    public AudioClip[] creatureDeadSfxClips;
+
     [Header("사격 Sfx")]
     public AudioClip[] gunSfxClips;
     [Header("화염구 Sfx")]
@@ -106,10 +113,7 @@ public class AudioManager : MonoBehaviour
     [Header("가속 Sfx")]
     public AudioClip[] speedSfxClips;
 
-    [Header("승리 Sfx")]
-    public AudioClip[] winSfxClips;
-    [Header("패배 Sfx")]
-    public AudioClip[] loseSfxClips;
+    
 
     AudioClip[] tmpSfxClips;
     public void PlaySfx(Sfx sfx)
@@ -132,6 +136,19 @@ public class AudioManager : MonoBehaviour
                     case Sfx.TowerCrashSfx:
                         tmpSfxClips = towerCrashSfxClips;
                         break;
+                    case Sfx.WinSfx:
+                        tmpSfxClips = winSfxClips;
+                        break;
+                    case Sfx.LoseSfx:
+                        tmpSfxClips = loseSfxClips;
+                        break;
+                    case Sfx.CreatureHitSfx:
+                        tmpSfxClips = creatureHitSfxClips;
+                        break;
+                    case Sfx.CreatureDeadSfx:
+                        tmpSfxClips = creatureDeadSfxClips;
+                        break;
+
 
                     case Sfx.GunSfx:
                         tmpSfxClips = gunSfxClips;
@@ -166,13 +183,6 @@ public class AudioManager : MonoBehaviour
                         break;
                     case Sfx.SpeedSfx:
                         tmpSfxClips = speedSfxClips;
-                        break;
-
-                    case Sfx.WinSfx:
-                        tmpSfxClips = winSfxClips;
-                        break;
-                    case Sfx.LoseSfx:
-                        tmpSfxClips = loseSfxClips;
                         break;
 
                     default:

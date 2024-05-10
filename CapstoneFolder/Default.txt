@@ -1,5 +1,5 @@
 클릭 이펙트
-난이도
+밸런스
 가이드
 ----------------------------------------------------------------------------------------------------------------
 윈도우 녹화: Windows 로고 키+Alt+R
@@ -34,7 +34,7 @@ pip install six
 mlagents-learn --help
 가능한 기능이 잘 나오면 성공
 
-7)AttributeError: 'str' object has no attribute '_key'오류 발생 시
+7)AttributeError: 'str' object has no attribute '_key'오류 발생 시(mlagents-learn --help가능해도 이거는 하자!)
 pip install importlib-metadata==4.4
 ------------------------------------------------------------------------------------------------------------
 using UnityEngine;
