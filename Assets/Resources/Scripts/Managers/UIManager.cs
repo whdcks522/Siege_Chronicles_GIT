@@ -273,20 +273,24 @@ public class UIManager : MonoBehaviour
     public GameObject startBtn;//이어하기 버튼(게임 종료 시, 비활성화)
     public void SettingControl(bool isOpen)//세팅 활성화 관리
     {
-        //페이지 효과음
-        audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
-
         //이미지 조절
         settingBackground.SetActive(isOpen);
 
         //시간 조절
         if (isOpen)
             Time.timeScale = 0.001f;
-        else if (!isOpen)
+
+        else if (!isOpen)//닫은 경우 시간 배율 초기화
         {
             SpeedControl(false);
             SpeedControl(false);
         }
+    }
+
+    public void playSfxPaper()//세팅 버튼 눌렀을 시, 효과음을 위함
+    {
+        //페이지 효과음
+        audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
     }
     #endregion
 
