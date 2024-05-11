@@ -6,12 +6,10 @@ using UnityEngine;
 public class AnimatorSupport : MonoBehaviour
 {
     Creature creature;
-    SuperAgent superAgent;
 
     private void Awake()
     {
         creature = transform.parent.GetComponent<Creature>();
-        superAgent = transform.parent.GetComponent<SuperAgent>();
 
         anim = GetComponent<Animator>();
     }
@@ -26,7 +24,7 @@ public class AnimatorSupport : MonoBehaviour
     }
 
     //에이전트별 액션 1(각자 다형성 적용해서 커스텀), 
-    public void AgentAction_1() => superAgent.AgentAction_1();
+    public void AgentAction_1() => creature.AgentAction_1();
 
 
     public GameManager gameManager;

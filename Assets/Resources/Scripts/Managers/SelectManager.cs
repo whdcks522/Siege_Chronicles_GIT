@@ -89,7 +89,7 @@ public class SelectManager : MonoBehaviour
                 //오브젝트 풀링을 위해 미리 생성
                 if (spellBtnArr[i].spellData.spellType == SpellType.Creature)//생명체의 경우
                 {
-                    if(!gameManager.isEnemySpawn)
+                    //if(!gameManager.isEnemySpawn)
                     SpawnCreature(spellBtnArr[i].spellData.spellPrefab.name);
                 }
                 else if (spellBtnArr[i].spellData.spellType == SpellType.Weapon)//무기의 경우
@@ -103,6 +103,7 @@ public class SelectManager : MonoBehaviour
             }
         }
 
+        /*
         if (gameManager.isEnemySpawn) 
         {
             for (int i = 0; i < gameManager.creatureSpellDataArr.Length; i++)
@@ -113,6 +114,7 @@ public class SelectManager : MonoBehaviour
                 }
             }
         }
+        */
         
         //전투 환경 초기화
         gameManager.RetryGame();
@@ -135,11 +137,13 @@ public class SelectManager : MonoBehaviour
             //활동 전에 설정
             creature.BeforeRevive(Creature.TeamEnum.Blue, gameManager);//블루로 안하면 갈 곳 없다고 오류남
 
+            /*
             SuperAgent superAgent = obj.GetComponent<SuperAgent>();
             if (superAgent.useBullet != null)
             {
                 SpawnWeapon(superAgent.useBullet.name);
             }
+            */
         }
     }
     #endregion

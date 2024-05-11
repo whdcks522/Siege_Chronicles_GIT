@@ -6,6 +6,7 @@ using Unity.MLAgents;
 using Unity.MLAgents.Policies;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 using static UnityEngine.Rendering.DebugUI;
@@ -77,7 +78,7 @@ public class Creature : MonoBehaviour
 
     Transform mainCamera;//메인 카메라 객체(체력바가 그 곳을 바라 보도록)
 
-    
+    NavMeshAgent nav;
 
     [Header("매니저")]
     public GameManager gameManager;
@@ -104,6 +105,8 @@ public class Creature : MonoBehaviour
         audioManager = gameManager.audioManager;
         mainCamera = UIManager.cameraObj;
         cameraGround = UIManager.cameraGround;
+
+        nav = GetComponent<NavMeshAgent>();
 
         //매터리얼 변경
         skinnedMeshRenderer.material.SetTexture("_BaseTexture", baseTexture);
@@ -183,11 +186,11 @@ public class Creature : MonoBehaviour
         transform.position = startPoint.position;
         //회전 초기화
         transform.LookAt(enemyTower.position);
+        //상대 초기화
+        curTarget = null;
 
         //공격 대기 시간 초기화
         isAttack = false;
-        //가속 초기화
-        rigid.velocity = Vector3.zero;
         //체력 회복
         curHealth = maxHealth;
 
@@ -213,12 +216,69 @@ public class Creature : MonoBehaviour
     }
     #endregion
 
+    #region 주황색 참격 생성, 상속한 액션 1
+    public int yUp;//공격 이펙트 소환 위치
+    public int zUp;//공격 이펙트 소환 위치
+    public GameObject useBullet;
+
+    public void AgentAction_1()
+    {
+        GameObject slash = objectManager.CreateObj(useBullet.name, ObjectManager.PoolTypes.BulletPool);
+        Bullet slash_bullet = slash.GetComponent<Bullet>();
+
+        //이동
+        slash.transform.position = transform.position + transform.forward * zUp + UnityEngine.Vector3.up * yUp;//위로 3, 앞으로 1
+
+        //회전
+        slash.transform.rotation = UnityEngine.Quaternion.Euler(transform.rotation.eulerAngles.x + 90,
+            transform.rotation.eulerAngles.y - 180, transform.rotation.eulerAngles.z - 90);
+
+        //활성화
+        slash_bullet.BulletOnByCreature(this);
+    }
+    #endregion
 
     #region 물리 동작
+    int slashCount = 0;
     private void FixedUpdate()//Update: 매 프레임
     {
-        if (gameObject.layer == LayerMask.NameToLayer("Creature"))
+        if (gameObject.layer == LayerMask.NameToLayer("Creature") && !isAttack)
         {
+            //Debug.Log(nav.remainingDistance);
+
+            
+
+            //목적지 설정
+            if (curTarget == null )
+            {
+                Debug.Log("목표 탐색");
+
+                //대상 탐색
+                RangeFirstRangeCalc();
+
+                //목표지로 설정
+                nav.SetDestination(curTarget.transform.position);
+
+                //달리기 애니메이션
+                anim.SetBool("isRun", true);
+            }
+            else if (nav.remainingDistance < maxRange)//가까이 있으면
+            {
+                Debug.Log("도착");
+
+                //애니메이션
+                anim.SetBool("isRun", false);
+
+                isAttack = true;//동시 입력 방지
+
+                //transform.LookAt(curTarget);
+
+                slashCount = (slashCount + 1) % 2;
+                if (slashCount == 0) anim.SetTrigger("isAttackLeft");
+                else if (slashCount == 1) anim.SetTrigger("isAttackRight");
+            }
+
+            /*
             //행동 관리
             switch (curCreatureMoveEnum)
             {
@@ -267,14 +327,14 @@ public class Creature : MonoBehaviour
                     // 새로운 회전값을 설정합니다
                     transform.rotation = Quaternion.Euler(moveVec);
                     break;
-            }
-            
+            } 
+            */
         }
     }
-    #endregion
+        #endregion
 
-    //카메라 회전값
-    Vector3 cameraVec;
+        //카메라 회전값
+        Vector3 cameraVec;
     Quaternion lookRotation;
     private void LateUpdate()
     {
@@ -318,9 +378,9 @@ public class Creature : MonoBehaviour
 
                         if (bullet.isCreature)//크리쳐에 의한 공격이면
                         {
-                            Agent bulletAgent = bullet.bulletHost.agent;
+                            //Agent bulletAgent = bullet.bulletHost.agent;
                             //공격자 점수 증가
-                            bulletAgent.AddReward(damage / 10f);
+                            //bulletAgent.AddReward(damage / 10f);
 
                             if (isShield == 0)//보호막: 공격 무효화
                                 damageControl(damage, true);
@@ -443,7 +503,8 @@ public class Creature : MonoBehaviour
         //목표 방향 벡터
         goalVec = (curTarget.transform.position - transform.position).normalized;
         //현재값 서있는 벡터
-        curVec = rigid.velocity.normalized;
+        //curVec = rigid.velocity.normalized;
+        curVec = Vector3.zero;
 
         // 두 벡터 사이의 각도 계산 (라디안 단위)
         float angle = Vector3.Angle(goalVec, curVec);
@@ -514,7 +575,7 @@ public class Creature : MonoBehaviour
         float targetValue = InVisible ? 1f : 0f;     //false는 점차 보이는 것
         
 
-        float duration = 1.5f;
+        float duration = 2.0f;
         float elapsedTime = 0f;
 
         while (elapsedTime < duration)

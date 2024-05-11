@@ -14,7 +14,7 @@ public class NavTest : MonoBehaviour
 
 
     public Transform spot;
-    public NavMeshSurface nms;
+    //public NavMeshSurface nms;
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -27,10 +27,10 @@ public class NavTest : MonoBehaviour
         lr.enabled = false;
     }
 
-    private void Start()
-    {
+    //private void Start()
+    //{
         //nms.BuildNavMesh();//surface에서 시작 시 동적으로 베이크------------------------------
-    }
+    //}
 
     void Update()
     {

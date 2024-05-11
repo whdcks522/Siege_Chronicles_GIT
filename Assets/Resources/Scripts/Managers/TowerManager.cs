@@ -132,7 +132,8 @@ public class TowerManager : MonoBehaviour
                 else if (futureSpellData == null)//소환할 것이 정해지지 않았다면
                 {
                     //어떤 크리쳐를 소환할 지 무작위로 정함
-                    int r = Random.Range(0, gameManager.creatureSpellDataArr.Length);
+                    int r = 0;
+                        //Random.Range(0, gameManager.creatureSpellDataArr.Length);
                     futureSpellData = gameManager.creatureSpellDataArr[r];
                 }
             }
@@ -228,9 +229,9 @@ public class TowerManager : MonoBehaviour
 
         if (bullet.isCreature)
         {
-            Agent bulletAgent = bullet.bulletHost.agent;
+            //Agent bulletAgent = bullet.bulletHost.agent;
             //공격자 점수 증가
-            bulletAgent.AddReward(damage / 10f);
+            //bulletAgent.AddReward(damage / 10f);
         }
 
         if (!gameManager.isML)//머신러닝이 아닌경우
