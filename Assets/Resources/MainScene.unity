@@ -37628,7 +37628,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &500256251
 RectTransform:
   m_ObjectHideFlags: 0
@@ -74710,6 +74710,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 23475236823691242, guid: 1db8601c97565c84084b5b490940fae6,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 23475236823691242, guid: 1db8601c97565c84084b5b490940fae6,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4ea5af2de4e8123479cbfc8f9e49f2cc, type: 2}
@@ -85113,7 +85118,7 @@ Light:
     serializedVersion: 2
     m_Bits: 205
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -136324,6 +136329,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 204617641236245001, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 214048233271200973, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -136358,6 +136368,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 267001857926630003, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 267209482325700420, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -136434,6 +136449,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 470648621703727363, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 477748720043996698, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -136458,6 +136478,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: RedTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 523506381633446348, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 526698359191573038, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -136519,6 +136544,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 665282637754339570, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 686990884872429091, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_TagString
@@ -136543,6 +136573,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: RedTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 713984610394266727, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 721706246238977212, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -136614,6 +136649,16 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 820814394833547082, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 821243960360050243, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 830115228042550602, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_IsActive
@@ -136638,6 +136683,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 848222142435455492, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 856828362878484144, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 883432512891175588, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 895777206066021351, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -136678,6 +136738,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: BlueTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 1092970477654381381, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1093795691356502741, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -136723,6 +136788,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 1157583254436414649, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1177978388533928318, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -136864,6 +136934,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 1550656983685391825, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1587957022472042015, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -136888,6 +136963,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: BlueTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 1651131380783347964, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1653705176368438020, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -136974,6 +137054,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 1808569214502643174, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1820006144807915048, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_TagString
@@ -137054,6 +137139,11 @@ PrefabInstance:
       propertyPath: curTeamEnum
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2009454723409062487, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2028757167643226711, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -137073,6 +137163,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 2054389998637910974, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2059238633324888481, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2067365589051097899, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2112298736282869799, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -137128,6 +137233,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 2230941385688907127, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2231129197276374653, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -137203,6 +137313,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 2384002731415013444, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2385897513859374508, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2386084005912995784, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -137324,10 +137444,25 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 2753871552626120588, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2766624477405528718, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2766624477405528718, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 2776097352826952584, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2779663479778569080, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -137509,10 +137644,20 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 3153826457103470424, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3169713165670610911, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 3181609551588519301, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3195946395696709143, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -137543,6 +137688,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 3296519587727356991, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3313848748501801737, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -137579,10 +137729,20 @@ PrefabInstance:
       propertyPath: m_TagString
       value: BlueTower
       objectReference: {fileID: 0}
+    - target: {fileID: 3369773680945254015, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3375317536027709702, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_TagString
       value: RedTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 3375677447762717054, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3377951986629112892, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -137638,6 +137798,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 3428821707895862059, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3434001974081568056, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -137699,10 +137864,20 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 3575474264420893226, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3586662078935981459, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 3614612733544830448, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3648420899069980907, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -137769,6 +137944,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 3713274375890786033, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3723262793439387763, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -137799,6 +137979,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: RedTower
       objectReference: {fileID: 0}
+    - target: {fileID: 3749026854530959048, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3811750896149017800, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -137809,6 +137994,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 3836786057597001151, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3872090322304122436, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_TagString
@@ -137818,6 +138008,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: RedTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880319666763242916, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3881715709754895175, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -137833,6 +138028,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 3983007032035603974, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4010425242452132094, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -137974,6 +138174,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 4473905385619673426, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4474636024862642762, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_TagString
@@ -138023,6 +138228,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633468288508217287, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4660191922151979651, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -138089,6 +138299,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 4848856759409024033, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4875998444127283929, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_IsActive
@@ -138123,6 +138338,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979388424219932832, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4981022400169441034, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -138159,6 +138379,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 5026318770186355978, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5028024193878962147, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -138183,6 +138408,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: BlueTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 5136162387181665469, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5141875612063022863, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -138366,6 +138596,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 5239505130466680419, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5249888366665392678, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_TagString
@@ -138476,6 +138711,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 5548774488110525473, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5564893616104147392, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -138541,6 +138781,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 5771073104602497597, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5786140793528144583, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -138555,6 +138800,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: BlueTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 5821363836892596497, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5834245237746660549, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -138591,6 +138841,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 5876031750220456297, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5882191474302874832, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_TagString
@@ -138606,6 +138861,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 5925118660971341463, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5945215043520715176, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -138620,6 +138880,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 5949172296155676311, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5975361991051144239, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -138711,9 +138976,19 @@ PrefabInstance:
       propertyPath: m_TagString
       value: BlueTower
       objectReference: {fileID: 0}
+    - target: {fileID: 6150170759183785348, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6158149826903335665, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6159034054489295321, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6169552426375960143, guid: db2cb3219c99a864ab050374a2f4777d,
@@ -138810,6 +139085,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: RedTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 6492985416709843052, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6496671701625424333, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -138910,6 +139190,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6814353088186795541, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6836103749236650369, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -139041,6 +139326,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 7272838496369863393, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7281409920377732407, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -139055,6 +139345,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 7296249349704475420, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7302675952304486396, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -139121,6 +139416,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: BlueTower
       objectReference: {fileID: 0}
+    - target: {fileID: 7597127589584654067, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7606273959514752129, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_TagString
@@ -139141,6 +139441,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: RedTower
       objectReference: {fileID: 0}
+    - target: {fileID: 7634016165676303642, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7651505666601485688, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_IsActive
@@ -139150,6 +139455,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: BlueTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709104436942821346, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7717316610636129348, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -139225,6 +139535,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: BlueTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 7845739446094773896, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7861756131850891962, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -139351,6 +139666,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 7897308430808099952, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7901617812619921455, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_IsActive
@@ -139390,6 +139710,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: RedTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039756541349840408, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8101681554360034308, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8110819353155670780, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -139496,6 +139826,11 @@ PrefabInstance:
       propertyPath: DummyPoints.Array.data[15]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8159405882720354590, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8224453027727180269, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_TagString
@@ -139576,6 +139911,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 8398453620987911926, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8408924914952252584, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -139651,6 +139991,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: BlueTower
       objectReference: {fileID: 0}
+    - target: {fileID: 8477735057692148178, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8493332945124181738, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
       propertyPath: m_RootOrder
@@ -139720,6 +140065,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: BlueTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 8576523253324520172, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8603861371870267413, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
@@ -139821,6 +140171,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8890696289288787193, guid: db2cb3219c99a864ab050374a2f4777d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8900022410505825603, guid: db2cb3219c99a864ab050374a2f4777d,
         type: 3}
