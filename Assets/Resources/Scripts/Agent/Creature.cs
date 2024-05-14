@@ -251,30 +251,33 @@ public class Creature : MonoBehaviour
     private void FixedUpdate()//Update: 매 프레임
     {
         isStop = nav.isStopped;
+        rigid.velocity = Vector3.zero;
+        rigid.angularVelocity = Vector3.zero;
 
         if (gameObject.layer == LayerMask.NameToLayer("Creature") && !nav.isStopped)//크리쳐 레이어면서 달리고 있는 경우
         {
-            //대상 탐색
-            RangeFirstRangeCalc();
-
             if (!curTarget.gameObject.activeSelf)//대상이 비활성화된 상태라면
             {
                 Debug.LogError("이동 시작");
 
+                //대상 탐색
+                RangeFirstRangeCalc();
+
                 //목표지로 설정
                 nav.SetDestination(curTarget.transform.position);
+
+                anim.SetBool("isRun", true);
             }
-            
-            rigid.velocity = Vector3.zero;
-            rigid.angularVelocity = Vector3.zero;
 
             //대상 탐색
-            //RangeFirstRangeCalc();
+            RangeFirstRangeCalc();
 
             if (curRange < maxRange)
             {
                 nav.isStopped = true;
                 nav.velocity = Vector3.zero;
+
+                anim.SetBool("isRun", false);
 
                 slashCount = (slashCount + 1) % 2;
                 if (slashCount == 0) anim.SetTrigger("isAttackLeft");
@@ -644,6 +647,8 @@ public class Creature : MonoBehaviour
         {
             //피격당하지 않도록, 레이어 변경
             gameObject.layer = LayerMask.NameToLayer("WarpCreature");
+
+            CompletelyDead();
         }
         else if(!InVisible)//보이도록 
         {
