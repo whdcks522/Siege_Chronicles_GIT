@@ -246,36 +246,30 @@ public class Creature : MonoBehaviour
 
     #region 물리 동작
     int slashCount = 0;
+    public bool isStop = false;
     //공격 사거리 확인
-    public float targetRadius;
-    public float targetRange;
     private void FixedUpdate()//Update: 매 프레임
     {
-        Debug.LogWarning(nav.isStopped);
+        isStop = nav.isStopped;
 
         if (gameObject.layer == LayerMask.NameToLayer("Creature") && !nav.isStopped)//크리쳐 레이어면서 달리고 있는 경우
         {
-            
-            if (curTarget == null)//대상 설정
-            {
-                Debug.Log("목표 탐색");
+            //대상 탐색
+            RangeFirstRangeCalc();
 
-                //대상 탐색
-                RangeFirstRangeCalc();
+            if (!curTarget.gameObject.activeSelf)//대상이 비활성화된 상태라면
+            {
+                Debug.LogError("이동 시작");
 
                 //목표지로 설정
                 nav.SetDestination(curTarget.transform.position);
-
-                //달리기 애니메이션
-                anim.SetBool("isRun", true);
             }
-
             
             rigid.velocity = Vector3.zero;
             rigid.angularVelocity = Vector3.zero;
 
             //대상 탐색
-            RangeFirstRangeCalc();
+            //RangeFirstRangeCalc();
 
             if (curRange < maxRange)
             {
@@ -411,8 +405,6 @@ public class Creature : MonoBehaviour
             }
         }
     }
-
-    
 
     private void OnTriggerEnter(Collider other)//무언가와 충돌했을 시
     {
@@ -590,7 +582,7 @@ public class Creature : MonoBehaviour
 
         foreach (Transform obj in enemyCreatureFolder)
         {
-            if (obj.gameObject.layer == LayerMask.NameToLayer("Creature"))
+            if (obj.gameObject.activeSelf)//obj.gameObject.layer == LayerMask.NameToLayer("Creature")
             {
                 //적과의 거리
                 float tmpRange = (obj.position - transform.position).magnitude;
@@ -657,7 +649,15 @@ public class Creature : MonoBehaviour
         {
             //피격당하도록, 레이어 변경
             gameObject.layer = LayerMask.NameToLayer("Creature");
+
             nav.isStopped = false;
+            //대상 탐색
+            RangeFirstRangeCalc();
+            //목표지로 설정
+            nav.SetDestination(curTarget.transform.position);
+
+            //달리기 애니메이션
+            anim.SetBool("isRun", true);
         }
     }
     #endregion
