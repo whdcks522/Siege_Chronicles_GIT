@@ -49,6 +49,8 @@ public class UIManager : MonoBehaviour
         //시작 할 때, 카메라 축 위치 확인
         cameraGround.transform.position = (blueTower.position + redTower.transform.position) / 2f;
         cameraCloud.transform.position = Vector3.up * fly + cameraGround.position;
+
+        CameraControl();
     }
 
     //버튼으로 카메라 조작
@@ -77,6 +79,7 @@ public class UIManager : MonoBehaviour
 
         //카메라 회전 초기화
         curRot = -160;
+        CameraControl();
     }
     #endregion
 
@@ -151,8 +154,10 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
-    private void LateUpdate()
+    void CameraControl() 
     {
+        Debug.Log("카메라 조작 중");
+
         //사이드 화살표 버튼 누르면 카메라 회전
         curRot += addRot * 2;
 
@@ -163,39 +168,57 @@ public class UIManager : MonoBehaviour
         //카메라가 향하도록 관리
         cameraObj.LookAt((blueTower.position + redTower.position) / 2f);
 
-        if (!gameManager.isML) 
+        //타워의 캔버스 회전
+
+
+        // 물체 A에서 B를 바라보는 회전 구하기
+        cameraVec = cameraGround.transform.position - cameraObj.transform.position;
+        cameraRotation = Quaternion.LookRotation(cameraVec);
+
+        // 캔퍼스에 회전 적용
+        blueTowerManager.miniCanvas.transform.rotation = cameraRotation;
+        gameManager.redTowerManager.miniCanvas.transform.rotation = cameraRotation;
+    }
+    Quaternion cameraRotation;
+
+    private void LateUpdate()
+    {
+        if (addRot != 0) 
         {
-            //자원 게이지 관리
-            PlayerResourceSlider.value = blueTowerManager.curTowerResource / blueTowerManager.maxTowerResource;
-            PlayerResourceText.text = blueTowerManager.curTowerResource.ToString("F1") + "/" + blueTowerManager.maxTowerResource.ToString("F0");
+            CameraControl();
+        }
 
-            //스펠 자원 비율 보여주기
-            for (int i = 0; i < spellBtnArr.Length; i++)
+
+        //자원 게이지 관리
+        PlayerResourceSlider.value = blueTowerManager.curTowerResource / blueTowerManager.maxTowerResource;
+        PlayerResourceText.text = blueTowerManager.curTowerResource.ToString("F1") + "/" + blueTowerManager.maxTowerResource.ToString("F0");
+
+        //스펠 자원 비율 보여주기
+        for (int i = 0; i < spellBtnArr.Length; i++)
+        {
+            if (spellBtnArr[i].spellData != null)
             {
-                if (spellBtnArr[i].spellData != null)
-                {
-                    spellBtnArr[i].spellBtnIcon.fillAmount = blueTowerManager.curTowerResource / spellBtnArr[i].spellData.spellValue;
-                }
+                spellBtnArr[i].spellBtnIcon.fillAmount = blueTowerManager.curTowerResource / spellBtnArr[i].spellData.spellValue;
             }
+        }
 
-            //포커스됐으면 스킬 범위 이동
-            if (clickPoint.gameObject.activeSelf)
-                ShowWeaponArea();
+        //포커스됐으면 스킬 범위 이동
+        if (clickPoint.gameObject.activeSelf)
+            ShowWeaponArea();
 
-            //은행 버튼 활성화 관리, 은행이 최고 수준이 아니면서 상호작용 가능할 때
-            if (bankBtn.GetComponent<Button>().interactable)//blueTowerManager.curBankIndex < blueTowerManager.BankValueArr.Length && 
+        //은행 버튼 활성화 관리, 은행이 최고 수준이 아니면서 상호작용 가능할 때
+        if (bankBtn.GetComponent<Button>().interactable)//blueTowerManager.curBankIndex < blueTowerManager.BankValueArr.Length && 
+        {
+            bankBtn.fillAmount = blueTowerManager.curTowerResource / blueTowerManager.BankValueArr[blueTowerManager.curBankIndex];
+            if (bankBtn.fillAmount >= 1 && alreadyBankTouch)
             {
-                bankBtn.fillAmount = blueTowerManager.curTowerResource / blueTowerManager.BankValueArr[blueTowerManager.curBankIndex];
-                if (bankBtn.fillAmount >= 1 && alreadyBankTouch)
-                {
-                    bankAnim.SetBool("isFlash", true);
+                bankAnim.SetBool("isFlash", true);
 
-                    alreadyBankTouch = false;
-                }
-                else if (bankBtn.fillAmount < 1) 
-                {
-                    alreadyBankTouch = true;
-                }
+                alreadyBankTouch = false;
+            }
+            else if (bankBtn.fillAmount < 1)
+            {
+                alreadyBankTouch = true;
             }
         }
     }

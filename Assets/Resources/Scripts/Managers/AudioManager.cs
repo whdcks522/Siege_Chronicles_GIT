@@ -9,24 +9,21 @@ public class AudioManager : MonoBehaviour
     {
         uiManager = gameManager.uiManager;
 
-        if (!gameManager.isML)
-        {
-            //배경음 플레이어 초기화
-            GameObject bgmObject = new GameObject("BgmPlayer");
-            bgmObject.transform.parent = transform;
-            bgmPlayer = bgmObject.AddComponent<AudioSource>();//bgmPlayer에 저장하면서 동시에 컴포넌트 삽입
-            bgmPlayer.playOnAwake = false;
-            bgmPlayer.loop = true;
+        //배경음 플레이어 초기화
+        GameObject bgmObject = new GameObject("BgmPlayer");
+        bgmObject.transform.parent = transform;
+        bgmPlayer = bgmObject.AddComponent<AudioSource>();//bgmPlayer에 저장하면서 동시에 컴포넌트 삽입
+        bgmPlayer.playOnAwake = false;
+        bgmPlayer.loop = true;
 
-            //효과음 플레이어 초기화
-            GameObject sfxObject = new GameObject("SfxPlayers");
-            sfxObject.transform.parent = transform;
-            sfxPlayers = new AudioSource[channels];//Audio Source 배열 초기화
-            for (int index = 0; index < channels; index++)
-            {
-                sfxPlayers[index] = sfxObject.AddComponent<AudioSource>();
-                sfxPlayers[index].playOnAwake = false;
-            }
+        //효과음 플레이어 초기화
+        GameObject sfxObject = new GameObject("SfxPlayers");
+        sfxObject.transform.parent = transform;
+        sfxPlayers = new AudioSource[channels];//Audio Source 배열 초기화
+        for (int index = 0; index < channels; index++)
+        {
+            sfxPlayers[index] = sfxObject.AddComponent<AudioSource>();
+            sfxPlayers[index].playOnAwake = false;
         }
     }
     #endregion
@@ -40,24 +37,21 @@ public class AudioManager : MonoBehaviour
     #region BGM 재생
     public void PlayBgm(Bgm _bgm)//스태틱 BGM 재생
     {
-        if (!gameManager.isML) 
+        bgmPlayer.Stop();
+        switch (_bgm)
         {
-            bgmPlayer.Stop();
-            switch (_bgm)
-            {
-                case Bgm.Start:
-                    bgmPlayer.clip = BgmClips[0];
-                    //bgmPlayer.volume = 0.5f;
-                    break;
-                case Bgm.Select:
-                    bgmPlayer.clip = BgmClips[1];
-                    break;
-                case Bgm.Battle:
-                    bgmPlayer.clip = BgmClips[2];
-                    break;
-            }
-            bgmPlayer.Play();
-        }    
+            case Bgm.Start:
+                bgmPlayer.clip = BgmClips[0];
+                //bgmPlayer.volume = 0.5f;
+                break;
+            case Bgm.Select:
+                bgmPlayer.clip = BgmClips[1];
+                break;
+            case Bgm.Battle:
+                bgmPlayer.clip = BgmClips[2];
+                break;
+        }
+        bgmPlayer.Play();
     }
     #endregion
 
@@ -118,87 +112,84 @@ public class AudioManager : MonoBehaviour
     AudioClip[] tmpSfxClips;
     public void PlaySfx(Sfx sfx)
     {
-        if (!gameManager.isML)
+        if (uiManager.settingBackground.activeSelf && sfx != Sfx.PaperSfx)
+            return;
+
+        for (int index = 0; index < sfxPlayers.Length; index++)
         {
-            if (uiManager.settingBackground.activeSelf && sfx != Sfx.PaperSfx)
-                return;
+            int loopIndex = (index + curIndex) % sfxPlayers.Length;//최근에 사용한 인덱스에서 0부터 증가해가며 가능한 것 탐색
+            if (sfxPlayers[loopIndex].isPlaying)//실행중이라면 continue
+                continue;
 
-            for (int index = 0; index < sfxPlayers.Length; index++)
+            tmpSfxClips = null;
+
+            switch (sfx)
             {
-                int loopIndex = (index + curIndex) % sfxPlayers.Length;//최근에 사용한 인덱스에서 0부터 증가해가며 가능한 것 탐색
-                if (sfxPlayers[loopIndex].isPlaying)//실행중이라면 continue
-                    continue;
-
-                tmpSfxClips = null;
-
-                switch (sfx)
-                {
-                    case Sfx.TowerCrashSfx:
-                        tmpSfxClips = towerCrashSfxClips;
-                        break;
-                    case Sfx.WinSfx:
-                        tmpSfxClips = winSfxClips;
-                        break;
-                    case Sfx.LoseSfx:
-                        tmpSfxClips = loseSfxClips;
-                        break;
-                    case Sfx.CreatureHitSfx:
-                        tmpSfxClips = creatureHitSfxClips;
-                        break;
-                    case Sfx.CreatureDeadSfx:
-                        tmpSfxClips = creatureDeadSfxClips;
-                        break;
+                case Sfx.TowerCrashSfx:
+                    tmpSfxClips = towerCrashSfxClips;
+                    break;
+                case Sfx.WinSfx:
+                    tmpSfxClips = winSfxClips;
+                    break;
+                case Sfx.LoseSfx:
+                    tmpSfxClips = loseSfxClips;
+                    break;
+                case Sfx.CreatureHitSfx:
+                    tmpSfxClips = creatureHitSfxClips;
+                    break;
+                case Sfx.CreatureDeadSfx:
+                    tmpSfxClips = creatureDeadSfxClips;
+                    break;
 
 
-                    case Sfx.GunSfx:
-                        tmpSfxClips = gunSfxClips;
-                        break;
-                    case Sfx.FlameSfx:
-                        tmpSfxClips = flameSfxClips;
-                        break;
-                    case Sfx.GrandCureSfx:
-                        tmpSfxClips = grandCureSfxClips;
-                        break;
-                    case Sfx.CorpseExplosionAdaptSfx:
-                        tmpSfxClips = corpseExplosionAdaptSfxClips;
-                        break;
-                    case Sfx.CorpseExplosionBombSfx:
-                        tmpSfxClips = corpseExplosionBombSfxClips;
-                        break;
+                case Sfx.GunSfx:
+                    tmpSfxClips = gunSfxClips;
+                    break;
+                case Sfx.FlameSfx:
+                    tmpSfxClips = flameSfxClips;
+                    break;
+                case Sfx.GrandCureSfx:
+                    tmpSfxClips = grandCureSfxClips;
+                    break;
+                case Sfx.CorpseExplosionAdaptSfx:
+                    tmpSfxClips = corpseExplosionAdaptSfxClips;
+                    break;
+                case Sfx.CorpseExplosionBombSfx:
+                    tmpSfxClips = corpseExplosionBombSfxClips;
+                    break;
 
-                    case Sfx.PaperSfx:
-                        tmpSfxClips = paperSfxClips;
-                        break;
-                    case Sfx.LevelControlSfx:
-                        tmpSfxClips = levelControlSfxClips;
-                        break;
-                    case Sfx.SpellSuccessSfx:
-                        tmpSfxClips = spellSuccessSfxClips;
-                        break;
-                    case Sfx.SpellFailSfx:
-                        tmpSfxClips = spellFailSfxClips;
-                        break;
-                    case Sfx.BankSfx:
-                        tmpSfxClips = bankSfxClips;
-                        break;
-                    case Sfx.SpeedSfx:
-                        tmpSfxClips = speedSfxClips;
-                        break;
+                case Sfx.PaperSfx:
+                    tmpSfxClips = paperSfxClips;
+                    break;
+                case Sfx.LevelControlSfx:
+                    tmpSfxClips = levelControlSfxClips;
+                    break;
+                case Sfx.SpellSuccessSfx:
+                    tmpSfxClips = spellSuccessSfxClips;
+                    break;
+                case Sfx.SpellFailSfx:
+                    tmpSfxClips = spellFailSfxClips;
+                    break;
+                case Sfx.BankSfx:
+                    tmpSfxClips = bankSfxClips;
+                    break;
+                case Sfx.SpeedSfx:
+                    tmpSfxClips = speedSfxClips;
+                    break;
 
-                    default:
-                        Debug.Log("Sfx 없음");
-                        break;
-                }
-
-                //효과음의 배열의 크기가 1이 아닌 경우만 랜덤으로 구함
-                int sfxIndex = tmpSfxClips.Length == 1 ? 0 : Random.Range(0, tmpSfxClips.Length);
-
-                //현재 쉬고 있는 플레이어에서 효과음 재생
-                curIndex = loopIndex;
-                sfxPlayers[loopIndex].clip = tmpSfxClips[sfxIndex];//(int)sfx
-                sfxPlayers[loopIndex].Play();
-                break;
+                default:
+                    Debug.Log("Sfx 없음");
+                    break;
             }
+
+            //효과음의 배열의 크기가 1이 아닌 경우만 랜덤으로 구함
+            int sfxIndex = tmpSfxClips.Length == 1 ? 0 : Random.Range(0, tmpSfxClips.Length);
+
+            //현재 쉬고 있는 플레이어에서 효과음 재생
+            curIndex = loopIndex;
+            sfxPlayers[loopIndex].clip = tmpSfxClips[sfxIndex];//(int)sfx
+            sfxPlayers[loopIndex].Play();
+            break;
         }
     }
     #endregion

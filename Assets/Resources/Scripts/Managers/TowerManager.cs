@@ -62,11 +62,6 @@ public class TowerManager : MonoBehaviour
             ourCreatureFolder = gameManager.objectManager.redCreatureFolder;
             enemyCreatureFolder = gameManager.objectManager.blueCreatureFolder;
         }
-
-        if (gameManager.isML) 
-        {
-            bulletStartPoint.gameObject.SetActive(false);
-        }
     }
 
     //카메라 회전값
@@ -100,12 +95,16 @@ public class TowerManager : MonoBehaviour
                 curTowerResource = maxTowerResource;
             }
 
-            // 물체 A에서 B를 바라보는 회전 구하기
-            cameraVec = cameraGround.transform.position - mainCamera.transform.position;
-            lookRotation = Quaternion.LookRotation(cameraVec);
+            /*
 
-            // 캔퍼스에 회전 적용
-            miniCanvas.transform.rotation = lookRotation;
+             // 물체 A에서 B를 바라보는 회전 구하기
+             cameraVec = cameraGround.transform.position - mainCamera.transform.position;
+             lookRotation = Quaternion.LookRotation(cameraVec);
+
+             // 캔퍼스에 회전 적용
+             miniCanvas.transform.rotation = lookRotation;
+
+             */
 
             if (curTeamEnum == TeamEnum.Red) //빨강 팀 타워에서
             {
@@ -226,52 +225,41 @@ public class TowerManager : MonoBehaviour
     {
         //피해량 확인
         float damage = bullet.bulletDamage;
+        curHealth -= damage;
 
-        if (bullet.isCreature)
+        //타워 체력바 관리
+        miniHealth.fillAmount = curHealth / maxHealth;
+
+        if (curHealth > 0)
         {
-            //Agent bulletAgent = bullet.bulletHost.agent;
-            //공격자 점수 증가
-            //bulletAgent.AddReward(damage / 10f);
+            if (damage != 0)
+                audioManager.PlaySfx(AudioManager.Sfx.TowerCrashSfx);
         }
-
-        if (!gameManager.isML)//머신러닝이 아닌경우
+        else if (curHealth <= 0) //게임 종료
         {
-            curHealth -= damage;
+            curHealth = 0;
 
-            //타워 체력바 관리
-            miniHealth.fillAmount = curHealth / maxHealth;
-            
-            if (curHealth > 0) 
+            //설정 화면의 시작 버튼 비활성화
+            UiManager.startBtn.SetActive(false);
+
+            if (curTeamEnum == Creature.TeamEnum.Red)//빨간 팀이 진 경우
             {
-                if (damage != 0)
-                    audioManager.PlaySfx(AudioManager.Sfx.TowerCrashSfx);
+                //설정 화면의 텍스트 수정
+                UiManager.victoryTitle.SetActive(true);
+
+                //승리 효과음
+                audioManager.PlaySfx(AudioManager.Sfx.WinSfx);
             }
-            else if (curHealth <= 0) //게임 종료
+            else if (curTeamEnum == Creature.TeamEnum.Blue) //파란 팀이 진 경우
             {
-                curHealth = 0;
+                //설정 화면의 텍스트 수정
+                UiManager.defeatTitle.SetActive(true);
 
-                //설정 화면의 시작 버튼 비활성화
-                UiManager.startBtn.SetActive(false);
-
-                if (curTeamEnum == Creature.TeamEnum.Red)//빨간 팀이 진 경우
-                {
-                    //설정 화면의 텍스트 수정
-                    UiManager.victoryTitle.SetActive(true);
-
-                    //승리 효과음
-                    audioManager.PlaySfx(AudioManager.Sfx.WinSfx);
-                }
-                else if (curTeamEnum == Creature.TeamEnum.Blue) //파란 팀이 진 경우
-                {
-                    //설정 화면의 텍스트 수정
-                    UiManager.defeatTitle.SetActive(true);
-
-                    //패배 효과음
-                    audioManager.PlaySfx(AudioManager.Sfx.LoseSfx);
-                }
-                //게임 종료를 위해 정지 시키기
-                UiManager.SettingControl(true);
+                //패배 효과음
+                audioManager.PlaySfx(AudioManager.Sfx.LoseSfx);
             }
+            //게임 종료를 위해 정지 시키기
+            UiManager.SettingControl(true);
         }
     }
     #endregion

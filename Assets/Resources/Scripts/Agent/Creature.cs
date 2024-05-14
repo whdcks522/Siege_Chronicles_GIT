@@ -258,7 +258,7 @@ public class Creature : MonoBehaviour
         {
             if (!curTarget.gameObject.activeSelf)//대상이 비활성화된 상태라면
             {
-                Debug.LogError("이동 시작");
+                //Debug.LogError("이동 시작");
 
                 //대상 탐색
                 RangeFirstRangeCalc();
@@ -283,103 +283,6 @@ public class Creature : MonoBehaviour
                 if (slashCount == 0) anim.SetTrigger("isAttackLeft");
                 else if (slashCount == 1) anim.SetTrigger("isAttackRight");
             }
-
-            /*
-            RaycastHit hitInfo;
-            bool hasHit = Physics.SphereCast(
-                transform.position + Vector3.forward,            // 시작 지점: transform.position
-                targetRadius,                  // 구체의 반경: targetRadius
-                transform.forward,             // 구체가 이동하는 방향: transform.forward
-                out hitInfo,                   // 충돌 정보: 첫 번째로 충돌하는 오브젝트의 정보를 담는 변수
-                targetRange,                   // 구체가 이동할 최대 거리: targetRange
-                LayerMask.GetMask("Creature"),   // 검사할 레이어 마스크: "Creature" 레이어만 검사
-                QueryTriggerInteraction.Ignore // 트리거 콜라이더 무시 여부: 트리거 콜라이더 무시
-            );
-
-            if (hasHit)
-            {
-                // 정보를 출력합니다.
-                Debug.Log("Hit object: " + hitInfo.collider.gameObject);
-                if (hitInfo.collider.gameObject == curTarget.gameObject)
-                {
-                    nav.isStopped = true;
-
-
-                    slashCount = (slashCount + 1) % 2;
-                    if (slashCount == 0) anim.SetTrigger("isAttackLeft");
-                    else if (slashCount == 1) anim.SetTrigger("isAttackRight");
-                }
-            }
-            else
-            {
-                Debug.Log("No object hit");
-            }
-
-            /*
-            if (rayHits.Length > 0)
-            {
-                Debug.Log("도착");
-
-                nav.isStopped = true;
-
-                isAttack = true;//동시 입력 방지
-
-                slashCount = (slashCount + 1) % 2;
-                if (slashCount == 0) anim.SetTrigger("isAttackLeft");
-                else if (slashCount == 1) anim.SetTrigger("isAttackRight");
-            }
-
-            
-            //행동 관리
-            switch (curCreatureMoveEnum)
-            {
-                case CreatureMoveEnum.Idle://멈추기
-                    moveVec = new Vector3(0, rigid.velocity.y, 0);
-                    if (moveVec.y >= 0)
-                        moveVec.y = 0;
-                    rigid.velocity = moveVec;
-
-                    anim.SetBool("isRun", false);
-                    break;
-                case CreatureMoveEnum.Run://달리기
-                    moveVec = new Vector3(0, rigid.velocity.y, 0) + transform.forward * runSpd;
-                    if (moveVec.y >= 0)
-                        moveVec.y = 0;
-                    rigid.velocity = moveVec.normalized * runSpd;
-                    rigid.angularVelocity = Vector3.zero;
-
-                    anim.SetBool("isRun", true);
-                    break;
-            }
-            switch (curCreatureSpinEnum)
-            {
-                case CreatureSpinEnum.LeftSpin://좌회전
-                    moveVec = transform.rotation.eulerAngles;
-                    // 왼쪽으로 조금 회전합니다 (여기서는 y축 값만 조정합니다)
-                    moveVec.y -= rotSpd * Time.deltaTime;
-                    // 새로운 회전값을 설정합니다
-                    transform.rotation = Quaternion.Euler(moveVec);
-
-                    break;
-                case CreatureSpinEnum.None://앞쪽 바라보기
-                    //회전 가속도 초기화
-                    moveVec = transform.rotation.eulerAngles;
-                    moveVec.x = 0;
-                    moveVec.z = 0;
-                    transform.localEulerAngles = moveVec;
-
-                    rigid.angularVelocity = Vector3.zero;
-                    break;
-
-                case CreatureSpinEnum.RightSpin://우회전
-                    moveVec = transform.rotation.eulerAngles;
-                    // 왼쪽으로 조금 회전합니다 (여기서는 y축 값만 조정합니다)
-                    moveVec.y += rotSpd * Time.deltaTime;
-                    // 새로운 회전값을 설정합니다
-                    transform.rotation = Quaternion.Euler(moveVec);
-                    break;
-            } 
-            */
         }
     }
         #endregion
@@ -389,23 +292,20 @@ public class Creature : MonoBehaviour
     Quaternion lookRotation;
     private void LateUpdate()
     {
-        if (!gameManager.isML)
+        // 물체 A에서 B를 바라보는 회전 구하기
+        cameraVec = mainCamera.transform.position - cameraGround.transform.position;
+        lookRotation = Quaternion.LookRotation(cameraVec);
+
+        // 물체 C에 회전 적용
+        miniCanvas.transform.rotation = lookRotation;
+
+        if (isShield != 0 && curHealth > 0)//보호막이 있으면 체력이 점차 감소
         {
-            // 물체 A에서 B를 바라보는 회전 구하기
-            cameraVec = mainCamera.transform.position - cameraGround.transform.position;
-            lookRotation = Quaternion.LookRotation(cameraVec);
-
-            // 물체 C에 회전 적용
-            miniCanvas.transform.rotation = lookRotation;
-
-            if (isShield != 0 && curHealth > 0 )//보호막이 있으면 체력이 점차 감소
-            {
-                damageControl(maxHealth * isShield * Time.deltaTime, true);
-            }
-            else if (isCoinSteal != 0)//존재 자체로도 자원이 증가하는 유닛 존재: 재정회계병
-            {
-                ourTowerManager.curTowerResource += isCoinSteal * Time.deltaTime;
-            }
+            damageControl(maxHealth * isShield * Time.deltaTime, true);
+        }
+        else if (isCoinSteal != 0)//존재 자체로도 자원이 증가하는 유닛 존재: 재정회계병
+        {
+            ourTowerManager.curTowerResource += isCoinSteal * Time.deltaTime;
         }
     }
 
@@ -425,20 +325,8 @@ public class Creature : MonoBehaviour
                         //크리쳐 피격 효과음
                         audioManager.PlaySfx(AudioManager.Sfx.CreatureHitSfx);
 
-                        if (bullet.isCreature)//크리쳐에 의한 공격이면
-                        {
-                            //Agent bulletAgent = bullet.bulletHost.agent;
-                            //공격자 점수 증가
-                            //bulletAgent.AddReward(damage / 10f);
-
-                            if (isShield == 0)//보호막: 공격 무효화
-                                damageControl(damage, true);
-                        }
-                        else if (!bullet.isCreature)//타워에 의한 공격이면
-                        {
-                            if (isShield == 0)//보호막: 공격 무효화
-                                damageControl(damage, true);
-                        }
+                        if (isShield == 0)//보호막: 공격 무효화
+                            damageControl(damage, true);
 
                         //피격한 총알 후처리
                         if (bullet.curBulletMoveEnum != Bullet.BulletMoveEnum.Slash)
@@ -481,42 +369,35 @@ public class Creature : MonoBehaviour
     #region 사망처리
     void AlmostDead()
     {
-        if (gameManager.isML)//머신러닝 중이라면
+        //피격당하지 않도록, 레이어 변경
+        gameObject.layer = LayerMask.NameToLayer("WarpCreature");
+
+        //애니메이션 실행
+        anim.SetTrigger("isDeath");
+
+        //미니 UI 닫기
+        miniCanvas.SetActive(false);
+
+        if (!CorpseExplosionObj.activeSelf)//시체 폭발이 아닌 경우
         {
-            agent.EndEpisode();
+            //크리쳐 피격 효과음
+            audioManager.PlaySfx(AudioManager.Sfx.CreatureHitSfx);
         }
-        else if (!gameManager.isML)//일반 상황이라면
+        else if (CorpseExplosionObj.activeSelf)//시체폭발인 경우
         {
-            //피격당하지 않도록, 레이어 변경
-            gameObject.layer = LayerMask.NameToLayer("WarpCreature");
+            //시체폭발 폭발 효과음
+            audioManager.PlaySfx(AudioManager.Sfx.CorpseExplosionAdaptSfx);
 
-            //애니메이션 실행
-            anim.SetTrigger("isDeath");
-
-            //미니 UI 닫기
-            miniCanvas.SetActive(false);
-
-            if (!CorpseExplosionObj.activeSelf)//시체 폭발이 아닌 경우
-            {
-                //크리쳐 피격 효과음
-                audioManager.PlaySfx(AudioManager.Sfx.CreatureHitSfx);
-            }
-            else if (CorpseExplosionObj.activeSelf)//시체폭발인 경우
-            {
-                //시체폭발 폭발 효과음
-                audioManager.PlaySfx(AudioManager.Sfx.CorpseExplosionAdaptSfx);
-
-                GameObject bomb = objectManager.CreateObj("Tower_CorpseExplosion", ObjectManager.PoolTypes.BulletPool);
-                Bullet bomb_bullet = bomb.GetComponent<Bullet>();
-                //시체 폭발의 이동
-                bomb.transform.position = transform.position;
-                //시체 폭발의 팀 설정
-                bomb_bullet.BulletOnByTower(curTeamEnum);
-            }
-
-                //왜곡장
-                InvisibleWarp();
+            GameObject bomb = objectManager.CreateObj("Tower_CorpseExplosion", ObjectManager.PoolTypes.BulletPool);
+            Bullet bomb_bullet = bomb.GetComponent<Bullet>();
+            //시체 폭발의 이동
+            bomb.transform.position = transform.position;
+            //시체 폭발의 팀 설정
+            bomb_bullet.BulletOnByTower(curTeamEnum);
         }
+
+        //왜곡장
+        InvisibleWarp();
     }
 
     //투명해진 후에, 완전히 죽음
@@ -599,8 +480,6 @@ public class Creature : MonoBehaviour
     }
     #endregion
 
-
-
     #region 왜곡장 
     public void InvisibleWarp() // 점차 안보이게 되는 것
     {
@@ -624,7 +503,7 @@ public class Creature : MonoBehaviour
         float targetValue = InVisible ? 1f : 0f;     //false는 점차 보이는 것
         
 
-        float duration = 2.0f;
+        float duration = 1.5f;
         float elapsedTime = 0f;
 
         while (elapsedTime < duration)

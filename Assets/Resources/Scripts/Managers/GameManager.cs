@@ -5,9 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [Header("머신러닝중인지")]
-    public bool isML;
-
     [Header("적이 크리쳐를 소환할 것인지")]
     public bool isEnemySpawn;
 
