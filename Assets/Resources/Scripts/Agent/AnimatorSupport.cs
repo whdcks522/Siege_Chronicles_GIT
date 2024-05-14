@@ -15,7 +15,11 @@ public class AnimatorSupport : MonoBehaviour
     }
 
     //공격 대기 초기화
-    public void AttackClear() => creature.isAttack = false;
+    public void AttackClear()
+    {
+        creature.isAttack = false;
+        creature.nav.isStopped = false;
+    }
 
     //생명체 완전히 사망 처리
     public void CompletelyDeadAnimation()

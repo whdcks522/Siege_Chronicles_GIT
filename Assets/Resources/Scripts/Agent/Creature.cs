@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using Unity.MLAgents;
 using Unity.MLAgents.Policies;
 using Unity.VisualScripting;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.TextCore.Text;
@@ -78,7 +79,7 @@ public class Creature : MonoBehaviour
 
     Transform mainCamera;//메인 카메라 객체(체력바가 그 곳을 바라 보도록)
 
-    NavMeshAgent nav;
+    public NavMeshAgent nav;
 
     [Header("매니저")]
     public GameManager gameManager;
@@ -105,6 +106,7 @@ public class Creature : MonoBehaviour
         audioManager = gameManager.audioManager;
         mainCamera = UIManager.cameraObj;
         cameraGround = UIManager.cameraGround;
+        rigid = GetComponent<Rigidbody>();
 
         nav = GetComponent<NavMeshAgent>();
 
@@ -188,6 +190,7 @@ public class Creature : MonoBehaviour
         transform.LookAt(enemyTower.position);
         //상대 초기화
         curTarget = null;
+        
 
         //공격 대기 시간 초기화
         isAttack = false;
@@ -206,6 +209,9 @@ public class Creature : MonoBehaviour
 
         //오브젝트 활성화
         gameObject.SetActive(true);
+
+        nav.isStopped = true;
+
         //기상 애니메이션
         curCreatureSpinEnum = CreatureSpinEnum.None;
         curCreatureMoveEnum = CreatureMoveEnum.Idle;
@@ -240,16 +246,17 @@ public class Creature : MonoBehaviour
 
     #region 물리 동작
     int slashCount = 0;
+    //공격 사거리 확인
+    public float targetRadius;
+    public float targetRange;
     private void FixedUpdate()//Update: 매 프레임
     {
-        if (gameObject.layer == LayerMask.NameToLayer("Creature") && !isAttack)
+        Debug.LogWarning(nav.isStopped);
+
+        if (gameObject.layer == LayerMask.NameToLayer("Creature") && !nav.isStopped)//크리쳐 레이어면서 달리고 있는 경우
         {
-            //Debug.Log(nav.remainingDistance);
-
             
-
-            //목적지 설정
-            if (curTarget == null )
+            if (curTarget == null)//대상 설정
             {
                 Debug.Log("목표 탐색");
 
@@ -262,16 +269,18 @@ public class Creature : MonoBehaviour
                 //달리기 애니메이션
                 anim.SetBool("isRun", true);
             }
-            else if (nav.remainingDistance < maxRange)//가까이 있으면
+
+            
+            rigid.velocity = Vector3.zero;
+            rigid.angularVelocity = Vector3.zero;
+
+            //대상 탐색
+            RangeFirstRangeCalc();
+
+            if (curRange < maxRange)
             {
-                Debug.Log("도착");
-
-                //애니메이션
-                anim.SetBool("isRun", false);
-
-                isAttack = true;//동시 입력 방지
-
-                //transform.LookAt(curTarget);
+                nav.isStopped = true;
+                nav.velocity = Vector3.zero;
 
                 slashCount = (slashCount + 1) % 2;
                 if (slashCount == 0) anim.SetTrigger("isAttackLeft");
@@ -279,6 +288,51 @@ public class Creature : MonoBehaviour
             }
 
             /*
+            RaycastHit hitInfo;
+            bool hasHit = Physics.SphereCast(
+                transform.position + Vector3.forward,            // 시작 지점: transform.position
+                targetRadius,                  // 구체의 반경: targetRadius
+                transform.forward,             // 구체가 이동하는 방향: transform.forward
+                out hitInfo,                   // 충돌 정보: 첫 번째로 충돌하는 오브젝트의 정보를 담는 변수
+                targetRange,                   // 구체가 이동할 최대 거리: targetRange
+                LayerMask.GetMask("Creature"),   // 검사할 레이어 마스크: "Creature" 레이어만 검사
+                QueryTriggerInteraction.Ignore // 트리거 콜라이더 무시 여부: 트리거 콜라이더 무시
+            );
+
+            if (hasHit)
+            {
+                // 정보를 출력합니다.
+                Debug.Log("Hit object: " + hitInfo.collider.gameObject);
+                if (hitInfo.collider.gameObject == curTarget.gameObject)
+                {
+                    nav.isStopped = true;
+
+
+                    slashCount = (slashCount + 1) % 2;
+                    if (slashCount == 0) anim.SetTrigger("isAttackLeft");
+                    else if (slashCount == 1) anim.SetTrigger("isAttackRight");
+                }
+            }
+            else
+            {
+                Debug.Log("No object hit");
+            }
+
+            /*
+            if (rayHits.Length > 0)
+            {
+                Debug.Log("도착");
+
+                nav.isStopped = true;
+
+                isAttack = true;//동시 입력 방지
+
+                slashCount = (slashCount + 1) % 2;
+                if (slashCount == 0) anim.SetTrigger("isAttackLeft");
+                else if (slashCount == 1) anim.SetTrigger("isAttackRight");
+            }
+
+            
             //행동 관리
             switch (curCreatureMoveEnum)
             {
@@ -603,6 +657,7 @@ public class Creature : MonoBehaviour
         {
             //피격당하도록, 레이어 변경
             gameObject.layer = LayerMask.NameToLayer("Creature");
+            nav.isStopped = false;
         }
     }
     #endregion
