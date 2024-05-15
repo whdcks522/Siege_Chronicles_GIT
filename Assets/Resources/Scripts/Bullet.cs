@@ -9,7 +9,9 @@ public class Bullet : MonoBehaviour
     public float maxTime;
     [Header("총알의 충돌 수명")]
     public float colTime;
-    float curTime = 0f;//총알의 현재 수명
+    //총알의 현재 수명
+    float curTime = 0f;
+
     [Header("총알의 피해량")]
     public int bulletDamage;
     [Header("총알의 속도")]
@@ -17,11 +19,8 @@ public class Bullet : MonoBehaviour
     [Header("총알의 충돌 영역")]
     public Collider bulletCollider;
 
-    [Header("총알의 주인")]
-    public Creature bulletHost;
     [Header("총알 주인이 속한 팀")]
     public Creature.TeamEnum curTeamEnum;
-
 
     public enum BulletMoveEnum//Slash: 근접공격(노랑애의 근접공격, 충돌해도 안사라짐), Tracer(개구리가 쏘는 총알),Canon
     {
@@ -43,9 +42,6 @@ public class Bullet : MonoBehaviour
     [Header("매니저들")]
     public GameManager gameManager;
     public ObjectManager objectManager;
-
-    [Header("크리쳐의 총알인지")]
-    public bool isCreature;
 
     private void Awake()//최초 설정
     {
@@ -71,25 +67,11 @@ public class Bullet : MonoBehaviour
     }
 
     #region 총알 활성
-    public void BulletOnByCreature(Creature _creature)//크리쳐에 의해서 총알 활성
-    {
-        //주인과 팀 설정
-        bulletHost = _creature;
-        curTeamEnum = _creature.curTeamEnum;
-
-        BulletOn();
-    }
-
-    public void BulletOnByTower(Creature.TeamEnum teamEnum)//타워에 의해서 총알 활성
+    public void BulletOn(Creature.TeamEnum teamEnum)
     {
         //팀 설정
         curTeamEnum = teamEnum;
 
-        BulletOn();
-    }
-
-    public void BulletOn()
-    {
         //시간 동기화
         curTime = 0f;
         //충돌 영역 활성화
@@ -123,10 +105,7 @@ public class Bullet : MonoBehaviour
             //이동
             bomb.transform.position = transform.position;
             //활성화
-            if (isCreature)
-                bomb_bullet.BulletOnByCreature(bulletHost);
-            else if (!isCreature)
-                bomb_bullet.BulletOnByTower(curTeamEnum);
+            bomb_bullet.BulletOn(curTeamEnum);
         }
     }
     #endregion

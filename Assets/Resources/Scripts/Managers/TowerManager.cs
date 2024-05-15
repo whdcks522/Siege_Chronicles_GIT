@@ -304,7 +304,7 @@ public class TowerManager : MonoBehaviour
                 bullet.transform.rotation = targetRotation;
 
                 //활성화
-                bullet_bullet.BulletOnByTower(curTeamEnum);
+                bullet_bullet.BulletOn(curTeamEnum);
             }
         }
         if(isShot)//사격 대상이 있는 경우, 타워의 레이더가 마지막 대상을 바라봄
@@ -333,7 +333,7 @@ public class TowerManager : MonoBehaviour
         bullet_rigid.velocity = (UiManager.clickPoint.position - bullet.transform.position).normalized * bullet_bullet.bulletSpeed;
 
         //활성화
-        bullet_bullet.BulletOnByTower(curTeamEnum);
+        bullet_bullet.BulletOn(curTeamEnum);
     }
     #endregion
 
@@ -352,7 +352,7 @@ public class TowerManager : MonoBehaviour
         //이동
         bullet.transform.position = UiManager.clickPoint.position;
         //활성화
-        bullet_bullet.BulletOnByTower(curTeamEnum);
+        bullet_bullet.BulletOn(curTeamEnum);
     }
     #endregion
 

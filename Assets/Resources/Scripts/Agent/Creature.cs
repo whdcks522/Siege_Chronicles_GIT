@@ -206,7 +206,7 @@ public class Creature : MonoBehaviour
                 transform.rotation.eulerAngles.y - 180, transform.rotation.eulerAngles.z - 90);
 
             //활성화
-            slash_bullet.BulletOnByCreature(this);
+            slash_bullet.BulletOn(curTeamEnum);
         }
         else //원거리 형인 경우
         {
@@ -235,7 +235,7 @@ public class Creature : MonoBehaviour
                 tracer_rigid.velocity = targetVec * tracer_bullet.bulletSpeed;
 
                 // 투사체 활성화
-                tracer_bullet.BulletOnByCreature(this);
+                tracer_bullet.BulletOn(curTeamEnum);
             }
         }
     }
@@ -395,7 +395,7 @@ public class Creature : MonoBehaviour
             //시체 폭발의 이동
             bomb.transform.position = transform.position;
             //시체 폭발의 팀 설정
-            bomb_bullet.BulletOnByTower(curTeamEnum);
+            bomb_bullet.BulletOn(curTeamEnum);
         }
 
         //왜곡장
