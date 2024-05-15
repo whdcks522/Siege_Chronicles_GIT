@@ -1,0 +1,81 @@
+에이전트 스크립트 추가하면 느려짐
+	레이랑 상관 없음
+	onnx 없어도 마찬가지임
+----------------------------------------------------------------------------------------------------------------
+1)파이썬 3.7.9 다운
+           환경 변수(path) 설정, 다운 후, 260자 제한 해제(https://ojui.tistory.com/8)
+
+2)파이썬 패키지 설치
+python -m pip install mlagents==0.28.0
+입력하면 오류 발생
+C:\Users\Happy\AppData\Local\Programs\Python\Python37\python.exe -m pip install --upgrade pip
+입력하면 해결된다고 cmd에 뜸
+python -m pip install mlagents==0.28.0 다시 입력
+
+3)파이토치
+pip3 install torch torchvision torchaudio
+
+4)프로토버프(https://with-rl.tistory.com/entry/Unity-ML-Agent-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0)
+pip install --upgrade "protobuf<=3.20.1"
+
+5)식스 다운(https://m.blog.naver.com/PostView.naver?blogId=mdsd12&logNo=222429749302&categoryNo=20&proxyReferer=)
+pip install six
+
+6)설치 확인
+mlagents-learn --help
+가능한 기능이 잘 나오면 성공
+
+7)AttributeError: 'str' object has no attribute '_key'오류 발생 시(mlagents-learn --help가능해도 이거는 하자!)
+pip install importlib-metadata==4.4
+------------------------------------------------------------------------------------------------------------
+
+//행동 관리
+switch (curCreatureMoveEnum)
+{
+    case CreatureMoveEnum.Idle://멈추기
+        moveVec = new Vector3(0, rigid.velocity.y, 0);
+        if (moveVec.y >= 0)
+            moveVec.y = 0;
+        rigid.velocity = moveVec;
+
+        anim.SetBool("isRun", false);
+        break;
+    case CreatureMoveEnum.Run://달리기
+        moveVec = new Vector3(0, rigid.velocity.y, 0) + transform.forward * runSpd;
+        if (moveVec.y >= 0)
+            moveVec.y = 0;
+        rigid.velocity = moveVec.normalized * runSpd;
+        rigid.angularVelocity = Vector3.zero;
+
+        anim.SetBool("isRun", true);
+        break;
+}
+switch (curCreatureSpinEnum)
+{
+    case CreatureSpinEnum.LeftSpin://좌회전
+        moveVec = transform.rotation.eulerAngles;
+        // 왼쪽으로 조금 회전합니다 (여기서는 y축 값만 조정합니다)
+        moveVec.y -= rotSpd * Time.deltaTime;
+        // 새로운 회전값을 설정합니다
+        transform.rotation = Quaternion.Euler(moveVec);
+
+        break;
+    case CreatureSpinEnum.None://앞쪽 바라보기
+        //회전 가속도 초기화
+        moveVec = transform.rotation.eulerAngles;
+        moveVec.x = 0;
+        moveVec.z = 0;
+        transform.localEulerAngles = moveVec;
+
+        rigid.angularVelocity = Vector3.zero;
+        break;
+
+    case CreatureSpinEnum.RightSpin://우회전
+        moveVec = transform.rotation.eulerAngles;
+        // 왼쪽으로 조금 회전합니다 (여기서는 y축 값만 조정합니다)
+        moveVec.y += rotSpd * Time.deltaTime;
+        // 새로운 회전값을 설정합니다
+        transform.rotation = Quaternion.Euler(moveVec);
+        break;
+} 
+------------------------------------------------------------------------------------------------------------
