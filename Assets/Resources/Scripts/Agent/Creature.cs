@@ -17,9 +17,6 @@ public class Creature : MonoBehaviour
     [Header("크리쳐 별 기본 능력")]
     public float maxHealth;//생명체의 최대 체력
     public float curHealth;//생명체의 현재 체력
-    public Transform bulletStartPoint;//총알이 시작되는 곳
-    public int runSpd;//달리는 속도
-    int rotSpd = 120;//회전 속도
 
     [Header("크리쳐 별 특수 능력 여부")]
     //보호막을 갖고 있는지(피해를 받지 않음, 시간의 흐름에 따라 체력 감소, 방패병만 소유)
@@ -27,10 +24,6 @@ public class Creature : MonoBehaviour
     //존재 자체로 조금씩 자원이 증가하는 양(회계병만 소유, 나머지는 0)
     public float isCoinSteal;
 
-    Vector3 moveVec;//이동용 벡터(몰라도 됨)
-
-    [Header("현재 공격 중인지")]//연속 공격 방식
-    public bool isAttack = false;
 
     [Header("텍스쳐")]//천천히 보이는 용
     public Texture baseTexture;
@@ -40,16 +33,14 @@ public class Creature : MonoBehaviour
     public Transform ourTower;
     public TowerManager ourTowerManager;
     public Transform ourCreatureFolder;//상대팀이 들어있는 폴더
+    public Transform creatureStartPoint;
     [Header("중립 크리쳐 폴더")]
     public Transform grayCreatureFolder;//중립 팀이 들어있는 폴더
     [Header("상대 타워")]
     public Transform enemyTower;
     public TowerManager enemyTowerManager;
     public Transform enemyCreatureFolder;//상대팀이 들어있는 폴더
-    [Header("우리 타워에서 시작할 장소")]
-    public Transform startPoint;
 
-    
 
     [Header("UI 관련")]
     public GameObject miniCanvas;//캐릭터 위의 미니 UI
@@ -61,40 +52,20 @@ public class Creature : MonoBehaviour
     [Header("속하는 팀")]
     public TeamEnum curTeamEnum;
 
-    public int teamIndex;//팀 인덱스, 강화학습용
-
-    public enum CreatureMoveEnum { Idle, Run }//머신러닝으로 취할수 있는 행동
-    public CreatureMoveEnum curCreatureMoveEnum;
-
-    public enum CreatureSpinEnum { LeftSpin, None, RightSpin }//머신러닝으로 취할수 있는 회전
-    public CreatureSpinEnum curCreatureSpinEnum;
 
     public Rigidbody rigid;//물리법칙
     public Animator anim;//애니메이션
-    public Agent agent;//강화학습 에이전트
-
-    public BehaviorParameters behaviorParameters;//머신러닝 디폴트에서도 조작이 되므로 방지하기 위함
+    public NavMeshAgent nav;//맵 이동하는 네비게이션
 
     Transform cameraGround;//카메라가 관찰하는 땅의 지점
-
     Transform mainCamera;//메인 카메라 객체(체력바가 그 곳을 바라 보도록)
-
-    public NavMeshAgent nav;
+    
 
     [Header("매니저")]
     public GameManager gameManager;
     public ObjectManager objectManager;
     AudioManager audioManager;
     UIManager UIManager;
-    
-
-    /*
-    이동 방향에 따라 점수
-    가만히 서있으면 실점
-
-    공격 맞추면 점수    
-    타워 맞추면 득점
-    */
 
     private void Awake()
     {
@@ -132,12 +103,11 @@ public class Creature : MonoBehaviour
             //태그 변경
             gameObject.tag = "RedCreature";
         }
-        teamIndex = (int)(curTeamEnum);
 
         ourTowerManager = ourTower.GetComponent<TowerManager>();
         enemyTowerManager = enemyTower.GetComponent<TowerManager>();
         //시작지점 설정
-        startPoint = ourTowerManager.creatureStartPoint;
+        creatureStartPoint = ourTowerManager.creatureStartPoint;
 
         if (curTeamEnum == TeamEnum.Blue)//파랑 팀
         {
@@ -185,14 +155,12 @@ public class Creature : MonoBehaviour
     public void Revive()//크리쳐 부활시 설정 초기화
     {
         //위치 초기화
-        transform.position = startPoint.position;
+        transform.position = creatureStartPoint.position;
         //회전 초기화
         transform.LookAt(enemyTower.position);
         //상대 초기화
         curTarget = null;
 
-        //공격 대기 시간 초기화
-        isAttack = false;
         //체력 회복
         curHealth = maxHealth;
 
@@ -214,8 +182,6 @@ public class Creature : MonoBehaviour
         nav.isStopped = true;
 
         //기상 애니메이션
-        curCreatureSpinEnum = CreatureSpinEnum.None;
-        curCreatureMoveEnum = CreatureMoveEnum.Idle;
         anim.SetTrigger("isRage");
 
         //점차 보이도록
@@ -223,10 +189,13 @@ public class Creature : MonoBehaviour
     }
     #endregion
 
-    #region 주황색 참격 생성, 상속한 액션 1
-    public int yUp;//공격 이펙트 소환 위치
-    public int zUp;//공격 이펙트 소환 위치
-    public GameObject useBullet;
+    #region 크리쳐별 액션
+    [Header("크리쳐 별 투사체 정보")]
+    public Transform bulletStartPoint;//총알이 시작되는 곳
+    public int yUp;//투사체 y축 소환 위치
+    public int zUp;//투사체 z축 소환 위치
+    public GameObject useBullet;//사용하는 투사체
+    public Vector3 targetVec;//목표 방향 벡터(원거리 공격용으로도 사용)
 
     public void AgentAction_1()
     {
@@ -236,10 +205,10 @@ public class Creature : MonoBehaviour
             Bullet slash_bullet = slash.GetComponent<Bullet>();
 
             //이동
-            slash.transform.position = transform.position + transform.forward * zUp + UnityEngine.Vector3.up * yUp;//위로 3, 앞으로 1
+            slash.transform.position = transform.position + transform.forward * zUp + Vector3.up * yUp;//위로 3, 앞으로 1
 
             //회전
-            slash.transform.rotation = UnityEngine.Quaternion.Euler(transform.rotation.eulerAngles.x + 90,
+            slash.transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x + 90,
                 transform.rotation.eulerAngles.y - 180, transform.rotation.eulerAngles.z - 90);
 
             //활성화
@@ -257,8 +226,8 @@ public class Creature : MonoBehaviour
             //이동
             tracer.transform.position = bulletStartPoint.position;
             //가속
-            goalVec = (curTarget.transform.position - transform.position).normalized;
-            tracer_rigid.velocity = goalVec * tracer_bullet.bulletSpeed;
+            targetVec = (curTarget.transform.position - transform.position).normalized;
+            tracer_rigid.velocity = targetVec * tracer_bullet.bulletSpeed;
 
             //활성화
             tracer_bullet.BulletOnByCreature(this);
@@ -377,7 +346,7 @@ public class Creature : MonoBehaviour
     {
         if (_dmg != 0) //이펙트용 폭발은 실제 데미지가 0이므로
         {
-            //피해면 감소, 회복이면 증가
+            //피해면 체력 감소, 회복이면 체력 증가
             curHealth = isDamage ? curHealth -= _dmg : curHealth += _dmg;
 
             if (curHealth < 0) curHealth = 0;
@@ -447,37 +416,6 @@ public class Creature : MonoBehaviour
     }
     #endregion
 
-    #region 맞는 방향으로 가고 있는지
-
-    //목표 방향 벡터(원거리 공격용으로도 사용)
-    public Vector3 goalVec;
-    //실제 이동하는 벡터
-    Vector3 curVec;
-
-    public float GetMatchingVelocityReward()//가장 가까운 적에게 다가가면 득점, 멀어지면 실점
-    {
-        float tmpReward = 0;
-        //목표 방향 벡터
-        goalVec = (curTarget.transform.position - transform.position).normalized;
-        //현재값 서있는 벡터
-        //curVec = rigid.velocity.normalized;
-        curVec = Vector3.zero;
-
-        // 두 벡터 사이의 각도 계산 (라디안 단위)
-        float angle = Vector3.Angle(goalVec, curVec);
-        // 코사인 유사도 계산 (-1부터 1까지의 값)
-        float cosineSimilarity = Mathf.Cos(angle * Mathf.Deg2Rad);
-
-        if (curCreatureMoveEnum != CreatureMoveEnum.Idle)//서있다면 0을 반환
-        {
-            tmpReward = (cosineSimilarity + 1f) / 2f;  //0f ~ 1f
-            tmpReward -= 0.5f;                         //-0.5f ~ 0.5f
-
-            //Debug.Log(tmpReward);
-        }
-        return tmpReward;
-    }
-    #endregion
 
     #region 적들과의 거리 계산
     [Header("공격 가능한 최대 거리")]

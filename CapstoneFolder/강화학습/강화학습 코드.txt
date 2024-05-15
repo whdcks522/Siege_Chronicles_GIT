@@ -79,3 +79,30 @@ switch (curCreatureSpinEnum)
         break;
 } 
 ------------------------------------------------------------------------------------------------------------
+//목표 방향 벡터(원거리 공격용으로도 사용)
+public Vector3 goalVec;
+//실제 이동하는 벡터
+Vector3 curVec;
+
+public float GetMatchingVelocityReward()//가장 가까운 적에게 다가가면 득점, 멀어지면 실점
+{
+    float tmpReward = 0;
+    //목표 방향 벡터
+    goalVec = (curTarget.transform.position - transform.position).normalized;
+    //현재값 서있는 벡터
+    //curVec = rigid.velocity.normalized;
+    curVec = Vector3.zero;
+
+    // 두 벡터 사이의 각도 계산 (라디안 단위)
+    float angle = Vector3.Angle(goalVec, curVec);
+    // 코사인 유사도 계산 (-1부터 1까지의 값)
+    float cosineSimilarity = Mathf.Cos(angle * Mathf.Deg2Rad);
+
+    if (curCreatureMoveEnum != CreatureMoveEnum.Idle)//서있다면 0을 반환
+    {
+        tmpReward = (cosineSimilarity + 1f) / 2f;  //0f ~ 1f
+        tmpReward -= 0.5f;                         //-0.5f ~ 0.5f
+
+        //Debug.Log(tmpReward);
+    }
+    return tmpReward;

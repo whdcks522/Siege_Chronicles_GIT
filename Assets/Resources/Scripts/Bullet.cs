@@ -43,15 +43,12 @@ public class Bullet : MonoBehaviour
     [Header("매니저들")]
     public GameManager gameManager;
     public ObjectManager objectManager;
-    //물리 법칙 계산
-    Rigidbody rigid;
 
     [Header("크리쳐의 총알인지")]
     public bool isCreature;
 
     private void Awake()//최초 설정
     {
-        rigid = GetComponent<Rigidbody>();
         bulletCollider = GetComponent<Collider>();
     }
 

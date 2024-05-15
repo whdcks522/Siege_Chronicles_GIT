@@ -10,14 +10,12 @@ public class AnimatorSupport : MonoBehaviour
     private void Awake()
     {
         creature = transform.parent.GetComponent<Creature>();
-
         anim = GetComponent<Animator>();
     }
 
     //공격 대기 초기화
     public void AttackClear()
     {
-        //creature.isAttack = false;
         creature.nav.isStopped = false;
     }
 
