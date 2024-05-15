@@ -60,7 +60,7 @@ public class Bullet : MonoBehaviour
         objectManager = gameManager.objectManager;
     }
 
-    private void Update()//매 프레임마다 반복
+    private void FixedUpdate()//매 프레임마다 반복
     {
         curTime += Time.deltaTime;
         if (curTime >= maxTime)

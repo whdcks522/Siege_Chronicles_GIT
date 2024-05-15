@@ -178,7 +178,7 @@ public class UIManager : MonoBehaviour
     #endregion
 
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
         if (addRot != 0) 
         {

@@ -190,7 +190,6 @@ public class Creature : MonoBehaviour
         transform.LookAt(enemyTower.position);
         //상대 초기화
         curTarget = null;
-        
 
         //공격 대기 시간 초기화
         isAttack = false;
@@ -231,18 +230,38 @@ public class Creature : MonoBehaviour
 
     public void AgentAction_1()
     {
-        GameObject slash = objectManager.CreateObj(useBullet.name, ObjectManager.PoolTypes.BulletPool);
-        Bullet slash_bullet = slash.GetComponent<Bullet>();
+        if (bulletStartPoint == null)//근접형인 경우
+        {
+            GameObject slash = objectManager.CreateObj(useBullet.name, ObjectManager.PoolTypes.BulletPool);
+            Bullet slash_bullet = slash.GetComponent<Bullet>();
 
-        //이동
-        slash.transform.position = transform.position + transform.forward * zUp + UnityEngine.Vector3.up * yUp;//위로 3, 앞으로 1
+            //이동
+            slash.transform.position = transform.position + transform.forward * zUp + UnityEngine.Vector3.up * yUp;//위로 3, 앞으로 1
 
-        //회전
-        slash.transform.rotation = UnityEngine.Quaternion.Euler(transform.rotation.eulerAngles.x + 90,
-            transform.rotation.eulerAngles.y - 180, transform.rotation.eulerAngles.z - 90);
+            //회전
+            slash.transform.rotation = UnityEngine.Quaternion.Euler(transform.rotation.eulerAngles.x + 90,
+                transform.rotation.eulerAngles.y - 180, transform.rotation.eulerAngles.z - 90);
 
-        //활성화
-        slash_bullet.BulletOnByCreature(this);
+            //활성화
+            slash_bullet.BulletOnByCreature(this);
+        }
+        else //원거리 형인 경우
+        {
+            GameObject tracer = objectManager.CreateObj(useBullet.name, ObjectManager.PoolTypes.BulletPool);
+            Bullet tracer_bullet = tracer.GetComponent<Bullet>();
+            Rigidbody tracer_rigid = tracer.GetComponent<Rigidbody>();
+
+            tracer_bullet.gameManager = gameManager;
+            tracer_bullet.Init();
+
+            //이동
+            tracer.transform.position = bulletStartPoint.position;
+            //가속
+            tracer_rigid.velocity = goalVec * tracer_bullet.bulletSpeed;
+
+            //활성화
+            tracer_bullet.BulletOnByCreature(this);
+        }
     }
     #endregion
 
@@ -285,13 +304,6 @@ public class Creature : MonoBehaviour
             }
         }
 
-        // 물체 A에서 B를 바라보는 회전 구하기
-        cameraVec = mainCamera.transform.position - cameraGround.transform.position;
-        lookRotation = Quaternion.LookRotation(cameraVec);
-
-        // 물체 C에 회전 적용
-        miniCanvas.transform.rotation = lookRotation;
-
         if (isShield != 0 && curHealth > 0)//보호막이 있으면 체력이 점차 감소
         {
             damageControl(maxHealth * isShield * Time.deltaTime, true);
@@ -300,6 +312,12 @@ public class Creature : MonoBehaviour
         {
             ourTowerManager.curTowerResource += isCoinSteal * Time.deltaTime;
         }
+
+        // 물체 A에서 B를 바라보는 회전 구하기
+        cameraVec = mainCamera.transform.position - cameraGround.transform.position;
+        lookRotation = Quaternion.LookRotation(cameraVec);
+        // 물체 C에 회전 적용
+        miniCanvas.transform.rotation = lookRotation;
     }
     //카메라 회전값
     Vector3 cameraVec;

@@ -70,7 +70,7 @@ public class TowerManager : MonoBehaviour
     [Header("적 타워가 앞으로 사용할 스펠 데이터")]
     public SpellData futureSpellData;
 
-    private void Update()//Update는 매초마다 수행
+    private void FixedUpdate()//Update는 매초마다 수행
     {
         if (UiManager.selectManager.index_Battle == 1) 
         {
