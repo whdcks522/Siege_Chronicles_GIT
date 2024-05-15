@@ -204,7 +204,7 @@ public class UIManager : MonoBehaviour
             ShowWeaponArea();
 
         //은행 버튼 활성화 관리, 은행이 최고 수준이 아니면서 상호작용 가능할 때
-        if (bankBtn.GetComponent<Button>().interactable)//blueTowerManager.curBankIndex < blueTowerManager.BankValueArr.Length && 
+        if (bankBtn.GetComponent<Button>().interactable)
         {
             bankBtn.fillAmount = blueTowerManager.curTowerResource / blueTowerManager.BankValueArr[blueTowerManager.curBankIndex];
             if (bankBtn.fillAmount >= 1 && alreadyBankTouch)
