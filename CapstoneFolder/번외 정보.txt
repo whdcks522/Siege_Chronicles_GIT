@@ -192,12 +192,3 @@ namespace Lean.Touch.Editor
 }
 #endif
 ------------------------------------------------------------------------------------------------------------
-
-<<컴파일 속도 최적화>>
-Project Settings => Editor => Enter Play Mode Options 체크 (활성화)
-Reload Domain 체크 해제 (비활성화)
-<https://virtualdever.tistory.com/298>
-
-오토 리프레쉬 비활성화
-Preference - General - Auto Refresh 를 선택 해제
-<https://virtualdever.tistory.com/101>
