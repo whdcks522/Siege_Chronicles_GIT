@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.MLAgents;
 using UnityEngine;
 using UnityEngine.UI;
 using static Creature;
-using static Unity.Barracuda.BurstCPUOps;
 
 public class TowerManager : MonoBehaviour
 {
