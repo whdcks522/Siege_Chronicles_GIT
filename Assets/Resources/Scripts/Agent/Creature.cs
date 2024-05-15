@@ -248,16 +248,13 @@ public class Creature : MonoBehaviour
 
     #region 물리 동작
     int slashCount = 0;
-    public bool isStop = false;
-    int count = 0;
+
     //공격 사거리 확인
     private void FixedUpdate()//Update: 매 프레임
     {
-        Debug.Log(count++);
-
-        isStop = nav.isStopped;
-        rigid.velocity = Vector3.zero;
-        rigid.angularVelocity = Vector3.zero;
+        //가속 초기화
+        //rigid.velocity = Vector3.zero;
+        //rigid.angularVelocity = Vector3.zero;
 
         if (gameObject.layer == LayerMask.NameToLayer("Creature") && !nav.isStopped)//크리쳐 레이어면서 달리고 있는 경우
         {
@@ -287,14 +284,7 @@ public class Creature : MonoBehaviour
                 else if (slashCount == 1) anim.SetTrigger("isAttackRight");
             }
         }
-    }
-        #endregion
 
-        //카메라 회전값
-        Vector3 cameraVec;
-    Quaternion lookRotation;
-    private void LateUpdate()
-    {
         // 물체 A에서 B를 바라보는 회전 구하기
         cameraVec = mainCamera.transform.position - cameraGround.transform.position;
         lookRotation = Quaternion.LookRotation(cameraVec);
@@ -311,6 +301,10 @@ public class Creature : MonoBehaviour
             ourTowerManager.curTowerResource += isCoinSteal * Time.deltaTime;
         }
     }
+    //카메라 회전값
+    Vector3 cameraVec;
+    Quaternion lookRotation;
+    #endregion
 
     private void OnTriggerEnter(Collider other)//무언가와 충돌했을 시
     {

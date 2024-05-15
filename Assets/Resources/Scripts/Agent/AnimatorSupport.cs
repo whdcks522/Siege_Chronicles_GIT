@@ -17,7 +17,7 @@ public class AnimatorSupport : MonoBehaviour
     //공격 대기 초기화
     public void AttackClear()
     {
-        creature.isAttack = false;
+        //creature.isAttack = false;
         creature.nav.isStopped = false;
     }
 

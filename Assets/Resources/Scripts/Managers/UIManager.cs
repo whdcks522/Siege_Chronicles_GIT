@@ -152,12 +152,11 @@ public class UIManager : MonoBehaviour
     #endregion
 
 
-    //버튼으로 카메라 조작
+    #region 버튼으로 카메라 각도 조작
     public void CameraSpin(int _spin) => addRot = _spin;
+    Quaternion cameraRotation;
     void CameraControl()//카메라 조작에 따른 화면 갱신
     {
-        Debug.Log("카메라 조작 중");
-
         //사이드 화살표 버튼 누르면 카메라 회전
         curRot += addRot * 2;
 
@@ -165,18 +164,19 @@ public class UIManager : MonoBehaviour
         cameraVec = mul * new Vector3(Mathf.Sin(Mathf.PI * curRot / 360), 0, Mathf.Cos(Mathf.PI * curRot / 360));
         cameraObj.position = cameraCloud.position + cameraVec;
 
-        //카메라가 향하도록 관리
+        //벡터가 카메라가 향하도록 관리
         cameraObj.LookAt((blueTower.position + redTower.position) / 2f);
 
         // 물체 A에서 B를 바라보는 회전 구하기
         cameraVec = cameraGround.transform.position - cameraObj.transform.position;
         cameraRotation = Quaternion.LookRotation(cameraVec);
 
-        //타워 캔퍼스에 회전 적용
+        //타워 UI에 회전 적용
         blueTowerManager.miniCanvas.transform.rotation = cameraRotation;
         gameManager.redTowerManager.miniCanvas.transform.rotation = cameraRotation;
     }
-    Quaternion cameraRotation;
+    #endregion
+
 
     private void LateUpdate()
     {

@@ -81,9 +81,10 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   objectManager: {fileID: 0}
   gameLevel: 2
-  yUp: 0
+  yUp: 2
   zUp: 0
-  useBullet: {fileID: 0}
+  useBullet: {fileID: 6062838611093796543, guid: 5308231b6d0b88c41b3e1a030fe38a25,
+    type: 3}
   isStop: 0
   goalVec: {x: 0, y: 0, z: 0}
   maxRange: 4
