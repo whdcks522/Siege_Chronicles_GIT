@@ -275,6 +275,9 @@ public class TowerManager : MonoBehaviour
         //실제로 사격 했는지 여부
         bool isShot = false;
 
+        //레이더가 적 타워를 쳐다봄
+        RadarControl(enemyTower.transform.position);
+
         //적 크리쳐 위치 파악
         for (int i = 0; i < enemyCreatureFolder.childCount; i++)
         {
@@ -307,8 +310,6 @@ public class TowerManager : MonoBehaviour
         }
         if(isShot)//사격 대상이 있는 경우, 타워의 레이더가 마지막 대상을 바라봄
             RadarControl(enemyVec);
-        else if (!isShot)//대상이 없는 경우, 타워의 레이더가 적 타워를 바라봄
-            RadarControl(enemyTower.transform.position);
     }
     #endregion
 
@@ -328,7 +329,7 @@ public class TowerManager : MonoBehaviour
         //이동
         bullet.transform.position = UiManager.cameraCloud.position;
         //가속
-        bullet_rigid.velocity = (UiManager.clickPoint.position - bullet.transform.position).normalized * bullet_bullet.bulletSpeed;
+        bullet_rigid.velocity = (UiManager.clickSphere.position - bullet.transform.position).normalized * bullet_bullet.bulletSpeed;
 
         //활성화
         bullet_bullet.BulletOn(curTeamEnum);
@@ -348,7 +349,7 @@ public class TowerManager : MonoBehaviour
         bullet_bullet.Init();
 
         //이동
-        bullet.transform.position = UiManager.clickPoint.position;
+        bullet.transform.position = UiManager.clickSphere.position;
         //활성화
         bullet_bullet.BulletOn(curTeamEnum);
     }
@@ -360,6 +361,16 @@ public class TowerManager : MonoBehaviour
         //시체폭발 적용 효과음
         audioManager.PlaySfx(AudioManager.Sfx.CorpseExplosionAdaptSfx);
 
+        //타워의 레이더가 적 타워를 바라봄
+        RadarControl(enemyTower.transform.position);
+
+        GameObject bomb = objectManager.CreateObj("Tower_CorpseExplosion", ObjectManager.PoolTypes.BulletPool);
+        Bullet bomb_bullet = bomb.GetComponent<Bullet>();
+        //시체 폭발의 이동
+        bomb.transform.position = bulletStartPoint.position + bulletStartPoint.transform.forward * 3;
+        //시체 폭발의 팀 설정
+        bomb_bullet.BulletOn(curTeamEnum);
+
         foreach (Transform obj in ourCreatureFolder)
         {
             if (obj.gameObject.layer == LayerMask.NameToLayer("Creature"))
@@ -368,10 +379,7 @@ public class TowerManager : MonoBehaviour
                 Creature creature = obj.gameObject.GetComponent<Creature>();
                 creature.CorpseExplosionObj.SetActive(true);
             }
-        }
-
-        //타워의 레이더가 적 타워를 바라봄
-        RadarControl(enemyTower.transform.position);
+        }      
     }
     #endregion
 }

@@ -419,7 +419,6 @@ public class Creature : MonoBehaviour
     }
     #endregion
 
-
     #region 적들과의 거리 계산
     [Header("공격 가능한 최대 거리")]
     public float maxRange;

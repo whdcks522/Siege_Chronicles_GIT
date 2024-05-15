@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -200,7 +201,7 @@ public class UIManager : MonoBehaviour
         }
 
         //포커스됐으면 스킬 범위 이동
-        if (clickPoint.gameObject.activeSelf)
+        if (clickSphere.gameObject.activeSelf)
             ShowWeaponArea();
 
         //은행 버튼 활성화 관리, 은행이 최고 수준이 아니면서 상호작용 가능할 때
@@ -323,10 +324,12 @@ public class UIManager : MonoBehaviour
 
     public void FocusOn()//맵이 까매지며 주술 영역이 보임(포커스 실행)
     {
+        Debug.Log("FocusOn");
+
         if (curSpellData != null)
         {
             //무기 영역 활성화
-            clickPoint.gameObject.SetActive(true);
+            clickSphere.gameObject.SetActive(true);
             //빛 비활성화
             worldLight.SetActive(false);
             //시간 감속
@@ -335,18 +338,18 @@ public class UIManager : MonoBehaviour
     }
     public void FocusOff(bool isEffect) //자원 반환 여부(포커스 해제)
     {
-        //Debug.Log("FocusOff");
+        Debug.Log("FocusOff: " + isEffect);
 
         //-1: 자원 반환, 0: 영역만 비활성화, 1: 주술() 사용 
         if (curSpellData != null && isEffect) 
         {
-            if (!clickPoint.gameObject.activeSelf) 
+            if (!clickSphere.gameObject.activeSelf) 
             {
                 //자원 반환
                 blueTowerManager.curTowerResource += curSpellData.spellValue;
                 curSpellData = null;
             }
-            else if (clickPoint.gameObject.activeSelf) 
+            else if (clickSphere.gameObject.activeSelf) 
             {
                 //주술(스킬) 사용
                 blueTowerManager.WeaponSort(curSpellData.spellPrefab.name);
@@ -354,7 +357,7 @@ public class UIManager : MonoBehaviour
             }
         }
         //무기 영역 비활성화
-        clickPoint.gameObject.SetActive(false);
+        clickSphere.gameObject.SetActive(false);
         //빛 활성화
         worldLight.SetActive(true);
         //시간 정상화
@@ -366,8 +369,7 @@ public class UIManager : MonoBehaviour
 
     #region 주술(스킬) 영역 표시;
 
-    [Header("클릭 포커스 관련 요소들")]
-    public Transform clickPoint;//클릭한 곳
+    [Header("포커스 관련 요소들")]
     public Transform clickSphere;//클릭한 곳의 원형 영역
     public Material clickMat;//클릭한 곳의 원형 영역의 매터리얼 
 
@@ -380,10 +382,10 @@ public class UIManager : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask, QueryTriggerInteraction.Ignore))
             // 트리거는 무시한다
-            clickPoint.position = hit.point;
+            clickSphere.position = hit.point;
 
         //타워 레이더 조작
-        blueTowerManager.RadarControl(clickPoint.position);
+        blueTowerManager.RadarControl(clickSphere.position);
     }
     #endregion
 }

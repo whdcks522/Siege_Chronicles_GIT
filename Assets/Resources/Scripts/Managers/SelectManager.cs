@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using static SpellData;
+using Unity.VisualScripting;
 
 public class SelectManager : MonoBehaviour
 {
@@ -89,7 +90,7 @@ public class SelectManager : MonoBehaviour
                 //오브젝트 풀링을 위해 미리 생성
                 if (spellBtnArr[i].spellData.spellType == SpellType.Creature)//생명체의 경우
                 {
-                    //if(!gameManager.isEnemySpawn)
+                    if(!gameManager.isEnemySpawn)
                     SpawnCreature(spellBtnArr[i].spellData.spellPrefab.name);
                 }
                 else if (spellBtnArr[i].spellData.spellType == SpellType.Weapon)//무기의 경우
@@ -103,8 +104,7 @@ public class SelectManager : MonoBehaviour
             }
         }
 
-        /*
-        if (gameManager.isEnemySpawn) 
+        if (gameManager.isEnemySpawn)//적도 소환하느 상태라면
         {
             for (int i = 0; i < gameManager.creatureSpellDataArr.Length; i++)
             {
@@ -114,7 +114,6 @@ public class SelectManager : MonoBehaviour
                 }
             }
         }
-        */
         
         //전투 환경 초기화
         gameManager.RetryGame();
@@ -137,13 +136,7 @@ public class SelectManager : MonoBehaviour
             //활동 전에 설정
             creature.BeforeRevive(Creature.TeamEnum.Blue, gameManager);//블루로 안하면 갈 곳 없다고 오류남
 
-            /*
-            SuperAgent superAgent = obj.GetComponent<SuperAgent>();
-            if (superAgent.useBullet != null)
-            {
-                SpawnWeapon(superAgent.useBullet.name);
-            }
-            */
+            SpawnWeapon(creature.useBullet.name);
         }
     }
     #endregion
@@ -152,19 +145,24 @@ public class SelectManager : MonoBehaviour
     void SpawnWeapon(string _str)//str 주술을 spawnCreatureCount개씩 소환
     {
         int mul = 2;
+        //사격은 적군 전체
+        if (_str == gameManager.Gun.name)mul = 2 * gameManager.maxCreatureCount;
+        //시체 폭발은 아군 전체에 적용
+        else if (_str == gameManager.CorpseExplosion.name) mul = gameManager.maxCreatureCount;
+        //개구리는 3발씩 쏨
+        else if (_str == gameManager.creatureSpellDataArr[1].spellPrefab.GetComponent<Creature>().useBullet.name) mul = 6;
 
-        if (_str == gameManager.Gun.name)//사격은 총알 오브젝트를 추가로 생성
-            mul *= gameManager.maxCreatureCount;
-        else if (_str == gameManager.CorpseExplosion.name)//시체폭발은 게임 오브젝트를 추가로 생성
-            mul = gameManager.maxCreatureCount;
 
-        for (int j = 0; j < mul; j++)
+        for (int i = 0; i < mul; i++)
         {
             GameObject obj = objectManager.CreateObj(_str, ObjectManager.PoolTypes.BulletPool);
             Bullet bullet = obj.GetComponent<Bullet>();
 
-            if (bullet.endBullet != null)//자식 총알도 생성
-                objectManager.CreateObj(bullet.endBullet.name, ObjectManager.PoolTypes.BulletPool);
+            if (bullet.endBullet != null) //자식 총알도 생성
+            {
+                for (int j = 0; j < 2; j++)
+                    objectManager.CreateObj(bullet.endBullet.name, ObjectManager.PoolTypes.BulletPool);
+            }
         }
     }
     #endregion
