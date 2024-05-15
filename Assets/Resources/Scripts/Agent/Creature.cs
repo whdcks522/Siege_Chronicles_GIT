@@ -25,9 +25,7 @@ public class Creature : MonoBehaviour
     public float isCoinSteal;
 
 
-    [Header("텍스쳐")]//천천히 보이는 용
-    public Texture baseTexture;
-    public SkinnedMeshRenderer skinnedMeshRenderer;//쉐이더에 쓰일 스킨 렌더러
+    
 
     [Header("우리 타워")]
     public Transform ourTower;
@@ -47,25 +45,20 @@ public class Creature : MonoBehaviour
     public Image miniHealth;//크리쳐의 체력 게이지
     public GameObject CorpseExplosionObj;//시체폭발이 활성화돼 있는지 나타내는 아이콘
 
-    
-    public enum TeamEnum {Blue, Red, Gray}//속하는 팀
-    [Header("속하는 팀")]
+    [Header("매니저")]
+    public GameManager gameManager;
+    public ObjectManager objectManager;
+    AudioManager audioManager;
+    UIManager UIManager;
+    public enum TeamEnum { Blue, Red, Gray }//속하는 팀
+    [Header("그 외")]
     public TeamEnum curTeamEnum;
-
-
     public Rigidbody rigid;//물리법칙
     public Animator anim;//애니메이션
     public NavMeshAgent nav;//맵 이동하는 네비게이션
 
     Transform cameraGround;//카메라가 관찰하는 땅의 지점
     Transform mainCamera;//메인 카메라 객체(체력바가 그 곳을 바라 보도록)
-    
-
-    [Header("매니저")]
-    public GameManager gameManager;
-    public ObjectManager objectManager;
-    AudioManager audioManager;
-    UIManager UIManager;
 
     private void Awake()
     {
@@ -193,7 +186,8 @@ public class Creature : MonoBehaviour
     [Header("크리쳐 별 투사체 정보")]
     public Transform bulletStartPoint;//총알이 시작되는 곳
     public int yUp;//투사체 y축 소환 위치
-    public int zUp;//투사체 z축 소환 위치
+    public int zUp;//투사체 z축 소환 위치, 투사체가 쪼개지는 정도로도 사용됨
+    float split = 22.5f;
     public GameObject useBullet;//사용하는 투사체
     public Vector3 targetVec;//목표 방향 벡터(원거리 공격용으로도 사용)
 
@@ -216,21 +210,33 @@ public class Creature : MonoBehaviour
         }
         else //원거리 형인 경우
         {
-            GameObject tracer = objectManager.CreateObj(useBullet.name, ObjectManager.PoolTypes.BulletPool);
-            Bullet tracer_bullet = tracer.GetComponent<Bullet>();
-            Rigidbody tracer_rigid = tracer.GetComponent<Rigidbody>();
+            for (int x = yUp; x <= zUp; x++)
+            {
+                // 투사체 생성
+                GameObject tracer = objectManager.CreateObj(useBullet.name, ObjectManager.PoolTypes.BulletPool);
+                Bullet tracer_bullet = tracer.GetComponent<Bullet>();
+                Rigidbody tracer_rigid = tracer.GetComponent<Rigidbody>();
 
-            tracer_bullet.gameManager = gameManager;
-            tracer_bullet.Init();
+                // 초기화
+                tracer_bullet.gameManager = gameManager;
+                tracer_bullet.Init();
 
-            //이동
-            tracer.transform.position = bulletStartPoint.position;
-            //가속
-            targetVec = (curTarget.transform.position - transform.position).normalized;
-            tracer_rigid.velocity = targetVec * tracer_bullet.bulletSpeed;
+                // 투사체 시작 위치 설정
+                tracer.transform.position = bulletStartPoint.position;
 
-            //활성화
-            tracer_bullet.BulletOnByCreature(this);
+                // 투사체 방향 설정
+                targetVec = (curTarget.transform.position - transform.position).normalized;
+
+                // 각도를 변환하여 새로운 방향 벡터 계산
+                cameraRotation = Quaternion.Euler(0, x * split, 0);
+                targetVec = cameraRotation * targetVec;
+
+                // 투사체 속도 설정
+                tracer_rigid.velocity = targetVec * tracer_bullet.bulletSpeed;
+
+                // 투사체 활성화
+                tracer_bullet.BulletOnByCreature(this);
+            }
         }
     }
     #endregion
@@ -296,13 +302,13 @@ public class Creature : MonoBehaviour
 
         // 물체 A에서 B를 바라보는 회전 구하기
         cameraVec = mainCamera.transform.position - cameraGround.transform.position;
-        lookRotation = Quaternion.LookRotation(cameraVec);
+        cameraRotation = Quaternion.LookRotation(cameraVec);
         // 물체 C에 회전 적용
-        miniCanvas.transform.rotation = lookRotation;
+        miniCanvas.transform.rotation = cameraRotation;
     }
     //카메라 회전값
     Vector3 cameraVec;
-    Quaternion lookRotation;
+    Quaternion cameraRotation;
     #endregion
 
     private void OnTriggerEnter(Collider other)//무언가와 충돌했을 시
@@ -446,6 +452,10 @@ public class Creature : MonoBehaviour
     #endregion
 
     #region 왜곡장 
+
+    [Header("텍스쳐")]//천천히 보이는 용
+    public Texture baseTexture;
+    public SkinnedMeshRenderer skinnedMeshRenderer;//쉐이더에 쓰일 스킨 렌더러
     public void InvisibleWarp() // 점차 안보이게 되는 것
     {
         StopCoroutine(Dissolve(false));
