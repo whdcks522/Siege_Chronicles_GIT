@@ -200,6 +200,8 @@ public class Creature : MonoBehaviour
         //체력 UI 관리
         miniCanvas.SetActive(true);
         miniHealth.fillAmount = 1;
+
+        //시체 폭발 비활성화
         CorpseExplosionObj.SetActive(false);
 
         if (curTeamEnum == TeamEnum.Blue)
@@ -247,9 +249,12 @@ public class Creature : MonoBehaviour
     #region 물리 동작
     int slashCount = 0;
     public bool isStop = false;
+    int count = 0;
     //공격 사거리 확인
     private void FixedUpdate()//Update: 매 프레임
     {
+        Debug.Log(count++);
+
         isStop = nav.isStopped;
         rigid.velocity = Vector3.zero;
         rigid.angularVelocity = Vector3.zero;
@@ -258,8 +263,6 @@ public class Creature : MonoBehaviour
         {
             if (!curTarget.gameObject.activeSelf)//대상이 비활성화된 상태라면
             {
-                //Debug.LogError("이동 시작");
-
                 //대상 탐색
                 RangeFirstRangeCalc();
 

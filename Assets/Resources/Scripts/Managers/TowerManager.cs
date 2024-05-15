@@ -27,24 +27,18 @@ public class TowerManager : MonoBehaviour
     public GameObject miniCanvas;
     public Image miniHealth;
 
-    
-
 
     [Header("매니저")]
     public GameManager gameManager;
     ObjectManager objectManager;
     UIManager UiManager;
     AudioManager audioManager;
-    
-    Transform cameraGround;
-    Transform mainCamera;
+
     private void Awake()
     {
         objectManager = gameManager.objectManager;
         UiManager = gameManager.uiManager;
         audioManager = gameManager.audioManager;
-        mainCamera = UiManager.cameraObj;
-        cameraGround = UiManager.cameraGround;
 
         if (curTeamEnum == TeamEnum.Blue)
         {
@@ -63,10 +57,6 @@ public class TowerManager : MonoBehaviour
             enemyCreatureFolder = gameManager.objectManager.blueCreatureFolder;
         }
     }
-
-    //카메라 회전값
-    Vector3 cameraVec;
-    Quaternion lookRotation;
 
     [Header("상대팀이 들어있는 폴더(스펠_시체폭발용)")]
     public Transform ourCreatureFolder;
@@ -94,17 +84,6 @@ public class TowerManager : MonoBehaviour
                 //현재 자원량이 최대치를 넘지 않도록
                 curTowerResource = maxTowerResource;
             }
-
-            /*
-
-             // 물체 A에서 B를 바라보는 회전 구하기
-             cameraVec = cameraGround.transform.position - mainCamera.transform.position;
-             lookRotation = Quaternion.LookRotation(cameraVec);
-
-             // 캔퍼스에 회전 적용
-             miniCanvas.transform.rotation = lookRotation;
-
-             */
 
             if (curTeamEnum == TeamEnum.Red) //빨강 팀 타워에서
             {
