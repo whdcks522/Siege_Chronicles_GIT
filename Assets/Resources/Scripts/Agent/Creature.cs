@@ -257,6 +257,7 @@ public class Creature : MonoBehaviour
             //이동
             tracer.transform.position = bulletStartPoint.position;
             //가속
+            goalVec = (curTarget.transform.position - transform.position).normalized;
             tracer_rigid.velocity = goalVec * tracer_bullet.bulletSpeed;
 
             //활성화
@@ -272,8 +273,8 @@ public class Creature : MonoBehaviour
     private void FixedUpdate()//Update: 매 프레임
     {
         //가속 초기화
-        //rigid.velocity = Vector3.zero;
-        //rigid.angularVelocity = Vector3.zero;
+        rigid.velocity = Vector3.zero;
+        rigid.angularVelocity = Vector3.zero;
 
         if (gameObject.layer == LayerMask.NameToLayer("Creature") && !nav.isStopped)//크리쳐 레이어면서 달리고 있는 경우
         {
@@ -296,11 +297,22 @@ public class Creature : MonoBehaviour
                 nav.isStopped = true;
                 nav.velocity = Vector3.zero;
 
+                //애니메이션 중지
                 anim.SetBool("isRun", false);
 
-                slashCount = (slashCount + 1) % 2;
-                if (slashCount == 0) anim.SetTrigger("isAttackLeft");
-                else if (slashCount == 1) anim.SetTrigger("isAttackRight");
+                //대상을 바라 보도록
+                transform.LookAt(curTarget);
+
+                if (bulletStartPoint == null)//근접형인 경우
+                {
+                    slashCount = (slashCount + 1) % 2;
+                    if (slashCount == 0) anim.SetTrigger("isAttackLeft");
+                    else if (slashCount == 1) anim.SetTrigger("isAttackRight");
+                }
+                else //원거리 형인 경우
+                {
+                    anim.SetTrigger("isGun");
+                }
             }
         }
 
