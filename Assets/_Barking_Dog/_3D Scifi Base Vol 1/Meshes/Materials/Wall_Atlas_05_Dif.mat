@@ -15,8 +15,6 @@ Material:
   - _EMISSION
   - _ENVIRONMENTREFLECTIONS_OFF
   - _METALLICSPECGLOSSMAP
-  - _NORMALMAP
-  - _OCCLUSIONMAP
   - _SPECULARHIGHLIGHTS_OFF
   m_InvalidKeywords:
   - _GLOSSYREFLECTIONS_OFF
@@ -37,7 +35,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 49b09b2fab3584294959e5867f0b6343, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -65,7 +63,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: b6764907fe96c40b6a69e505b3f0a0ae, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
