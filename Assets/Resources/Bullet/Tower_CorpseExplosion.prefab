@@ -4915,7 +4915,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4662970547559674
 Transform:
   m_ObjectHideFlags: 0
@@ -14747,14 +14747,12 @@ MonoBehaviour:
   bulletDamage: 50
   bulletSpeed: 0
   bulletCollider: {fileID: 3370677431377966174}
-  bulletHost: {fileID: 0}
   curTeamEnum: 2
   curBulletMoveEnum: 0
   curBulletEffectEnum: 0
   endBullet: {fileID: 0}
   gameManager: {fileID: 0}
   objectManager: {fileID: 0}
-  isCreature: 0
 --- !u!54 &-8194879935526105818
 Rigidbody:
   m_ObjectHideFlags: 0
