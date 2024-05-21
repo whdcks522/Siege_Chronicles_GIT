@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AnimatorSupport : MonoBehaviour
 {
     Creature creature;
-
     private void Awake()
     {
         creature = transform.parent.GetComponent<Creature>();
@@ -24,14 +24,16 @@ public class AnimatorSupport : MonoBehaviour
         creature.CompletelyDead();
     }
 
-    //에이전트별 액션 1(각자 다형성 적용해서 커스텀), 
+    //에이전트별 액션 1
     public void AgentAction_1() => creature.AgentAction_1();
 
 
     public GameManager gameManager;
     public void MovetoSelect()//SelectManager 활성화 애니메이션 용(StartGame에 의해 호출)
     {
-        transform.parent.gameObject.SetActive(false);
+        //시작 창 삭제
+        //transform.parent.gameObject.SetActive(false);
+        Destroy(transform.parent.gameObject);
 
         //선택 창 열기
         gameManager.uiManager.selectManager.gameObject.SetActive(true);

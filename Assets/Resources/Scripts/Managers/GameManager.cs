@@ -70,7 +70,8 @@ public class GameManager : MonoBehaviour
 
         //UI 초기화
         uiManager.resetUI();
-        //설정 화면의 초기화
+
+        //설정 화면의 글자 초기화
         uiManager.startBtn.SetActive(true);
         uiManager.victoryTitle.SetActive(false);
         uiManager.defeatTitle.SetActive(false);
@@ -79,7 +80,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
 
-    public void ResetGame()     //게임을 '처음으로'
+    public void ResetGame()//게임을 '처음으로'
     {
         //시간 배속을 1로
         Time.timeScale = 1;
@@ -89,7 +90,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void QuitGame()     //게임을 '종료하기'
+    public void QuitGame()//게임을 '종료하기'
     {
         Application.Quit();
     }

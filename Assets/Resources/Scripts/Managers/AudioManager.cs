@@ -12,14 +12,14 @@ public class AudioManager : MonoBehaviour
         //배경음 플레이어 초기화
         GameObject bgmObject = new GameObject("BgmPlayer");
         bgmObject.transform.parent = transform;
-        bgmPlayer = bgmObject.AddComponent<AudioSource>();//bgmPlayer에 저장하면서 동시에 컴포넌트 삽입
+        bgmPlayer = bgmObject.AddComponent<AudioSource>();//bgmPlayer 변수로 컴포넌트 생성하면서 동시에 저장
         bgmPlayer.playOnAwake = false;
         bgmPlayer.loop = true;
 
         //효과음 플레이어 초기화
         GameObject sfxObject = new GameObject("SfxPlayers");
         sfxObject.transform.parent = transform;
-        sfxPlayers = new AudioSource[channels];//Audio Source 배열 초기화
+        sfxPlayers = new AudioSource[channels];
         for (int index = 0; index < channels; index++)
         {
             sfxPlayers[index] = sfxObject.AddComponent<AudioSource>();
@@ -28,14 +28,17 @@ public class AudioManager : MonoBehaviour
     }
     #endregion
 
+
+
+    #region BGM 재생
+
     //Bgm 플레이어
     AudioSource bgmPlayer;
     public enum Bgm { Start, Select, Battle }
     [Header("멀티 Bgm")]
     public AudioClip[] BgmClips;
 
-    #region BGM 재생
-    public void PlayBgm(Bgm _bgm)//스태틱 BGM 재생
+    public void PlayBgm(Bgm _bgm)//BGM 재생
     {
         bgmPlayer.Stop();
         switch (_bgm)

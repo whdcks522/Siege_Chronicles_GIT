@@ -90,7 +90,6 @@ public class SelectManager : MonoBehaviour
                 //오브젝트 풀링을 위해 미리 생성
                 if (spellBtnArr[i].spellData.spellType == SpellType.Creature)//생명체의 경우
                 {
-                    if(!gameManager.isEnemySpawn)
                     SpawnCreature(spellBtnArr[i].spellData.spellPrefab.name);
                 }
                 else if (spellBtnArr[i].spellData.spellType == SpellType.Weapon)//무기의 경우
@@ -104,25 +103,23 @@ public class SelectManager : MonoBehaviour
             }
         }
 
-        if (gameManager.isEnemySpawn)//적도 소환하느 상태라면
+        if (gameManager.isEnemySpawn)//적도 소환하는 상태면, 추가로 소환
         {
             for (int i = 0; i < gameManager.creatureSpellDataArr.Length; i++)
             {
-                for (int j = 0; j < 2; j++)
-                {
-                    SpawnCreature(gameManager.creatureSpellDataArr[i].spellPrefab.name);
-                }
+                SpawnCreature(gameManager.creatureSpellDataArr[i].spellPrefab.name);
             }
         }
         
         //전투 환경 초기화
         gameManager.RetryGame();
 
-        // UI 비활성화
-        gameObject.SetActive(false);
-
         // 게임 레벨 설정
         gameManager.gameLevel = (int)levelSlider.value;
+
+        // UI 비활성화
+        //gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 
     #region 크리쳐 소환

@@ -12,13 +12,14 @@ public class StartManager : MonoBehaviour
 
     [Header("매니저")]
     public GameManager gameManager;
-    UIManager UiManager;
     AudioManager audioManager;
 
     void Awake() 
     {
-        UiManager = gameManager.uiManager;
         audioManager = gameManager.audioManager;
+
+        //시작 화면 배경 음악 재생
+        audioManager.PlayBgm(AudioManager.Bgm.Start);
     }
     
     public void StartGame()//시작 버튼 누름
@@ -59,9 +60,6 @@ public class StartManager : MonoBehaviour
 
     public void PanelActivateControl(bool isActivate) //패널 활성, 비활성 관리
     {
-        //패널 활성 비활성
-        //tipPanel.SetActive(isActivate);
-
         tipAnim.SetBool("isPanel", isActivate);
 
         if (isActivate) //패널을 여는 경우

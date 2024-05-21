@@ -241,7 +241,7 @@ public class Creature : MonoBehaviour
     int slashCount = 0;
 
     //공격 사거리 확인
-    private void FixedUpdate()//Update: 매 프레임
+    private void Update()//Update: 매 프레임
     {
         //가속 초기화
         rigid.velocity = Vector3.zero;
