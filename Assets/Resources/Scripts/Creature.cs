@@ -156,6 +156,7 @@ public class Creature : MonoBehaviour
         //체력 UI 관리
         miniCanvas.SetActive(true);
         miniHealth.fillAmount = 1;
+        CanvasSpin();
 
         //시체 폭발 비활성화
         CorpseExplosionObj.SetActive(false);
@@ -296,16 +297,22 @@ public class Creature : MonoBehaviour
             ourTowerManager.curTowerResource += isCoinSteal * Time.deltaTime;
         }
 
+        CanvasSpin();
+    }
+    //카메라 회전값
+    Vector3 cameraVec;
+    Quaternion cameraRotation;
+
+    void CanvasSpin()//캔버스 회전
+    {
         // 물체 A에서 B를 바라보는 회전 구하기
         cameraVec = mainCamera.transform.position - cameraGround.transform.position;
         cameraRotation = Quaternion.LookRotation(cameraVec);
         // 물체 C에 회전 적용
         miniCanvas.transform.rotation = cameraRotation;
     }
-    //카메라 회전값
-    Vector3 cameraVec;
-    Quaternion cameraRotation;
     #endregion
+
 
     private void OnTriggerEnter(Collider other)//무언가와 충돌했을 시
     {

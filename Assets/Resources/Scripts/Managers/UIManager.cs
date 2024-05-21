@@ -17,16 +17,13 @@ public class UIManager : MonoBehaviour
 
     Transform blueTower;//파란 성의 생성 지점
     TowerManager blueTowerManager;//파란 성의 스크립트
-
     Transform redTower;//빨간 성의 생성 지점
 
     int mul = 45;//카메라 회전 속도
     int curRot = -160;//현재 카메라 회전값
     int addRot = 0;//버튼으로 회전할 때 사용하는 논리값
-    Vector3 cameraVec;//카메라 회전용 벡터
-
     int fly = 50;//카메라를 하늘에서 띄운 정도
-
+    Vector3 cameraVec;//카메라 회전용 벡터
 
     [Header("전투 UI")]
     public Slider PlayerResourceSlider;//플레이어의 자원 슬라이더
@@ -34,6 +31,10 @@ public class UIManager : MonoBehaviour
 
     //최근에 사용한 스펠의 데이터
     public SpellData curSpellData;
+
+    [Header("크리쳐 제한 텍스트")]
+    public Text creatureCountText;
+    public Animator creatureCountAnim;//타워 매니저에서 사용
 
     [Header("매니저")]
     public SelectManager selectManager;
@@ -51,7 +52,50 @@ public class UIManager : MonoBehaviour
         cameraGround.transform.position = (blueTower.position + redTower.transform.position) / 2f;
         cameraCloud.transform.position = Vector3.up * fly + cameraGround.position;
 
+        //카메라 초기화
         CameraControl();
+    }
+
+    private void FixedUpdate()
+    {
+        if (addRot != 0)
+        {
+            CameraControl();
+        }
+
+        //자원 게이지 관리
+        PlayerResourceSlider.value = blueTowerManager.curTowerResource / blueTowerManager.maxTowerResource;
+        PlayerResourceText.text = blueTowerManager.curTowerResource.ToString("F1") + "/" + blueTowerManager.maxTowerResource.ToString("F0");
+
+        //스펠 자원 비율 보여주기
+        for (int i = 0; i < spellBtnArr.Length; i++)
+        {
+            if (spellBtnArr[i].spellData != null)
+            {
+                spellBtnArr[i].spellBtnIcon.fillAmount = blueTowerManager.curTowerResource / spellBtnArr[i].spellData.spellValue;
+            }
+        }
+
+        //포커스됐으면 스킬 범위 이동
+        if (clickSphere.gameObject.activeSelf)
+            ShowWeaponArea();
+
+        //은행 버튼 활성화 관리, 은행이 최고 수준이 아니면서 상호작용 가능할 때
+        if (bankBtn.GetComponent<Button>().interactable)
+        {
+            bankBtn.fillAmount = blueTowerManager.curTowerResource / blueTowerManager.BankValueArr[blueTowerManager.curBankIndex];
+            if (bankBtn.fillAmount >= 1 && alreadyBankTouch)
+            {
+                //은행 애니메이션 활성화
+                bankAnim.SetBool("isFlash", true);
+
+                alreadyBankTouch = false;
+            }
+            else if (bankBtn.fillAmount < 1)
+            {
+                alreadyBankTouch = true;
+            }
+        }
     }
 
     #region UI 정보 초기화
@@ -178,51 +222,6 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
-
-    private void Update()
-    {
-        if (addRot != 0) 
-        {
-            CameraControl();
-        }
-
-
-        //자원 게이지 관리
-        PlayerResourceSlider.value = blueTowerManager.curTowerResource / blueTowerManager.maxTowerResource;
-        PlayerResourceText.text = blueTowerManager.curTowerResource.ToString("F1") + "/" + blueTowerManager.maxTowerResource.ToString("F0");
-
-        //스펠 자원 비율 보여주기
-        for (int i = 0; i < spellBtnArr.Length; i++)
-        {
-            if (spellBtnArr[i].spellData != null)
-            {
-                spellBtnArr[i].spellBtnIcon.fillAmount = blueTowerManager.curTowerResource / spellBtnArr[i].spellData.spellValue;
-            }
-        }
-
-        //포커스됐으면 스킬 범위 이동
-        if (clickSphere.gameObject.activeSelf)
-            ShowWeaponArea();
-
-        //은행 버튼 활성화 관리, 은행이 최고 수준이 아니면서 상호작용 가능할 때
-        if (bankBtn.GetComponent<Button>().interactable)
-        {
-            bankBtn.fillAmount = blueTowerManager.curTowerResource / blueTowerManager.BankValueArr[blueTowerManager.curBankIndex];
-            if (bankBtn.fillAmount >= 1 && alreadyBankTouch)
-            {
-                bankAnim.SetBool("isFlash", true);
-
-                alreadyBankTouch = false;
-            }
-            else if (bankBtn.fillAmount < 1)
-            {
-                alreadyBankTouch = true;
-            }
-        }
-    }
-    [Header("크리쳐 제한 텍스트")]
-    public Text creatureCountText;
-    public Animator creatureCountAnim;
 
     #region 전투 씬에서 스펠 버튼 클릭
 

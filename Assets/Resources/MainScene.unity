@@ -17865,7 +17865,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &500256251
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18053,7 +18053,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3ebd0f211bb9a24397ab3a130055e9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BgmClips: []
+  BgmClips:
+  - {fileID: 8300000, guid: f8d925af7c131a44a98f1cb0f5945381, type: 3}
+  - {fileID: 8300000, guid: 221d74728777ec744816161bad755f60, type: 3}
+  - {fileID: 8300000, guid: 2ffd810886073204eb67edd7d743ffb2, type: 3}
   channels: 12
   towerCrashSfxClips:
   - {fileID: 8300000, guid: f2a4c0bbdb8d8c84c828aba1aaaacfbc, type: 3}
@@ -35336,6 +35339,8 @@ MonoBehaviour:
   PlayerResourceSlider: {fileID: 1464887350}
   PlayerResourceText: {fileID: 1268639294}
   curSpellData: {fileID: 0}
+  creatureCountText: {fileID: 1510113340}
+  creatureCountAnim: {fileID: 1510113342}
   selectManager: {fileID: 1058270317}
   gameManager: {fileID: 7248791031402223488}
   SpeedControlText: {fileID: 1498888531}
@@ -35343,8 +35348,6 @@ MonoBehaviour:
   bankBtn: {fileID: 1730817738}
   bankText: {fileID: 4162017}
   bankAnim: {fileID: 4162019}
-  creatureCountText: {fileID: 1510113340}
-  creatureCountAnim: {fileID: 1510113342}
   spellBtnArr:
   - {fileID: 2048095872}
   - {fileID: 2038808836}
@@ -86895,6 +86898,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEnemySpawn: 0
+  isBgm: 0
   blueTower: {fileID: 906948767657399331}
   blueTowerManager: {fileID: 9162468977372320499}
   redTower: {fileID: 5406972465946045322}

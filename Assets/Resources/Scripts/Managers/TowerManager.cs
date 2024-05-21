@@ -54,6 +54,8 @@ public class TowerManager : MonoBehaviour
             ourCreatureFolder = gameManager.objectManager.redCreatureFolder;
             enemyCreatureFolder = gameManager.objectManager.blueCreatureFolder;
         }
+
+        StartCoroutine(UpdateCoroutine());
     }
 
     [Header("상대팀이 들어있는 폴더(스펠_시체폭발용)")]
@@ -62,59 +64,66 @@ public class TowerManager : MonoBehaviour
     public Transform enemyCreatureFolder;
 
     [Header("타워의 자원 정보")]
-    public float curTowerResource = 0f;     //플레이어의 현재 자원
-    public float maxTowerResource = 10f;    //플레이어의 최대 자원
+    public float curTowerResource = 0f;     //현재 자원
+    public float maxTowerResource = 10f;    //최대 자원
 
     [Header("적 타워가 앞으로 사용할 스펠 데이터")]
     public SpellData futureSpellData;
 
-    private void FixedUpdate()//Update는 매초마다 수행
+    WaitForSeconds waitSec = new WaitForSeconds(0.1f);
+    IEnumerator UpdateCoroutine()
     {
-        if (UiManager.selectManager.index_Battle == 1) 
+        while (true)
         {
-            if (maxTowerResource > curTowerResource)
+            if (UiManager.selectManager.index_Battle == 1)
             {
-                //스펠 사용을 위한 자원 증가
-                curTowerResource += Time.deltaTime * BankSpeedArr[curBankIndex];
-            }
-            else if (maxTowerResource <= curTowerResource)
-            {
-                //현재 자원량이 최대치를 넘지 않도록
-                curTowerResource = maxTowerResource;
-            }
-
-            if (curTeamEnum == TeamEnum.Red) //빨강 팀 타워에서
-            {
-                if (futureSpellData != null)//소환할 것이 정해졌다면
+                if (maxTowerResource > curTowerResource)
                 {
-                    if (curTowerResource >= futureSpellData.spellValue && CreatureCountCheck())//자원이 충분하면서 자신의 크리쳐 소환 여부가 충분할 때
+                    //스펠 사용을 위한 자원 증가
+                    curTowerResource += Time.deltaTime * BankSpeedArr[curBankIndex];
+                }
+                else if (maxTowerResource <= curTowerResource)
+                {
+                    //현재 자원량이 최대치를 넘지 않도록
+                    curTowerResource = maxTowerResource;
+                }
+
+                if (curTeamEnum == TeamEnum.Red) //빨강 팀 타워에서
+                {
+                    if (futureSpellData != null)//소환할 것이 정해졌다면
                     {
-                        //크리쳐 소환
-                        if (gameManager.isEnemySpawn) 
+                        if (curTowerResource >= futureSpellData.spellValue && CreatureCountCheck())//자원이 충분하면서 자신의 크리쳐 소환 여부가 충분할 때
                         {
-                            SpawnCreature(futureSpellData.spellPrefab.name);
+                            //크리쳐 소환
+                            if (gameManager.isEnemySpawn)
+                            {
+                                SpawnCreature(futureSpellData.spellPrefab.name);
 
-                            //스펠 효과음
-                            audioManager.PlaySfx(AudioManager.Sfx.SpellSuccessSfx);
+                                //스펠 효과음
+                                audioManager.PlaySfx(AudioManager.Sfx.SpellSuccessSfx);
+                            }
+                            //비용 처리
+                            curTowerResource -= futureSpellData.spellValue;
+
+                            //다른 것을 소환하기 위해 초기화
+                            futureSpellData = null;
+
                         }
-                        //비용 처리
-                        curTowerResource -= futureSpellData.spellValue;
-
-                        //다른 것을 소환하기 위해 초기화
-                        futureSpellData = null;
-
+                    }
+                    else if (futureSpellData == null)//소환할 것이 정해지지 않았다면
+                    {
+                        //어떤 크리쳐를 소환할 지 무작위로 정함
+                        int r = 0;
+                        //Random.Range(0, gameManager.creatureSpellDataArr.Length);
+                        futureSpellData = gameManager.creatureSpellDataArr[r];
                     }
                 }
-                else if (futureSpellData == null)//소환할 것이 정해지지 않았다면
-                {
-                    //어떤 크리쳐를 소환할 지 무작위로 정함
-                    int r = 0;
-                        //Random.Range(0, gameManager.creatureSpellDataArr.Length);
-                    futureSpellData = gameManager.creatureSpellDataArr[r];
-                }
             }
+
+            yield return waitSec;
         }
     }
+
 
     #region 타워 요소 초기화;
 

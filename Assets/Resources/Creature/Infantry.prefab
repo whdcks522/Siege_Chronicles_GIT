@@ -51,46 +51,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   curHealth: 0
-  bulletStartPoint: {fileID: 0}
-  runSpd: 6
   isShield: 0
   isCoinSteal: 0
-  isAttack: 0
-  baseTexture: {fileID: 2800000, guid: 0673901d7bb3e1a408ffd1754ad3e8cd, type: 3}
-  skinnedMeshRenderer: {fileID: 4136840119831701257}
   ourTower: {fileID: 0}
   ourTowerManager: {fileID: 0}
   ourCreatureFolder: {fileID: 0}
+  creatureStartPoint: {fileID: 0}
   grayCreatureFolder: {fileID: 0}
   enemyTower: {fileID: 0}
   enemyTowerManager: {fileID: 0}
   enemyCreatureFolder: {fileID: 0}
-  startPoint: {fileID: 0}
   miniCanvas: {fileID: 1735232647855550576}
   miniHealth: {fileID: 8454607891872545176}
   CorpseExplosionObj: {fileID: 4476290687064816798}
-  curTeamEnum: 0
-  teamIndex: -1
-  curCreatureMoveEnum: 0
-  curCreatureSpinEnum: 1
-  rigid: {fileID: 0}
-  anim: {fileID: 7388106785048407052}
-  agent: {fileID: 0}
-  behaviorParameters: {fileID: 0}
-  nav: {fileID: 4839752533066981145}
   gameManager: {fileID: 0}
   objectManager: {fileID: 0}
+  curTeamEnum: 0
+  rigid: {fileID: 0}
+  anim: {fileID: 7388106785048407052}
+  nav: {fileID: 4839752533066981145}
   gameLevel: 2
+  bulletStartPoint: {fileID: 0}
   yUp: 1
   zUp: 3
   useBullet: {fileID: 3536692737643162957, guid: 372d9605c09874c40b09c0105492664c,
     type: 3}
-  targetRadius: 10
-  targetRange: 6
-  goalVec: {x: 0, y: 0, z: 0}
+  targetVec: {x: 0, y: 0, z: 0}
   maxRange: 4
   curRange: 0
   curTarget: {fileID: 0}
+  baseTexture: {fileID: 2800000, guid: 0673901d7bb3e1a408ffd1754ad3e8cd, type: 3}
+  skinnedMeshRenderer: {fileID: 4136840119831701257}
 --- !u!136 &6939640703433112824
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -152,7 +143,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 12
-  m_Acceleration: 12
+  m_Acceleration: 120
   avoidancePriority: 50
   m_AngularSpeed: 480
   m_StoppingDistance: 0
