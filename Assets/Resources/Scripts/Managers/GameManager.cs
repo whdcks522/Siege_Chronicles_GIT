@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
     [Header("적이 크리쳐를 소환할 것인지")]
     public bool isEnemySpawn;
 
+    [Header("Bmg 여부")]
+    public bool isBgm;
+
     [Header("블루팀 성")]
     public Transform blueTower;
     public TowerManager blueTowerManager;
@@ -75,7 +78,6 @@ public class GameManager : MonoBehaviour
         uiManager.startBtn.SetActive(true);
         uiManager.victoryTitle.SetActive(false);
         uiManager.defeatTitle.SetActive(false);
-
     }
     #endregion
 
@@ -88,7 +90,6 @@ public class GameManager : MonoBehaviour
         //화면을 처음 화면으로
         SceneManager.LoadScene(0);
     }
-
 
     public void QuitGame()//게임을 '종료하기'
     {

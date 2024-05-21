@@ -41,20 +41,24 @@ public class AudioManager : MonoBehaviour
     public void PlayBgm(Bgm _bgm)//BGM Àç»ý
     {
         bgmPlayer.Stop();
-        switch (_bgm)
+
+        if (gameManager.isBgm) 
         {
-            case Bgm.Start:
-                bgmPlayer.clip = BgmClips[0];
-                //bgmPlayer.volume = 0.5f;
-                break;
-            case Bgm.Select:
-                bgmPlayer.clip = BgmClips[1];
-                break;
-            case Bgm.Battle:
-                bgmPlayer.clip = BgmClips[2];
-                break;
-        }
-        bgmPlayer.Play();
+            switch (_bgm)
+            {
+                case Bgm.Start:
+                    bgmPlayer.clip = BgmClips[0];
+                    //bgmPlayer.volume = 0.5f;
+                    break;
+                case Bgm.Select:
+                    bgmPlayer.clip = BgmClips[1];
+                    break;
+                case Bgm.Battle:
+                    bgmPlayer.clip = BgmClips[2];
+                    break;
+            }
+            bgmPlayer.Play();
+        } 
     }
     #endregion
 

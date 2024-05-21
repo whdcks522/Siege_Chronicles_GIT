@@ -14,14 +14,14 @@ public class StartManager : MonoBehaviour
     public GameManager gameManager;
     AudioManager audioManager;
 
-    void Awake() 
+    private void Start()
     {
         audioManager = gameManager.audioManager;
 
         //시작 화면 배경 음악 재생
         audioManager.PlayBgm(AudioManager.Bgm.Start);
     }
-    
+
     public void StartGame()//시작 버튼 누름
     {
         startAnim.SetBool("isStart", false);

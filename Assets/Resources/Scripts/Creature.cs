@@ -508,7 +508,7 @@ public class Creature : MonoBehaviour
             //대상 탐색
             RangeFirstRangeCalc();
             //목표지로 설정
-            nav.SetDestination(curTarget.transform.position);
+            nav.SetDestination(curTarget.transform.position);           
 
             //달리기 애니메이션
             anim.SetBool("isRun", true);
