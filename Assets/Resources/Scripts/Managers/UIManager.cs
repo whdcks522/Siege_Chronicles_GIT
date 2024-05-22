@@ -56,7 +56,7 @@ public class UIManager : MonoBehaviour
         CameraControl();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (addRot != 0)
         {
