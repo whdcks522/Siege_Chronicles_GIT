@@ -30,3 +30,15 @@ IEnumerator UpdateCoroutine()
         }
     } 
 }
+
+유니티 신버전 lightMap
+https://chulin28ho.tistory.com/446
+해상도 낮추고 40->5
+빛 압축 여부(최고 -> 안함)
+direction Mode를 none으로 수정
+
+https://darkcatgame.tistory.com/91
+라이트맵의 PC와 모바일 차이
+
+https://gall.dcinside.com/mgallery/board/view/?id=gamejob&no=18114
+코테 c++하자
