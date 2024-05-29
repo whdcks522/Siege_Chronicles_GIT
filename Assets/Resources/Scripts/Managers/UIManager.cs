@@ -238,21 +238,28 @@ public class UIManager : MonoBehaviour
 
         if (blueTowerManager.curTowerResource >= value && curSpellData == null)//비용이 충분하면서 포커스 중이 아니라면
         {
-            //스펠 성공 효과음
-            audioManager.PlaySfx(AudioManager.Sfx.SpellSuccessSfx);
-
             if (spellData.spellType == SpellData.SpellType.Creature)//크리쳐를 누른 경우
             {
-                if (blueTowerManager.CreatureCountCheck()) 
+                if (blueTowerManager.CreatureCountCheck())
                 {
                     //비용 감소
                     blueTowerManager.curTowerResource -= value;
                     //해당 크리쳐 소환
                     blueTowerManager.SpawnCreature(spellData.spellPrefab.name);
-                }    
+                    //스펠 성공 효과음
+                    audioManager.PlaySfx(AudioManager.Sfx.SpellSuccessSfx);
+                }
+                else 
+                {
+                    //스펠 실패 효과음
+                    audioManager.PlaySfx(AudioManager.Sfx.SpellFailSfx);
+                }
             }
             else if(spellData.spellType == SpellData.SpellType.Weapon)//주술을 누른 경우
             {
+                //스펠 성공 효과음
+                audioManager.PlaySfx(AudioManager.Sfx.SpellSuccessSfx);
+
                 //비용 감소
                 blueTowerManager.curTowerResource -= value;
 
@@ -319,7 +326,10 @@ public class UIManager : MonoBehaviour
 
     #region 포커스 상태 전환
     [Header("월드의 빛")]
-    public GameObject worldLight;
+    public Light worldLight;
+    public Color brightColor;//맵이 밝혀져 있을 때의 빛 색깔
+    public Color paleColor;//맵이 꺼져 있을 때의 빛 색깔
+
 
     public void FocusOn()//맵이 까매지며 주술 영역이 보임(포커스 실행)
     {
@@ -330,7 +340,7 @@ public class UIManager : MonoBehaviour
             //무기 영역 활성화
             clickSphere.gameObject.SetActive(true);
             //빛 비활성화
-            worldLight.SetActive(false);
+            worldLight.color = paleColor;
             //시간 감속
             Time.timeScale = 0.2f;
         }
@@ -358,7 +368,7 @@ public class UIManager : MonoBehaviour
         //무기 영역 비활성화
         clickSphere.gameObject.SetActive(false);
         //빛 활성화
-        worldLight.SetActive(true);
+        worldLight.color = brightColor;
         //시간 정상화
         SpeedControl(false);
         SpeedControl(false);
