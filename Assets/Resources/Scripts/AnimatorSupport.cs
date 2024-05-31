@@ -32,7 +32,6 @@ public class AnimatorSupport : MonoBehaviour
     public void MovetoSelect()//SelectManager 활성화 애니메이션 용(StartGame에 의해 호출)
     {
         //시작 창 삭제
-        //transform.parent.gameObject.SetActive(false);
         Destroy(transform.parent.gameObject);
 
         //선택 창 열기
@@ -53,7 +52,6 @@ public class AnimatorSupport : MonoBehaviour
     Animator anim;
     public void FlashSupport()//전투 화면에서 텍스트 흔들리는 용
     {
-        Debug.Log(1);
         anim.SetBool("isFlash", false);
     }
 }

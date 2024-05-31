@@ -94,12 +94,20 @@ public class SpellButton : MonoBehaviour
     #endregion
 
     #region 스펠 버튼 클릭
+    public Animator spellAnim;
     public void OnClick()
     {
+        if (curSpellBtnEnum != SpellBtnEnum.BattleBtn)
+        {
+            spellAnim.SetBool("isFlash", true);
+        }
+
+
         if ((curSpellBtnEnum == SpellBtnEnum.LeftBtn || curSpellBtnEnum == SpellBtnEnum.SelectBtn) && spellData != null) 
         {
-            //스펠 버튼 아이콘 바꾸기
             selectManager.selectedSpellBtn.spellData = spellData;
+
+            //스펠 버튼 아이콘 바꾸기
             IconChange(selectManager.selectedSpellBtn);
 
             //스펠 이름 바꾸기
@@ -180,6 +188,7 @@ public class SpellButton : MonoBehaviour
             {
                 //스펠 버튼 클릭 성공 효과음 출력
                 audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
+                Debug.Log("선택 버튼");
             }
         }
     }
