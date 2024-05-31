@@ -40,6 +40,7 @@ public class SpellButton : MonoBehaviour
         if (spellData != null)//스펠 데이터가 있으면
         {
             IconChange(this);
+            
         }
 
         if (spellData == null && curSpellBtnEnum == SpellBtnEnum.LeftBtn)//스펠 데이터가 없으면서 리스트인 경우 버튼 비활성화 
@@ -94,14 +95,12 @@ public class SpellButton : MonoBehaviour
     #endregion
 
     #region 스펠 버튼 클릭
-    public Animator spellAnim;
     public void OnClick()
     {
         if (curSpellBtnEnum != SpellBtnEnum.BattleBtn)
         {
-            spellAnim.SetBool("isFlash", true);
+            spellBtnValue.GetComponent<Animator>().SetBool("isFlash", true);
         }
-
 
         if ((curSpellBtnEnum == SpellBtnEnum.LeftBtn || curSpellBtnEnum == SpellBtnEnum.SelectBtn) && spellData != null) 
         {
@@ -188,7 +187,6 @@ public class SpellButton : MonoBehaviour
             {
                 //스펠 버튼 클릭 성공 효과음 출력
                 audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
-                Debug.Log("선택 버튼");
             }
         }
     }
