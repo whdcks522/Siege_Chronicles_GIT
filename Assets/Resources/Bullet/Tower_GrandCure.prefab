@@ -4920,7 +4920,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxTime: 1
   colTime: 0.3
-  bulletDamage: 100
+  bulletDamage: 20
   bulletSpeed: 0
   bulletCollider: {fileID: 3572672339154147202, guid: 074ae60ffaf275f4ab376cd2afc45514,
     type: 3}

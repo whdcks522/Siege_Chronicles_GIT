@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fee1e6a78de7644493b111244b33748, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 75
+  maxHealth: 30
   curHealth: 0
   isShield: 0
   isCoinSteal: 0

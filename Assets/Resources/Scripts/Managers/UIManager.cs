@@ -56,6 +56,8 @@ public class UIManager : MonoBehaviour
         CameraControl();
     }
 
+    public Animator[] spellBtnAnim;//스펠 버튼 비용 애니메이션
+    public bool[] spellBtnAnimBool;//스펠 버튼 비용 애니메이션 허가
     private void Update()
     {
         if (addRot != 0)
@@ -73,6 +75,14 @@ public class UIManager : MonoBehaviour
             if (spellBtnArr[i].spellData != null)
             {
                 spellBtnArr[i].spellBtnIcon.fillAmount = blueTowerManager.curTowerResource / spellBtnArr[i].spellData.spellValue;
+                if (spellBtnArr[i].spellBtnIcon.fillAmount >= 1) //충분한 경우
+                {
+                
+                }
+                else 
+                {
+                
+                }
             }
         }
 
@@ -231,6 +241,9 @@ public class UIManager : MonoBehaviour
 
     public void OnClick(int _index) //전투 화면에서 밑의 4개의 버튼 중 1개를 클릭함
     {
+        //애니메이션 작동
+        spellBtnAnim[_index].SetBool("isFlash", true);
+
         //클릭한 버튼의 스펠 정보
         SpellData spellData = spellBtnArr[_index].GetComponent<SpellButton>().spellData;
         //해당 스펠의 사용 비용
@@ -244,8 +257,10 @@ public class UIManager : MonoBehaviour
                 {
                     //비용 감소
                     blueTowerManager.curTowerResource -= value;
+
                     //해당 크리쳐 소환
                     blueTowerManager.SpawnCreature(spellData.spellPrefab.name);
+
                     //스펠 성공 효과음
                     audioManager.PlaySfx(AudioManager.Sfx.SpellSuccessSfx);
                 }

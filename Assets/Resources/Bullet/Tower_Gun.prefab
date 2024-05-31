@@ -4915,16 +4915,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxTime: 2
   colTime: 0
-  bulletDamage: 50
+  bulletDamage: 20
   bulletSpeed: 150
   bulletCollider: {fileID: 2092177949064547283}
-  bulletHost: {fileID: 0}
   curTeamEnum: 2
   curBulletMoveEnum: 1
+  curBulletEffectEnum: 0
   endBullet: {fileID: 4273727487683586, guid: bb9e1744467137d40ae5e083b622de4b, type: 3}
   gameManager: {fileID: 0}
   objectManager: {fileID: 0}
-  isCreature: 0
 --- !u!54 &54175853139288072
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -14536,17 +14536,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxTime: 1
   colTime: 0
-  bulletDamage: 2
+  bulletDamage: 8
   bulletSpeed: 15
   bulletCollider: {fileID: 135288747172905598}
-  bulletHost: {fileID: 0}
   curTeamEnum: 2
   curBulletMoveEnum: 1
   curBulletEffectEnum: 0
   endBullet: {fileID: 4722009792010264, guid: fac179a8a0e874a4b88abd34a2ea215a, type: 3}
   gameManager: {fileID: 0}
   objectManager: {fileID: 0}
-  isCreature: 1
 --- !u!199 &199241998596188280
 ParticleSystemRenderer:
   serializedVersion: 6
