@@ -56,6 +56,7 @@ public class UIManager : MonoBehaviour
         CameraControl();
     }
 
+    [Header("스펠 버튼 비용 애니메이션")]
     public Animator[] spellBtnAnim;//스펠 버튼 비용 애니메이션
     public bool[] spellBtnAnimBool;//스펠 버튼 비용 애니메이션 허가
     private void Update()
@@ -74,14 +75,18 @@ public class UIManager : MonoBehaviour
         {
             if (spellBtnArr[i].spellData != null)
             {
+                //스펠 버튼 비율 채우기
                 spellBtnArr[i].spellBtnIcon.fillAmount = blueTowerManager.curTowerResource / spellBtnArr[i].spellData.spellValue;
-                if (spellBtnArr[i].spellBtnIcon.fillAmount >= 1) //충분한 경우
+
+                if (spellBtnArr[i].spellBtnIcon.fillAmount >= 1 && spellBtnAnimBool[i]) //꽉 찬 경우
                 {
-                
+                    //스펠 버튼 애니메이션 작동
+                    spellBtnAnim[i].SetBool("isFlash", true);
+                    spellBtnAnimBool[i] = false;
                 }
-                else 
+                else if (spellBtnArr[i].spellBtnIcon.fillAmount < 1)//부족할 때
                 {
-                
+                    spellBtnAnimBool[i] = true;
                 }
             }
         }
@@ -94,6 +99,7 @@ public class UIManager : MonoBehaviour
         if (bankBtn.GetComponent<Button>().interactable)
         {
             bankBtn.fillAmount = blueTowerManager.curTowerResource / blueTowerManager.BankValueArr[blueTowerManager.curBankIndex];
+
             if (bankBtn.fillAmount >= 1 && alreadyBankTouch)
             {
                 //은행 애니메이션 활성화
@@ -129,6 +135,14 @@ public class UIManager : MonoBehaviour
         }
         SpeedAnim.SetBool("isFlash", true);
 
+        //스펠 버튼 애니메이션 수행
+        for (int i = 0; i < 4; i++) 
+        {
+            //스펠 버튼 애니메이션 작동
+            spellBtnAnim[i].SetBool("isFlash", true);
+            spellBtnAnimBool[i] = false;
+        }
+
         //카메라 회전 초기화
         curRot = -160;
         CameraControl();
@@ -136,6 +150,7 @@ public class UIManager : MonoBehaviour
     #endregion
 
     #region 배속 조정
+    [Header("배속 텍스트와 애니메이션")]
     int speed = 0;
     public Text SpeedControlText;
     public Animator SpeedAnim;

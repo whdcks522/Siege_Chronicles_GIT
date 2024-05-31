@@ -53,6 +53,7 @@ public class AnimatorSupport : MonoBehaviour
     Animator anim;
     public void FlashSupport()//전투 화면에서 텍스트 흔들리는 용
     {
+        Debug.Log(1);
         anim.SetBool("isFlash", false);
     }
 }

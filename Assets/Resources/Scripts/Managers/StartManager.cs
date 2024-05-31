@@ -76,10 +76,16 @@ public class StartManager : MonoBehaviour
 
     //현재 페이지 인덱스
     int curPageindex = 0;
+    [Header("팁 패널의 텍스트 애니메이션")]
+    public Animator pageAnim;
     public void PanelPageControl(int pageIndex) //패널 페이지 컨트롤
     {
         //종이 넘기는 효과음
         audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
+
+        //페이지 텍스트 애니메이션
+        pageAnim.SetBool("isFlash", true);
+
 
         //0이면 초기 화면, -1이면 왼쪽, +1이면 오른쪽
         if (pageIndex == 0) //0으로 초기화
