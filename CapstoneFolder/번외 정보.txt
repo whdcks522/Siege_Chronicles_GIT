@@ -1,4 +1,6 @@
+지휘관
 데미지 폰트
+아이폰
 밸런스
 가이드
 ----------------------------------------------------------------------------------------------------------------
@@ -42,3 +44,14 @@ https://darkcatgame.tistory.com/91
 
 https://gall.dcinside.com/mgallery/board/view/?id=gamejob&no=18114
 코테 c++하자
+
+private void OnApplicationPause(bool pause)
+    {
+        if ((pause == true)&&!isCreating)
+        {
+            //시간 비활성화
+            Time.timeScale = 0;
+            //그레이 아웃 활성화
+            grayout.SetActive(true);
+        }
+    }
