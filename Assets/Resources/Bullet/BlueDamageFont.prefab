@@ -4916,7 +4916,7 @@ GameObject:
   - component: {fileID: 73642442965841364}
   - component: {fileID: 5665720735710339204}
   m_Layer: 0
-  m_Name: DamageText
+  m_Name: BlueDamageFont
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using static Creature;
@@ -194,6 +196,7 @@ public class TowerManager : MonoBehaviour
 
             if (bullet.curTeamEnum != curTeamEnum && bullet.byCreature)//팀이 다를 경우면서 크리쳐에 의한 공격만 피해 처리
             {
+
                 //피해 관리
                 DamageControl(bullet);
 
@@ -219,7 +222,23 @@ public class TowerManager : MonoBehaviour
         {
             damage /= gameManager.gameLevel;
         }
+
+        //폰트 작성
+        string path = "Bullet/" + "BlueDamageFont";
+
+        // 물체 A에서 B를 바라보는 회전 구하기
+        Vector3 cameraVec = UiManager.cameraGround.transform.position - UiManager.cameraObj.transform.position;
+        Quaternion cameraRotation = Quaternion.LookRotation(cameraVec);
+
+        //타워 UI에 회전 적용
+        //blueTowerManager.miniCanvas.transform.rotation = cameraRotation;
+
+        GameObject font = Instantiate(Resources.Load<GameObject>(path), transform.position, cameraRotation);
+
+        font.name = "123";
+        font.gameObject.SetActive(true);
         
+
         curHealth -= damage;
 
         //타워 체력바 관리
