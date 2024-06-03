@@ -14543,6 +14543,7 @@ MonoBehaviour:
   curBulletMoveEnum: 1
   curBulletEffectEnum: 0
   endBullet: {fileID: 4722009792010264, guid: fac179a8a0e874a4b88abd34a2ea215a, type: 3}
+  byCreature: 1
   gameManager: {fileID: 0}
   objectManager: {fileID: 0}
 --- !u!199 &199241998596188280

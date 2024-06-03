@@ -38,6 +38,9 @@ public class Bullet : MonoBehaviour
     [Header("사라질 때, 생성되는 총알")]
     public Transform endBullet;
 
+    [Header("크리쳐가 사용하는 총알인지")]
+    public bool byCreature;
+
     [Header("매니저들")]
     public GameManager gameManager;
     public ObjectManager objectManager;

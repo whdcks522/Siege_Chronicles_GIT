@@ -192,7 +192,7 @@ public class TowerManager : MonoBehaviour
         {
             Bullet bullet = other.gameObject.GetComponent<Bullet>();
 
-            if (bullet.curTeamEnum != curTeamEnum)//팀이 다를 경우만 피해 처리
+            if (bullet.curTeamEnum != curTeamEnum && bullet.byCreature)//팀이 다를 경우면서 크리쳐에 의한 공격만 피해 처리
             {
                 //피해 관리
                 DamageControl(bullet);
@@ -211,6 +211,15 @@ public class TowerManager : MonoBehaviour
     {
         //피해량 확인
         float damage = bullet.bulletDamage;
+        if (curTeamEnum == TeamEnum.Blue)
+        {
+            damage /= 2;
+        }
+        else if (curTeamEnum == TeamEnum.Red)//gameLevel이 클수록 안아픔
+        {
+            damage /= gameManager.gameLevel;
+        }
+        
         curHealth -= damage;
 
         //타워 체력바 관리

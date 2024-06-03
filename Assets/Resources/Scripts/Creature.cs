@@ -207,7 +207,7 @@ public class Creature : MonoBehaviour
         }
         else //원거리 형인 경우
         {
-            for (int x = yUp; x <= zUp; x++)
+            for (int x = yUp; x <= zUp; x++)//3발씩 발사하는 크리쳐를 위함
             {
                 // 투사체 생성
                 GameObject tracer = objectManager.CreateObj(useBullet.name, ObjectManager.PoolTypes.BulletPool);
@@ -319,7 +319,7 @@ public class Creature : MonoBehaviour
             {
                 if (bullet.curTeamEnum != curTeamEnum)//팀이 다를 경우
                 {
-                    //피해량 확인(게임 레벨에 따라 안아프게 맞음)
+                    //피해량 확인(게임 레벨에 따라 안아프게 맞음, 높으면 안아픔)
                     float damage = bullet.bulletDamage / gameLevel;
                     if (damage != 0) 
                     {

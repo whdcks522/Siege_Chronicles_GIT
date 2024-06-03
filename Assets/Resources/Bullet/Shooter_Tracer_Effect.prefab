@@ -4947,6 +4947,7 @@ MonoBehaviour:
   curBulletMoveEnum: 0
   curBulletEffectEnum: 0
   endBullet: {fileID: 0}
+  byCreature: 1
   gameManager: {fileID: 0}
   objectManager: {fileID: 0}
 --- !u!136 &4066962489564113658

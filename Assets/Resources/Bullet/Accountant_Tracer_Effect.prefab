@@ -9846,14 +9846,13 @@ MonoBehaviour:
   bulletDamage: 0
   bulletSpeed: 0
   bulletCollider: {fileID: 646460651858223642}
-  bulletHost: {fileID: 0}
   curTeamEnum: 2
   curBulletMoveEnum: 0
   curBulletEffectEnum: 0
   endBullet: {fileID: 0}
+  byCreature: 1
   gameManager: {fileID: 0}
   objectManager: {fileID: 0}
-  isCreature: 1
 --- !u!136 &646460651858223642
 CapsuleCollider:
   m_ObjectHideFlags: 0
