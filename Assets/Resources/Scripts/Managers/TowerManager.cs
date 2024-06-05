@@ -233,11 +233,11 @@ public class TowerManager : MonoBehaviour
         //타워 UI에 회전 적용
         //blueTowerManager.miniCanvas.transform.rotation = cameraRotation;
 
-        GameObject font = Instantiate(Resources.Load<GameObject>(path), transform.position, cameraRotation);
+        GameObject font = Instantiate(Resources.Load<GameObject>(path), transform.position, Quaternion.identity);
+        DamageFont damageFont = font.GetComponent<DamageFont>();
+        damageFont.ReName("123");
+        //font.transform.rotation = cameraRotation;
 
-        font.name = "123";
-        font.gameObject.SetActive(true);
-        
 
         curHealth -= damage;
 

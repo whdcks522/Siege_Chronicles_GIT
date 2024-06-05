@@ -39637,6 +39637,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1730817734}
   m_CullTransparentMesh: 1
+--- !u!1 &1751552923
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1751552924}
+  m_Layer: 0
+  m_Name: DamageFontFolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1751552924
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1751552923}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8527242529500083416}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1766156668
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52406,6 +52437,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletFolder: {fileID: 3606122270644577879}
+  damageFontFolder: {fileID: 0}
   grayCreatureFolder: {fileID: 807236703}
   blueCreatureFolder: {fileID: 5810968881405682227}
   redCreatureFolder: {fileID: 8343523512518344668}
@@ -77870,6 +77902,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3606122270644577879}
+  - {fileID: 1751552924}
   - {fileID: 807236703}
   - {fileID: 5810968881405682227}
   - {fileID: 8343523512518344668}

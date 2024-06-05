@@ -7,6 +7,9 @@ public class ObjectManager : MonoBehaviour
     [Header("총알을 저장할 폴더")]
     public Transform bulletFolder;
 
+    [Header("데미지 폰트 저장할 폴더")]
+    public Transform damageFontFolder;
+
     [Header("중립 크리쳐 저장할 폴더")]
     public Transform grayCreatureFolder;
     [Header("블루팀 크리쳐를 저장할 폴더")]
