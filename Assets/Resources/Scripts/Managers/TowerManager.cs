@@ -226,18 +226,9 @@ public class TowerManager : MonoBehaviour
         //폰트 작성
         string path = "Bullet/" + "BlueDamageFont";
 
-        // 물체 A에서 B를 바라보는 회전 구하기
-        Vector3 cameraVec = UiManager.cameraGround.transform.position - UiManager.cameraObj.transform.position;
-        Quaternion cameraRotation = Quaternion.LookRotation(cameraVec);
-
-        //타워 UI에 회전 적용
-        //blueTowerManager.miniCanvas.transform.rotation = cameraRotation;
-
         GameObject font = Instantiate(Resources.Load<GameObject>(path), transform.position, Quaternion.identity);
         DamageFont damageFont = font.GetComponent<DamageFont>();
-        damageFont.ReName("123");
-        //font.transform.rotation = cameraRotation;
-
+        damageFont.ReName("456");
 
         curHealth -= damage;
 

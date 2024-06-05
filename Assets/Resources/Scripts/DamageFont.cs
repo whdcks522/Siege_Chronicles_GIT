@@ -1,3 +1,4 @@
+using CartoonFX;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,27 +10,22 @@ public class DamageFont : MonoBehaviour
     [Header("데미지 폰트의 현재 수명")]
     float curTime;
 
-    public ParticleSystem[] particleSystems = new ParticleSystem[3];
 
 
-    public void ReName(string _name) 
+    public void ReName(string _name) //이름 변경하며, 활성화
     {
         name = _name;
+        curTime = 0;
         gameObject.SetActive(true);
-
-        //Debug.Log("이름 변경"+transform.childCount);
-
-        //particleSystems[0] = transform.GetChild(1).transform.GetComponent<ParticleSystem>();
-        //particleSystems[1] = transform.GetChild(2).transform.GetComponent<ParticleSystem>();
-        //particleSystems[2] = transform.GetChild(3).transform.GetComponent<ParticleSystem>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        curTime += Time.deltaTime;
-        //Debug.Log("상시" + transform.childCount + '/' + curTime);
+        //curTime += Time.deltaTime;
+
+        //if(curTime  maxTime) 
+        {
+            //gameObject.SetActive(false);
+        }
     }
-
-
-
 }

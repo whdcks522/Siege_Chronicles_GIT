@@ -15,6 +15,11 @@ namespace CartoonFX
     [RequireComponent(typeof(ParticleSystem))]
     public class CFXR_ParticleText : MonoBehaviour
     {
+        //-------------!!!!!!!!!!!!!!!!!!!!!! 1) 텍스트 조절
+        public string tmpText = "10";
+        int tmpSize = 1;
+        
+
         [Header("Dynamic")]
         [Tooltip("Allow changing the text at runtime with the 'UpdateText' method. If disabled, this script will be excluded from the build.")]
         public bool isDynamic;
@@ -32,18 +37,18 @@ namespace CartoonFX
         [Header("Delay")]
         [SerializeField] float delay = 0.05f;
         [SerializeField] bool cumulativeDelay = false;
-        [Range(0f, 2f)] [SerializeField] float compensateLifetime = 0;
+        [Range(0f, 2f)][SerializeField] float compensateLifetime = 0;
 
         [Header("Misc")]
         [SerializeField] float lifetimeMultiplier = 1f;
-        [Range(-90f, 90f)] [SerializeField] float rotation = -5f;
+        [Range(-90f, 90f)][SerializeField] float rotation = -5f;
         [SerializeField] float sortingFudgeOffset = 0.1f;
 #pragma warning disable 0649
         [SerializeField] CFXR_ParticleTextFontAsset font;
 #pragma warning restore 0649
 
 #if UNITY_EDITOR
-        [HideInInspector] [SerializeField] bool autoUpdateEditor = true;
+        [HideInInspector][SerializeField] bool autoUpdateEditor = true;
 
         void OnValidate()
         {
@@ -180,14 +185,20 @@ namespace CartoonFX
                     }
                 }
 
-                this.text = newText;
+                this.text = gameObject.name;//this.text = Text;
+                //-----!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 2)윗부분 한 줄만 바꿈
             }
 
             if (newSize != null) this.size = newSize.Value;
-            if (newColor1 != null) this.color1 = newColor1.Value;
+            //if (newColor1 != null) this.color1 = newColor1.Value;     //-----!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 3)자동적으로 color1이 고정되서 주석 처리함
             if (newColor2 != null) this.color2 = newColor2.Value;
             if (newBackgroundColor != null) this.backgroundColor = newBackgroundColor.Value;
             if (newLifetimeMultiplier != null) this.lifetimeMultiplier = newLifetimeMultiplier.Value;
+
+            //-----!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 4)아래부분 한 줄 추가
+            this.size = tmpSize;
+
+
 
             if (text == null || font == null || !font.IsValid())
             {
@@ -247,12 +258,14 @@ namespace CartoonFX
 
             if (charCount > 0)
             {
-                // calculate needed instances
+                
                 int childCount = this.transform.childCount - (isDynamic ? 1 : 0); // first one is the particle source and always deactivated
+
                 if (childCount < charCount)
                 {
                     // instantiate new letter GameObjects if needed
                     GameObject model = isDynamic ? this.transform.GetChild(0).gameObject : null;
+                    
                     for (int i = childCount; i < charCount; i++)
                     {
                         var newLetter = isDynamic ? Instantiate(model, this.transform) : new GameObject();
@@ -261,6 +274,15 @@ namespace CartoonFX
                             newLetter.transform.SetParent(this.transform);
                             newLetter.AddComponent<ParticleSystem>();
                         }
+                        
+                        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 5) 3D에서는 버티컬로 변경(언제나 자동으로 카메라를 쳐다보더라)
+                        ParticleSystem particleSystem = newLetter.gameObject.GetComponent<ParticleSystem>();
+                        ParticleSystemRenderer particleRenderer = particleSystem.GetComponent<ParticleSystemRenderer>();
+                        particleRenderer.renderMode = ParticleSystemRenderMode.VerticalBillboard;
+                        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
 
                         newLetter.transform.localPosition = Vector3.zero;
                         newLetter.transform.localRotation = Quaternion.identity;
@@ -376,7 +398,7 @@ namespace CartoonFX
     {
         CFXR_ParticleText CastTarget
         {
-            get { return (CFXR_ParticleText) this.target; }
+            get { return (CFXR_ParticleText)this.target; }
         }
 
         GUIContent GUIContent_AutoUpdateToggle = new GUIContent("Auto-update", "Automatically regenerate the text when a property is changed.");
