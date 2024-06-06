@@ -299,7 +299,7 @@ public class Creature : MonoBehaviour
     Vector3 cameraVec;
     Quaternion cameraRotation;
 
-    void CanvasSpin()//캔버스 회전
+    void CanvasSpin()//현재 체력 캔버스 회전
     {
         // 물체 A에서 B를 바라보는 회전 구하기
         cameraVec = mainCamera.transform.position - cameraGround.transform.position;
@@ -309,7 +309,7 @@ public class Creature : MonoBehaviour
     }
     #endregion
 
-
+    GameObject damageFont = null;//데미지 폰트용 게임 오브젝트
     private void OnTriggerEnter(Collider other)//무언가와 충돌했을 시
     {
         if (other.gameObject.CompareTag("Bullet"))//폭탄과 충돌했을 때
@@ -326,8 +326,10 @@ public class Creature : MonoBehaviour
                         //크리쳐 피격 효과음
                         audioManager.PlaySfx(AudioManager.Sfx.CreatureHitSfx);
 
-                        if (isShield == 0)//보호막: 공격 무효화
+                        if (isShield == 0)//보호막이 있으면, 공격 무효화
+                        {
                             damageControl(damage, true);
+                        }
 
                         //피격한 총알 후처리
                         if (bullet.curBulletMoveEnum != Bullet.BulletMoveEnum.Slash)
@@ -349,21 +351,40 @@ public class Creature : MonoBehaviour
     #region 피격 처리
     public void damageControl(float _dmg, bool isDamage)
     {
-        if (_dmg != 0) //이펙트용 폭발은 실제 데미지가 0이므로
+        if (isDamage)//공격이면 체력 감소
         {
-            //피해면 체력 감소, 회복이면 체력 증가
-            curHealth = isDamage ? curHealth -= _dmg : curHealth += _dmg;
+            curHealth -= _dmg;
 
-            if (curHealth < 0) curHealth = 0;
-            else if (curHealth > maxHealth) curHealth = maxHealth;
-
-            //UI관리
-            miniHealth.fillAmount = curHealth / maxHealth;
-
-            //충격 초기화
-            if (curHealth <= 0)
-                AlmostDead();
+            //데미지 폰트 출력
+            if (curTeamEnum == TeamEnum.Blue)//파랑 타워가 맞으면 파랑색
+            {
+                damageFont = objectManager.CreateObj("BlueDamageFont", ObjectManager.PoolTypes.DamageFontPool);
+            }
+            else //빨강 타워가 맞으면 빨강색
+            {
+                damageFont = objectManager.CreateObj("RedDamageFont", ObjectManager.PoolTypes.DamageFontPool);
+            }
+            //폰트 위치와 글자 조정
+            damageFont.transform.position = transform.position;
+            damageFont.GetComponent<DamageFont>().ReName(_dmg.ToString());
         }
+        else //회복이면 체력 회복
+        {
+            curHealth += _dmg;
+
+            //체력 회복 폰트 출력
+        }
+
+        //체력 최대치와 최소치 수정
+        if (curHealth < 0) curHealth = 0;
+        else if (curHealth > maxHealth) curHealth = maxHealth;
+
+        //UI관리
+        miniHealth.fillAmount = curHealth / maxHealth;
+
+        //충격 초기화
+        if (curHealth <= 0)
+            AlmostDead();
     }
     #endregion
 

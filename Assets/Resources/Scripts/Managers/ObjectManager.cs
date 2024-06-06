@@ -29,7 +29,7 @@ public class ObjectManager : MonoBehaviour
     List<GameObject>[] bulletPools;
 
     //데미지 폰트 리스트
-    string[] damageFontNames = { "BlueDamageFont", "RedDamageFont"};
+    string[] damageFontNames = { "BlueDamageFont", "RedDamageFont", "PinkDamageFont" };
     //데미지 폰트가 저장될 곳
     List<GameObject>[] damageFontPools;
 

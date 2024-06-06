@@ -210,7 +210,7 @@ public class TowerManager : MonoBehaviour
     }
 
     #region 데미지 계산
-    GameObject damageFont = null;
+    GameObject damageFont = null;//데미지 폰트용 게임 오브젝트
     void DamageControl(Bullet bullet)
     {
         //피해량 확인
