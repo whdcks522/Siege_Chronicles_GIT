@@ -188,17 +188,40 @@ public class TowerManager : MonoBehaviour
     }
     #endregion
 
+    GameObject damageFont = null;//데미지 폰트용 게임 오브젝트
     private void OnTriggerEnter(Collider other)//부딪힘
     {
         if (other.gameObject.CompareTag("Bullet"))//총알과 충돌
         {
             Bullet bullet = other.gameObject.GetComponent<Bullet>();
+            //피해량 확인
+            float damage = bullet.bulletDamage;
 
-            if (bullet.curTeamEnum != curTeamEnum && bullet.byCreature)//팀이 다를 경우면서 크리쳐에 의한 공격만 피해 처리
+            if (bullet.curTeamEnum != curTeamEnum && bullet.byCreature && damage != 0)//팀이 다를 경우면서 크리쳐에 의한 공격만 피해 처리
             {
+                if (curTeamEnum == TeamEnum.Blue)
+                {
+                    damage /= 2;
+                }
+                else if (curTeamEnum == TeamEnum.Red)//gameLevel이 클수록 안아픔
+                {
+                    damage /= gameManager.gameLevel;
+                }
+
+                if (curTeamEnum == TeamEnum.Blue)//파랑 타워가 맞으면 파랑색
+                {
+                    damageFont = objectManager.CreateObj("BlueDamageFont", ObjectManager.PoolTypes.DamageFontPool);
+                }
+                else //빨강 타워가 맞으면 빨강색
+                {
+                    damageFont = objectManager.CreateObj("RedDamageFont", ObjectManager.PoolTypes.DamageFontPool);
+                }
+                //폰트 위치와 글자 조정
+                damageFont.transform.position = other.transform.position;
+                damageFont.GetComponent<DamageFont>().ReName(damage.ToString());
 
                 //피해 관리
-                DamageControl(bullet);
+                DamageControl(damage);
 
                 //피격한 총알 후처리
                 if (bullet.curBulletMoveEnum != Bullet.BulletMoveEnum.Slash)
@@ -210,33 +233,9 @@ public class TowerManager : MonoBehaviour
     }
 
     #region 데미지 계산
-    GameObject damageFont = null;//데미지 폰트용 게임 오브젝트
-    void DamageControl(Bullet bullet)
+    void DamageControl(float damage)
     {
-        //피해량 확인
-        float damage = bullet.bulletDamage;
-        if (curTeamEnum == TeamEnum.Blue)
-        {
-            damage /= 2;
-        }
-        else if (curTeamEnum == TeamEnum.Red)//gameLevel이 클수록 안아픔
-        {
-            damage /= gameManager.gameLevel;
-        }
-
-        if (curTeamEnum == TeamEnum.Blue)//파랑 타워가 맞으면 파랑색
-        {
-            damageFont = objectManager.CreateObj("BlueDamageFont", ObjectManager.PoolTypes.DamageFontPool);
-        }
-        else //빨강 타워가 맞으면 빨강색
-        {
-            damageFont = objectManager.CreateObj("RedDamageFont", ObjectManager.PoolTypes.DamageFontPool);
-        }
-        //폰트 위치와 글자 조정
-        damageFont.transform.position = transform.position;
-        damageFont.GetComponent<DamageFont>().ReName(damage.ToString());
-
-
+        //체력 감소
         curHealth -= damage;
 
         //타워 체력바 관리

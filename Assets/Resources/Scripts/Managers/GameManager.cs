@@ -52,6 +52,12 @@ public class GameManager : MonoBehaviour
         {
             objectManager.bulletFolder.GetChild(i).gameObject.SetActive(false);
         }
+        //데미지 폰트 초기화
+        for (int i = 0; i < objectManager.damageFontFolder.childCount; i++)
+        {
+            objectManager.damageFontFolder.GetChild(i).gameObject.SetActive(false);
+        }
+
         //파랑 크리쳐 초기화
         for (int i = 0; i < objectManager.blueCreatureFolder.childCount; i++)
         {

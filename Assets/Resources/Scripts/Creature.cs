@@ -184,7 +184,7 @@ public class Creature : MonoBehaviour
     public Transform bulletStartPoint;//총알이 시작되는 곳
     public int yUp;//투사체 y축 소환 위치
     public int zUp;//투사체 z축 소환 위치, 투사체가 쪼개지는 정도로도 사용됨
-    float split = 22.5f;
+    float split = 11.25f;
     public GameObject useBullet;//사용하는 투사체
     public Vector3 targetVec;//목표 방향 벡터(원거리 공격용으로도 사용)
 
@@ -290,9 +290,19 @@ public class Creature : MonoBehaviour
 
         if (isShield != 0 && curHealth > 0)//보호막이 있으면 체력이 점차 감소
         {
-            damageControl(maxHealth * 1f/isShield * Time.deltaTime, true);
+            //체력 감소
+            curHealth -= maxHealth * 1f / isShield * Time.deltaTime;
+            //최소 체력보다 낮지 않도록
+            if (curHealth <= 0)
+            {
+                curHealth = 0;
+                AlmostDead();
+            }
+            //UI관리
+            miniHealth.fillAmount = curHealth / maxHealth;
         }
 
+        //캔버스 회전
         CanvasSpin();
     }
     //카메라 회전값
@@ -315,78 +325,72 @@ public class Creature : MonoBehaviour
         if (other.gameObject.CompareTag("Bullet"))//폭탄과 충돌했을 때
         {
             Bullet bullet = other.GetComponent<Bullet>();
-            if (bullet.curBulletEffectEnum == Bullet.BulleEffectEnum.Damage)//피해를 주는 것과 충돌
+            if (bullet.curBulletEffectEnum == Bullet.BulleEffectEnum.Damage && bullet.curTeamEnum != curTeamEnum)//다른 팀의 피해를 주는 것과 충돌
             {
-                if (bullet.curTeamEnum != curTeamEnum)//팀이 다를 경우
+                if (bullet.bulletDamage != 0)
                 {
                     //피해량 확인(게임 레벨에 따라 안아프게 맞음, 높으면 안아픔)
                     float damage = bullet.bulletDamage / gameLevel;
-                    if (damage != 0) 
+                    if (isShield != 0)//보호막이 있으면, 공격 무효화
+                        damage = 0;
+
+                    //크리쳐 피격 효과음
+                    audioManager.PlaySfx(AudioManager.Sfx.CreatureHitSfx);
+
+                    //데미지 폰트 출력
+                    if (curTeamEnum == TeamEnum.Blue)//파랑 타워가 맞으면 파랑색
                     {
-                        //크리쳐 피격 효과음
-                        audioManager.PlaySfx(AudioManager.Sfx.CreatureHitSfx);
+                        damageFont = objectManager.CreateObj("BlueDamageFont", ObjectManager.PoolTypes.DamageFontPool);
+                    }
+                    else //빨강 타워가 맞으면 빨강색
+                    {
+                        damageFont = objectManager.CreateObj("RedDamageFont", ObjectManager.PoolTypes.DamageFontPool);
+                    }
+                    //폰트 위치와 글자 조정
+                    damageFont.transform.position = transform.position;
+                    damageFont.GetComponent<DamageFont>().ReName(damage.ToString());
 
-                        if (isShield == 0)//보호막이 있으면, 공격 무효화
-                        {
-                            damageControl(damage, true);
-                        }
+                    //체력 감소
+                    curHealth -= damage;
+                    //최소 체력보다 낮지 않도록
+                    if (curHealth <= 0) 
+                    {
+                        curHealth = 0;
+                        AlmostDead();
+                    }
+                    //UI관리
+                    miniHealth.fillAmount = curHealth / maxHealth;
+                        
 
-                        //피격한 총알 후처리
-                        if (bullet.curBulletMoveEnum != Bullet.BulletMoveEnum.Slash)
-                        {
-                            //총알 비활성화
-                            bullet.BulletOff();
-                        }
-                    }  
+
+                    //피격한 총알 후처리
+                    if (bullet.curBulletMoveEnum != Bullet.BulletMoveEnum.Slash)
+                    {
+                        //총알 비활성화
+                        bullet.BulletOff();
+                    }
                 }
             }
             else if (bullet.curBulletEffectEnum == Bullet.BulleEffectEnum.Cure && bullet.curTeamEnum == curTeamEnum) //회복하는 것과 같은 팀이 충돌
             {
-                //피해 관리
-                damageControl(bullet.bulletDamage, false);
+                //체력 회복(회복치는 난이도에 따른 조정 없음)
+                curHealth += bullet.bulletDamage;
+
+                damageFont = objectManager.CreateObj("PinkDamageFont", ObjectManager.PoolTypes.DamageFontPool);
+            
+                //폰트 위치와 글자 조정
+                damageFont.transform.position = transform.position;
+                damageFont.GetComponent<DamageFont>().ReName(bullet.bulletDamage.ToString());
+
+                //최대 체력을 넘지 않도록
+                if (curHealth > maxHealth) curHealth = maxHealth;
+
+                //UI관리
+                miniHealth.fillAmount = curHealth / maxHealth;
+
             }
         }
     }
-
-    #region 피격 처리
-    public void damageControl(float _dmg, bool isDamage)
-    {
-        if (isDamage)//공격이면 체력 감소
-        {
-            curHealth -= _dmg;
-
-            //데미지 폰트 출력
-            if (curTeamEnum == TeamEnum.Blue)//파랑 타워가 맞으면 파랑색
-            {
-                damageFont = objectManager.CreateObj("BlueDamageFont", ObjectManager.PoolTypes.DamageFontPool);
-            }
-            else //빨강 타워가 맞으면 빨강색
-            {
-                damageFont = objectManager.CreateObj("RedDamageFont", ObjectManager.PoolTypes.DamageFontPool);
-            }
-            //폰트 위치와 글자 조정
-            damageFont.transform.position = transform.position;
-            damageFont.GetComponent<DamageFont>().ReName(_dmg.ToString());
-        }
-        else //회복이면 체력 회복
-        {
-            curHealth += _dmg;
-
-            //체력 회복 폰트 출력
-        }
-
-        //체력 최대치와 최소치 수정
-        if (curHealth < 0) curHealth = 0;
-        else if (curHealth > maxHealth) curHealth = maxHealth;
-
-        //UI관리
-        miniHealth.fillAmount = curHealth / maxHealth;
-
-        //충격 초기화
-        if (curHealth <= 0)
-            AlmostDead();
-    }
-    #endregion
 
     #region 사망처리
     void AlmostDead()
