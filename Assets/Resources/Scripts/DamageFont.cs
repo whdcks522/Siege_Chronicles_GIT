@@ -20,7 +20,7 @@ public class DamageFont : MonoBehaviour
     {
         curTime += Time.deltaTime;
 
-        if(curTime > maxTime) 
+        if(curTime > maxTime) //시간 지나면 자동적으로 비활성화
         {
             gameObject.SetActive(false);
         }

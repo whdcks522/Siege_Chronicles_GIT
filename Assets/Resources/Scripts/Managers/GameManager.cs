@@ -36,9 +36,6 @@ public class GameManager : MonoBehaviour
     public GameObject GrandCure;//GrandCure 프리펩
     public GameObject CorpseExplosion;//CorpseExplosion 프리펩
 
-    [Header("데미지 폰트 프리펩")]
-    public GameObject blueDamageFont;
-
     [Header("매니저 목록")]
     public ObjectManager objectManager;
     public UIManager uiManager;

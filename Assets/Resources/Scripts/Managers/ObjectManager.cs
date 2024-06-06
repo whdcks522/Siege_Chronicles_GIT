@@ -28,15 +28,15 @@ public class ObjectManager : MonoBehaviour
     //총알 주소가 저장될 곳
     List<GameObject>[] bulletPools;
 
-    //적 리스트
-    string[] damageFontNames = {};
-    //적 주소가 저장될 곳
+    //데미지 폰트 리스트
+    string[] damageFontNames = { "BlueDamageFont", "RedDamageFont"};
+    //데미지 폰트가 저장될 곳
     List<GameObject>[] damageFontPools;
 
 
     public enum PoolTypes
     {
-        CreaturePool, BulletPool
+        CreaturePool, BulletPool, DamageFontPool
     }
 
     private void Awake()
@@ -49,19 +49,20 @@ public class ObjectManager : MonoBehaviour
         //총알 풀 초기화
         bulletPools = new List<GameObject>[bulletNames.Length];
         for (int index = 0; index < bulletNames.Length; index++)//풀 하나하나 초기화
-            bulletPools[index] = new List<GameObject>(); 
+            bulletPools[index] = new List<GameObject>();
+
+        //총알 풀 초기화
+        damageFontPools = new List<GameObject>[damageFontNames.Length];
+        for (int index = 0; index < damageFontNames.Length; index++)//풀 하나하나 초기화
+            damageFontPools[index] = new List<GameObject>();
     }
 
     #region 게임 오브젝트 반환
-    //게임 오브젝트를 담을 임시 객체
-    GameObject tmpGameObject = null;
-    //게임오브젝트 목록
-    string[] tmpNames = null;
-    //게임오브젝트 별 리스트
-    List<GameObject>[] tmpPools;
     
-    //폴더의 경로
-    string path = "";
+    GameObject tmpGameObject = null;//게임 오브젝트를 담을 임시 객체
+    string[] tmpNames = null;//게임오브젝트 목록
+    List<GameObject>[] tmpPools;//게임오브젝트 별 리스트
+    string path = "";//폴더의 경로
 
     public GameObject CreateObj(string _name, PoolTypes poolTypes) //있으면 적 부르고, 없으면 생성
     {
@@ -70,7 +71,7 @@ public class ObjectManager : MonoBehaviour
         tmpNames = null;
         tmpPools = null;
         
-        switch (poolTypes)
+        switch (poolTypes)//-------수정 필요한 부분 1
         {
             case PoolTypes.CreaturePool:
                 tmpPools = creaturePools;
@@ -80,7 +81,11 @@ public class ObjectManager : MonoBehaviour
                 tmpPools = bulletPools;
                 tmpNames = bulletNames;
                 break;
-            
+            case PoolTypes.DamageFontPool:
+                tmpPools = damageFontPools;
+                tmpNames = damageFontNames;
+                break;
+
         }
 
         int index = NametoIndex(tmpNames, _name);//이름을 번호로
@@ -96,7 +101,7 @@ public class ObjectManager : MonoBehaviour
         //없으면 생성
         if (!tmpGameObject)
         {
-            switch (poolTypes)
+            switch (poolTypes)//--------수정 필요한 부분 2
             {
                 case PoolTypes.BulletPool:
                     path = "Bullet/" + tmpNames[index]; // 서브 폴더명을 포함하여 경로 설정
@@ -108,19 +113,27 @@ public class ObjectManager : MonoBehaviour
                     tmpGameObject = Instantiate(Resources.Load<GameObject>(path), Vector3.zero, Quaternion.identity);
                     tmpGameObject.transform.parent = grayCreatureFolder;
                     break;
+                case PoolTypes.DamageFontPool:
+                    path = "DamageFont/" + tmpNames[index]; // 서브 폴더명을 포함하여 경로 설정
+                    tmpGameObject = Instantiate(Resources.Load<GameObject>(path), Vector3.zero, Quaternion.identity);
+                    tmpGameObject.transform.parent = damageFontFolder;
+                    break;
             }
 
             //임시 리스트에 더하기
             tmpPools[index].Add(tmpGameObject);
 
             //동기화
-            switch (poolTypes)
+            switch (poolTypes)//------------------수정 필요한 부분 3
             {
                 case PoolTypes.CreaturePool:
                     creaturePools = tmpPools;
                     break;
                 case PoolTypes.BulletPool:
                     bulletPools = tmpPools;
+                    break;
+                case PoolTypes.DamageFontPool:
+                    damageFontPools = tmpPools;
                     break;
             }
         }

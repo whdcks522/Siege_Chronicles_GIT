@@ -210,6 +210,7 @@ public class TowerManager : MonoBehaviour
     }
 
     #region 데미지 계산
+    GameObject damageFont = null;
     void DamageControl(Bullet bullet)
     {
         //피해량 확인
@@ -223,12 +224,18 @@ public class TowerManager : MonoBehaviour
             damage /= gameManager.gameLevel;
         }
 
-        //폰트 작성
-        string path = "DamageFont/" + "BlueDamageFont";
+        if (curTeamEnum == TeamEnum.Blue)//파랑 타워가 맞으면 파랑색
+        {
+            damageFont = objectManager.CreateObj("BlueDamageFont", ObjectManager.PoolTypes.DamageFontPool);
+        }
+        else //빨강 타워가 맞으면 빨강색
+        {
+            damageFont = objectManager.CreateObj("RedDamageFont", ObjectManager.PoolTypes.DamageFontPool);
+        }
+        //폰트 위치와 글자 조정
+        damageFont.transform.position = transform.position;
+        damageFont.GetComponent<DamageFont>().ReName(damage.ToString());
 
-        GameObject font = Instantiate(Resources.Load<GameObject>(path), transform.position, Quaternion.identity);
-        DamageFont damageFont = font.GetComponent<DamageFont>();
-        damageFont.ReName(damage.ToString());
 
         curHealth -= damage;
 
