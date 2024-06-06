@@ -224,11 +224,11 @@ public class TowerManager : MonoBehaviour
         }
 
         //폰트 작성
-        string path = "Bullet/" + "BlueDamageFont";
+        string path = "DamageFont/" + "BlueDamageFont";
 
         GameObject font = Instantiate(Resources.Load<GameObject>(path), transform.position, Quaternion.identity);
         DamageFont damageFont = font.GetComponent<DamageFont>();
-        damageFont.ReName("456");
+        damageFont.ReName(damage.ToString());
 
         curHealth -= damage;
 

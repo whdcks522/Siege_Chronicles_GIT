@@ -52437,7 +52437,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletFolder: {fileID: 3606122270644577879}
-  damageFontFolder: {fileID: 0}
+  damageFontFolder: {fileID: 1751552924}
   grayCreatureFolder: {fileID: 807236703}
   blueCreatureFolder: {fileID: 5810968881405682227}
   redCreatureFolder: {fileID: 8343523512518344668}

@@ -27,7 +27,12 @@ public class ObjectManager : MonoBehaviour
         "Tower_Gun", "Tower_Gun_Effect", "Tower_Flame", "Tower_Flame_Effect","Tower_GrandCure", "Tower_CorpseExplosion"};
     //총알 주소가 저장될 곳
     List<GameObject>[] bulletPools;
-    
+
+    //적 리스트
+    string[] damageFontNames = {};
+    //적 주소가 저장될 곳
+    List<GameObject>[] damageFontPools;
+
 
     public enum PoolTypes
     {

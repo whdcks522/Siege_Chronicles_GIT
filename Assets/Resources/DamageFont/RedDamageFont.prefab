@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5665720735710286017}
   - component: {fileID: 5665720735710286018}
   m_Layer: 5
-  m_Name: Model
+  m_Name: MODEL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5004,7 +5004,7 @@ GameObject:
   - component: {fileID: 5665720735710339204}
   - component: {fileID: -8270936658184977454}
   m_Layer: 5
-  m_Name: BlueDamageFont
+  m_Name: RedDamageFont
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9973,8 +9973,8 @@ MonoBehaviour:
   size: 1
   letterSpacing: 0.44
   backgroundColor: {r: 0, g: 0, b: 0, a: 1}
-  color1: {r: 0, g: 0.5004747, b: 1, a: 1}
-  color2: {r: 0.020273209, g: 0, b: 1, a: 1}
+  color1: {r: 1, g: 0.25490198, b: 0, a: 1}
+  color2: {r: 1, g: 0.04705883, b: 0, a: 1}
   delay: 0.05
   cumulativeDelay: 1
   compensateLifetime: 0
@@ -10009,9 +10009,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05e620564d9c0ee4dab7ab5ee5ee2032, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTime: 0
-  particleSystems:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  aa: {fileID: 0}
+  maxTime: 1

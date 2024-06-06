@@ -7,10 +7,7 @@ public class DamageFont : MonoBehaviour
 {
     [Header("데미지 폰트의 최대 수명")]
     public float maxTime;
-    [Header("데미지 폰트의 현재 수명")]
-    float curTime;
-
-
+    float curTime;//데미지 폰트의 현재 수명
 
     public void ReName(string _name) //이름 변경하며, 활성화
     {
@@ -21,11 +18,11 @@ public class DamageFont : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //curTime += Time.deltaTime;
+        curTime += Time.deltaTime;
 
-        //if(curTime  maxTime) 
+        if(curTime > maxTime) 
         {
-            //gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 }
