@@ -51,8 +51,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 30
   curHealth: 0
-  isShield: 10
-  isCoinSteal: 0
+  isShield: 6
+  isCoinRevive: 0
   ourTower: {fileID: 0}
   ourTowerManager: {fileID: 0}
   ourCreatureFolder: {fileID: 0}

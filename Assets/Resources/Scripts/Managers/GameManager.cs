@@ -57,7 +57,6 @@ public class GameManager : MonoBehaviour
         {
             objectManager.damageFontFolder.GetChild(i).gameObject.SetActive(false);
         }
-
         //파랑 크리쳐 초기화
         for (int i = 0; i < objectManager.blueCreatureFolder.childCount; i++)
         {
@@ -72,10 +71,6 @@ public class GameManager : MonoBehaviour
         //타워 체력 초기화
         blueTowerManager.ResetTower();
         redTowerManager.ResetTower();
-
-        //크리쳐 소환(테스트용)
-        //redTowerManager.SpawnCreature(Infantry.name);
-        //redTowerManager.SpawnCreature(Shooter.name);
 
         //UI 초기화
         uiManager.resetUI();
