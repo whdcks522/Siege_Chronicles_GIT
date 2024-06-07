@@ -14744,13 +14744,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxTime: 1
   colTime: 0.3
-  bulletDamage: 20
+  bulletDamage: 40
   bulletSpeed: 0
   bulletCollider: {fileID: 3370677431377966174}
   curTeamEnum: 2
   curBulletMoveEnum: 0
   curBulletEffectEnum: 0
   endBullet: {fileID: 0}
+  byCreature: 0
   gameManager: {fileID: 0}
   objectManager: {fileID: 0}
 --- !u!54 &-8194879935526105818

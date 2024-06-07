@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 199520367857297476}
   - component: {fileID: 4447303420032596669}
   - component: {fileID: 54175853139288072}
-  - component: {fileID: 2092177949064547283}
+  - component: {fileID: 2770693917703947088}
   m_Layer: 8
   m_Name: Tower_Gun
   m_TagString: Bullet
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 1795072395756124}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 8, y: 8, z: 8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -4915,13 +4915,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxTime: 2
   colTime: 0
-  bulletDamage: 20
+  bulletDamage: 40
   bulletSpeed: 150
-  bulletCollider: {fileID: 2092177949064547283}
+  bulletCollider: {fileID: 0}
   curTeamEnum: 2
   curBulletMoveEnum: 1
   curBulletEffectEnum: 0
   endBullet: {fileID: 4273727487683586, guid: bb9e1744467137d40ae5e083b622de4b, type: 3}
+  byCreature: 0
   gameManager: {fileID: 0}
   objectManager: {fileID: 0}
 --- !u!54 &54175853139288072
@@ -4951,8 +4952,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!136 &2092177949064547283
-CapsuleCollider:
+--- !u!135 &2770693917703947088
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -4969,8 +4970,6 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.4
-  m_Height: 0.4
-  m_Direction: 1
+  serializedVersion: 3
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}

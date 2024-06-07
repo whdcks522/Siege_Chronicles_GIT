@@ -325,50 +325,46 @@ public class Creature : MonoBehaviour
         if (other.gameObject.CompareTag("Bullet"))//폭탄과 충돌했을 때
         {
             Bullet bullet = other.GetComponent<Bullet>();
-            if (bullet.curBulletEffectEnum == Bullet.BulleEffectEnum.Damage && bullet.curTeamEnum != curTeamEnum)//다른 팀의 피해를 주는 것과 충돌
+            if (bullet.curBulletEffectEnum == Bullet.BulleEffectEnum.Damage && bullet.curTeamEnum != curTeamEnum &&//다른 팀의 피해를 주는 것과 충돌,
+                bullet.bulletDamage != 0 && (bullet.bulletTarget == null || bullet.bulletTarget == gameObject)) //대상이 없거나 자신일 때
             {
-                if (bullet.bulletDamage != 0)
+                //피해량 확인(게임 레벨에 따라 안아프게 맞음, 높으면 안아픔)
+                float damage = bullet.bulletDamage / gameLevel;
+                if (isShield != 0)//보호막이 있으면, 공격 무효화
+                    damage = 0;
+
+                //크리쳐 피격 효과음
+                audioManager.PlaySfx(AudioManager.Sfx.CreatureHitSfx);
+
+                //데미지 폰트 출력
+                if (curTeamEnum == TeamEnum.Blue)//파랑 타워가 맞으면 파랑색
                 {
-                    //피해량 확인(게임 레벨에 따라 안아프게 맞음, 높으면 안아픔)
-                    float damage = bullet.bulletDamage / gameLevel;
-                    if (isShield != 0)//보호막이 있으면, 공격 무효화
-                        damage = 0;
+                    damageFont = objectManager.CreateObj("BlueDamageFont", ObjectManager.PoolTypes.DamageFontPool);
+                }
+                else //빨강 타워가 맞으면 빨강색
+                {
+                    damageFont = objectManager.CreateObj("RedDamageFont", ObjectManager.PoolTypes.DamageFontPool);
+                }
+                //폰트 위치와 글자 조정
+                damageFont.transform.position = transform.position;
+                damageFont.GetComponent<DamageFont>().ReName(damage.ToString());
 
-                    //크리쳐 피격 효과음
-                    audioManager.PlaySfx(AudioManager.Sfx.CreatureHitSfx);
+                //체력 감소
+                curHealth -= damage;
+                //최소 체력보다 낮지 않도록
+                if (curHealth <= 0)
+                {
+                    curHealth = 0;
+                    AlmostDead();
+                }
+                //UI관리
+                miniHealth.fillAmount = curHealth / maxHealth;
 
-                    //데미지 폰트 출력
-                    if (curTeamEnum == TeamEnum.Blue)//파랑 타워가 맞으면 파랑색
-                    {
-                        damageFont = objectManager.CreateObj("BlueDamageFont", ObjectManager.PoolTypes.DamageFontPool);
-                    }
-                    else //빨강 타워가 맞으면 빨강색
-                    {
-                        damageFont = objectManager.CreateObj("RedDamageFont", ObjectManager.PoolTypes.DamageFontPool);
-                    }
-                    //폰트 위치와 글자 조정
-                    damageFont.transform.position = transform.position;
-                    damageFont.GetComponent<DamageFont>().ReName(damage.ToString());
-
-                    //체력 감소
-                    curHealth -= damage;
-                    //최소 체력보다 낮지 않도록
-                    if (curHealth <= 0) 
-                    {
-                        curHealth = 0;
-                        AlmostDead();
-                    }
-                    //UI관리
-                    miniHealth.fillAmount = curHealth / maxHealth;
-                        
-
-
-                    //피격한 총알 후처리
-                    if (bullet.curBulletMoveEnum != Bullet.BulletMoveEnum.Slash)
-                    {
-                        //총알 비활성화
-                        bullet.BulletOff();
-                    }
+                //피격한 총알 후처리
+                if (bullet.curBulletMoveEnum != Bullet.BulletMoveEnum.Slash)
+                {
+                    //총알 비활성화
+                    bullet.BulletOff();
                 }
             }
             else if (bullet.curBulletEffectEnum == Bullet.BulleEffectEnum.Cure && bullet.curTeamEnum == curTeamEnum) //회복하는 것과 같은 팀이 충돌
@@ -400,6 +396,8 @@ public class Creature : MonoBehaviour
 
         //애니메이션 실행
         anim.SetTrigger("isDeath");
+
+        nav.isStopped = true;
 
         //미니 UI 닫기
         miniCanvas.SetActive(false);

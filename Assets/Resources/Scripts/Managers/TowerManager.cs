@@ -293,7 +293,7 @@ public class TowerManager : MonoBehaviour
     Vector3 enemyVec;
     public void WeaponSort(string tmpWeaponName) 
     {
-        if (tmpWeaponName == gameManager.Gun.name) Tower_Gun();
+        if (tmpWeaponName == gameManager.Gun.name) StartCoroutine(Tower_Gun());
         else if (tmpWeaponName == gameManager.Flame.name) Tower_Flame();
         else if (tmpWeaponName == gameManager.GrandCure.name) Tower_GrandCure();
         else if (tmpWeaponName == gameManager.CorpseExplosion.name) Tower_CorpseExplosion();
@@ -301,13 +301,10 @@ public class TowerManager : MonoBehaviour
     #endregion
 
     #region 미니건 난사
-    void Tower_Gun()
+    IEnumerator Tower_Gun() 
     {
         //사격 효과음
         audioManager.PlaySfx(AudioManager.Sfx.GunSfx);
-
-        //실제로 사격 했는지 여부
-        bool isShot = false;
 
         //레이더가 적 타워를 쳐다봄
         RadarControl(enemyTower.transform.position);
@@ -315,12 +312,12 @@ public class TowerManager : MonoBehaviour
         //적 크리쳐 위치 파악
         for (int i = 0; i < enemyCreatureFolder.childCount; i++)
         {
-            if (enemyCreatureFolder.GetChild(i).gameObject.activeSelf && 
-                enemyCreatureFolder.GetChild(i).gameObject.layer == LayerMask.NameToLayer("Creature")) 
+            if (enemyCreatureFolder.GetChild(i).gameObject.activeSelf &&
+                enemyCreatureFolder.GetChild(i).gameObject.layer == LayerMask.NameToLayer("Creature"))//살아있으면서 크리쳐 레이어인 경우만(안그럼 잔상에 쏨)
             {
-                isShot = true;
-
+                //타워가 적을 쳐다보도록
                 enemyVec = enemyCreatureFolder.GetChild(i).transform.position;
+                RadarControl(enemyVec);
 
                 GameObject bullet = objectManager.CreateObj("Tower_Gun", ObjectManager.PoolTypes.BulletPool);
                 Bullet bullet_bullet = bullet.GetComponent<Bullet>();
@@ -330,21 +327,28 @@ public class TowerManager : MonoBehaviour
                 bullet_bullet.Init();
 
 
-                //이동
-                bullet.transform.position = bulletStartPoint.position;
-                //가속
+                //총알 대상으로 설정(여기서만 쓰임)
+                bullet_bullet.bulletTarget = enemyCreatureFolder.GetChild(i).gameObject;
+
+                //총알 위치 설정
+                bullet.transform.position = bulletStartPoint.position + bulletStartPoint.transform.forward * 10;
+                //총알 가속 설정
                 bullet_rigid.velocity = (enemyVec - bullet.transform.position).normalized * bullet_bullet.bulletSpeed;
-                //회전
+                //총알 회전 설정
                 Quaternion targetRotation = Quaternion.LookRotation(bullet_rigid.velocity);
                 bullet.transform.rotation = targetRotation;
 
-                //활성화
+
+                //총알 활성화
                 bullet_bullet.BulletOn(curTeamEnum);
+
+                //총 0.1초 대기
+                yield return waitSec;
+                yield return waitSec;
             }
         }
-        if(isShot)//사격 대상이 있는 경우, 타워의 레이더가 마지막 대상을 바라봄
-            RadarControl(enemyVec);
     }
+    
     #endregion
 
     #region 화염구

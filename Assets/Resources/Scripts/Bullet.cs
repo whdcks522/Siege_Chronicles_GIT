@@ -18,6 +18,9 @@ public class Bullet : MonoBehaviour
     [Header("총알의 충돌 영역")]
     public Collider bulletCollider;
 
+    [Header("총알의 목표 대상")]
+    public GameObject bulletTarget;
+
     [Header("총알 주인이 속한 팀")]
     public Creature.TeamEnum curTeamEnum;
 
@@ -114,15 +117,11 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)//불렛이 무언가와 충돌함
     {
-        if (other.transform.CompareTag("Untagged") && other.gameObject.name != "InvisibleWall") //맵과 충돌
+        if (other.transform.CompareTag("Untagged")) //맵과 충돌
         {
-            if (curBulletMoveEnum == BulletMoveEnum.Canon)//캐논(=화염구)
+            if (curBulletMoveEnum == BulletMoveEnum.Canon)//캐논이면(=화염구)
             {
-                BulletOff();
-            }
-            else if (curBulletMoveEnum == BulletMoveEnum.Tracer)//총알(=사격, 사수)
-            {
-                EndBulletOn();
+                BulletOff();//비활성화
             }
         }
     }
