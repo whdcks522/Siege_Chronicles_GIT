@@ -136,6 +136,9 @@ public class TowerManager : MonoBehaviour
 
     public void ResetTower()//게임 재시작을 위해 타워 정보 초기화
     {
+        //사격 중지
+        StopCoroutine(Tower_Gun());
+
         //타워 체력 초기화
         curHealth = maxHealth;
         miniHealth.fillAmount = 1;
@@ -300,7 +303,12 @@ public class TowerManager : MonoBehaviour
     }
     #endregion
 
+
     #region 미니건 난사
+
+    [Header("사격을 위한 살아있는 적 크리쳐 리스트")]
+    public List<GameObject> gunList;
+
     IEnumerator Tower_Gun() 
     {
         //사격 효과음
@@ -310,64 +318,63 @@ public class TowerManager : MonoBehaviour
         RadarControl(enemyTower.transform.position);
 
         //정해진 총알을 적에게 n빵
-        int bulletCount = gameManager.maxCreatureCount;
-        bool isLoop = true;
+        int bulletCount = 0;
+
+        gunList.Clear();
+
         //적 크리쳐 위치 파악
-        List<GameObject> list = new List<GameObject>();
-        while (isLoop) 
+        for (int i = 0; i < enemyCreatureFolder.childCount; i++)
         {
-            for (int i = 0; i < enemyCreatureFolder.childCount; i++)
+            if (enemyCreatureFolder.GetChild(i).gameObject.activeSelf && //살아있는 경우
+                enemyCreatureFolder.GetChild(i).gameObject.layer == LayerMask.NameToLayer("Creature")) //크리쳐 레이어인 경우만(안그럼 잔상에 쏨)
             {
-                if (enemyCreatureFolder.GetChild(i).gameObject.activeSelf && //살아있는 경우
-                    enemyCreatureFolder.GetChild(i).gameObject.layer == LayerMask.NameToLayer("Creature")) //크리쳐 레이어인 경우만(안그럼 잔상에 쏨)
-                {
-                    if (bulletCount > 0)
-                    {
-                        bulletCount--;
-                        Debug.LogWarning("감소한 탄창 수: " + bulletCount);
+                //리스트에 더하기
+                gunList.Add(enemyCreatureFolder.GetChild(i).gameObject);
+            }
+        }
 
-                        //타워가 적을 쳐다보도록
-                        enemyVec = enemyCreatureFolder.GetChild(i).transform.position;
-                        RadarControl(enemyVec);
+        if (gunList.Count > 0) 
+        {
+            Debug.LogWarning("리스트의 크기: "+ gunList.Count);
 
-                        GameObject bullet = objectManager.CreateObj("Tower_Gun", ObjectManager.PoolTypes.BulletPool);
-                        Bullet bullet_bullet = bullet.GetComponent<Bullet>();
-                        Rigidbody bullet_rigid = bullet.GetComponent<Rigidbody>();
+            gunList.Sort((a, b) => Vector3.Distance(transform.position, a.transform.position)
+                               .CompareTo(Vector3.Distance(transform.position, b.transform.position)));
 
-                        bullet_bullet.gameManager = gameManager;
-                        bullet_bullet.Init();
+            while (bulletCount < gameManager.maxCreatureCount)
+            {
+                //타워가 적을 쳐다보도록
+                enemyVec = gunList[bulletCount % gunList.Count].transform.position;
+                
+                //대상을 바라 보도록 설정
+                RadarControl(enemyVec);
 
+                GameObject bullet = objectManager.CreateObj("Tower_Gun", ObjectManager.PoolTypes.BulletPool);
+                Bullet bullet_bullet = bullet.GetComponent<Bullet>();
+                Rigidbody bullet_rigid = bullet.GetComponent<Rigidbody>();
 
-                        //총알 대상으로 설정(여기서만 쓰임)
-                        bullet_bullet.bulletTarget = enemyCreatureFolder.GetChild(i).gameObject;
-
-                        //총알 위치 설정
-                        bullet.transform.position = bulletStartPoint.position + bulletStartPoint.transform.forward * 10;
-                        //총알 가속 설정
-                        bullet_rigid.velocity = (enemyVec - bullet.transform.position).normalized * bullet_bullet.bulletSpeed;
-                        //총알 회전 설정
-                        Quaternion targetRotation = Quaternion.LookRotation(bullet_rigid.velocity);
-                        bullet.transform.rotation = targetRotation;
+                bullet_bullet.gameManager = gameManager;
+                bullet_bullet.Init();
 
 
-                        //총알 활성화
-                        bullet_bullet.BulletOn(curTeamEnum);
+                //총알 대상으로 설정(여기서만 쓰임)
+                bullet_bullet.bulletTarget = gunList[bulletCount % gunList.Count].gameObject;
+                //총알 위치 설정
+                bullet.transform.position = bulletStartPoint.position + bulletStartPoint.transform.forward * 10;
+                //총알 가속 설정
+                bullet_rigid.velocity = (enemyVec - bullet.transform.position).normalized * bullet_bullet.bulletSpeed;
+                //총알 회전 설정
+                Quaternion targetRotation = Quaternion.LookRotation(bullet_rigid.velocity);
+                bullet.transform.rotation = targetRotation;
 
-                        //총 0.1초 대기
-                        yield return waitSec;
-                        yield return waitSec;
-                    }
-                    else//총알이 없는 경우
-                    {
-                        isLoop = false;
-                        break;
-                    }
-                }
-                else//살아있는 오브젝트가 없는 경우
-                {
-                    isLoop = false;
-                    break;
-                }
+
+                //총알 활성화
+                bullet_bullet.BulletOn(curTeamEnum);
+
+                bulletCount++;
+
+                //총 0.1초 대기
+                yield return waitSec;
+                yield return waitSec;
             }
         } 
     }
