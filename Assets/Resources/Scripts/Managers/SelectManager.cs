@@ -143,7 +143,7 @@ public class SelectManager : MonoBehaviour
     {
         int mul = 2;
         //사격은 적군 전체
-        if (_str == gameManager.Gun.name)mul = 2 * gameManager.maxCreatureCount;
+        if (_str == gameManager.Gun.name) mul = gameManager.maxCreatureCount;
         //시체 폭발은 아군 전체에 적용
         else if (_str == gameManager.CorpseExplosion.name) mul = gameManager.maxCreatureCount;
         //개구리는 3발씩 쏨

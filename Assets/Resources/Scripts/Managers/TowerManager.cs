@@ -136,9 +136,6 @@ public class TowerManager : MonoBehaviour
 
     public void ResetTower()//게임 재시작을 위해 타워 정보 초기화
     {
-        //사격 중지
-        StopCoroutine(Tower_Gun());
-
         //타워 체력 초기화
         curHealth = maxHealth;
         miniHealth.fillAmount = 1;
@@ -266,6 +263,10 @@ public class TowerManager : MonoBehaviour
             }
             else if (curTeamEnum == Creature.TeamEnum.Blue) //파란 팀이 진 경우
             {
+                //이미 사격중이라면, 중지
+                if (Tower_Gun_Cor != null)
+                    StopCoroutine(Tower_Gun_Cor);
+
                 //설정 화면의 텍스트 수정
                 UiManager.defeatTitle.SetActive(true);
 
@@ -296,7 +297,15 @@ public class TowerManager : MonoBehaviour
     Vector3 enemyVec;
     public void WeaponSort(string tmpWeaponName) 
     {
-        if (tmpWeaponName == gameManager.Gun.name) StartCoroutine(Tower_Gun());
+        if (tmpWeaponName == gameManager.Gun.name) 
+        {
+            //이미 사격중이라면, 중지
+            if (Tower_Gun_Cor != null)
+                StopCoroutine(Tower_Gun_Cor);
+
+            //사격
+            Tower_Gun_Cor = StartCoroutine(Tower_Gun());
+        } 
         else if (tmpWeaponName == gameManager.Flame.name) Tower_Flame();
         else if (tmpWeaponName == gameManager.GrandCure.name) Tower_GrandCure();
         else if (tmpWeaponName == gameManager.CorpseExplosion.name) Tower_CorpseExplosion();
@@ -306,8 +315,10 @@ public class TowerManager : MonoBehaviour
 
     #region 미니건 난사
 
-    [Header("사격을 위한 살아있는 적 크리쳐 리스트")]
-    public List<GameObject> gunList;
+    //[Header("사격을 위한 살아있는 적 크리쳐 리스트")]
+    List<GameObject> gunList;
+    Coroutine Tower_Gun_Cor;
+    int maxBulletCount = 6;
 
     IEnumerator Tower_Gun() 
     {
@@ -335,12 +346,12 @@ public class TowerManager : MonoBehaviour
 
         if (gunList.Count > 0) 
         {
-            Debug.LogWarning("리스트의 크기: "+ gunList.Count);
+            //Debug.LogWarning("리스트의 크기: "+ gunList.Count);
 
             gunList.Sort((a, b) => Vector3.Distance(transform.position, a.transform.position)
                                .CompareTo(Vector3.Distance(transform.position, b.transform.position)));
 
-            while (bulletCount < gameManager.maxCreatureCount)
+            while (bulletCount < maxBulletCount)
             {
                 //타워가 적을 쳐다보도록
                 enemyVec = gunList[bulletCount % gunList.Count].transform.position;
@@ -371,6 +382,8 @@ public class TowerManager : MonoBehaviour
                 bullet_bullet.BulletOn(curTeamEnum);
 
                 bulletCount++;
+
+                //Debug.LogWarning(bulletCount);
 
                 //총 0.1초 대기
                 yield return waitSec;
