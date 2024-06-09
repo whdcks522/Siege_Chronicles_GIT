@@ -309,44 +309,67 @@ public class TowerManager : MonoBehaviour
         //레이더가 적 타워를 쳐다봄
         RadarControl(enemyTower.transform.position);
 
+        //정해진 총알을 적에게 n빵
+        int bulletCount = gameManager.maxCreatureCount;
+        bool isLoop = true;
         //적 크리쳐 위치 파악
-        for (int i = 0; i < enemyCreatureFolder.childCount; i++)
+        List<GameObject> list = new List<GameObject>();
+        while (isLoop) 
         {
-            if (enemyCreatureFolder.GetChild(i).gameObject.activeSelf &&
-                enemyCreatureFolder.GetChild(i).gameObject.layer == LayerMask.NameToLayer("Creature"))//살아있으면서 크리쳐 레이어인 경우만(안그럼 잔상에 쏨)
+            for (int i = 0; i < enemyCreatureFolder.childCount; i++)
             {
-                //타워가 적을 쳐다보도록
-                enemyVec = enemyCreatureFolder.GetChild(i).transform.position;
-                RadarControl(enemyVec);
+                if (enemyCreatureFolder.GetChild(i).gameObject.activeSelf && //살아있는 경우
+                    enemyCreatureFolder.GetChild(i).gameObject.layer == LayerMask.NameToLayer("Creature")) //크리쳐 레이어인 경우만(안그럼 잔상에 쏨)
+                {
+                    if (bulletCount > 0)
+                    {
+                        bulletCount--;
+                        Debug.LogWarning("감소한 탄창 수: " + bulletCount);
 
-                GameObject bullet = objectManager.CreateObj("Tower_Gun", ObjectManager.PoolTypes.BulletPool);
-                Bullet bullet_bullet = bullet.GetComponent<Bullet>();
-                Rigidbody bullet_rigid = bullet.GetComponent<Rigidbody>();
+                        //타워가 적을 쳐다보도록
+                        enemyVec = enemyCreatureFolder.GetChild(i).transform.position;
+                        RadarControl(enemyVec);
 
-                bullet_bullet.gameManager = gameManager;
-                bullet_bullet.Init();
+                        GameObject bullet = objectManager.CreateObj("Tower_Gun", ObjectManager.PoolTypes.BulletPool);
+                        Bullet bullet_bullet = bullet.GetComponent<Bullet>();
+                        Rigidbody bullet_rigid = bullet.GetComponent<Rigidbody>();
 
-
-                //총알 대상으로 설정(여기서만 쓰임)
-                bullet_bullet.bulletTarget = enemyCreatureFolder.GetChild(i).gameObject;
-
-                //총알 위치 설정
-                bullet.transform.position = bulletStartPoint.position + bulletStartPoint.transform.forward * 10;
-                //총알 가속 설정
-                bullet_rigid.velocity = (enemyVec - bullet.transform.position).normalized * bullet_bullet.bulletSpeed;
-                //총알 회전 설정
-                Quaternion targetRotation = Quaternion.LookRotation(bullet_rigid.velocity);
-                bullet.transform.rotation = targetRotation;
+                        bullet_bullet.gameManager = gameManager;
+                        bullet_bullet.Init();
 
 
-                //총알 활성화
-                bullet_bullet.BulletOn(curTeamEnum);
+                        //총알 대상으로 설정(여기서만 쓰임)
+                        bullet_bullet.bulletTarget = enemyCreatureFolder.GetChild(i).gameObject;
 
-                //총 0.1초 대기
-                yield return waitSec;
-                yield return waitSec;
+                        //총알 위치 설정
+                        bullet.transform.position = bulletStartPoint.position + bulletStartPoint.transform.forward * 10;
+                        //총알 가속 설정
+                        bullet_rigid.velocity = (enemyVec - bullet.transform.position).normalized * bullet_bullet.bulletSpeed;
+                        //총알 회전 설정
+                        Quaternion targetRotation = Quaternion.LookRotation(bullet_rigid.velocity);
+                        bullet.transform.rotation = targetRotation;
+
+
+                        //총알 활성화
+                        bullet_bullet.BulletOn(curTeamEnum);
+
+                        //총 0.1초 대기
+                        yield return waitSec;
+                        yield return waitSec;
+                    }
+                    else//총알이 없는 경우
+                    {
+                        isLoop = false;
+                        break;
+                    }
+                }
+                else//살아있는 오브젝트가 없는 경우
+                {
+                    isLoop = false;
+                    break;
+                }
             }
-        }
+        } 
     }
     
     #endregion

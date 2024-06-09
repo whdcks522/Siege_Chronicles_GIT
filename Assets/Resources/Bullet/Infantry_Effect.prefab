@@ -4924,9 +4924,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxTime: 1.7
   colTime: 0.7
-  bulletDamage: 10
+  bulletDamage: 30
   bulletSpeed: 0
   bulletCollider: {fileID: 3920584867422586876}
+  bulletTarget: {fileID: 0}
   curTeamEnum: 2
   curBulletMoveEnum: 0
   curBulletEffectEnum: 0
