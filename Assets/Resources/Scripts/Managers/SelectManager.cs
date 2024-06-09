@@ -20,7 +20,9 @@ public class SelectManager : MonoBehaviour
     public Text selectedSpellName;
 
     [Header("선택된 스펠 타입")]
-    public Text selectedSpellType;
+    public Image selectedSpellTypeImage;
+    public Sprite[] spellTypeImageArr;//바꿀 이미지가 어디에 있는지
+    public Text selectedSpellTypeText;
 
     [Header("선택된 스펠 비용")]
     public Text selectedSpellValue;
@@ -92,7 +94,7 @@ public class SelectManager : MonoBehaviour
                 {
                     SpawnCreature(spellBtnArr[i].spellData.spellPrefab.name);
                 }
-                else if (spellBtnArr[i].spellData.spellType == SpellType.Weapon)//무기의 경우
+                else// if (spellBtnArr[i].spellData.spellType == SpellType.Weapon)//무기의 경우
                 {
                     SpawnWeapon(spellBtnArr[i].spellData.spellPrefab.name);
                 }

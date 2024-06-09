@@ -316,7 +316,7 @@ public class TowerManager : MonoBehaviour
     #region 미니건 난사
 
     //[Header("사격을 위한 살아있는 적 크리쳐 리스트")]
-    List<GameObject> gunList;
+    List<GameObject> gunList = new List<GameObject>();
     Coroutine Tower_Gun_Cor;
     int maxBulletCount = 6;
 
@@ -332,7 +332,6 @@ public class TowerManager : MonoBehaviour
         int bulletCount = 0;
 
         gunList.Clear();
-
         //적 크리쳐 위치 파악
         for (int i = 0; i < enemyCreatureFolder.childCount; i++)
         {
