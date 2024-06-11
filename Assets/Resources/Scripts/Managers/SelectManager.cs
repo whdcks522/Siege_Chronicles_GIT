@@ -88,14 +88,23 @@ public class SelectManager : MonoBehaviour
                 //해당 버튼의 이미지 변경
                 spellBtnArr[i].IconChange(uiManager.spellBtnArr[i]);
 
-
                 //오브젝트 풀링을 위해 미리 생성
-                if (spellBtnArr[i].spellData.spellType == SpellType.Creature)//생명체의 경우
+                if (spellBtnArr[i].spellData.spellType == SpellType.Creature)//크리쳐의 경우
                 {
+                    //쉐이더 배경 변경
+                    uiManager.spellBtnArr[i].spellBtnShader.material = gameManager.SpellCreatureMat;
+                    uiManager.spellBtnArr[i].spellBtnShader.gameObject.SetActive(true);
+
+                    //크리쳐 미리 생성
                     SpawnCreature(spellBtnArr[i].spellData.spellPrefab.name);
                 }
-                else// if (spellBtnArr[i].spellData.spellType == SpellType.Weapon)//무기의 경우
+                else if (spellBtnArr[i].spellData.spellType == SpellType.Weapon)//무기의 경우(안 고른 경우가 있을 수 있어서)
                 {
+                    //쉐이더 배경 변경
+                    uiManager.spellBtnArr[i].spellBtnShader.material = gameManager.SpellWeaponMat;
+                    uiManager.spellBtnArr[i].spellBtnShader.gameObject.SetActive(true);
+
+                    //무기 미리 생성
                     SpawnWeapon(spellBtnArr[i].spellData.spellPrefab.name);
                 }
             }

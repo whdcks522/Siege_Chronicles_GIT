@@ -36,6 +36,10 @@ public class GameManager : MonoBehaviour
     public GameObject GrandCure;//GrandCure 프리펩
     public GameObject CorpseExplosion;//CorpseExplosion 프리펩
 
+    [Header("매터리얼")]
+    public Material SpellCreatureMat;//크리쳐 매터리얼
+    public Material SpellWeaponMat;//무기 매터리얼
+
     [Header("매니저 목록")]
     public ObjectManager objectManager;
     public UIManager uiManager;

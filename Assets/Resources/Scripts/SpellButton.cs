@@ -12,6 +12,9 @@ public class SpellButton : MonoBehaviour
     [Header("스펠 버튼의 비용 텍스트")]
     public Text spellBtnValue;
 
+    [Header("스펠 버튼의 쉐이더")]
+    public Image spellBtnShader;
+
     [Header("스펠 버튼의 아이콘 이미지")]
     public Image spellBtnIcon;
 
@@ -40,10 +43,9 @@ public class SpellButton : MonoBehaviour
         if (spellData != null)//스펠 데이터가 있으면
         {
             IconChange(this);
-            
         }
 
-        if (spellData == null && curSpellBtnEnum == SpellBtnEnum.LeftBtn)//스펠 데이터가 없으면서 리스트인 경우 버튼 비활성화 
+        if (spellData == null && curSpellBtnEnum == SpellBtnEnum.LeftBtn)//스펠 데이터가 없으면서 왼쪽 버튼인 경우인 경우 버튼 비활성화 
         {
             ButtonOff();
         }
@@ -62,7 +64,7 @@ public class SpellButton : MonoBehaviour
     }
 
     #region 아이콘 이미지 갱신
-    public void IconChange(SpellButton tmpSpellBtn) 
+    public void IconChange(SpellButton tmpSpellBtn)//전투에서는 안씀
     {
         if (tmpSpellBtn.spellData != null) //스펠 데이터가 있다면
         {
@@ -73,13 +75,20 @@ public class SpellButton : MonoBehaviour
             //아이콘 이미지 관리
             tmpSpellBtn.spellBtnIcon.sprite = spellData.spellIcon;
 
-            if (spellData.spellType == SpellData.SpellType.Weapon)
-            {
-                tmpSpellBtn.spellBtnIcon.color = Color.black;
-            }
-            else if (spellData.spellType != SpellData.SpellType.Weapon)
+            if (spellData.spellType == SpellData.SpellType.Creature)//크리쳐인 경우
             {
                 tmpSpellBtn.spellBtnIcon.color = Color.white;
+
+                //스펠버튼 매터리얼 변화
+                //tmpSpellBtn.spellBtnShader.material = gameManager.SpellCreatureMat;
+            }
+            else //if (spellData.spellType == SpellData.SpellType.Weapon) //주술인 경우
+            {
+                tmpSpellBtn.spellBtnIcon.color = Color.black;
+
+                //스펠 버튼 매터리얼 변화
+                //spellBtnShader.material = gameManager.
+                //tmpSpellBtn.spellBtnShader.material = gameManager.SpellWeaponMat;
             }
         }
         else if (tmpSpellBtn.spellData == null)//스펠 데이터가 없다면
