@@ -11,6 +11,10 @@ public class DamageFont : MonoBehaviour
 
     public void ReName(string _name) //이름 변경하며, 활성화
     {
+        // 자식 오브젝트를 부모 오브젝트의 자식 목록의 맨 아래로 이동시킵니다.
+        transform.SetAsLastSibling();
+
+        //이름 변경
         name = _name;
         curTime = 0;
         gameObject.SetActive(true);

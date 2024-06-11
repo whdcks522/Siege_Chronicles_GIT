@@ -83,10 +83,16 @@ public class UIManager : MonoBehaviour
                     //스펠 버튼 애니메이션 작동
                     spellBtnAnim[i].SetBool("isFlash", true);
                     spellBtnAnimBool[i] = false;
+
+                    //쉐이더 활성화
+                    spellBtnArr[i].spellBtnShader.gameObject.SetActive(true);
                 }
                 else if (spellBtnArr[i].spellBtnIcon.fillAmount < 1)//부족할 때
                 {
-                    spellBtnAnimBool[i] = true;
+                    spellBtnAnimBool[i] = true;//글자가 '딸깍' 할 준비 완료
+
+                    //쉐이더 비활성화
+                    spellBtnArr[i].spellBtnShader.gameObject.SetActive(false);
                 }
             }
         }
@@ -136,11 +142,17 @@ public class UIManager : MonoBehaviour
         SpeedAnim.SetBool("isFlash", true);
 
         //스펠 버튼 애니메이션 수행
-        for (int i = 0; i < 4; i++) 
+        for (int i = 0; i < spellBtnArr.Length; i++) 
         {
-            //스펠 버튼 애니메이션 작동
-            spellBtnAnim[i].SetBool("isFlash", true);
-            spellBtnAnimBool[i] = false;
+            if (spellBtnArr[i].spellData != null) 
+            {
+                //스펠 버튼 애니메이션 작동
+                spellBtnAnim[i].SetBool("isFlash", true);
+                spellBtnAnimBool[i] = false;
+
+                //쉐이더 비활성화
+                spellBtnArr[i].spellBtnShader.gameObject.SetActive(false);
+            }    
         }
 
         //카메라 회전 초기화

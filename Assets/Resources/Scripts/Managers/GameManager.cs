@@ -94,4 +94,13 @@ public class GameManager : MonoBehaviour
     {
         Application.Quit();
     }
+
+    private void OnApplicationPause(bool pause)//게임하다가 잠시 앱을 비활성화 했을 때
+    {
+        if ((pause == true) && uiManager.selectManager == null && !uiManager.settingBackground.activeSelf)//선택이 지났으면서, 설정 화면이 꺼져있다면
+        {
+            //일시정지
+            uiManager.SettingControl(true);
+        }
+    }
 }
