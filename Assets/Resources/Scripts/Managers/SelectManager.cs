@@ -83,6 +83,9 @@ public class SelectManager : MonoBehaviour
         {
             if (spellBtnArr[i].spellData != null)//스펠이 있는 경우 이미지 갱신
             {
+                //쉐이더 배경 활성화
+                uiManager.spellBtnArr[i].spellBtnShader.gameObject.SetActive(true);
+
                 //버튼에 스펠 데이터 전달
                 uiManager.spellBtnArr[i].spellData = spellBtnArr[i].spellData;
                 //해당 버튼의 이미지 변경
@@ -91,44 +94,18 @@ public class SelectManager : MonoBehaviour
                 //오브젝트 풀링을 위해 미리 생성
                 if (spellBtnArr[i].spellData.spellType == SpellType.Creature)//크리쳐의 경우
                 {
-                    //쉐이더 배경 변경
-                    //uiManager.spellBtnArr[i].spellBtnShader.material = gameManager.SpellCreatureMat;
-                    uiManager.spellBtnArr[i].spellBtnShader.gameObject.SetActive(true);
-
-                    if (i == 0)
-                    {
-                        Debug.Log("0번재");
-
-                        //uiManager.spellBtnArr[i].spellBtnShader.materialForRendering.SetColor("_BaseColor", Color.red);
-                        //uiManager.spellBtnArr[i].spellBtnShader.materialForRendering.SetColor("_AddColor", Color.blue);
-                    }
-                    else 
-                    {
-                        Debug.Log("나머지 번째");
-
-                        //uiManager.spellBtnArr[i].spellBtnShader.materialForRendering.SetColor("_BaseColor", Color.yellow);
-                        //uiManager.spellBtnArr[i].spellBtnShader.materialForRendering.SetColor("_AddColor", Color.red);
-                    }
-                    
-                    //매터리얼 변경
-                    //skinnedMeshRenderer.material.SetTexture("_BaseTexture", baseTexture);
-
                     //크리쳐 미리 생성
                     SpawnCreature(spellBtnArr[i].spellData.spellPrefab.name);
                 }
                 else if (spellBtnArr[i].spellData.spellType == SpellType.Weapon)//무기의 경우(안 고른 경우가 있을 수 있어서)
                 {
-                    //쉐이더 배경 변경
-                    //uiManager.spellBtnArr[i].spellBtnShader.material = gameManager.SpellWeaponMat;
-                    uiManager.spellBtnArr[i].spellBtnShader.gameObject.SetActive(true);
-
                     //무기 미리 생성
                     SpawnWeapon(spellBtnArr[i].spellData.spellPrefab.name);
                 }
             }
-            else if (spellBtnArr[i].spellData == null)//없는 경우 버튼 비활성화
+            else //if (spellBtnArr[i].spellData == null) //없는 경우 버튼 비활성화
             {
-                uiManager.spellBtnArr[i].ButtonOff();
+                uiManager.spellBtnArr[i].ButtonOff(true);
             }
         }
 

@@ -24,7 +24,6 @@ public class GameManager : MonoBehaviour
     [Header("각 팀별로 소환가능한 크리쳐의 최대 수")]
     public int maxCreatureCount;
 
-
     //적 타워가 소환하는 용도
     [Header("크리쳐 스펠 데이터 프리펩 배열")]
     public SpellData[] creatureSpellDataArr;//Infantry, Shooter, Shielder, Accountant 프리펩
@@ -35,10 +34,6 @@ public class GameManager : MonoBehaviour
     public GameObject Flame;//Flame 프리펩
     public GameObject GrandCure;//GrandCure 프리펩
     public GameObject CorpseExplosion;//CorpseExplosion 프리펩
-
-    [Header("매터리얼")]
-    public Material SpellCreatureMat;//크리쳐 매터리얼
-    public Material SpellWeaponMat;//무기 매터리얼
 
     [Header("매니저 목록")]
     public ObjectManager objectManager;
@@ -85,7 +80,6 @@ public class GameManager : MonoBehaviour
         uiManager.defeatTitle.SetActive(false);
     }
     #endregion
-
 
     public void ResetGame()//게임을 '처음으로'
     {

@@ -73126,8 +73126,6 @@ MonoBehaviour:
   GrandCure: {fileID: 1498152551406518, guid: 408af7a30a0f3e54eb56d985a4471da0, type: 3}
   CorpseExplosion: {fileID: 1242051555635342, guid: 1798e797728b6c446932cee8ca214f93,
     type: 3}
-  SpellCreatureMat: {fileID: 2100000, guid: 0bbe0a75d4056d447b7fc256bca1ba40, type: 2}
-  SpellWeaponMat: {fileID: 2100000, guid: d8b097d83adfd334686d4e60b351838a, type: 2}
   objectManager: {fileID: 2691419215590457056}
   uiManager: {fileID: 1029026972}
   audioManager: {fileID: 511560928}

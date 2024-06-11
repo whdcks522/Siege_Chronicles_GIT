@@ -39,31 +39,48 @@ public class SpellButton : MonoBehaviour
         selectManager = gameManager.uiManager.selectManager;
         audioManager = gameManager.audioManager;
 
-
         if (spellData != null)//스펠 데이터가 있으면
         {
             IconChange(this);
         }
 
-        if (spellData == null && curSpellBtnEnum == SpellBtnEnum.LeftBtn)//스펠 데이터가 없으면서 왼쪽 버튼인 경우인 경우 버튼 비활성화 
+        //if (spellData == null && curSpellBtnEnum == SpellBtnEnum.LeftBtn)//스펠 데이터가 없으면서 왼쪽 버튼인 경우인 경우 버튼 비활성화 
+            //ButtonOff();
+        
+        if (curSpellBtnEnum == SpellBtnEnum.BattleBtn) 
         {
-            ButtonOff();
+            //전투 버튼은 체크 마크 안씀
+            Destroy(spellBtnCheck);
         }
     }
 
-    public void ButtonOff() //버튼 비활성화
+    public void ButtonOff(bool isDestroy) //버튼 비활성화
     {
-        //비용 텍스트 관리
-        spellBtnValue.gameObject.SetActive(false);
-        //아이콘 이미지 관리
-        spellBtnIcon.gameObject.SetActive(false);
+        if (isDestroy)//파괴하는 경우
+        {
+            //쉐이더 삭제
+            if (spellBtnShader != null)
+                Destroy(spellBtnShader.gameObject);
+
+            //비용 텍스트 삭제
+            Destroy(spellBtnValue.gameObject);
+
+            //아이콘 이미지 삭제
+            Destroy(spellBtnIcon.gameObject);
+        }
+        else //비활성화 하는 경우
+        {
+            //비용 텍스트 비활성화
+            spellBtnValue.gameObject.SetActive(false);
+
+            //아이콘 이미지 비활성화
+            spellBtnIcon.gameObject.SetActive(false);
+        }
 
         //버튼 이미지 비활성화
         GetComponent<Button>().interactable = false;
         GetComponent<Outline>().enabled = false;
     }
-
-    //public Renderer spellRenderer;
 
     #region 아이콘 이미지 갱신
     public void IconChange(SpellButton tmpSpellBtn)//전투에서는 안씀
