@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SpellCreatureMat
+  m_Name: SpellCreatureMat 2
   m_Shader: {fileID: -6465566751694194690, guid: 726f51fad13849144905f5e59890cbec,
     type: 3}
   m_Parent: {fileID: 0}
@@ -43,8 +43,8 @@ Material:
     m_Ints: []
     m_Floats: []
     m_Colors:
-    - _AddColor: {r: 0.5238519, g: 0.8490566, b: 0.60827166, a: 0}
-    - _BaseColor: {r: 0.44955492, g: 0.6099911, b: 0.8301887, a: 0}
+    - _AddColor: {r: 0.43867922, g: 1, b: 0.9351664, a: 1}
+    - _BaseColor: {r: 0.4575472, g: 0.7238231, b: 1, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &2327091271443860587
 MonoBehaviour:

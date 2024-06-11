@@ -92,11 +92,24 @@ public class SelectManager : MonoBehaviour
                 if (spellBtnArr[i].spellData.spellType == SpellType.Creature)//크리쳐의 경우
                 {
                     //쉐이더 배경 변경
-                    uiManager.spellBtnArr[i].spellBtnShader.material = gameManager.SpellCreatureMat;
+                    //uiManager.spellBtnArr[i].spellBtnShader.material = gameManager.SpellCreatureMat;
                     uiManager.spellBtnArr[i].spellBtnShader.gameObject.SetActive(true);
 
-                    uiManager.spellBtnArr[i].spellBtnShader.material.SetColor("_BaseColor", Color.red);
-                    uiManager.spellBtnArr[i].spellBtnShader.material.SetColor("_AddColor", Color.blue);
+                    if (i == 0)
+                    {
+                        Debug.Log("0번재");
+
+                        //uiManager.spellBtnArr[i].spellBtnShader.materialForRendering.SetColor("_BaseColor", Color.red);
+                        //uiManager.spellBtnArr[i].spellBtnShader.materialForRendering.SetColor("_AddColor", Color.blue);
+                    }
+                    else 
+                    {
+                        Debug.Log("나머지 번째");
+
+                        //uiManager.spellBtnArr[i].spellBtnShader.materialForRendering.SetColor("_BaseColor", Color.yellow);
+                        //uiManager.spellBtnArr[i].spellBtnShader.materialForRendering.SetColor("_AddColor", Color.red);
+                    }
+                    
                     //매터리얼 변경
                     //skinnedMeshRenderer.material.SetTexture("_BaseTexture", baseTexture);
 
@@ -106,7 +119,7 @@ public class SelectManager : MonoBehaviour
                 else if (spellBtnArr[i].spellData.spellType == SpellType.Weapon)//무기의 경우(안 고른 경우가 있을 수 있어서)
                 {
                     //쉐이더 배경 변경
-                    uiManager.spellBtnArr[i].spellBtnShader.material = gameManager.SpellWeaponMat;
+                    //uiManager.spellBtnArr[i].spellBtnShader.material = gameManager.SpellWeaponMat;
                     uiManager.spellBtnArr[i].spellBtnShader.gameObject.SetActive(true);
 
                     //무기 미리 생성
