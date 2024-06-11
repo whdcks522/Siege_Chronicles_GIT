@@ -123,8 +123,7 @@ public class SelectManager : MonoBehaviour
         // 게임 레벨 설정
         gameManager.gameLevel = (int)levelSlider.value;
 
-        // UI 비활성화
-        //gameObject.SetActive(false);
+        // 선택 매니저 삭제
         Destroy(gameObject);
     }
 
