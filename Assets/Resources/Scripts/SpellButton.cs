@@ -63,6 +63,8 @@ public class SpellButton : MonoBehaviour
         GetComponent<Outline>().enabled = false;
     }
 
+    //public Renderer spellRenderer;
+
     #region 아이콘 이미지 갱신
     public void IconChange(SpellButton tmpSpellBtn)//전투에서는 안씀
     {

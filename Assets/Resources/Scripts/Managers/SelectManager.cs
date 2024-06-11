@@ -95,6 +95,11 @@ public class SelectManager : MonoBehaviour
                     uiManager.spellBtnArr[i].spellBtnShader.material = gameManager.SpellCreatureMat;
                     uiManager.spellBtnArr[i].spellBtnShader.gameObject.SetActive(true);
 
+                    uiManager.spellBtnArr[i].spellBtnShader.material.SetColor("_BaseColor", Color.red);
+                    uiManager.spellBtnArr[i].spellBtnShader.material.SetColor("_AddColor", Color.blue);
+                    //매터리얼 변경
+                    //skinnedMeshRenderer.material.SetTexture("_BaseTexture", baseTexture);
+
                     //크리쳐 미리 생성
                     SpawnCreature(spellBtnArr[i].spellData.spellPrefab.name);
                 }
