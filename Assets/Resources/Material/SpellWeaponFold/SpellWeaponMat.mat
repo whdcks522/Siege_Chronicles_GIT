@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Spellaa
+  m_Name: SpellWeaponMat
   m_Shader: {fileID: -6465566751694194690, guid: b84e1396eade47042ad1f3797f613f04,
     type: 3}
   m_Parent: {fileID: 0}
