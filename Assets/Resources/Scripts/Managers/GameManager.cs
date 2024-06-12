@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
             objectManager.redCreatureFolder.GetChild(i).gameObject.SetActive(false);
         }
 
-        //타워 체력 초기화
+        //타워 초기화
         blueTowerManager.ResetTower();
         redTowerManager.ResetTower();
 

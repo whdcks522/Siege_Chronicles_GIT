@@ -36,10 +36,19 @@ public class UIManager : MonoBehaviour
     public Text creatureCountText;
     public Animator creatureCountAnim;//타워 매니저에서 사용
 
+    [Header("텍스트 색 변화")]
+    //글자 색 변화를 위함(기본색)
+    public Color textYellow;
+    public Color textRed;
+    public Color textGreen;
+    Color textWhite;
+
     [Header("매니저")]
     public SelectManager selectManager;
     public GameManager gameManager;
     AudioManager audioManager;
+
+    
 
     private void Awake()
     {
@@ -54,6 +63,9 @@ public class UIManager : MonoBehaviour
 
         //카메라 초기화
         CameraControl();
+
+        //플레이어 자원 텍스트를 위함
+        textWhite = PlayerResourceText.color;
     }
 
     [Header("스펠 버튼 비용 애니메이션")]
@@ -69,6 +81,9 @@ public class UIManager : MonoBehaviour
         //자원 게이지 관리
         PlayerResourceSlider.value = blueTowerManager.curTowerResource / blueTowerManager.maxTowerResource;
         PlayerResourceText.text = blueTowerManager.curTowerResource.ToString("F1") + "/" + blueTowerManager.maxTowerResource.ToString("F0");
+
+        if (blueTowerManager.curTowerResource >= blueTowerManager.maxTowerResource) PlayerResourceText.color = textGreen;
+        else PlayerResourceText.color = textWhite;
 
         //스펠 자원 비율 보여주기
         for (int i = 0; i < spellBtnArr.Length; i++)
@@ -110,12 +125,17 @@ public class UIManager : MonoBehaviour
             {
                 //은행 애니메이션 활성화
                 bankAnim.SetBool("isFlash", true);
-
                 alreadyBankTouch = false;
+
+                //꽉 찬 경우, 초록색 글자
+                bankText.color = textGreen;
             }
             else if (bankBtn.fillAmount < 1)
             {
                 alreadyBankTouch = true;
+
+                //차고 있는 경우, 노란색 글자
+                bankText.color = textYellow;
             }
         }
     }
@@ -123,6 +143,9 @@ public class UIManager : MonoBehaviour
     #region UI 정보 초기화
     public void resetUI() 
     {
+        //플레이어 자원 색 초기화
+        PlayerResourceText.color = textWhite;
+
         //포커스 초기화
         FocusOff(false);
 
@@ -133,6 +156,7 @@ public class UIManager : MonoBehaviour
         bankText.text = "Lv." + (blueTowerManager.curBankIndex + 1) + "(" + blueTowerManager.BankValueArr[blueTowerManager.curBankIndex] + ")";
         bankAnim.SetBool("isFlash", true);
         bankBtn.GetComponent<Button>().interactable = true;
+        bankText.color = textYellow;
 
         //배속 초기화
         if (speed == 1) 
@@ -168,7 +192,6 @@ public class UIManager : MonoBehaviour
     public Animator SpeedAnim;
     public void SpeedControl(bool isSfx)
     {
-
         if (isSfx) 
         {
             //속도 조절 효과음 출력
@@ -181,15 +204,22 @@ public class UIManager : MonoBehaviour
         speed++;
         speed = (speed % 2);
 
+        //가속 텍스트 색 변경
+        if (speed == 0) SpeedControlText.color = textYellow;
+        else SpeedControlText.color = textRed;
+
         //시간 조절
         Time.timeScale = (speed + 1);
 
         //글자 변환
         SpeedControlText.text = "x" + (speed + 1);
+
+        
     }
     #endregion
 
     #region 은행 관리
+
     [Header("은행 관련 UI")]
     public Image bankBtn;//은행 이미지
     public Text bankText;//은행 텍스트
@@ -223,6 +253,8 @@ public class UIManager : MonoBehaviour
                 bankBtn.fillAmount = 1;
                 //버튼 클릭 비활성화
                 bankBtn.GetComponent<Button>().interactable = false;
+
+                bankText.color = textRed;
             }   
         }
         else if (blueTowerManager.curTowerResource < blueTowerManager.BankValueArr[blueTowerManager.curBankIndex]) //비용이 모자른 경우
@@ -375,7 +407,7 @@ public class UIManager : MonoBehaviour
 
     public void FocusOn()//맵이 까매지며 주술 영역이 보임(포커스 실행)
     {
-        Debug.Log("FocusOn");
+        //Debug.Log("FocusOn");
 
         if (curSpellData != null)
         {
@@ -389,7 +421,7 @@ public class UIManager : MonoBehaviour
     }
     public void FocusOff(bool isEffect) //자원 반환 여부(포커스 해제)
     {
-        Debug.Log("FocusOff: " + isEffect);
+        //Debug.Log("FocusOff: " + isEffect);
 
         //-1: 자원 반환, 0: 영역만 비활성화, 1: 주술() 사용 
         if (curSpellData != null && isEffect) 
