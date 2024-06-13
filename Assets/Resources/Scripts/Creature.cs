@@ -17,11 +17,7 @@ public class Creature : MonoBehaviour
     [Header("크리쳐 별 특수 능력 여부")]
     //보호막을 갖고 있는지(피해를 받지 않음, 시간의 흐름에 따라 체력 감소, 방패병만 소유)
     public int isShield;
-    //존재 자체로 조금씩 자원이 증가하는 양(회계병만 소유, 나머지는 0)
-    public int isCoinRevive;
 
-
-    
 
     [Header("우리 타워")]
     public Transform ourTower;
@@ -430,24 +426,16 @@ public class Creature : MonoBehaviour
         //자기 타워에 등록된 크리쳐 수 감소
         if (gameObject.activeSelf && curHealth <= 0)
         {
-            if (isCoinRevive == 0)//재정 회계병이 아닌 경우
-            {
-                ourTowerManager.curCreatureCount--;
+            ourTowerManager.curCreatureCount--;
 
-                if (curTeamEnum == TeamEnum.Blue)//블루팀 텍스트 갱신
-                    ourTowerManager.CreatureCountText();
+            if (curTeamEnum == TeamEnum.Blue)//블루팀 텍스트 갱신
+                ourTowerManager.CreatureCountText();
 
-                //생명체 비활성화
-                gameObject.SetActive(false);
+            //생명체 비활성화
+            gameObject.SetActive(false);
 
-                //중립 폴더로 옮기기
-                transform.parent = objectManager.grayCreatureFolder;
-            }
-            else if (isCoinRevive != 0 && ourTowerManager.curTowerResource >= isCoinRevive)//재정회계병이면서 자원이 충분한 경우
-            {
-                //무료로 부활
-                Revive();
-            } 
+            //중립 폴더로 옮기기
+            transform.parent = objectManager.grayCreatureFolder;
         }  
     }
     #endregion
