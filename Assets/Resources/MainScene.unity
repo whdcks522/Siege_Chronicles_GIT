@@ -35363,6 +35363,7 @@ MonoBehaviour:
   textYellow: {r: 1, g: 0.96862745, b: 0, a: 1}
   textRed: {r: 1, g: 0.5330188, b: 0.5330188, a: 1}
   textGreen: {r: 0.504717, g: 1, b: 0.51814747, a: 1}
+  textBlue: {r: 0.57254905, g: 0.88235295, b: 1, a: 1}
   selectManager: {fileID: 1058270317}
   gameManager: {fileID: 7248791031402223488}
   spellBtnAnim:

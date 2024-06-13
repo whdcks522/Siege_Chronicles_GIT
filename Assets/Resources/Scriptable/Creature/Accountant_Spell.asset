@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Accountant_Spell
   m_EditorClassIdentifier: 
   isFocus: 0
+  isSale: 1
   focusColor: {r: 0, g: 0, b: 0, a: 0}
   spellIcon: {fileID: 21300000, guid: 555994b0345f6f74cb9f391d92880ac6, type: 3}
   spellName: "\uC7AC\uC815\uD68C\uACC4\uBCD1"
   spellType: 0
-  spellValue: 5
+  spellValue: 7
   spellDesc: "<color=#AA0000>\uC790\uC6D0 \uAD00\uB9AC</color>\uC5D0 \uB2A5\uC219\uD55C
     <color=#DDAAFF>\uD06C\uB9AC\uCCD0</color>\uC785\uB2C8\uB2E4. \r\n<color=#00AAFF>\uC0AC\uB9DD\uD55C
     \uACBD\uC6B0</color>, \uC790\uC6D0\uC774 <color=#00AAFF>8</color> \uC774\uC0C1\uC774\uBA74

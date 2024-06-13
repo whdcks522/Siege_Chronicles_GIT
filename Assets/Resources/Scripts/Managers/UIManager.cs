@@ -37,11 +37,11 @@ public class UIManager : MonoBehaviour
     public Animator creatureCountAnim;//타워 매니저에서 사용
 
     [Header("텍스트 색 변화")]
-    //글자 색 변화를 위함(기본색)
     public Color textYellow;
     public Color textRed;
     public Color textGreen;
     Color textWhite;
+    public Color textBlue;
 
     [Header("매니저")]
     public SelectManager selectManager;
@@ -91,7 +91,11 @@ public class UIManager : MonoBehaviour
             if (spellBtnArr[i].spellData != null)
             {
                 //스펠 버튼 비율 채우기
-                spellBtnArr[i].spellBtnIcon.fillAmount = blueTowerManager.curTowerResource / spellBtnArr[i].spellData.spellValue;
+                int value = spellBtnArr[i].spellData.isSale ? 
+                    spellBtnArr[i].spellData.spellValue - blueTowerManager.curBankIndex :
+                    spellBtnArr[i].spellData.spellValue;
+
+                spellBtnArr[i].spellBtnIcon.fillAmount = blueTowerManager.curTowerResource / value;
 
                 if (spellBtnArr[i].spellBtnIcon.fillAmount >= 1 && spellBtnAnimBool[i]) //꽉 찬 경우
                 {
@@ -99,12 +103,23 @@ public class UIManager : MonoBehaviour
                     spellBtnAnim[i].SetBool("isFlash", true);
                     spellBtnAnimBool[i] = false;
 
+                    //스펠 버튼 텍스트 색 변화
+                    spellBtnArr[i].spellBtnValue.color = textGreen;
+
                     //쉐이더 활성화
                     spellBtnArr[i].spellBtnShader.gameObject.SetActive(true);
                 }
                 else if (spellBtnArr[i].spellBtnIcon.fillAmount < 1)//부족할 때
                 {
-                    spellBtnAnimBool[i] = true;//글자가 '딸깍' 할 준비 완료
+                    spellBtnAnimBool[i] = true;//스펠 버튼 글자가 '딸깍' 할 준비 완료
+
+                    //스펠 버튼 텍스트 색 변화
+                    spellBtnArr[i].spellBtnValue.color = textBlue;
+
+                    if(spellBtnArr[i].spellData.isSale && blueTowerManager.curBankIndex > 0)
+                    {
+                        spellBtnArr[i].spellBtnValue.color = textRed;
+                    }
 
                     //쉐이더 비활성화
                     spellBtnArr[i].spellBtnShader.gameObject.SetActive(false);
@@ -143,9 +158,6 @@ public class UIManager : MonoBehaviour
     #region UI 정보 초기화
     public void resetUI() 
     {
-        //플레이어 자원 색 초기화
-        PlayerResourceText.color = textWhite;
-
         //포커스 초기화
         FocusOff(false);
 
@@ -156,7 +168,7 @@ public class UIManager : MonoBehaviour
         bankText.text = "Lv." + (blueTowerManager.curBankIndex + 1) + "(" + blueTowerManager.BankValueArr[blueTowerManager.curBankIndex] + ")";
         bankAnim.SetBool("isFlash", true);
         bankBtn.GetComponent<Button>().interactable = true;
-        bankText.color = textYellow;
+        //bankText.color = textYellow;
 
         //배속 초기화
         if (speed == 1) 
@@ -174,8 +186,8 @@ public class UIManager : MonoBehaviour
                 spellBtnAnim[i].SetBool("isFlash", true);
                 spellBtnAnimBool[i] = false;
 
-                //쉐이더 비활성화
-                spellBtnArr[i].spellBtnShader.gameObject.SetActive(false);
+                //값 초기화
+                spellBtnArr[i].spellBtnValue.text = spellBtnArr[i].spellData.spellValue.ToString();
             }    
         }
 
@@ -255,7 +267,21 @@ public class UIManager : MonoBehaviour
                 bankBtn.GetComponent<Button>().interactable = false;
 
                 bankText.color = textRed;
-            }   
+            }
+
+            //스펠 버튼 애니메이션 수행
+            for (int i = 0; i < spellBtnArr.Length; i++)
+            {
+                if (spellBtnArr[i].spellData != null)
+                {
+                    //값 초기화
+                    int value = spellBtnArr[i].spellData.isSale ?
+                    spellBtnArr[i].spellData.spellValue - blueTowerManager.curBankIndex :
+                    spellBtnArr[i].spellData.spellValue;
+
+                    spellBtnArr[i].spellBtnValue.text = value.ToString();
+                }
+            }
         }
         else if (blueTowerManager.curTowerResource < blueTowerManager.BankValueArr[blueTowerManager.curBankIndex]) //비용이 모자른 경우
         {
@@ -305,16 +331,17 @@ public class UIManager : MonoBehaviour
 
         //클릭한 버튼의 스펠 정보
         SpellData spellData = spellBtnArr[_index].GetComponent<SpellButton>().spellData;
-        //해당 스펠의 사용 비용
-        int value = spellData.spellValue;
+        //해당 스펠의 사용 비용(할인은 은행을 따라감)
+        int value = spellData.isSale ? spellData.spellValue - blueTowerManager.curBankIndex: spellData.spellValue;
+        Debug.Log(value);
 
         if (blueTowerManager.curTowerResource >= value && curSpellData == null)//비용이 충분하면서 포커스 중이 아니라면
         {
             if (spellData.spellType == SpellData.SpellType.Creature)//크리쳐를 누른 경우
             {
-                if (blueTowerManager.CreatureCountCheck())
+                if (blueTowerManager.CreatureCountCheck())//소환 가능한 경우
                 {
-                    //비용 감소
+                    //자원 감소
                     blueTowerManager.curTowerResource -= value;
 
                     //해당 크리쳐 소환
@@ -329,7 +356,7 @@ public class UIManager : MonoBehaviour
                     audioManager.PlaySfx(AudioManager.Sfx.SpellFailSfx);
                 }
             }
-            else if(spellData.spellType == SpellData.SpellType.Weapon)//주술을 누른 경우
+            else //if(spellData.spellType == SpellData.SpellType.Weapon) //주술을 누른 경우
             {
                 //스펠 성공 효과음
                 audioManager.PlaySfx(AudioManager.Sfx.SpellSuccessSfx);
@@ -349,7 +376,7 @@ public class UIManager : MonoBehaviour
                     float size = spellData.spellPrefab.transform.localScale.x;
                     Bullet bullet = spellData.spellPrefab.GetComponent<Bullet>();
 
-                    if (bullet.endBullet != null)//자식이 있으면 자식의 크기로 설정
+                    if (bullet.endBullet != null)//자식이 있으면, 자식의 크기로 설정
                         size = bullet.endBullet.transform.localScale.x;
 
                     clickScaleVec = new Vector3(size, size, size);

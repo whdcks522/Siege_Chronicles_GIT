@@ -8,6 +8,9 @@ public class SpellData : ScriptableObject
     [Header("포커스를 사용하는 지 여부")]
     public bool isFocus;
 
+    [Header("은행 등급에 따른 할인 여부")]
+    public bool isSale;
+
     public Color focusColor; //포커스에서 보여줄 색상
 
     [Header("스펠 아이콘")]
@@ -22,7 +25,6 @@ public class SpellData : ScriptableObject
     }
     [Header("스펠 타입")]
     public SpellType spellType;
-
 
     [Header("스펠 비용")]
     public int spellValue;
