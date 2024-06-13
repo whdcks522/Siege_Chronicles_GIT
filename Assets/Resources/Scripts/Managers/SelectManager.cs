@@ -21,8 +21,9 @@ public class SelectManager : MonoBehaviour
 
     [Header("선택된 스펠 타입")]
     public Image selectedSpellTypeImage;
-    public Sprite[] spellTypeImageArr;//바꿀 이미지가 어디에 있는지
     public Text selectedSpellTypeText;
+
+    public Image[] spellTypeImageArr;//바꿀 이미지가 어디에 있는지
 
     [Header("선택된 스펠 비용")]
     public Text selectedSpellValue;
@@ -116,7 +117,9 @@ public class SelectManager : MonoBehaviour
                 SpawnCreature(gameManager.creatureSpellDataArr[i].spellPrefab.name);
             }
         }
-        
+        //전투 배경음악 재생
+        //audioManager.PlayBgm(AudioManager.Bgm.BattleBgm);
+
         //전투 환경 초기화
         gameManager.RetryGame();
 

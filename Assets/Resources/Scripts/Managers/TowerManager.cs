@@ -269,7 +269,7 @@ public class TowerManager : MonoBehaviour
                 UiManager.victoryTitle.SetActive(true);
 
                 //승리 효과음
-                audioManager.PlaySfx(AudioManager.Sfx.WinSfx);
+                audioManager.PlayBgm(AudioManager.Bgm.WinBgm);
             }
             else if (curTeamEnum == Creature.TeamEnum.Blue) //파란 팀이 진 경우
             {
@@ -281,7 +281,7 @@ public class TowerManager : MonoBehaviour
                 UiManager.defeatTitle.SetActive(true);
 
                 //패배 효과음
-                audioManager.PlaySfx(AudioManager.Sfx.LoseSfx);
+                audioManager.PlayBgm(AudioManager.Bgm.LoseBgm);
             }
             //게임 종료를 위해 정지 시키기
             UiManager.SettingControl(true);

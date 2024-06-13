@@ -19,7 +19,7 @@ public class StartManager : MonoBehaviour
         audioManager = gameManager.audioManager;
 
         //시작 화면 배경 음악 재생
-        audioManager.PlayBgm(AudioManager.Bgm.Start);
+        audioManager.PlayBgm(AudioManager.Bgm.StartBgm);
     }
 
     public void StartGame()//시작 버튼 누름

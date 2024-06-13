@@ -144,17 +144,21 @@ public class SpellButton : MonoBehaviour
             selectManager.selectedSpellTypeImage.gameObject.SetActive(true);
             if (spellData.spellType == SpellData.SpellType.Creature) 
             {
+                //스펠 타입 이미지 변경
+                selectManager.selectedSpellTypeImage.sprite = selectManager.spellTypeImageArr[0].sprite;
+                selectManager.selectedSpellTypeImage.color = selectManager.spellTypeImageArr[0].color;
+
                 //스펠 타입 텍스트 변경
                 selectManager.selectedSpellTypeText.text = "크리쳐";
-                //스펠 타입 이미지 변경
-                selectManager.selectedSpellTypeImage.sprite = selectManager.spellTypeImageArr[0];
             }
             else// if (spellData.spellType == SpellData.SpellType.Weapon)
             {
+                //스펠 타입 이미지 변경
+                selectManager.selectedSpellTypeImage.sprite = selectManager.spellTypeImageArr[1].sprite;
+                selectManager.selectedSpellTypeImage.color = selectManager.spellTypeImageArr[1].color;
+
                 //스펠 타입 텍스트 변경
                 selectManager.selectedSpellTypeText.text = "주술";
-                //스펠 타입 이미지 변경
-                selectManager.selectedSpellTypeImage.sprite = selectManager.spellTypeImageArr[1];
             }
 
             //스펠 비용 바꾸기

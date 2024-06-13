@@ -14,7 +14,7 @@ public class AudioManager : MonoBehaviour
         bgmObject.transform.parent = transform;
         bgmPlayer = bgmObject.AddComponent<AudioSource>();//bgmPlayer 변수로 컴포넌트 생성하면서 동시에 저장
         bgmPlayer.playOnAwake = false;
-        bgmPlayer.loop = true;
+        //bgmPlayer.loop = true;
 
         //효과음 플레이어 초기화
         GameObject sfxObject = new GameObject("SfxPlayers");
@@ -34,7 +34,7 @@ public class AudioManager : MonoBehaviour
 
     //Bgm 플레이어
     AudioSource bgmPlayer;
-    public enum Bgm { Start, Select, Battle }
+    public enum Bgm { StartBgm, BattleBgm, WinBgm, LoseBgm, SetBgm }
     [Header("멀티 Bgm")]
     public AudioClip[] BgmClips;
 
@@ -46,15 +46,22 @@ public class AudioManager : MonoBehaviour
         {
             switch (_bgm)
             {
-                case Bgm.Start:
+                case Bgm.StartBgm:
                     bgmPlayer.clip = BgmClips[0];
+                    bgmPlayer.loop = true;
                     //bgmPlayer.volume = 0.5f;
                     break;
-                case Bgm.Select:
+                case Bgm.BattleBgm:
                     bgmPlayer.clip = BgmClips[1];
+                    bgmPlayer.loop = true;
                     break;
-                case Bgm.Battle:
+                case Bgm.WinBgm:
                     bgmPlayer.clip = BgmClips[2];
+                    bgmPlayer.loop = false;
+                    break;
+                case Bgm.LoseBgm:
+                    bgmPlayer.clip = BgmClips[3];
+                    bgmPlayer.loop = false;
                     break;
             }
             bgmPlayer.Play();
@@ -72,7 +79,7 @@ public class AudioManager : MonoBehaviour
     public enum Sfx//효과음의 종류
     {
         //타워 피격, 타워 파괴, 크리쳐 피격, 크리쳐 사망
-        TowerCrashSfx, WinSfx, LoseSfx, CreatureHitSfx, CreatureDeadSfx, 
+        TowerCrashSfx, CreatureHitSfx, CreatureDeadSfx, 
         //주술(스킬)
         GunSfx, FlameSfx, GrandCureSfx, CorpseExplosionAdaptSfx, CorpseExplosionBombSfx,
         //UI
@@ -81,10 +88,6 @@ public class AudioManager : MonoBehaviour
 
     [Header("타워 파괴 Sfx")]
     public AudioClip[] towerCrashSfxClips;
-    [Header("승리 Sfx")]
-    public AudioClip[] winSfxClips;
-    [Header("패배 Sfx")]
-    public AudioClip[] loseSfxClips;
     [Header("크리쳐 피격 Sfx")]
     public AudioClip[] creatureHitSfxClips;
     [Header("크리쳐 사망 Sfx")]
@@ -135,19 +138,12 @@ public class AudioManager : MonoBehaviour
                 case Sfx.TowerCrashSfx:
                     tmpSfxClips = towerCrashSfxClips;
                     break;
-                case Sfx.WinSfx:
-                    tmpSfxClips = winSfxClips;
-                    break;
-                case Sfx.LoseSfx:
-                    tmpSfxClips = loseSfxClips;
-                    break;
                 case Sfx.CreatureHitSfx:
                     tmpSfxClips = creatureHitSfxClips;
                     break;
                 case Sfx.CreatureDeadSfx:
                     tmpSfxClips = creatureDeadSfxClips;
                     break;
-
 
                 case Sfx.GunSfx:
                     tmpSfxClips = gunSfxClips;

@@ -9,4 +9,8 @@
     Stylized Slash VFX
     Item Pickup VFX - URP
     Cartoon FX Remaster
+
+<노래 모음>
+시작 화면: https://pixabay.com/ko/music/search/mood/%ed%8e%b8%ec%95%88%ed%95%9c/?mood=%EB%B0%9D%EC%9D%80
+전투 화면: https://pixabay.com/ko/music/search/mood/%ec%84%9c%20%ec%8a%a4%20%ed%8e%9c%ec%8a%a4/?mood=%EB%B6%88%EC%95%88
  
