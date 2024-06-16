@@ -1155,7 +1155,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 204.2}
+  m_AnchoredPosition: {x: 0, y: 204.20001}
   m_SizeDelta: {x: 100, y: 88.2}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &106512794
@@ -18006,9 +18006,9 @@ MonoBehaviour:
   tipAnim: {fileID: 541896263}
   gameManager: {fileID: 7248791031402223488}
   panelPageInfoArray:
-  - pageSprite: {fileID: 21300000, guid: 3ed727598cd0547a7b3bdc48b44c435f, type: 3}
+  - pageSprite: {fileID: 21300000, guid: 91e9c89d905c3f2439d0bc9eb92b3e20, type: 3}
     pageStr: "\uC124\uBA85\uC11C 1"
-  - pageSprite: {fileID: 21300000, guid: 1c93fc4926f8b4110b2d9a3bc5bbb94e, type: 3}
+  - pageSprite: {fileID: 21300000, guid: f06640e4fcc6a4149bada89eead1ace7, type: 3}
     pageStr: "\uC124\uBA85\uC11C 2"
   - pageSprite: {fileID: 21300000, guid: 531af8be9d79a4bd3bdccba8ab2f33e4, type: 3}
     pageStr: "\uC124\uBA85\uC11C 3"
