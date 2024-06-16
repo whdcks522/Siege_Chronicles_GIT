@@ -98,15 +98,21 @@ public class StartManager : MonoBehaviour
         //오류 조정
         tipPanelPageLeftBtn.interactable = true;
         tipPanelPageRightBtn.interactable = true;
+
+        //텍스트 색 변화
+        tipPanelPageText.color = gameManager.uiManager.textYellow;
+
         if (curPageindex <= 0)
         {
             curPageindex = 0;
             tipPanelPageLeftBtn.interactable = false;
         }
-        else if (curPageindex >= panelPageInfoArray.Length - 1)
+        else if (curPageindex >= panelPageInfoArray.Length - 1)//마지막 페이지인 경우
         {
             curPageindex = panelPageInfoArray.Length - 1;
             tipPanelPageRightBtn.interactable = false;
+
+            tipPanelPageText.color = gameManager.uiManager.textGreen;
         }
 
         //해당 페이지 정보 받아오기
@@ -114,5 +120,7 @@ public class StartManager : MonoBehaviour
         tipPanelText.text = panelPageInfoArray[curPageindex].pageStr;
 
         tipPanelPageText.text = (curPageindex + 1) + "/" + panelPageInfoArray.Length;
+
+        
     }
 }
