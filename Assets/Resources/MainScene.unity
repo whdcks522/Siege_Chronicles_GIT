@@ -18150,19 +18150,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BgmClips:
-  - {fileID: 8300000, guid: f8d925af7c131a44a98f1cb0f5945381, type: 3}
-  - {fileID: 8300000, guid: 221d74728777ec744816161bad755f60, type: 3}
-  - {fileID: 8300000, guid: 2ffd810886073204eb67edd7d743ffb2, type: 3}
+  - {fileID: 8300000, guid: 951e7dbd71deb92468c0c405d57a16ba, type: 3}
+  - {fileID: 8300000, guid: dd29bde7822f2584a91ed9c9cc2b7120, type: 3}
+  - {fileID: 8300000, guid: c7a8dbdb438f746298f3c7cd62f45d80, type: 3}
+  - {fileID: 8300000, guid: 2c94a5a3120774b68ba6349d2f33987e, type: 3}
   channels: 12
   towerCrashSfxClips:
   - {fileID: 8300000, guid: f2a4c0bbdb8d8c84c828aba1aaaacfbc, type: 3}
   - {fileID: 8300000, guid: cee676216f4872c49b8406099b7e1e7d, type: 3}
   - {fileID: 8300000, guid: d439c0877cc773147b1afac3d3c74746, type: 3}
   - {fileID: 8300000, guid: 2406719d5ab36254285c75c8babd7db3, type: 3}
-  winSfxClips:
-  - {fileID: 8300000, guid: c7a8dbdb438f746298f3c7cd62f45d80, type: 3}
-  loseSfxClips:
-  - {fileID: 8300000, guid: 2c94a5a3120774b68ba6349d2f33987e, type: 3}
   creatureHitSfxClips:
   - {fileID: 8300000, guid: 0d883de9f385cf448bbc92d7e4c00267, type: 3}
   - {fileID: 8300000, guid: ffef416cda9436d47a251e3c0c4c5b1b, type: 3}

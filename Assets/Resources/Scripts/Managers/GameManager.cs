@@ -43,6 +43,9 @@ public class GameManager : MonoBehaviour
     #region 현재 스펠 그대로 게임을 '재시도'
     public void RetryGame()
     {
+        //시작 화면 배경 음악 재생
+        audioManager.PlayBgm(AudioManager.Bgm.BattleBgm);
+
         //종이 넘기는 효과음
         audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
 
