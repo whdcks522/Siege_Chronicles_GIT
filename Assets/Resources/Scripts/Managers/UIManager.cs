@@ -71,7 +71,7 @@ public class UIManager : MonoBehaviour
     [Header("스펠 버튼 비용 애니메이션")]
     public Animator[] spellBtnAnim;//스펠 버튼 비용 애니메이션
     public bool[] spellBtnAnimBool;//스펠 버튼 비용 애니메이션 허가
-    private void FixedUpdate()
+    private void Update()//fixed하면, 포커스가 눈에 띄게 지연됨
     {
         if (addRot != 0)
         {

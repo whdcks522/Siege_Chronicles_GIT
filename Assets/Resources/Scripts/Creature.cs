@@ -464,7 +464,7 @@ public class Creature : MonoBehaviour
 
         foreach (Transform obj in enemyCreatureFolder)
         {
-            if (obj.gameObject.activeSelf)//obj.gameObject.layer == LayerMask.NameToLayer("Creature")
+            if (obj.gameObject.activeSelf && obj.gameObject.layer == LayerMask.NameToLayer("Creature"))
             {
                 //적과의 거리
                 float tmpRange = (obj.position - transform.position).magnitude;
