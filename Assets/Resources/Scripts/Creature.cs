@@ -186,49 +186,52 @@ public class Creature : MonoBehaviour
 
     public void AgentAction_1()
     {
-        if (bulletStartPoint == null)//근접형인 경우
+        if (curHealth > 0) //생존중이라면
         {
-            GameObject slash = objectManager.CreateObj(useBullet.name, ObjectManager.PoolTypes.BulletPool);
-            Bullet slash_bullet = slash.GetComponent<Bullet>();
-
-            //이동
-            slash.transform.position = transform.position + transform.forward * zUp + Vector3.up * yUp;//위로 3, 앞으로 1
-
-            //회전
-            slash.transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x + 90,
-                transform.rotation.eulerAngles.y - 180, transform.rotation.eulerAngles.z - 90);
-
-            //활성화
-            slash_bullet.BulletOn(curTeamEnum);
-        }
-        else //원거리 형인 경우
-        {
-            for (int x = yUp; x <= zUp; x++)//3발씩 발사하는 크리쳐를 위함
+            if (bulletStartPoint == null)//근접형인 경우
             {
-                // 투사체 생성
-                GameObject tracer = objectManager.CreateObj(useBullet.name, ObjectManager.PoolTypes.BulletPool);
-                Bullet tracer_bullet = tracer.GetComponent<Bullet>();
-                Rigidbody tracer_rigid = tracer.GetComponent<Rigidbody>();
+                GameObject slash = objectManager.CreateObj(useBullet.name, ObjectManager.PoolTypes.BulletPool);
+                Bullet slash_bullet = slash.GetComponent<Bullet>();
 
-                // 초기화
-                tracer_bullet.gameManager = gameManager;
-                tracer_bullet.Init();
+                //이동
+                slash.transform.position = transform.position + transform.forward * zUp + Vector3.up * yUp;//위로 3, 앞으로 1
 
-                // 투사체 시작 위치 설정
-                tracer.transform.position = bulletStartPoint.position;
+                //회전
+                slash.transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x + 90,
+                    transform.rotation.eulerAngles.y - 180, transform.rotation.eulerAngles.z - 90);
 
-                // 투사체 방향 설정
-                targetVec = (curTarget.transform.position - transform.position).normalized;
+                //활성화
+                slash_bullet.BulletOn(curTeamEnum);
+            }
+            else //원거리 형인 경우
+            {
+                for (int x = yUp; x <= zUp; x++)//3발씩 발사하는 크리쳐를 위함
+                {
+                    // 투사체 생성
+                    GameObject tracer = objectManager.CreateObj(useBullet.name, ObjectManager.PoolTypes.BulletPool);
+                    Bullet tracer_bullet = tracer.GetComponent<Bullet>();
+                    Rigidbody tracer_rigid = tracer.GetComponent<Rigidbody>();
 
-                // 각도를 변환하여 새로운 방향 벡터 계산
-                cameraRotation = Quaternion.Euler(0, x * split, 0);
-                targetVec = cameraRotation * targetVec;
+                    // 초기화
+                    tracer_bullet.gameManager = gameManager;
+                    tracer_bullet.Init();
 
-                // 투사체 속도 설정
-                tracer_rigid.velocity = targetVec * tracer_bullet.bulletSpeed;
+                    // 투사체 시작 위치 설정
+                    tracer.transform.position = bulletStartPoint.position;
 
-                // 투사체 활성화
-                tracer_bullet.BulletOn(curTeamEnum);
+                    // 투사체 방향 설정
+                    targetVec = (curTarget.transform.position - transform.position).normalized;
+
+                    // 각도를 변환하여 새로운 방향 벡터 계산
+                    cameraRotation = Quaternion.Euler(0, x * split, 0);
+                    targetVec = cameraRotation * targetVec;
+
+                    // 투사체 속도 설정
+                    tracer_rigid.velocity = targetVec * tracer_bullet.bulletSpeed;
+
+                    // 투사체 활성화
+                    tracer_bullet.BulletOn(curTeamEnum);
+                }
             }
         }
     }
@@ -301,9 +304,13 @@ public class Creature : MonoBehaviour
         //캔버스 회전
         CanvasSpin();
     }
-    //카메라 회전값
+    #endregion
+
+
+    #region 크리쳐별 카메라 회전
     Vector3 cameraVec;
     Quaternion cameraRotation;
+    float upFloat = 5;
 
     void CanvasSpin()//현재 체력 캔버스 회전
     {
@@ -312,6 +319,9 @@ public class Creature : MonoBehaviour
         cameraRotation = Quaternion.LookRotation(cameraVec);
         // 물체 C에 회전 적용
         miniCanvas.transform.rotation = cameraRotation;
+
+        //캔버스 위치 갱신
+        miniCanvas.transform.position = transform.position + Vector3.up * upFloat;//안하면 애니메이션 전환마다 캔버스 흔들림
     }
     #endregion
 

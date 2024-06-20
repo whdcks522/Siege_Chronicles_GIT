@@ -52,7 +52,6 @@ MonoBehaviour:
   maxHealth: 20
   curHealth: 0
   isShield: 0
-  isCoinRevive: 8
   ourTower: {fileID: 0}
   ourTowerManager: {fileID: 0}
   ourCreatureFolder: {fileID: 0}

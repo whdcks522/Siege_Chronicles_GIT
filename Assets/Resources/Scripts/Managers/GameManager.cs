@@ -35,6 +35,11 @@ public class GameManager : MonoBehaviour
     public GameObject GrandCure;//GrandCure 프리펩
     public GameObject CorpseExplosion;//CorpseExplosion 프리펩
 
+    [Header("뱅크 버튼을 누르기 위해 필요한 비용 배열")]
+    public int[] BankValueArr;
+    [Header("뱅크 버튼을 눌러서 자원이 증가하게 되는 속도 배열")]
+    public float[] BankSpeedArr;
+
     [Header("매니저 목록")]
     public ObjectManager objectManager;
     public UIManager uiManager;

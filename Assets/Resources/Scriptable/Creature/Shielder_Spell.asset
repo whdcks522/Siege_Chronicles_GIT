@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFocus: 0
   focusColor: {r: 0, g: 0, b: 0, a: 0}
+  isSale: 0
   spellIcon: {fileID: 21300000, guid: 8e090d75a1b62fc48b48db342fcfd9ce, type: 3}
   spellName: "\uBC29\uD328\uBCD1"
   spellType: 0

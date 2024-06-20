@@ -61979,7 +61979,6 @@ MonoBehaviour:
   curTowerResource: 0
   maxTowerResource: 10
   futureSpellData: {fileID: 0}
-  BankValueArr: 05000000060000000700000008000000
   curBankIndex: 0
   curCreatureCount: 0
 --- !u!23 &4088427483989451055
@@ -73329,6 +73328,13 @@ MonoBehaviour:
   GrandCure: {fileID: 1498152551406518, guid: 408af7a30a0f3e54eb56d985a4471da0, type: 3}
   CorpseExplosion: {fileID: 1242051555635342, guid: 1798e797728b6c446932cee8ca214f93,
     type: 3}
+  BankValueArr: 03000000040000000500000006000000
+  BankSpeedArr:
+  - 0.6
+  - 0.7
+  - 0.8
+  - 0.9
+  - 1
   objectManager: {fileID: 2691419215590457056}
   uiManager: {fileID: 1029026972}
   audioManager: {fileID: 511560928}
@@ -79993,7 +79999,6 @@ MonoBehaviour:
   curTowerResource: 0
   maxTowerResource: 10
   futureSpellData: {fileID: 0}
-  BankValueArr: 05000000060000000700000008000000
   curBankIndex: 0
   curCreatureCount: 0
 --- !u!1 &9189207752928255235

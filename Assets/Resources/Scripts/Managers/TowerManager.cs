@@ -82,7 +82,7 @@ public class TowerManager : MonoBehaviour
                 if (maxTowerResource > curTowerResource)
                 {
                     //스펠 사용을 위한 자원 증가
-                    curTowerResource += BankSpeedArr[curBankIndex] * 0.1f;
+                    curTowerResource += gameManager.BankSpeedArr[curBankIndex] * 0.1f;
                 }
                 else if (maxTowerResource <= curTowerResource)
                 {
@@ -130,8 +130,6 @@ public class TowerManager : MonoBehaviour
     #region 타워 요소 초기화;
 
     [Header("뱅크 관련 요소들")]
-    public int[] BankValueArr = { 5, 6, 7, 8 };//뱅크 버튼을 누르기 위해 필요한 비용 배열
-    float[] BankSpeedArr = { 0.6f, 0.7f, 0.8f, 0.9f, 1f };//뱅크 버튼을 눌러서 자원이 증가하게 되는 속도 배열
     public int curBankIndex = 0;//현재 뱅크 레벨이 몇인지
 
     public void ResetTower()//게임 재시작을 위해 타워 정보 초기화

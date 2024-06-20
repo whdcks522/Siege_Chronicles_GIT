@@ -71,7 +71,7 @@ public class UIManager : MonoBehaviour
     [Header("스펠 버튼 비용 애니메이션")]
     public Animator[] spellBtnAnim;//스펠 버튼 비용 애니메이션
     public bool[] spellBtnAnimBool;//스펠 버튼 비용 애니메이션 허가
-    private void Update()
+    private void FixedUpdate()
     {
         if (addRot != 0)
         {
@@ -134,7 +134,7 @@ public class UIManager : MonoBehaviour
         //은행 버튼 활성화 관리, 은행이 최고 수준이 아니면서 상호작용 가능할 때
         if (bankBtn.GetComponent<Button>().interactable)
         {
-            bankBtn.fillAmount = blueTowerManager.curTowerResource / blueTowerManager.BankValueArr[blueTowerManager.curBankIndex];
+            bankBtn.fillAmount = blueTowerManager.curTowerResource / gameManager.BankValueArr[blueTowerManager.curBankIndex];
 
             if (bankBtn.fillAmount >= 1 && alreadyBankTouch)
             {
@@ -165,10 +165,9 @@ public class UIManager : MonoBehaviour
         blueTowerManager.CreatureCountText();
 
         //플레이어 은행 초기화
-        bankText.text = "Lv." + (blueTowerManager.curBankIndex + 1) + "(" + blueTowerManager.BankValueArr[blueTowerManager.curBankIndex] + ")";
+        bankText.text = "Lv." + (blueTowerManager.curBankIndex + 1) + "(" + gameManager.BankValueArr[blueTowerManager.curBankIndex] + ")";
         bankAnim.SetBool("isFlash", true);
         bankBtn.GetComponent<Button>().interactable = true;
-        //bankText.color = textYellow;
 
         //배속 초기화
         if (speed == 1) 
@@ -241,23 +240,23 @@ public class UIManager : MonoBehaviour
     {
         bankAnim.SetBool("isFlash", true);
 
-        if (blueTowerManager.curTowerResource >= blueTowerManager.BankValueArr[blueTowerManager.curBankIndex])//비용이 충분한 경우
+        if (blueTowerManager.curTowerResource >= gameManager.BankValueArr[blueTowerManager.curBankIndex])//비용이 충분한 경우
         {
             //은행 효과음
             audioManager.PlaySfx(AudioManager.Sfx.BankSfx);
 
             //비용 처리
-            blueTowerManager.curTowerResource -= blueTowerManager.BankValueArr[blueTowerManager.curBankIndex];
+            blueTowerManager.curTowerResource -= gameManager.BankValueArr[blueTowerManager.curBankIndex];
 
             //은행 계수 증가
             blueTowerManager.curBankIndex++;
 
-            if (blueTowerManager.curBankIndex != blueTowerManager.BankValueArr.Length)//0, 1, 2, 3일 때 클릭한 경우
+            if (blueTowerManager.curBankIndex != gameManager.BankValueArr.Length)//0, 1, 2, 3일 때 클릭한 경우
             {
                 //은행 텍스트 관리
-                bankText.text = "Lv." + (blueTowerManager.curBankIndex + 1) + "(" + blueTowerManager.BankValueArr[blueTowerManager.curBankIndex] + ")";
+                bankText.text = "Lv." + (blueTowerManager.curBankIndex + 1) + "(" + gameManager.BankValueArr[blueTowerManager.curBankIndex] + ")";
             }
-            else if (blueTowerManager.curBankIndex == blueTowerManager.BankValueArr.Length)//4일 때 클릭한 경우
+            else if (blueTowerManager.curBankIndex == gameManager.BankValueArr.Length)//4일 때 클릭한 경우
             {
                 //은행 텍스트 관리
                 bankText.text = "Lv.5(-)";
@@ -283,7 +282,7 @@ public class UIManager : MonoBehaviour
                 }
             }
         }
-        else if (blueTowerManager.curTowerResource < blueTowerManager.BankValueArr[blueTowerManager.curBankIndex]) //비용이 모자른 경우
+        else if (blueTowerManager.curTowerResource < gameManager.BankValueArr[blueTowerManager.curBankIndex]) //비용이 모자른 경우
         {
             //비용 부족 효과음
             audioManager.PlaySfx(AudioManager.Sfx.SpellFailSfx);
