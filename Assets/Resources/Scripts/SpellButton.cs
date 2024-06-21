@@ -150,6 +150,9 @@ public class SpellButton : MonoBehaviour
 
                 //스펠 타입 텍스트 변경
                 selectManager.selectedSpellTypeText.text = "크리쳐";
+
+                //스펠 정보 바꾸기(체력, 강도:피해량: 이동속도, 포커스 여부, 사거리)
+                selectManager.selectedSpellInfo.text = "aaaaaa\naaa";
             }
             else// if (spellData.spellType == SpellData.SpellType.Weapon)
             {
@@ -163,6 +166,7 @@ public class SpellButton : MonoBehaviour
 
             //스펠 비용 바꾸기
             selectManager.selectedSpellValue.text = spellData.spellValue.ToString();
+
             //스펠 설명 바꾸기
             selectManager.selectedSpellDesc.text = spellData.spellDesc;
 

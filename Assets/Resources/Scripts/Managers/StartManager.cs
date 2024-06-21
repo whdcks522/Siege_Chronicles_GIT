@@ -60,6 +60,9 @@ public class StartManager : MonoBehaviour
 
     public void OpenWebSite() //웹 사이트 열기
     {
+        //종이 넘기는 효과음
+        audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
+
         //개별 사이트: 
         Application.OpenURL("https://play.google.com/store/apps/details?id=com.IssacCompany.Siege_Chronicle");
 

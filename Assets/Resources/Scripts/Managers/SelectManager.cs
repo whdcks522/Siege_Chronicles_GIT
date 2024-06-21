@@ -8,6 +8,9 @@ using Unity.VisualScripting;
 
 public class SelectManager : MonoBehaviour
 {
+    [Header("레벨 슬라이더")]
+    public Slider levelSlider;
+
     public Animator anim;
 
     [Header("선택된 스펠 버튼")]
@@ -28,14 +31,16 @@ public class SelectManager : MonoBehaviour
     [Header("선택된 스펠 비용")]
     public Text selectedSpellValue;
 
+    [Header("선택된 스펠 정보")]
+    public Text selectedSpellInfo;
+
     [Header("선택된 스펠 설명")]
     public Text selectedSpellDesc;
 
     [Header("스펠버튼 배열")]
     public SpellButton[] spellBtnArr = new SpellButton[4];
 
-    [Header("레벨 슬라이더")]
-    public Slider levelSlider;
+    
 
     [Header("매니저")]
     public GameManager gameManager;
@@ -117,8 +122,6 @@ public class SelectManager : MonoBehaviour
                 SpawnCreature(gameManager.creatureSpellDataArr[i].spellPrefab.name);
             }
         }
-        //전투 배경음악 재생
-        //audioManager.PlayBgm(AudioManager.Bgm.BattleBgm);
 
         //전투 환경 초기화
         gameManager.RetryGame();
