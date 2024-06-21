@@ -58,6 +58,14 @@ public class StartManager : MonoBehaviour
     [Header("팁 패널의 페이지 오른쪽 버튼")]
     public Button tipPanelPageRightBtn;
 
+    public void OpenWebSite() //웹 사이트 열기
+    {
+        //개별 사이트: 
+        Application.OpenURL("https://play.google.com/store/apps/details?id=com.IssacCompany.Siege_Chronicle");
+
+        //전체 사이트
+        //Application.OpenURL("https://play.google.com/store/apps/developer?id=%EC%9D%B4%EC%82%AD");
+    }
     public void PanelActivateControl(bool isActivate) //패널 활성, 비활성 관리
     {
         tipAnim.SetBool("isPanel", isActivate);
