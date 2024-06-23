@@ -19,6 +19,6 @@ MonoBehaviour:
   spellName: "\uC0AC\uACA9"
   spellType: 1
   spellValue: 3
-  spellDesc: "\uC801 \uD06C\uB9AC\uCCD0\uC5D0\uAC8C \uC0AC\uACA9\uC744 n\uBE75\uD569\uB2C8\uB2E4.fff"
+  spellDesc: "\uC801 \uD06C\uB9AC\uCCD0\uC5D0\uAC8C \uC0AC\uACA9\uC744 n\uBE75\uD569\uB2C8\uB2E4."
   spellPrefab: {fileID: 1795072395756124, guid: 5135a03674bb17e4aae98e805b20d536,
     type: 3}
