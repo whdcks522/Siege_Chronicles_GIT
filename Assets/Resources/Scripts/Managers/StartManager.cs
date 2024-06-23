@@ -60,14 +60,11 @@ public class StartManager : MonoBehaviour
 
     public void OpenWebSite() //웹 사이트 열기
     {
-        //종이 넘기는 효과음
-        audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
-
         //개별 사이트: 
-        Application.OpenURL("https://play.google.com/store/apps/details?id=com.IssacCompany.Siege_Chronicle");
+        //Application.OpenURL("https://play.google.com/store/apps/details?id=com.IssacCompany.Siege_Chronicle");
 
         //전체 사이트
-        //Application.OpenURL("https://play.google.com/store/apps/developer?id=%EC%9D%B4%EC%82%AD");
+        Application.OpenURL("https://play.google.com/store/apps/developer?id=%EC%9D%B4%EC%82%AD");
     }
     public void PanelActivateControl(bool isActivate) //패널 활성, 비활성 관리
     {
@@ -96,7 +93,6 @@ public class StartManager : MonoBehaviour
 
         //페이지 텍스트 애니메이션
         pageAnim.SetBool("isFlash", true);
-
 
         //0이면 초기 화면, -1이면 왼쪽, +1이면 오른쪽
         if (pageIndex == 0) //0으로 초기화
@@ -131,7 +127,5 @@ public class StartManager : MonoBehaviour
         tipPanelText.text = panelPageInfoArray[curPageindex].pageStr;
 
         tipPanelPageText.text = (curPageindex + 1) + "/" + panelPageInfoArray.Length;
-
-        
     }
 }
