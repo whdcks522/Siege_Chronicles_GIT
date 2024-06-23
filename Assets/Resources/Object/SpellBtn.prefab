@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7765320617828885307}
   - component: {fileID: 1743495268153587986}
   - component: {fileID: 704328461357093369}
-  - component: {fileID: 4112776417560654355}
+  - component: {fileID: 5332868739448975951}
   m_Layer: 5
   m_Name: SpellBtnCheck
   m_TagString: Untagged
@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 770d5dfa083594c56838ea96205c7b9a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 15e725f67e31b4b14b47715b50244dc0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -77,7 +77,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4112776417560654355
+--- !u!114 &5332868739448975951
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
-  m_EffectDistance: {x: 1, y: 3}
+  m_EffectDistance: {x: 3, y: 3}
   m_UseGraphicAlpha: 1
 --- !u!1 &1091691304888104334
 GameObject:
@@ -368,12 +368,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curSpellBtnEnum: 0
   spellBtnValue: {fileID: 5353312735597383467}
+  spellBtnShader: {fileID: 0}
   spellBtnIcon: {fileID: 7688239999973509402}
   spellBtnCheck: {fileID: 659270692131195105}
   spellData: {fileID: 0}
   originSpellBtn: {fileID: 0}
   gameManager: {fileID: 0}
-  spellAnim: {fileID: 0}
 --- !u!114 &7765156752989542302
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -152,9 +152,18 @@ public class SpellButton : MonoBehaviour
                 selectManager.selectedSpellTypeText.text = "크리쳐";
 
                 //스펠 정보 바꾸기(체력, 강도:피해량: 이동속도, 포커스 여부, 사거리)
-                selectManager.selectedSpellInfo.text = "aaaaaa\naaa";
+                Creature spellCreature = spellData.spellPrefab.GetComponent<Creature>();
+                Bullet spellCreatureBullet = spellCreature.useBullet.GetComponent<Bullet>();
+                int spellCreatureBulletDamage = spellCreatureBullet.bulletDamage;
+
+                //체력, 공격력, 사거리, 이동속도
+                selectManager.selectedSpellInfo.text =
+                "<color=#FF7070>체력</color>: " + spellCreature.maxHealth + "\n" +
+                "<color=#4E9D61>공격력</color>: " + spellCreatureBulletDamage / 3 + '/' + spellCreatureBulletDamage / 2 + '/' + spellCreatureBulletDamage + "\n" +
+                "<color=#B684FF>공격 사거리</color>: " + spellCreature.maxRange + "\n" +
+                "<color=#406BFF>기동력</color>: " + spellCreature.nav.speed;
             }
-            else// if (spellData.spellType == SpellData.SpellType.Weapon)
+            else
             {
                 //스펠 타입 이미지 변경
                 selectManager.selectedSpellTypeImage.sprite = selectManager.spellTypeImageArr[1].sprite;
@@ -162,6 +171,45 @@ public class SpellButton : MonoBehaviour
 
                 //스펠 타입 텍스트 변경
                 selectManager.selectedSpellTypeText.text = "주술";
+
+                //스펠 정보 바꾸기(체력, 강도:피해량: 이동속도, 포커스 여부, 사거리)
+                Bullet spellWeaponBullet = spellData.spellPrefab.GetComponent<Bullet>();
+                int spellWeaponBulletDamage = spellWeaponBullet.bulletDamage;
+                int spellWeaponBulletRad = (int)spellWeaponBullet.transform.localScale.x;
+                if (spellWeaponBulletDamage == 0 && spellWeaponBullet.endBullet != null) //피해가 0이면서 자식 총알이 있는 경우(화염구)
+                {
+                    //자식 총알로 대체
+                    spellWeaponBulletDamage = spellWeaponBullet.endBullet.GetComponent<Bullet>().bulletDamage;
+
+                    spellWeaponBulletRad = (int)spellWeaponBullet.endBullet.GetComponent<Bullet>().transform.localScale.x;
+                }
+
+                //공격력, 피격 대상, 피격 범위, 포커스 여부
+                if (spellWeaponBullet.curBulletEffectEnum == Bullet.BulleEffectEnum.Damage)
+                {
+                    selectManager.selectedSpellInfo.text = "<color=#4E9D61>공격력</color>: " +
+                            spellWeaponBulletDamage / 3 + "/" + spellWeaponBulletDamage / 2 + "/" + spellWeaponBulletDamage + "\n";
+                }
+                else
+                {
+                    selectManager.selectedSpellInfo.text = "<color=#FB6EFF>치유력</color>: " + spellWeaponBulletDamage + "\n";
+                }
+
+                selectManager.selectedSpellInfo.text += "<color=#B684FF>피격 범위</color>: ";
+                if (spellWeaponBullet.bulletTarget != null)
+                    selectManager.selectedSpellInfo.text += "단일 " + "\n";
+                else
+                    selectManager.selectedSpellInfo.text += "다중(" + spellWeaponBulletRad + ")\n";
+
+                selectManager.selectedSpellInfo.text += "<color=#406BFF>위치 설정 여부</color>: ";
+                if (spellData.isFocus)
+                {
+                    selectManager.selectedSpellInfo.text += "O";
+                }
+                else 
+                {
+                    selectManager.selectedSpellInfo.text += "X";
+                }
             }
 
             //스펠 비용 바꾸기

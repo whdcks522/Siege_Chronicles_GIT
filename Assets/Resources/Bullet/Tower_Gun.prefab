@@ -4913,12 +4913,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39d7777aa57d16941af8bd7f6040a3c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTime: 2
+  maxTime: 1.5
   colTime: 0
   bulletDamage: 18
   bulletSpeed: 150
   bulletCollider: {fileID: 0}
-  bulletTarget: {fileID: 0}
+  bulletTarget: {fileID: 1795072395756124}
   curTeamEnum: 2
   curBulletMoveEnum: 1
   curBulletEffectEnum: 0
