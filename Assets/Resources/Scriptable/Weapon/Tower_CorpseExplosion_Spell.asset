@@ -14,15 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFocus: 0
   focusColor: {r: 0, g: 0, b: 0, a: 0}
+  isSale: 0
   spellIcon: {fileID: 21300000, guid: ecdc3a730ef39441cb0d100b4db83407, type: 3}
   spellName: "\uC2DC\uCCB4\uD3ED\uBC1C"
   spellType: 1
   spellValue: 3
-  spellDesc: "<color=#0000AA>\uC544\uAD70</color> <color=#DDAAFF>\uD06C\uB9AC\uCCD0</color>
-    \uC804\uCCB4\uC5D0\uAC8C <color=#770077>\uC2DC\uCCB4 \uD3ED\uBC1C</color>\uC744
-    \uC801\uC6A9\uD569\uB2C8\uB2E4. \r\n<color=#770077>\uC2DC\uCCB4 \uD3ED\uBC1C</color>\uC774
-    \uC801\uC6A9\uB41C <color=#DDAAFF>\uD06C\uB9AC\uCCD0</color> <color=#00AAFF>\uC0AC\uB9DD
-    \uC2DC</color>, \uC8FC\uC704\uC5D0 <color=#00AAFF>\uD53C\uD574</color>\uB97C
-    \uC90D\uB2C8\uB2E4."
+  spellDesc: "\uC544\uAD70 \uD06C\uB9AC\uCCD0 \uC804\uCCB4\uC5D0\uAC8C \uC2DC\uCCB4
+    \uD3ED\uBC1C\uC744 \uC801\uC6A9\uD569\uB2C8\uB2E4. \r\n\uC2DC\uCCB4 \uD3ED\uBC1C\uC774
+    \uC801\uC6A9\uB41C \uD06C\uB9AC\uCCD0 \uC18C\uBA78 \uC2DC, \uC8FC\uC704\uC5D0
+    \uD070 \uD53C\uD574\uB97C \uC90D\uB2C8\uB2E4."
   spellPrefab: {fileID: 1242051555635342, guid: 1798e797728b6c446932cee8ca214f93,
     type: 3}
