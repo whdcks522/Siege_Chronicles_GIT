@@ -6,6 +6,7 @@ using Firebase;
 using Firebase.Database;
 using Firebase.Extensions;
 using System;
+using static Creature;
 
 public class FireManager : MonoBehaviour
 {
@@ -33,6 +34,7 @@ public class FireManager : MonoBehaviour
     public class LeaderBoardArray
     {
         public LeaderBoard[] leaderBoardArr = new LeaderBoard[3];//난이도마다 한개씩 존재
+        public bool isLoad = false;
 
         public LeaderBoardArray()
         {
@@ -133,28 +135,7 @@ public class FireManager : MonoBehaviour
                     string json = dataSnapshot.GetRawJsonValue();
 
                     leaderBoardArray = JsonUtility.FromJson<LeaderBoardArray>(json);
-                    Debug.Log("json 불러옴");
-                    /*
-                    ShowJson(0, 0);
-                    ShowJson(0, 1);
-                    ShowJson(0, 2);
-                    ShowJson(1, 0);
-                    ShowJson(1, 1);
-                    ShowJson(1, 2);
-                    ShowJson(2, 0);
-                    ShowJson(2, 1);
-                    ShowJson(2, 2);
-                    */
-
-                    //ShowJson();
-                    // UI 갱신 작업을 메인 스레드에서 실행              
-
-                    //ChangeJson(1, 10);
-
-                    //리더보드 초기화(여기서 또 load하면 바로 안나옴)
-                    //ShowJson();
-
-                    //SaveJson();
+                    Debug.Log("JSON 불러옴");
                 }
                 else
                 {
@@ -162,14 +143,46 @@ public class FireManager : MonoBehaviour
                 }
             }
         });
-
-        //Invoke("ShowJson", timing);
     }
     public float timing;
 
     public LeaderBoardInfo[] leaderBoardInfoArr;
     public GameManager gameManager;
-    
+
+    WaitForSeconds waitSec;
+    private void Start()
+    {
+        waitSec = new WaitForSeconds(timing);
+    }
+
+    public void StartCor() 
+    {
+        StartCoroutine(UpdateCoroutine());
+    }
+
+    IEnumerator UpdateCoroutine()
+    {
+        while (true)
+        {
+            if (leaderBoardArray.isLoad)
+            {
+                //바꾸고 - 저장하고 - 보여주기
+
+                ChangeJson(gameManager.gameLevel, gameManager.uiManager.curPlayTime);
+
+                ShowJson();
+
+                SaveJson();
+
+                leaderBoardArray.isLoad = false;
+                yield break;
+            }
+
+            Debug.Log("Finding..");
+            yield return waitSec;
+        }
+    }
+
 
     public void ShowJson() 
     {
@@ -194,7 +207,6 @@ public class FireManager : MonoBehaviour
             }
         }
     }
-
     #endregion
 
 }

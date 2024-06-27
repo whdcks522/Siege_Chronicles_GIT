@@ -35197,11 +35197,12 @@ MonoBehaviour:
       - 1000
       - 2000
       - 3000
-  timing: 0.1
+  timing: 0.004
   leaderBoardInfoArr:
   - {fileID: 1308353003}
   - {fileID: 1947204202}
   - {fileID: 1866375782}
+  gameManager: {fileID: 7248791031402223488}
 --- !u!4 &854706062
 Transform:
   m_ObjectHideFlags: 0

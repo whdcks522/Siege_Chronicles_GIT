@@ -269,13 +269,12 @@ public class TowerManager : MonoBehaviour
                 //승리 효과음
                 audioManager.PlayBgm(AudioManager.Bgm.WinBgm);
 
-                //바꾸고 - 저장하고 - 보여주기
-
                 if (gameManager.OnlineCheck())
                 {
+                    //불러오고
                     gameManager.fireManager.LoadJson();
-
-                    Invoke("NewJson", gameManager.fireManager.timing);
+                    //불러올때 까지 기다림
+                    gameManager.fireManager.StartCor();
                 }   
                 
             }
@@ -294,18 +293,6 @@ public class TowerManager : MonoBehaviour
             //게임 종료를 위해 정지 시키기
             UiManager.SettingControl(true);
         }
-    }
-
-    void NewJson() 
-    {
-        //Debug.Log("바뀜");
-
-        gameManager.fireManager.ChangeJson(gameManager.gameLevel, UiManager.curPlayTime);
-
-        //리더보드 초기화(여기서 또 load하면 바로 안나옴)
-        gameManager.fireManager.ShowJson();
-
-        gameManager.fireManager.SaveJson();
     }
     #endregion
 
