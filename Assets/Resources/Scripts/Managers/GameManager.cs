@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
     public ObjectManager objectManager;
     public UIManager uiManager;
     public AudioManager audioManager;
+    public FireManager fireManager;
 
     #region 현재 스펠 그대로 게임을 '재시도'
     public void RetryGame()
@@ -83,9 +84,12 @@ public class GameManager : MonoBehaviour
         uiManager.resetUI();
 
         //설정 화면의 글자 초기화
-        uiManager.startBtn.SetActive(true);
+        uiManager.startBtn.interactable = true;
         uiManager.victoryTitle.SetActive(false);
         uiManager.defeatTitle.SetActive(false);
+
+        //순위 불러오기
+        fireManager.LoadJson();
     }
     #endregion
 
@@ -110,5 +114,13 @@ public class GameManager : MonoBehaviour
             //일시정지
             uiManager.SettingControl(true);
         }
+    }
+    public void OpenWebSite() //웹 사이트 열기
+    {
+        //개별 사이트: 
+        //Application.OpenURL("https://play.google.com/store/apps/details?id=com.IssacCompany.Siege_Chronicle");
+
+        //전체 사이트
+        Application.OpenURL("https://play.google.com/store/apps/developer?id=%EC%9D%B4%EC%82%AD");
     }
 }

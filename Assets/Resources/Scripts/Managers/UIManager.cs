@@ -48,7 +48,6 @@ public class UIManager : MonoBehaviour
     public GameManager gameManager;
     AudioManager audioManager;
 
-    
 
     private void Awake()
     {
@@ -153,7 +152,15 @@ public class UIManager : MonoBehaviour
                 bankText.color = textYellow;
             }
         }
+
+        if (!settingBackground.activeSelf) //최단 시간 내기를 위함
+        {
+            curPlayTime += Time.deltaTime;
+            curPlayTimeText.text = curPlayTime.ToString("F1");
+        }
     }
+    public float curPlayTime;
+    public Text curPlayTimeText;
 
     #region UI 정보 초기화
     public void resetUI() 
@@ -163,6 +170,8 @@ public class UIManager : MonoBehaviour
 
         //크리쳐 수 제한 초기화
         blueTowerManager.CreatureCountText();
+
+        curPlayTime = 0;
 
         //플레이어 은행 초기화
         bankText.text = "Lv." + (blueTowerManager.curBankIndex + 1) + "(" + gameManager.BankValueArr[blueTowerManager.curBankIndex] + ")";
@@ -400,7 +409,7 @@ public class UIManager : MonoBehaviour
     public GameObject settingBackground;//설정 창 배경
     public GameObject victoryTitle;//승리 시 나올 텍스트
     public GameObject defeatTitle;//패배 시 나올 텍스트
-    public GameObject startBtn;//이어하기 버튼(게임 종료 시, 비활성화)
+    public Button startBtn;//이어하기 버튼(게임 종료 시, 비활성화)
     public void SettingControl(bool isOpen)//세팅 활성화 관리
     {
         //이미지 조절
@@ -408,13 +417,22 @@ public class UIManager : MonoBehaviour
 
         //시간 조절
         if (isOpen)
+        {
             Time.timeScale = 0.001f;
 
-        else if (!isOpen)//닫은 경우 시간 배율 초기화
+            //리더보드 초기화(여기서 또 load하면 바로 안나옴)
+            gameManager.fireManager.ShowJson();
+        }
+        else// if (!isOpen)//닫은 경우 시간 배율 초기화
         {
             SpeedControl(false);
             SpeedControl(false);
         }
+    }
+
+    void inaaa() 
+    {
+        gameManager.fireManager.ShowJson();
     }
 
     public void playSfxPaper()//세팅 버튼 눌렀을 시, 효과음을 위함

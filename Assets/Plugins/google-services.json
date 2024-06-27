@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "397081423264",
+    "firebase_url": "https://siegechronicle-default-rtdb.firebaseio.com",
+    "project_id": "siegechronicle",
+    "storage_bucket": "siegechronicle.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397081423264:android:404fab5be2f41f982008c5",
+        "android_client_info": {
+          "package_name": "com.IssacCompany.Siege_Chronicle"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiBT-lnqgTcmOWAPR0y-6RoP0JJ_am0-A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

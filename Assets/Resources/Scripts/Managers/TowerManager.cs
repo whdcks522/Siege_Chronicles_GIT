@@ -259,7 +259,7 @@ public class TowerManager : MonoBehaviour
             curHealth = 0;
 
             //설정 화면의 시작 버튼 비활성화
-            UiManager.startBtn.SetActive(false);
+            UiManager.startBtn.interactable = false;
 
             if (curTeamEnum == Creature.TeamEnum.Red)//빨간 팀이 진 경우
             {
@@ -268,6 +268,36 @@ public class TowerManager : MonoBehaviour
 
                 //승리 효과음
                 audioManager.PlayBgm(AudioManager.Bgm.WinBgm);
+
+                //바꾸고 - 저장하고 - 보여주기
+
+                bool isOnline = false;
+                if (Application.internetReachability == NetworkReachability.NotReachable)
+                {
+                    // 인터넷 연결이 안되었을때
+                    isOnline = false;
+                }
+                else if (Application.internetReachability == NetworkReachability.ReachableViaCarrierDataNetwork)
+                {
+                    // 데이터로 인터넷 연결이 되었을때
+                    isOnline = true;
+                }
+                else
+                {
+                    // 와이파이로 연결이 되었을때
+                    isOnline = true;
+                }
+
+                if (isOnline)
+                {
+                    gameManager.fireManager.ChangeJson(gameManager.gameLevel, UiManager.curPlayTime);
+                    gameManager.fireManager.SaveJson();
+                }
+                else 
+                {
+                
+                }
+            
             }
             else if (curTeamEnum == Creature.TeamEnum.Blue) //파란 팀이 진 경우
             {
