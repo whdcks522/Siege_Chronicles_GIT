@@ -75713,7 +75713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3bc5e4cf93e9a547b1b0851a35faf31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnemySpawn: 1
+  isEnemySpawn: 0
   isBgm: 0
   blueTower: {fileID: 906948767657399331}
   blueTowerManager: {fileID: 9162468977372320499}
