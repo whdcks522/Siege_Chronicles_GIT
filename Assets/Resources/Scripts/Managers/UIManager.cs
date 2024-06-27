@@ -419,20 +419,12 @@ public class UIManager : MonoBehaviour
         if (isOpen)
         {
             Time.timeScale = 0.001f;
-
-            //리더보드 초기화(여기서 또 load하면 바로 안나옴)
-            gameManager.fireManager.ShowJson();
         }
         else// if (!isOpen)//닫은 경우 시간 배율 초기화
         {
             SpeedControl(false);
             SpeedControl(false);
         }
-    }
-
-    void inaaa() 
-    {
-        gameManager.fireManager.ShowJson();
     }
 
     public void playSfxPaper()//세팅 버튼 눌렀을 시, 효과음을 위함

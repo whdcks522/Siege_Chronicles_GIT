@@ -57,6 +57,8 @@ public class FireManager : MonoBehaviour
     }
     public void ChangeJson(int gameLevel, float clearTime) 
     {
+        Debug.Log("JSON 바꾸기");
+
         clearTime = RoundToDecimalPlace(clearTime, 1);
 
         gameLevel -= 1;
@@ -95,6 +97,8 @@ public class FireManager : MonoBehaviour
     string userId = "veHlMdhxfhVKn3scykFjU9fzeEf2";
     public void SaveJson() //데이터 저장하기
     {
+        Debug.Log("JSON 저장하기");
+
         string json = JsonUtility.ToJson(leaderBoardArray);
 
         DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
@@ -129,7 +133,7 @@ public class FireManager : MonoBehaviour
                     string json = dataSnapshot.GetRawJsonValue();
 
                     leaderBoardArray = JsonUtility.FromJson<LeaderBoardArray>(json);
-
+                    Debug.Log("json 불러옴");
                     /*
                     ShowJson(0, 0);
                     ShowJson(0, 1);
@@ -143,9 +147,14 @@ public class FireManager : MonoBehaviour
                     */
 
                     //ShowJson();
-                    // UI 갱신 작업을 메인 스레드에서 실행
+                    // UI 갱신 작업을 메인 스레드에서 실행              
 
-                    
+                    //ChangeJson(1, 10);
+
+                    //리더보드 초기화(여기서 또 load하면 바로 안나옴)
+                    //ShowJson();
+
+                    //SaveJson();
                 }
                 else
                 {
@@ -159,11 +168,15 @@ public class FireManager : MonoBehaviour
     public float timing;
 
     public LeaderBoardInfo[] leaderBoardInfoArr;
-
+    public GameManager gameManager;
     
 
     public void ShowJson() 
     {
+        Debug.Log("JSON 보여주기");
+
+        gameManager.leaderBoardPanelArr.SetActive(true);
+
         //리더보드 텍스트 변경
         string tmpText = "";
 

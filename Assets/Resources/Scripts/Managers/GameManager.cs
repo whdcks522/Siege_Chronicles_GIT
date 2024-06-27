@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
         leaderBoardPanelArr.SetActive(false);
 
         //순위 불러오기
-        fireManager.LoadJson();
+        //fireManager.LoadJson();
     }
     #endregion
     public GameObject leaderBoardPanelArr;
@@ -129,11 +129,10 @@ public class GameManager : MonoBehaviour
     }
 
     //선언 자체 만으로 멈춰버림
-    
-    
+    //[Header("네트워크 접속했는지 확인")]
     public bool OnlineCheck() 
     {
-        bool isOnline = false;
+        bool isOnline;
         if (Application.internetReachability == NetworkReachability.NotReachable)
         {
             // 인터넷 연결이 안되었을때
