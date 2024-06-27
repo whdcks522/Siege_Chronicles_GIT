@@ -270,8 +270,9 @@ public class TowerManager : MonoBehaviour
                 audioManager.PlayBgm(AudioManager.Bgm.WinBgm);
 
                 //바꾸고 - 저장하고 - 보여주기
-
+                
                 bool isOnline = false;
+                /*
                 if (Application.internetReachability == NetworkReachability.NotReachable)
                 {
                     // 인터넷 연결이 안되었을때
@@ -287,8 +288,9 @@ public class TowerManager : MonoBehaviour
                     // 와이파이로 연결이 되었을때
                     isOnline = true;
                 }
+                */
 
-                if (isOnline)
+                if (gameManager.OnlineCheck())
                 {
                     gameManager.fireManager.ChangeJson(gameManager.gameLevel, UiManager.curPlayTime);
                     gameManager.fireManager.SaveJson();

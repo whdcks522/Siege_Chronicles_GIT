@@ -128,8 +128,10 @@ public class GameManager : MonoBehaviour
         Application.OpenURL("https://play.google.com/store/apps/developer?id=%EC%9D%B4%EC%82%AD");
     }
 
-    /*
-    bool OnlineCheck() 
+    //선언 자체 만으로 멈춰버림
+    
+    
+    public bool OnlineCheck() 
     {
         bool isOnline = false;
         if (Application.internetReachability == NetworkReachability.NotReachable)
@@ -149,5 +151,6 @@ public class GameManager : MonoBehaviour
         }
         return isOnline;
     }
-    */
+    
+    
 }
