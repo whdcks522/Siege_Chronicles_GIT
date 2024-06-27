@@ -292,6 +292,8 @@ public class TowerManager : MonoBehaviour
                 {
                     gameManager.fireManager.ChangeJson(gameManager.gameLevel, UiManager.curPlayTime);
                     gameManager.fireManager.SaveJson();
+
+                    gameManager.leaderBoardPanelArr.SetActive(true);
                 }
                 else 
                 {

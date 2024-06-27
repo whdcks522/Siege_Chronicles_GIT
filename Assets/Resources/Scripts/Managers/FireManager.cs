@@ -143,6 +143,8 @@ public class FireManager : MonoBehaviour
                     */
 
                     //ShowJson();
+                    // UI 갱신 작업을 메인 스레드에서 실행
+
                     
                 }
                 else

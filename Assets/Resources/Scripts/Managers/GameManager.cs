@@ -88,10 +88,14 @@ public class GameManager : MonoBehaviour
         uiManager.victoryTitle.SetActive(false);
         uiManager.defeatTitle.SetActive(false);
 
+        //리더보드 비활성화
+        leaderBoardPanelArr.SetActive(false);
+
         //순위 불러오기
         fireManager.LoadJson();
     }
     #endregion
+    public GameObject leaderBoardPanelArr;
 
     public void ResetGame()//게임을 '처음으로'
     {
@@ -123,4 +127,27 @@ public class GameManager : MonoBehaviour
         //전체 사이트
         Application.OpenURL("https://play.google.com/store/apps/developer?id=%EC%9D%B4%EC%82%AD");
     }
+
+    /*
+    bool OnlineCheck() 
+    {
+        bool isOnline = false;
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            // 인터넷 연결이 안되었을때
+            isOnline = false;
+        }
+        else if (Application.internetReachability == NetworkReachability.ReachableViaCarrierDataNetwork)
+        {
+            // 데이터로 인터넷 연결이 되었을때
+            isOnline = true;
+        }
+        else
+        {
+            // 와이파이로 연결이 되었을때
+            isOnline = true;
+        }
+        return isOnline;
+    }
+    */
 }
