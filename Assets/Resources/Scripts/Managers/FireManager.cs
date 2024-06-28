@@ -49,27 +49,25 @@ public class FireManager : MonoBehaviour
     public LeaderBoardArray leaderBoardArray = new LeaderBoardArray();
     #endregion
 
-    
-
-    //불 공격력 90, 자원: 5, 건물 피격
-    #region 순위 바꾸기
+    #region 데이터 순위 바꾸기
     float RoundToDecimalPlace(float value, int decimalPlaces)
     {
         float factor = Mathf.Pow(10, decimalPlaces);
         return Mathf.Round(value * factor) / factor;
     }
 
-    //public ParticleImage Congrateparticle;
-    public void ChangeJson(int gameLevel, float clearTime) 
+    public bool CheckJson(int gameLevel, float clearTime, bool isSave) 
     {
-        Debug.Log("JSON 바꾸기");
+        Debug.Log("JSON 내용 바꾸기");
 
         clearTime = RoundToDecimalPlace(clearTime, 1);
 
         gameLevel -= 1;
 
-        string dateStr = DateTimeUtils.GetCurrentDateTimeString(); ; 
-        bool isChange = false;
+        string dateStr = playerName + "(" + DateTimeUtils.GetCurrentDateTimeString() + ")";
+
+        //등급 갱신이 됐는지 여부
+        bool isRankChange = false;
 
         float tmpTime;
         string tmpStr;
@@ -78,29 +76,35 @@ public class FireManager : MonoBehaviour
         {
             if (clearTime < leaderBoardArray.leaderBoardArr[gameLevel].ClearTime[i]) //0일수록 빨리 끝낸 것
             {
-                isChange = true;
+                isRankChange = true;
+                if (isSave)//변화를 허용함
+                {
+                    //기존의 것을 일단 저장함
+                    tmpTime = leaderBoardArray.leaderBoardArr[gameLevel].ClearTime[i];
+                    tmpStr = leaderBoardArray.leaderBoardArr[gameLevel].DateStr[i];
 
-                tmpTime = leaderBoardArray.leaderBoardArr[gameLevel].ClearTime[i];
-                tmpStr = leaderBoardArray.leaderBoardArr[gameLevel].DateStr[i];
+                    //새롭게 갱신함
+                    leaderBoardArray.leaderBoardArr[gameLevel].ClearTime[i] = clearTime;
+                    leaderBoardArray.leaderBoardArr[gameLevel].DateStr[i] = dateStr;
 
-                leaderBoardArray.leaderBoardArr[gameLevel].ClearTime[i] = clearTime;
-                leaderBoardArray.leaderBoardArr[gameLevel].DateStr[i] = dateStr;
-
-                clearTime = tmpTime;
-                dateStr = tmpStr;
+                    clearTime = tmpTime;
+                    dateStr = tmpStr;
+                }
+                else //변화를 허용하지 않음
+                {
+                    //이름 입력 활성화
+                    inputField.SetActive(true);
+                }
             }
         }
 
-        if (isChange)
-        {
-            Debug.Log("순위 변화가 일어남");
-        }
+        return isRankChange;
     }
     #endregion
 
     #region 데이터 저장하기
     string userId = "veHlMdhxfhVKn3scykFjU9fzeEf2";
-    public void SaveJson() //데이터 저장하기
+    public void SaveJson() 
     {
         Debug.Log("JSON 저장하기");
 
@@ -108,8 +112,6 @@ public class FireManager : MonoBehaviour
 
         DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
         reference.Child("LeaderBoardArray").Child(userId).SetRawJsonValueAsync(json);
-
-        Debug.Log("Save Data Success!");
     }
     #endregion
 
@@ -147,9 +149,19 @@ public class FireManager : MonoBehaviour
             }
         });
     }
-    public float timing;
+    #endregion
 
-    
+    #region 이름 입력
+    public void NameInput()
+    {
+        //종이 넘기는 효과음
+        gameManager.audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
+
+        playerName = inputField.GetComponent<InputField>().text;
+    }
+    #endregion
+
+    public float timing;
     public GameManager gameManager;
 
     WaitForSeconds waitSec;
@@ -161,17 +173,24 @@ public class FireManager : MonoBehaviour
 
     public void StartCor() 
     {
+        //불러오고
+        gameManager.fireManager.LoadJson();
+
+        //불러오기 완료 까지의 코루틴
         FireCor = StartCoroutine(UpdateCoroutine());
     }
-
-    public GameObject leaderBoardPanel;
-    public void StopCor() 
+    
+    public void StopCor() //전투 초기화 할 때마다 수행
     {
         //리더보드 비활성화
         leaderBoardPanel.SetActive(false);
+        inputField.SetActive(false);
 
         //로딩중 해제
         leaderBoardArray.isLoad = false;
+
+        //플레이어 이름을 비워둠
+        playerName = "";
 
         if (FireCor != null)
         {
@@ -184,26 +203,46 @@ public class FireManager : MonoBehaviour
         }
     }
 
+    string playerName = "";
+    public GameObject leaderBoardPanel;
+    public GameObject inputField;
+
+    //랭킹에 이름을 넣기 위함
+    
+
     IEnumerator UpdateCoroutine()
     {
         while (true)
         {
-            if (leaderBoardArray.isLoad)
+            if (leaderBoardArray.isLoad)//로드를 했으면
             {
-                if (gameManager.OnlineCheck()) 
+                //랭킹 변화가 있으면
+                if (CheckJson(gameManager.gameLevel, gameManager.uiManager.curPlayTime, false))
                 {
-                    //바꾸고 - 저장하고 - 보여주기
-                    leaderBoardPanel.SetActive(true);
+                    if (gameManager.OnlineCheck() && playerName != "")//그리고 온라인이면
+                    {
+                        //바꾸고
+                        CheckJson(gameManager.gameLevel, gameManager.uiManager.curPlayTime, true);
 
-                    ChangeJson(gameManager.gameLevel, gameManager.uiManager.curPlayTime);
+                        //보여주고
+                        ShowJson(gameManager.gameLevel);
 
+                        //저장하고
+                        SaveJson();
+
+                        leaderBoardArray.isLoad = false;
+                        playerName = "";
+                        yield break;
+                    }
+                }
+                else 
+                {
+                    //보여주기
                     ShowJson(gameManager.gameLevel);
-
-                    SaveJson();
 
                     leaderBoardArray.isLoad = false;
                     yield break;
-                }  
+                }
             }
 
             Debug.Log("JSON 불러오고 나서 동기화 중..");
@@ -211,6 +250,7 @@ public class FireManager : MonoBehaviour
         }
     }
 
+    #region JSON 보여주기
     public Text[] leaderBoardScoreTextArr;
     public Button[] leaderBoardScoreButtonArr;
     public void ShowJson(int levelIndex) 
@@ -219,6 +259,9 @@ public class FireManager : MonoBehaviour
 
         //종이 넘기는 효과음
         gameManager.audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
+
+        //패널 보이도록
+        leaderBoardPanel.SetActive(true);
 
         levelIndex -= 1;
 
@@ -231,10 +274,10 @@ public class FireManager : MonoBehaviour
         //리더보드 텍스트 변경
         string tmpText = "";
 
-        for (int orderIndex = 0; orderIndex < 3; orderIndex++)
+        for (int orderIndex = 0; orderIndex < 3; orderIndex++)//저장된 것을 어떻게 불러올지 불러오는 것
         {
-            tmpText = leaderBoardArray.leaderBoardArr[levelIndex].ClearTime[orderIndex].ToString();//클리어 타임
-            tmpText += "(" +leaderBoardArray.leaderBoardArr[levelIndex].DateStr[orderIndex]+ ")";//시간
+            tmpText = leaderBoardArray.leaderBoardArr[levelIndex].ClearTime[orderIndex].ToString() + "초 ";//클리어 타임
+            tmpText +=leaderBoardArray.leaderBoardArr[levelIndex].DateStr[orderIndex];//이름과 시간
 
 
             leaderBoardScoreTextArr[orderIndex].text = tmpText;
@@ -242,11 +285,7 @@ public class FireManager : MonoBehaviour
     }
     #endregion
 
-    public void onClick(int index) 
-    {
-        Debug.Log(index);
-    }
-
+    #region 게임 랭킹 초기화(인스펙터에서 사용)
     [ContextMenu("ClearJson")]
     private void ClearJson()//Json 초기화, 인스펙터 창에서 확인
     {
@@ -261,5 +300,14 @@ public class FireManager : MonoBehaviour
         }
         SaveJson();
     }
+    #endregion
 
+    #region 빨강 타워 날려버림(랭킹 실험용)
+    [ContextMenu("DeleteRedTower")]
+    private void DeleteRedTower()
+    {
+        //타워에 맥뎀 입혀버리기
+        gameManager.redTowerManager.DamageControl(gameManager.redTowerManager.maxHealth);
+    }
+    #endregion
 }

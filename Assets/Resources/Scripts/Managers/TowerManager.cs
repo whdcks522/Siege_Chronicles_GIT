@@ -129,11 +129,11 @@ public class TowerManager : MonoBehaviour
                             {
                                 createIndex = UnityEngine.Random.Range(0, gameManager.creatureSpellDataArr.Length);
 
-                                Debug.LogWarning(createIndex + "이것도 아님");
+                                Debug.LogWarning(createIndex + "이거를 소환할 까?");
                             }
                         }
 
-                        Debug.Log(createIndex + "을 소환함");
+                        Debug.Log(createIndex + "을 소환할 예정임");
 
                         futureSpellData = gameManager.creatureSpellDataArr[createIndex];
 
@@ -265,7 +265,7 @@ public class TowerManager : MonoBehaviour
     }
 
     #region 데미지 계산
-    void DamageControl(float damage)
+    public void DamageControl(float damage)
     {
         //최근에 맞은 여부 확인(쉴더 소환을 위함)
         recentHit = true;
@@ -296,14 +296,8 @@ public class TowerManager : MonoBehaviour
                 //승리 효과음
                 audioManager.PlayBgm(AudioManager.Bgm.WinBgm);
 
-                if (gameManager.OnlineCheck())
-                {
-                    //불러오고
-                    gameManager.fireManager.LoadJson();
-                    //불러올때 까지 기다림
-                    gameManager.fireManager.StartCor();
-                }   
-                
+                //불러올때 까지 기다림
+                gameManager.fireManager.StartCor();
             }
             else if (curTeamEnum == Creature.TeamEnum.Blue) //파란 팀이 진 경우
             {
