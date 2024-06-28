@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 using Firebase;
 using Firebase.Database;
 using Firebase.Extensions;
 using System;
-using static Creature;
 
 public class FireManager : MonoBehaviour
 {
@@ -146,7 +146,7 @@ public class FireManager : MonoBehaviour
     }
     public float timing;
 
-    public LeaderBoardInfo[] leaderBoardInfoArr;
+    
     public GameManager gameManager;
 
     WaitForSeconds waitSec;
@@ -169,10 +169,11 @@ public class FireManager : MonoBehaviour
                 if (gameManager.OnlineCheck()) 
                 {
                     //바꾸고 - 저장하고 - 보여주기
+                    gameManager.leaderBoardPanelArr.SetActive(true);
 
                     ChangeJson(gameManager.gameLevel, gameManager.uiManager.curPlayTime);
 
-                    ShowJson();
+                    ShowJson(gameManager.gameLevel);
 
                     SaveJson();
 
@@ -186,29 +187,38 @@ public class FireManager : MonoBehaviour
         }
     }
 
-    public void ShowJson() 
+    public Text[] leaderBoardScoreTextArr;
+    public Button[] leaderBoardScoreButtonArr;
+    public void ShowJson(int levelIndex) 
     {
-        Debug.Log("JSON 보여주기");
+        Debug.Log(levelIndex + ": JSON 보여주기");
 
-        gameManager.leaderBoardPanelArr.SetActive(true);
+        levelIndex -= 1;
+
+        for (int buttonIndex = 0; buttonIndex < leaderBoardScoreButtonArr.Length; buttonIndex++) 
+        {
+            leaderBoardScoreButtonArr[buttonIndex].interactable = true;
+        }
+        leaderBoardScoreButtonArr[levelIndex].interactable = false;
 
         //리더보드 텍스트 변경
         string tmpText = "";
 
-        for (int levelIndex = 0; levelIndex < 3; levelIndex++) 
+        for (int orderIndex = 0; orderIndex < 3; orderIndex++)
         {
-            for (int orderIndex = 0; orderIndex < 3; orderIndex++)
-            {
-                tmpText =
-            leaderBoardArray.leaderBoardArr[levelIndex].ClearTime[orderIndex].ToString() +
-            "(" +
-            leaderBoardArray.leaderBoardArr[levelIndex].DateStr[orderIndex]
-            + ")";
-                leaderBoardInfoArr[levelIndex].leaderScoreTextArr[orderIndex].text = tmpText;
-            }
+            tmpText = leaderBoardArray.leaderBoardArr[levelIndex].ClearTime[orderIndex].ToString();//클리어 타임
+            tmpText += "(" +leaderBoardArray.leaderBoardArr[levelIndex].DateStr[orderIndex]+ ")";//시간
+
+
+            leaderBoardScoreTextArr[orderIndex].text = tmpText;
         }
     }
     #endregion
+
+    public void onClick(int index) 
+    {
+        Debug.Log(index);
+    }
 
     [ContextMenu("ClearJson")]
     private void ClearJson()//Json 초기화, 인스펙터 창에서 확인
