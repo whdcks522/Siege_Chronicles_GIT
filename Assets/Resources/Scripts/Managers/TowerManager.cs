@@ -104,6 +104,11 @@ public class TowerManager : MonoBehaviour
                                 //스펠 효과음
                                 audioManager.PlaySfx(AudioManager.Sfx.SpellSuccessSfx);
                             }
+                            else 
+                            {
+                                curCreatureCount -= 1;
+                            }
+
                             //비용 처리
                             curTowerResource -= futureSpellData.spellValue;
 
@@ -112,12 +117,27 @@ public class TowerManager : MonoBehaviour
 
                         }
                     }
-                    else if (futureSpellData == null)//소환할 것이 정해지지 않았다면
+                    else if (futureSpellData == null)//소환할 것이 정해지지 않았다면, 어떤 크리쳐를 소환할 지 무작위로 정함
                     {
-                        //어떤 크리쳐를 소환할 지 무작위로 정함
-                        int r = 0;
-                        //Random.Range(0, gameManager.creatureSpellDataArr.Length);
-                        futureSpellData = gameManager.creatureSpellDataArr[r];
+                        //int r = 0;
+                        int createIndex = UnityEngine.Random.Range(0, gameManager.creatureSpellDataArr.Length);
+
+                        if (!recentHit && createIndex == 2) //쉴더는 가까울 때만 소환해야 하므로
+                        {
+                            Debug.LogWarning(createIndex + "가 나올 위기임");
+                            while (createIndex == 2)
+                            {
+                                createIndex = UnityEngine.Random.Range(0, gameManager.creatureSpellDataArr.Length);
+
+                                Debug.LogWarning(createIndex + "이것도 아님");
+                            }
+                        }
+
+                        Debug.Log(createIndex + "을 소환함");
+
+                        futureSpellData = gameManager.creatureSpellDataArr[createIndex];
+
+                        recentHit = false;
                     }
                 }
             }
@@ -125,7 +145,7 @@ public class TowerManager : MonoBehaviour
             yield return waitSec;
         }
     }
-
+    public bool recentHit = false;//public 테스트중
 
     #region 타워 요소 초기화;
 
@@ -146,6 +166,10 @@ public class TowerManager : MonoBehaviour
 
         //타워 크리쳐 수 초기화
         curCreatureCount = 0;
+
+        //소환 목록 초기화
+        recentHit = false;
+        futureSpellData = null;
     }
     #endregion
 
@@ -243,6 +267,9 @@ public class TowerManager : MonoBehaviour
     #region 데미지 계산
     void DamageControl(float damage)
     {
+        //최근에 맞은 여부 확인(쉴더 소환을 위함)
+        recentHit = true;
+
         //체력 감소
         curHealth -= damage;
 

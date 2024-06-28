@@ -64643,8 +64643,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63745d04603b8384e84272fb1c50ca73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 300
-  curHealth: 300
+  maxHealth: 500
+  curHealth: 500
   curTeamEnum: 1
   creatureStartPoint: {fileID: 3051996263965800529}
   bulletStartPoint: {fileID: 8303105846487579182}
@@ -83193,8 +83193,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63745d04603b8384e84272fb1c50ca73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 300
-  curHealth: 300
+  maxHealth: 500
+  curHealth: 500
   curTeamEnum: 0
   creatureStartPoint: {fileID: 7909890742036367352}
   bulletStartPoint: {fileID: 3793652737617872263}
