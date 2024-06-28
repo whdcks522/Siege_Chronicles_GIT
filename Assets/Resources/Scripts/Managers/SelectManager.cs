@@ -128,10 +128,23 @@ public class SelectManager : MonoBehaviour
 
         // 게임 레벨 설정
         gameManager.gameLevel = (int)levelSlider.value;
+        if (gameManager.gameLevel == 1) 
+        {
+            curLevelText.text = "쉬움";
+        }
+        else if (gameManager.gameLevel == 2)
+        {
+            curLevelText.text = "보통";
+        }
+        else //if (gameManager.gameLevel == 3)
+        {
+            curLevelText.text = "어려움";
+        }
 
         // 선택 매니저 삭제
         Destroy(gameObject);
     }
+    public Text curLevelText;
 
     #region 크리쳐 소환
     void SpawnCreature(string _str) //str 크리쳐를 gameManager.maxCreatureCount개씩 소환

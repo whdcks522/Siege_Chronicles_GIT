@@ -164,6 +164,11 @@ public class FireManager : MonoBehaviour
     public float timing;
     public GameManager gameManager;
 
+    string playerName = "";
+    public GameObject leaderBoardPanel;
+    public GameObject inputField;
+
+    #region 코루틴
     WaitForSeconds waitSec;
     Coroutine FireCor;
     private void Start()
@@ -192,6 +197,9 @@ public class FireManager : MonoBehaviour
         //플레이어 이름을 비워둠
         playerName = "";
 
+        //와이파이 아이콘 초기화
+        wifiImage.enabled = false;
+
         if (FireCor != null)
         {
             Debug.Log("파이어 코루틴이 진행중이라면 종료 시킴");
@@ -203,21 +211,20 @@ public class FireManager : MonoBehaviour
         }
     }
 
-    string playerName = "";
-    public GameObject leaderBoardPanel;
-    public GameObject inputField;
-
     //랭킹에 이름을 넣기 위함
     
 
     IEnumerator UpdateCoroutine()
     {
+        //와이파이 이미지 활성화
+        wifiImage.enabled = true;
+
         while (true)
         {
-            if (leaderBoardArray.isLoad)//로드를 했으면
+            if (leaderBoardArray.isLoad)//로드를 했으면(인터넷이 연결돼야 불러옴)
             {
                 //랭킹 변화가 있으면
-                if (CheckJson(gameManager.gameLevel, gameManager.uiManager.curPlayTime, false))
+                if (CheckJson(gameManager.gameLevel, gameManager.uiManager.curPlayTime, false))//여기서 이름 인풋 필드 활성화
                 {
                     if (gameManager.OnlineCheck() && playerName != "")//그리고 온라인이면
                     {
@@ -232,6 +239,9 @@ public class FireManager : MonoBehaviour
 
                         leaderBoardArray.isLoad = false;
                         playerName = "";
+
+                        wifiImage.enabled = false;
+
                         yield break;
                     }
                 }
@@ -241,14 +251,29 @@ public class FireManager : MonoBehaviour
                     ShowJson(gameManager.gameLevel);
 
                     leaderBoardArray.isLoad = false;
+
+                    wifiImage.enabled = false;
+
                     yield break;
                 }
             }
 
-            Debug.Log("JSON 불러오고 나서 동기화 중..");
+            //와이파이 아이콘 변경
+            if (gameManager.OnlineCheck())
+            {
+                wifiImage.sprite = wifiSpriteArr[1];
+            }
+            else 
+            {
+                wifiImage.sprite = wifiSpriteArr[0];
+            }
+
             yield return waitSec;
         }
     }
+    public Image wifiImage;
+    public Sprite[] wifiSpriteArr;
+    #endregion
 
     #region JSON 보여주기
     public Text[] leaderBoardScoreTextArr;

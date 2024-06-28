@@ -120,20 +120,23 @@ public class TowerManager : MonoBehaviour
                     else if (futureSpellData == null)//소환할 것이 정해지지 않았다면, 어떤 크리쳐를 소환할 지 무작위로 정함
                     {
                         //int r = 0;
-                        int createIndex = UnityEngine.Random.Range(0, gameManager.creatureSpellDataArr.Length);
+                        int createIndex = UnityEngine.Random.Range(0, gameManager.creatureSpellDataArr.Length - 1);
 
                         if (!recentHit && createIndex == 2) //쉴더는 가까울 때만 소환해야 하므로
                         {
-                            Debug.LogWarning(createIndex + "가 나올 위기임");
+                            createIndex = 0;
+
+                            /*
+                            //Debug.LogWarning(createIndex + "가 나올 위기임");
                             while (createIndex == 2)
                             {
-                                createIndex = UnityEngine.Random.Range(0, gameManager.creatureSpellDataArr.Length);
+                                createIndex = UnityEngine.Random.Range(0, gameManager.creatureSpellDataArr.Length - 1);
 
-                                Debug.LogWarning(createIndex + "이거를 소환할 까?");
+                                //Debug.LogWarning(createIndex + "이거를 소환할 까?");
                             }
+                            */
                         }
-
-                        Debug.Log(createIndex + "을 소환할 예정임");
+                        //Debug.Log(createIndex + "을 소환할 예정임");
 
                         futureSpellData = gameManager.creatureSpellDataArr[createIndex];
 
