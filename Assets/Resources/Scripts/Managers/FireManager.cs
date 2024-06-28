@@ -150,6 +150,7 @@ public class FireManager : MonoBehaviour
     public GameManager gameManager;
 
     WaitForSeconds waitSec;
+    Coroutine FireCor;
     private void Start()
     {
         waitSec = new WaitForSeconds(timing);
@@ -157,7 +158,24 @@ public class FireManager : MonoBehaviour
 
     public void StartCor() 
     {
-        StartCoroutine(UpdateCoroutine());
+        FireCor = StartCoroutine(UpdateCoroutine());
+    }
+
+    public GameObject leaderBoardPanel;
+    public void StopCor() 
+    {
+        //리더보드 비활성화
+        leaderBoardPanel.SetActive(false);
+
+        if (FireCor != null)
+        {
+            Debug.Log("파이어 코루틴이 진행중이라면 종료 시킴");
+            StopCoroutine(FireCor);
+        }
+        else 
+        {
+            Debug.Log("파이어 코루틴이 이미 종료됨");
+        }
     }
 
     IEnumerator UpdateCoroutine()
@@ -169,7 +187,7 @@ public class FireManager : MonoBehaviour
                 if (gameManager.OnlineCheck()) 
                 {
                     //바꾸고 - 저장하고 - 보여주기
-                    gameManager.leaderBoardPanelArr.SetActive(true);
+                    leaderBoardPanel.SetActive(true);
 
                     ChangeJson(gameManager.gameLevel, gameManager.uiManager.curPlayTime);
 
@@ -178,6 +196,7 @@ public class FireManager : MonoBehaviour
                     SaveJson();
 
                     leaderBoardArray.isLoad = false;
+                    //FireCor = null;
                     yield break;
                 }  
             }
@@ -192,6 +211,9 @@ public class FireManager : MonoBehaviour
     public void ShowJson(int levelIndex) 
     {
         Debug.Log(levelIndex + ": JSON 보여주기");
+
+        //종이 넘기는 효과음
+        gameManager.audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
 
         levelIndex -= 1;
 

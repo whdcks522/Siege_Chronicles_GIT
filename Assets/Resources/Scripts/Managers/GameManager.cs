@@ -88,14 +88,11 @@ public class GameManager : MonoBehaviour
         uiManager.victoryTitle.SetActive(false);
         uiManager.defeatTitle.SetActive(false);
 
-        //리더보드 비활성화
-        leaderBoardPanelArr.SetActive(false);
-
         //순위 불러오기
-        //fireManager.LoadJson();
+        fireManager.StopCor();
     }
     #endregion
-    public GameObject leaderBoardPanelArr;
+    
 
     public void ResetGame()//게임을 '처음으로'
     {
