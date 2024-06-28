@@ -34365,7 +34365,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxTime: 1
   colTime: 0.3
-  bulletDamage: 9000
+  bulletDamage: 90
   bulletSpeed: 0
   bulletCollider: {fileID: 3572672339154147202}
   bulletTarget: {fileID: 0}
@@ -34373,7 +34373,7 @@ MonoBehaviour:
   curBulletMoveEnum: 0
   curBulletEffectEnum: 0
   endBullet: {fileID: 0}
-  byCreature: 1
+  byCreature: 0
   gameManager: {fileID: 0}
   objectManager: {fileID: 0}
 --- !u!54 &-4599311877193100941

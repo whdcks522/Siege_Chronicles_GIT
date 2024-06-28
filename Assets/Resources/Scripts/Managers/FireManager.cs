@@ -7,6 +7,7 @@ using Firebase;
 using Firebase.Database;
 using Firebase.Extensions;
 using System;
+using AssetKits.ParticleImage;
 
 public class FireManager : MonoBehaviour
 {
@@ -57,6 +58,8 @@ public class FireManager : MonoBehaviour
         float factor = Mathf.Pow(10, decimalPlaces);
         return Mathf.Round(value * factor) / factor;
     }
+
+    //public ParticleImage Congrateparticle;
     public void ChangeJson(int gameLevel, float clearTime) 
     {
         Debug.Log("JSON 바꾸기");
@@ -167,6 +170,9 @@ public class FireManager : MonoBehaviour
         //리더보드 비활성화
         leaderBoardPanel.SetActive(false);
 
+        //로딩중 해제
+        leaderBoardArray.isLoad = false;
+
         if (FireCor != null)
         {
             Debug.Log("파이어 코루틴이 진행중이라면 종료 시킴");
@@ -196,7 +202,6 @@ public class FireManager : MonoBehaviour
                     SaveJson();
 
                     leaderBoardArray.isLoad = false;
-                    //FireCor = null;
                     yield break;
                 }  
             }

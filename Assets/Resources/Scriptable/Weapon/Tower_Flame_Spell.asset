@@ -18,9 +18,9 @@ MonoBehaviour:
   spellIcon: {fileID: 21300000, guid: 551575036e893427c84e61f6156cd3e4, type: 3}
   spellName: "\uBD88\uB369\uC774"
   spellType: 1
-  spellValue: 1
+  spellValue: 5
   spellDesc: "<color=#00AAFF>\uC120\uD0DD\uD55C \uC601\uC5ED</color>\uC5D0 \uC874\uC7AC\uD558\uB294
-    <color=#AA0000>\uC801\uAD70</color> <color=#DDAAFF>\uD06C\uB9AC\uCCD0</color>\uC5D0\uAC8C
-    <color=#FFAA00>\uD070 \uD53C\uD574</color>\uB97C \uC90D\uB2C8\uB2E4."
+    <color=#FF0000>\uC801\uAD70</color> <color=#FFDF94>\uD06C\uB9AC\uCCD0</color>\uC5D0\uAC8C
+    <color=#CC7700>\uD070 \uD53C\uD574</color>\uB97C \uC90D\uB2C8\uB2E4."
   spellPrefab: {fileID: 1254724754748870, guid: 779187cab68f2ca4baa0f59accff9b56,
     type: 3}
