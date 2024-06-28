@@ -341,7 +341,6 @@ public class UIManager : MonoBehaviour
         SpellData spellData = spellBtnArr[_index].GetComponent<SpellButton>().spellData;
         //해당 스펠의 사용 비용(할인은 은행을 따라감)
         int value = spellData.isSale ? spellData.spellValue - blueTowerManager.curBankIndex: spellData.spellValue;
-        Debug.Log(value);
 
         if (blueTowerManager.curTowerResource >= value && curSpellData == null)//비용이 충분하면서 포커스 중이 아니라면
         {

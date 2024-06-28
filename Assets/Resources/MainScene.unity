@@ -35178,25 +35178,25 @@ MonoBehaviour:
       - '-'
       - '-'
       ClearTime:
-      - 1000
-      - 2000
-      - 3000
+      - 9999
+      - 9999
+      - 9999
     - DateStr:
       - '-'
       - '-'
       - '-'
       ClearTime:
-      - 1000
-      - 2000
-      - 3000
+      - 9999
+      - 9999
+      - 9999
     - DateStr:
       - '-'
       - '-'
       - '-'
       ClearTime:
-      - 1000
-      - 2000
-      - 3000
+      - 9999
+      - 9999
+      - 9999
     isLoad: 0
   timing: 0.0004
   leaderBoardInfoArr:
