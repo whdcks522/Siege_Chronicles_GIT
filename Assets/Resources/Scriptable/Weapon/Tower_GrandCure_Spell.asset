@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFocus: 1
   focusColor: {r: 1, g: 0.514151, b: 0.92250746, a: 0}
+  isSale: 0
   spellIcon: {fileID: 21300000, guid: 6b268dd49530a4441bf8e18f6430713a, type: 3}
   spellName: "\uB300\uD68C\uBCF5"
   spellType: 1
   spellValue: 8
   spellDesc: "<color=#00AAFF>\uC120\uD0DD\uD55C \uC601\uC5ED</color>\uC5D0 \uC874\uC7AC\uD558\uB294
-    <color=#0000AA>\uC544\uAD70</color> <color=#DDAAFF>\uD06C\uB9AC\uCCD0</color>\uC758
-    \uCCB4\uB825\uC744 \uC77C\uC815\uCE58 <color=#FFFFFF>\uD68C\uBCF5</color>\uC2DC\uD0B5\uB2C8\uB2E4."
+    <color=#0000FF>\uC544\uAD70</color> <color=#FFDF94>\uD06C\uB9AC\uCCD0</color>\uC758
+    \uCCB4\uB825\uC744 \uC77C\uC815\uCE58 <color=#DD00DD>\uD68C\uBCF5</color>\uC2DC\uD0B5\uB2C8\uB2E4."
   spellPrefab: {fileID: 1498152551406518, guid: 408af7a30a0f3e54eb56d985a4471da0,
     type: 3}
