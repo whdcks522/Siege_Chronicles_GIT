@@ -166,23 +166,25 @@ public class FireManager : MonoBehaviour
         {
             if (leaderBoardArray.isLoad)
             {
-                //바꾸고 - 저장하고 - 보여주기
+                if (gameManager.OnlineCheck()) 
+                {
+                    //바꾸고 - 저장하고 - 보여주기
 
-                ChangeJson(gameManager.gameLevel, gameManager.uiManager.curPlayTime);
+                    ChangeJson(gameManager.gameLevel, gameManager.uiManager.curPlayTime);
 
-                ShowJson();
+                    ShowJson();
 
-                SaveJson();
+                    SaveJson();
 
-                leaderBoardArray.isLoad = false;
-                yield break;
+                    leaderBoardArray.isLoad = false;
+                    yield break;
+                }  
             }
 
-            Debug.Log("Finding..");
+            Debug.Log("JSON 불러오고 나서 동기화 중..");
             yield return waitSec;
         }
     }
-
 
     public void ShowJson() 
     {
@@ -193,7 +195,6 @@ public class FireManager : MonoBehaviour
         //리더보드 텍스트 변경
         string tmpText = "";
 
-        //int levelIndex, int orderIndex
         for (int levelIndex = 0; levelIndex < 3; levelIndex++) 
         {
             for (int orderIndex = 0; orderIndex < 3; orderIndex++)
@@ -208,5 +209,20 @@ public class FireManager : MonoBehaviour
         }
     }
     #endregion
+
+    [ContextMenu("ClearJson")]
+    private void ClearJson()//Json 초기화, 인스펙터 창에서 확인
+    {
+        leaderBoardArray.isLoad = true;
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                leaderBoardArray.leaderBoardArr[i].ClearTime[j] = 9999;
+                leaderBoardArray.leaderBoardArr[i].DateStr[j] = "-";
+            }
+        }
+        SaveJson();
+    }
 
 }

@@ -35197,7 +35197,8 @@ MonoBehaviour:
       - 1000
       - 2000
       - 3000
-  timing: 0.004
+    isLoad: 0
+  timing: 0.0004
   leaderBoardInfoArr:
   - {fileID: 1308353003}
   - {fileID: 1947204202}
