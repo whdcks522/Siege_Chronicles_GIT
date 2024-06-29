@@ -363,9 +363,6 @@ public class TowerManager : MonoBehaviour
 
     IEnumerator Tower_Gun() 
     {
-        //사격 효과음
-        audioManager.PlaySfx(AudioManager.Sfx.GunSfx);
-
         //레이더가 적 타워를 쳐다봄
         RadarControl(enemyTower.transform.position);
 
@@ -393,6 +390,9 @@ public class TowerManager : MonoBehaviour
 
             while (bulletCount < maxBulletCount)
             {
+                //사격 효과음
+                audioManager.PlaySfx(AudioManager.Sfx.GunSfx);
+
                 //타워가 적을 쳐다보도록
                 enemyVec = gunList[bulletCount % gunList.Count].transform.position;
                 
