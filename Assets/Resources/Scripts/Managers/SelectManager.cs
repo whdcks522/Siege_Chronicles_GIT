@@ -113,11 +113,11 @@ public class SelectManager : MonoBehaviour
             {
                 uiManager.spellBtnArr[i].ButtonOff(true);
             }
-        }
+        }//for문 종료
 
         if (gameManager.isEnemySpawn)//적도 소환하는 상태면, 추가로 소환
         {
-            for (int i = 0; i < gameManager.creatureSpellDataArr.Length; i++)
+            for (int i = 0; i < gameManager.creatureSpellDataArr.Length - 1; i++)//회계병은 필요 없음
             {
                 SpawnCreature(gameManager.creatureSpellDataArr[i].spellPrefab.name);
             }
