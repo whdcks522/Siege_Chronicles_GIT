@@ -18982,10 +18982,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: dbeeb71dd60fc4a46885512a433cbb2b, type: 3}
   creatureDeadSfxClips: []
   gunSfxClips:
-  - {fileID: 8300000, guid: 0d7e2962ec846014ea5f0f1e331c1d3f, type: 3}
-  - {fileID: 8300000, guid: 5380a67fe1df3fa4f98ee0348090aeed, type: 3}
-  - {fileID: 8300000, guid: 83eb755da6aa3904594c724dfe9ba8c5, type: 3}
-  - {fileID: 8300000, guid: e69fa7f6d7aa7244f8e22f2616855435, type: 3}
+  - {fileID: 8300000, guid: 2fd44a187c73ba64185ea8f137d9581b, type: 3}
   flameSfxClips:
   - {fileID: 8300000, guid: 34e6b2a3059928b40a5d9ccbed9151a8, type: 3}
   - {fileID: 8300000, guid: 706a36afdb82d2b48adbb2de2c926146, type: 3}

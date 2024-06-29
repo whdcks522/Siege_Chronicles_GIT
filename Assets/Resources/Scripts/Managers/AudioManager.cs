@@ -14,7 +14,6 @@ public class AudioManager : MonoBehaviour
         bgmObject.transform.parent = transform;
         bgmPlayer = bgmObject.AddComponent<AudioSource>();//bgmPlayer 변수로 컴포넌트 생성하면서 동시에 저장
         bgmPlayer.playOnAwake = false;
-        //bgmPlayer.loop = true;
 
         //효과음 플레이어 초기화
         GameObject sfxObject = new GameObject("SfxPlayers");
@@ -34,8 +33,8 @@ public class AudioManager : MonoBehaviour
 
     //Bgm 플레이어
     AudioSource bgmPlayer;
-    public enum Bgm { StartBgm, BattleBgm, WinBgm, LoseBgm, SetBgm }
-    [Header("멀티 Bgm")]
+    public enum Bgm { StartBgm, BattleBgm, WinBgm, LoseBgm}
+    [Header("Bgm 배열")]
     public AudioClip[] BgmClips;
 
     public void PlayBgm(Bgm _bgm)//BGM 재생
@@ -49,7 +48,6 @@ public class AudioManager : MonoBehaviour
                 case Bgm.StartBgm:
                     bgmPlayer.clip = BgmClips[0];
                     bgmPlayer.loop = true;
-                    //bgmPlayer.volume = 0.5f;
                     break;
                 case Bgm.BattleBgm:
                     bgmPlayer.clip = BgmClips[1];

@@ -1,0 +1,35 @@
+GUI Error: Invalid GUILayout state in BuildPlayerWindow view. Verify that all layout Begin/End calls match
+UnityEngine.GUIUtility:ProcessEvent (int,intptr,bool&)
+
+
+
+ArgumentException: Getting control 1's position in a group with only 1 controls when doing repaint
+Aborting
+UnityEngine.GUILayoutGroup.GetNext () (at <82a3a4e0a0a94de5afddd345f6cf50d1>:0)
+UnityEngine.GUILayoutUtility.DoGetRect (UnityEngine.GUIContent content, UnityEngine.GUIStyle style, UnityEngine.GUILayoutOption[] options) (at <82a3a4e0a0a94de5afddd345f6cf50d1>:0)
+UnityEngine.GUILayoutUtility.GetRect (UnityEngine.GUIContent content, UnityEngine.GUIStyle style, UnityEngine.GUILayoutOption[] options) (at <82a3a4e0a0a94de5afddd345f6cf50d1>:0)
+UnityEngine.GUILayout.DoButton (UnityEngine.GUIContent content, UnityEngine.GUIStyle style, UnityEngine.GUILayoutOption[] options) (at <82a3a4e0a0a94de5afddd345f6cf50d1>:0)
+UnityEngine.GUILayout.Button (System.String text, UnityEngine.GUIStyle style, UnityEngine.GUILayoutOption[] options) (at <82a3a4e0a0a94de5afddd345f6cf50d1>:0)
+UnityEditor.Android.AndroidBuildWindowExtension.DoTargetListUnsafe () (at <b417242467964bd1aa8aad6e355fdf88>:0)
+UnityEditor.Android.AndroidBuildWindowExtension.DoTargetList () (at <b417242467964bd1aa8aad6e355fdf88>:0)
+UnityEditor.Android.AndroidBuildWindowExtension.ShowPlatformBuildOptions () (at <b417242467964bd1aa8aad6e355fdf88>:0)
+UnityEditor.BuildPlayerWindow.ShowBuildTargetSettings () (at <da771086bc2e4cfc9ad0a72e083a7f98>:0)
+UnityEditor.BuildPlayerWindow.OnGUI () (at <da771086bc2e4cfc9ad0a72e083a7f98>:0)
+UnityEditor.HostView.InvokeOnGUI (UnityEngine.Rect onGUIPosition) (at <da771086bc2e4cfc9ad0a72e083a7f98>:0)
+UnityEditor.DockArea.DrawView (UnityEngine.Rect dockAreaRect) (at <da771086bc2e4cfc9ad0a72e083a7f98>:0)
+UnityEditor.DockArea.OldOnGUI () (at <da771086bc2e4cfc9ad0a72e083a7f98>:0)
+UnityEngine.UIElements.IMGUIContainer.DoOnGUI (UnityEngine.Event evt, UnityEngine.Matrix4x4 parentTransform, UnityEngine.Rect clippingRect, System.Boolean isComputingLayout, UnityEngine.Rect layoutSize, System.Action onGUIHandler, System.Boolean canAffectFocus) (at <e66f217a64a747d48b478f0d70978704>:0)
+UnityEngine.UIElements.IMGUIContainer.HandleIMGUIEvent (UnityEngine.Event e, UnityEngine.Matrix4x4 worldTransform, UnityEngine.Rect clippingRect, System.Action onGUIHandler, System.Boolean canAffectFocus) (at <e66f217a64a747d48b478f0d70978704>:0)
+UnityEngine.UIElements.IMGUIContainer.DoIMGUIRepaint () (at <e66f217a64a747d48b478f0d70978704>:0)
+UnityEngine.UIElements.UIR.RenderChainCommand.ExecuteNonDrawMesh (UnityEngine.UIElements.UIR.DrawParams drawParams, System.Single pixelsPerPoint, System.Exception& immediateException) (at <e66f217a64a747d48b478f0d70978704>:0)
+Rethrow as ImmediateModeException
+UnityEngine.UIElements.UIR.RenderChain.Render () (at <e66f217a64a747d48b478f0d70978704>:0)
+UnityEngine.UIElements.UIRRepaintUpdater.Update () (at <e66f217a64a747d48b478f0d70978704>:0)
+UnityEngine.UIElements.VisualTreeUpdater.UpdateVisualTreePhase (UnityEngine.UIElements.VisualTreeUpdatePhase phase) (at <e66f217a64a747d48b478f0d70978704>:0)
+UnityEngine.UIElements.Panel.UpdateForRepaint () (at <e66f217a64a747d48b478f0d70978704>:0)
+UnityEngine.UIElements.Panel.Repaint (UnityEngine.Event e) (at <e66f217a64a747d48b478f0d70978704>:0)
+UnityEngine.UIElements.UIElementsUtility.DoDispatch (UnityEngine.UIElements.BaseVisualElementPanel panel) (at <e66f217a64a747d48b478f0d70978704>:0)
+UnityEngine.UIElements.UIElementsUtility.UnityEngine.UIElements.IUIElementsUtility.ProcessEvent (System.Int32 instanceID, System.IntPtr nativeEventPtr, System.Boolean& eventHandled) (at <e66f217a64a747d48b478f0d70978704>:0)
+UnityEngine.UIElements.UIEventRegistration.ProcessEvent (System.Int32 instanceID, System.IntPtr nativeEventPtr) (at <e66f217a64a747d48b478f0d70978704>:0)
+UnityEngine.UIElements.UIEventRegistration+<>c.<.cctor>b__1_2 (System.Int32 i, System.IntPtr ptr) (at <e66f217a64a747d48b478f0d70978704>:0)
+UnityEngine.GUIUtility.ProcessEvent (System.Int32 instanceID, System.IntPtr nativeEventPtr, System.Boolean& result) (at <82a3a4e0a0a94de5afddd345f6cf50d1>:0)
