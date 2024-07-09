@@ -1,0 +1,18 @@
+<<컴파일 속도 최적화>>
+Project Settings => Editor => Enter Play Mode Options 체크 (활성화)
+Reload Domain 체크 해제 (비활성화)
+<https://virtualdever.tistory.com/298>
+
+오토 리프레쉬 비활성화
+Preference - General - Auto Refresh 를 선택 해제
+<https://virtualdever.tistory.com/101>
+------------------------------------------------------------------------------------------------------------
+맵 줄이기
+머신러닝 삭제
+안쓰는 것도 용량에 포함?(컴포넌트?, 이펙트?)
+빛 굽기(안함, 시간이 90일이 나옴)
+터레인 최적화
+urp 관리
+fixed조정
+Update를 코루틴으로 수정
+
