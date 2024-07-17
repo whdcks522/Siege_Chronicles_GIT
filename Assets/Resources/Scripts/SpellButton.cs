@@ -142,7 +142,8 @@ public class SpellButton : MonoBehaviour
 
             //스펠 타입 바꾸기
             selectManager.selectedSpellTypeImage.gameObject.SetActive(true);
-            if (spellData.spellType == SpellData.SpellType.Creature) 
+
+            if (spellData.spellType == SpellData.SpellType.Creature)//크리쳐를 대상으로 하는 경우
             {
                 //스펠 타입 이미지 변경
                 selectManager.selectedSpellTypeImage.sprite = selectManager.spellTypeImageArr[0].sprite;
@@ -155,12 +156,16 @@ public class SpellButton : MonoBehaviour
                 Creature spellCreature = spellData.spellPrefab.GetComponent<Creature>();
                 Bullet spellCreatureBullet = spellCreature.useBullet.GetComponent<Bullet>();
                 int spellCreatureBulletDamage = spellCreatureBullet.bulletDamage;
-
+                string rangeType = "<color=#227744>원거리</color>";
+                if (spellCreature.bulletStartPoint == null) 
+                {
+                    rangeType = "<color=#CC5555>근접</color>";
+                }
                 //체력, 공격력, 사거리, 이동속도
                 selectManager.selectedSpellInfo.text =
                 "<color=#FF7070>체력</color>: " + spellCreature.maxHealth + "\n" +
                 "<color=#4E9D61>공격력</color>: " + spellCreatureBulletDamage / 3 + '/' + spellCreatureBulletDamage / 2 + '/' + spellCreatureBulletDamage + "\n" +
-                "<color=#B684FF>공격 사거리</color>: " + spellCreature.maxRange + "\n" +
+                "<color=#B684FF>공격 사거리</color>: " + spellCreature.maxRange + "(" + rangeType + ")\n" +
                 "<color=#406BFF>기동력</color>: " + spellCreature.nav.speed;
             }
             else

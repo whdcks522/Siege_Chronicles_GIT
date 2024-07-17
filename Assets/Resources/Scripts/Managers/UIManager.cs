@@ -168,6 +168,8 @@ public class UIManager : MonoBehaviour
         //포커스 초기화
         FocusOff(false);
 
+        curSpellData = null;
+
         //크리쳐 수 제한 초기화
         blueTowerManager.CreatureCountText();
 
@@ -411,12 +413,17 @@ public class UIManager : MonoBehaviour
     public Button startBtn;//이어하기 버튼(게임 종료 시, 비활성화)
     public void SettingControl(bool isOpen)//세팅 활성화 관리
     {
+        if(isOpen)//포커스 초기화
+            FocusOff(false);
+
         //이미지 조절
         settingBackground.SetActive(isOpen);
 
         //시간 조절
         if (isOpen)
         {
+            
+
             Time.timeScale = 0.001f;
         }
         else// if (!isOpen)//닫은 경우 시간 배율 초기화
@@ -424,6 +431,8 @@ public class UIManager : MonoBehaviour
             SpeedControl(false);
             SpeedControl(false);
         }
+
+        
     }
 
     public void playSfxPaper()//세팅 버튼 눌렀을 시, 효과음을 위함
@@ -442,45 +451,55 @@ public class UIManager : MonoBehaviour
 
     public void FocusOn()//맵이 까매지며 주술 영역이 보임(포커스 실행)
     {
-        //Debug.Log("FocusOn");
+        //Debug.LogWarning("On_1: " + gameManager.redTowerManager.curHealth);
 
-        if (curSpellData != null)
+        if (!settingBackground.activeSelf)
         {
-            //무기 영역 활성화
-            clickSphere.gameObject.SetActive(true);
-            //빛 비활성화
-            worldLight.color = paleColor;
-            //시간 감속
-            Time.timeScale = 0.2f;
+            //Debug.LogWarning("On_2: " + gameManager.redTowerManager.curHealth);
+            if (curSpellData != null)
+            {
+                //Debug.LogWarning("On_3: " + gameManager.redTowerManager.curHealth);
+
+                //무기 영역 활성화
+                clickSphere.gameObject.SetActive(true);
+                //빛 비활성화
+                worldLight.color = paleColor;
+                //시간 감속
+                Time.timeScale = 0.2f;
+            }
         }
     }
-    public void FocusOff(bool isEffect) //자원 반환 여부(포커스 해제)
+    public void FocusOff(bool isReturn) //자원 반환 여부(포커스 해제)
     {
-        //Debug.Log("FocusOff: " + isEffect);
+        //Debug.LogWarning("Off_1: " + gameManager.redTowerManager.curHealth);
 
-        //-1: 자원 반환, 0: 영역만 비활성화, 1: 주술() 사용 
-        if (curSpellData != null && isEffect) 
+        if (!settingBackground.activeSelf) 
         {
-            if (!clickSphere.gameObject.activeSelf) 
+            //Debug.LogWarning("Off_2: " + gameManager.redTowerManager.curHealth);
+
+            if (curSpellData != null && isReturn)
             {
-                //자원 반환
-                blueTowerManager.curTowerResource += curSpellData.spellValue;
-                curSpellData = null;
+                if (!clickSphere.gameObject.activeSelf)
+                {
+                    //자원 반환
+                    blueTowerManager.curTowerResource += curSpellData.spellValue;
+                    curSpellData = null;
+                }
+                else if (clickSphere.gameObject.activeSelf)
+                {
+                    //주술(스킬) 사용
+                    blueTowerManager.WeaponSort(curSpellData.spellPrefab.name);
+                    curSpellData = null;
+                }
             }
-            else if (clickSphere.gameObject.activeSelf) 
-            {
-                //주술(스킬) 사용
-                blueTowerManager.WeaponSort(curSpellData.spellPrefab.name);
-                curSpellData = null;
-            }
+            //무기 영역 비활성화
+            clickSphere.gameObject.SetActive(false);
+            //빛 활성화
+            worldLight.color = brightColor;
+            //시간 정상화
+            SpeedControl(false);
+            SpeedControl(false);
         }
-        //무기 영역 비활성화
-        clickSphere.gameObject.SetActive(false);
-        //빛 활성화
-        worldLight.color = brightColor;
-        //시간 정상화
-        SpeedControl(false);
-        SpeedControl(false);
     }
     #endregion
 
