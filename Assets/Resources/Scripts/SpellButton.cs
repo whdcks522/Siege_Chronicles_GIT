@@ -164,11 +164,11 @@ public class SpellButton : MonoBehaviour
                 //체력, 공격력, 사거리, 이동속도
                 selectManager.selectedSpellInfo.text =
                 "<color=#FF7070>체력</color>: " + spellCreature.maxHealth + "\n" +
-                "<color=#4E9D61>공격력</color>: " + spellCreatureBulletDamage / 3 + '/' + spellCreatureBulletDamage / 2 + '/' + spellCreatureBulletDamage + "\n" +
+                "<color=#4E9D61>공격력</color>: " + spellCreatureBulletDamage / 3 + '/' + spellCreatureBulletDamage / 2 + '/' + spellCreatureBulletDamage + "(<color=#55CC55>난이도별</color>)" + "\n" +
                 "<color=#B684FF>공격 사거리</color>: " + spellCreature.maxRange + "(" + rangeType + ")\n" +
                 "<color=#406BFF>기동력</color>: " + spellCreature.nav.speed;
             }
-            else
+            else//스펠을 대상으로 하는 경우
             {
                 //스펠 타입 이미지 변경
                 selectManager.selectedSpellTypeImage.sprite = selectManager.spellTypeImageArr[1].sprite;
@@ -193,7 +193,7 @@ public class SpellButton : MonoBehaviour
                 if (spellWeaponBullet.curBulletEffectEnum == Bullet.BulleEffectEnum.Damage)
                 {
                     selectManager.selectedSpellInfo.text = "<color=#4E9D61>공격력</color>: " +
-                            spellWeaponBulletDamage / 3 + "/" + spellWeaponBulletDamage / 2 + "/" + spellWeaponBulletDamage + "\n";
+                            spellWeaponBulletDamage / 3 + "/" + spellWeaponBulletDamage / 2 + "/" + spellWeaponBulletDamage + "(<color=#55CC55>난이도별</color>)" + "\n";
                 }
                 else
                 {
@@ -204,7 +204,7 @@ public class SpellButton : MonoBehaviour
                 if (spellWeaponBullet.bulletTarget != null)
                     selectManager.selectedSpellInfo.text += "단일 " + "\n";
                 else
-                    selectManager.selectedSpellInfo.text += "다중(" + spellWeaponBulletRad + ")\n";
+                    selectManager.selectedSpellInfo.text += "다중(<color=#770077>" + spellWeaponBulletRad + "</color>)\n";
 
                 selectManager.selectedSpellInfo.text += "<color=#406BFF>위치 설정 여부</color>: ";
                 if (spellData.isFocus)
