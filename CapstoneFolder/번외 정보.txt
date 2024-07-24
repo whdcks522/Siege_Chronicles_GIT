@@ -12,25 +12,6 @@ https://dhy948.tistory.com/16
 		1. 복잡한 조건이 필요 없이 계속 사용하는 반복 함수는 굳이 코루틴 쓰지말고 Update에 넣자
 		2. 똑같은 조건으로 반복되는 코루틴에서 Wait문을 꼭 캐싱해서 사용하자
 		3. 코루틴을 수시로 시작하고 종료하는 짓은 절대 하지말자
-public int DebugIndex;
-
-void Start()
-{
-    StartCoroutine(UpdateCoroutine());
-}
-
-WaitForSeconds waitSec = new WaitForSeconds(0.1f);
-IEnumerator UpdateCoroutine()
-{
-    while (true) 
-    {
-        yield return waitSec;
-        if (DebugIndex > 0)
-        {
-            Debug.Log(DebugIndex++);
-        }
-    } 
-}
 
 파이어베이스 DB 기존 규칙:
 {
