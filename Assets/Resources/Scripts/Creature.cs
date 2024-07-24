@@ -168,6 +168,7 @@ public class Creature : MonoBehaviour
         nav.isStopped = true;
 
         //기상 애니메이션
+        anim.SetBool("isRun", false);
         anim.SetTrigger("isRage");
 
         //점차 보이도록
@@ -249,7 +250,7 @@ public class Creature : MonoBehaviour
 
         if (gameObject.layer == LayerMask.NameToLayer("Creature") && !nav.isStopped)//크리쳐 레이어면서 달리고 있는 경우
         {
-            if (!curTarget.gameObject.activeSelf)//대상이 비활성화된 상태라면
+            if (!curTarget.gameObject.activeSelf)//추적 대상이 비활성화된 상태라면
             {
                 //대상 탐색
                 RangeFirstRangeCalc();
@@ -266,7 +267,7 @@ public class Creature : MonoBehaviour
             if (curRange < maxRange)
             {
                 nav.isStopped = true;
-                nav.velocity = Vector3.zero;
+                //nav.velocity = Vector3.zero;
 
                 //애니메이션 중지
                 anim.SetBool("isRun", false);
@@ -490,11 +491,14 @@ public class Creature : MonoBehaviour
     }
     public void VisibleWarp() //점차 보이게 되는 것 
     {
-        if (curHealth > 0)
-        {
-            StopCoroutine(Dissolve(true));
-            StartCoroutine(Dissolve(false));
-        }
+        //대상 탐색
+        RangeFirstRangeCalc();
+
+        //목표지로 설정
+        nav.SetDestination(curTarget.transform.position);
+
+        StopCoroutine(Dissolve(true));
+        StartCoroutine(Dissolve(false));
     }
     IEnumerator Dissolve(bool InVisible)//왜곡장 1.5초간
     {
@@ -537,10 +541,7 @@ public class Creature : MonoBehaviour
             gameObject.layer = LayerMask.NameToLayer("Creature");
 
             nav.isStopped = false;
-            //대상 탐색
-            RangeFirstRangeCalc();
-            //목표지로 설정
-            nav.SetDestination(curTarget.transform.position);           
+                
 
             //달리기 애니메이션
             anim.SetBool("isRun", true);
