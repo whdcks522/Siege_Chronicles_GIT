@@ -119,8 +119,9 @@ public class TowerManager : MonoBehaviour
                     }
                     else if (futureSpellData == null)//소환할 것이 정해지지 않았다면, 어떤 크리쳐를 소환할 지 무작위로 정함
                     {
-                        //int r = 0;
                         int createIndex = UnityEngine.Random.Range(0, gameManager.creatureSpellDataArr.Length - 1);
+
+                        //0, 1, 2중에서 맞았고 2가 나온 경우만 소환
 
                         if (!recentHit && createIndex == 2) //쉴더는 가까울 때만 소환해야 하므로
                         {

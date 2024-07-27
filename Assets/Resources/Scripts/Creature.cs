@@ -253,10 +253,10 @@ public class Creature : MonoBehaviour
             if (!curTarget.gameObject.activeSelf || !(curTarget.gameObject.layer == LayerMask.NameToLayer("Creature")))//추적 대상이 비활성화된 상태라면
             {
                 //대상 탐색
-                RangeFirstRangeCalc();
+                //RangeFirstRangeCalc();
 
                 //목표지로 설정
-                nav.SetDestination(curTarget.transform.position);
+                //nav.SetDestination(curTarget.transform.position);
 
                 anim.SetBool("isRun", true);
             }
@@ -495,7 +495,7 @@ public class Creature : MonoBehaviour
         RangeFirstRangeCalc();
 
         //목표지로 설정
-        nav.SetDestination(curTarget.transform.position);
+        nav.SetDestination(enemyTowerManager.creatureStartPoint.position);
 
         StopCoroutine(Dissolve(true));
         StartCoroutine(Dissolve(false));

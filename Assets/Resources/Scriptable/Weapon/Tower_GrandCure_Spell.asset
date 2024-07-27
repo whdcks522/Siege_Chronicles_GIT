@@ -18,7 +18,7 @@ MonoBehaviour:
   spellIcon: {fileID: 21300000, guid: 6b268dd49530a4441bf8e18f6430713a, type: 3}
   spellName: "\uB300\uD68C\uBCF5"
   spellType: 1
-  spellValue: 8
+  spellValue: 7
   spellDesc: "<color=#00AAFF>\uC120\uD0DD\uD55C \uC601\uC5ED</color>\uC5D0 \uC874\uC7AC\uD558\uB294
     <color=#0000FF>\uC544\uAD70</color> <color=#FFDF94>\uD06C\uB9AC\uCCD0</color>\uC758
     \uCCB4\uB825\uC744 \uC77C\uC815\uCE58 <color=#DD00DD>\uD68C\uBCF5</color>\uC2DC\uD0B5\uB2C8\uB2E4."

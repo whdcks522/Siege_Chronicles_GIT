@@ -76,7 +76,7 @@ MonoBehaviour:
   useBullet: {fileID: 6062838611093796543, guid: 5308231b6d0b88c41b3e1a030fe38a25,
     type: 3}
   targetVec: {x: 0, y: 0, z: 0}
-  maxRange: 4
+  maxRange: 5
   curRange: 0
   curTarget: {fileID: 0}
   baseTexture: {fileID: 2800000, guid: 5a0f52c86180b6741af4b37bae089eae, type: 3}
