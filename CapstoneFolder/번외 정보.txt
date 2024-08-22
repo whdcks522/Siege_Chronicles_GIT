@@ -22,37 +22,5 @@ https://dhy948.tistory.com/16
 }
 
 
-유니티 신버전 lightMap
-https://chulin28ho.tistory.com/446
-
-라이트맵의 PC와 모바일 차이
-https://darkcatgame.tistory.com/91
-
 https://gall.dcinside.com/mgallery/board/view/?id=gamejob&no=18114
 코테 c++하자
-
-
-<멀티 스레드>
-스레드 기초: https://coderzero.tistory.com/entry/%EC%9C%A0%EB%8B%88%ED%8B%B0-C-%EA%B0%95%EC%A2%8C-23-%EB%A9%80%ED%8B%B0%EC%8A%A4%EB%A0%88%EB%93%9CMulti-thread
-스레드와 스레드풀: https://yerim-coding.tistory.com/33#google_vignette
-스레드 이론: https://medium.com/weklem/%EC%9C%A0%EB%8B%88%ED%8B%B0%EC%9D%98-%EB%A9%80%ED%8B%B0%EC%8A%A4%EB%A0%88%EB%93%9C-%EC%82%AC%EC%9A%A9-f069cf7f39a4
-	그래픽 렌더링, 애니메이션, 물리 시뮬레이션 등 동시에 일어나야 하는 작업
-	파일 불러오기, 네트워크 통신들과 같은 시간이 걸리는 작업
-
-메인 스레드: 항상 동일한 ID를 유지합니다. 보통 유니티에서 메인 스레드의 ID는 일정하게 고정됩니다.(1으로 고정)
-서브 스레드: 실행될 때마다 새로운 ID를 부여받습니다. 이는 새로운 스레드가 생성될 때마다 다른 ID가 할당되기 때문입니다.(1375 -> 1381)
-
-<챗 GPT>
-단일 스레드:
-시간 ------>
-코어 1: [스레드 실행] [스레드 실행] [스레드 실행] ...
-코어 2: 
-코어 3: 
-코어 4: 
-
-멀티 스레드:
-시간 ------>
-코어 1: [스레드 1 실행] [스레드 1 실행] [스레드 1 실행] ...
-코어 2: [스레드 2 실행] [스레드 2 실행] [스레드 2 실행] ...
-코어 3: [스레드 3 실행] [스레드 3 실행] [스레드 3 실행] ...
-코어 4: [스레드 4 실행] [스레드 4 실행] [스레드 4 실행] ...
