@@ -280,13 +280,17 @@ public class TowerManager : MonoBehaviour
         //타워 체력바 관리
         miniHealth.fillAmount = curHealth / maxHealth;
 
+        //Debug.LogWarning("여기는?");
+
         if (curHealth > 0)
         {
             if (damage != 0)
                 audioManager.PlaySfx(AudioManager.Sfx.TowerCrashSfx);
         }
-        else if (curHealth <= 0) //게임 종료
+        else if (curHealth <= 0 && !UiManager.settingBackground.activeSelf) //게임 종료
         {
+            Debug.LogWarning("여러번 호출되나?");
+
             curHealth = 0;
 
             //설정 화면의 시작 버튼 비활성화

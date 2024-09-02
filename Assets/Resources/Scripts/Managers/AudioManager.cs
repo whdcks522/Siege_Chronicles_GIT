@@ -120,7 +120,7 @@ public class AudioManager : MonoBehaviour
     AudioClip[] tmpSfxClips;
     public void PlaySfx(Sfx sfx)
     {
-        if (uiManager.settingBackground.activeSelf && sfx != Sfx.PaperSfx)
+        if (uiManager.settingBackground.activeSelf && sfx != Sfx.PaperSfx)//설정 화면에서는 종이 넘기는 소리만 가능함
             return;
 
         for (int index = 0; index < sfxPlayers.Length; index++)

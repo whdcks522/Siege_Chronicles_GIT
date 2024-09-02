@@ -335,4 +335,12 @@ public class FireManager : MonoBehaviour
         gameManager.redTowerManager.DamageControl(gameManager.redTowerManager.maxHealth);
     }
     #endregion
+
+    #region 시간 배율 초기화
+    [ContextMenu("TimeReset")]
+    private void TimeReset()
+    {
+        Time.timeScale = 1;
+    }
+    #endregion
 }

@@ -414,7 +414,7 @@ public class UIManager : MonoBehaviour
     public void SettingControl(bool isOpen)//세팅 활성화 관리
     {
         if(isOpen)//포커스 초기화
-            FocusOff(false);
+            FocusOff(true);
 
         //이미지 조절
         settingBackground.SetActive(isOpen);
@@ -422,8 +422,6 @@ public class UIManager : MonoBehaviour
         //시간 조절
         if (isOpen)
         {
-            
-
             Time.timeScale = 0.001f;
         }
         else// if (!isOpen)//닫은 경우 시간 배율 초기화
@@ -431,8 +429,6 @@ public class UIManager : MonoBehaviour
             SpeedControl(false);
             SpeedControl(false);
         }
-
-        
     }
 
     public void playSfxPaper()//세팅 버튼 눌렀을 시, 효과음을 위함
@@ -473,7 +469,7 @@ public class UIManager : MonoBehaviour
     {
         //Debug.LogWarning("Off_1: " + gameManager.redTowerManager.curHealth);
 
-        if (!settingBackground.activeSelf) 
+        if (!settingBackground.activeSelf)//배경이 안 켜져있는 경우에만
         {
             //Debug.LogWarning("Off_2: " + gameManager.redTowerManager.curHealth);
 
