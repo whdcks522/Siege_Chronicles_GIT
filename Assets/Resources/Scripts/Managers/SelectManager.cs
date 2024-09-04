@@ -8,9 +8,7 @@ using Unity.VisualScripting;
 
 public class SelectManager : MonoBehaviour
 {
-    [Header("레벨 슬라이더")]
-    public Slider levelSlider;
-
+    [Header("위 아래로 움직이는 애니메이션")]
     public Animator anim;
 
     [Header("선택된 스펠 버튼")]
@@ -40,7 +38,6 @@ public class SelectManager : MonoBehaviour
     [Header("스펠버튼 배열")]
     public SpellButton[] spellBtnArr = new SpellButton[4];
 
-    
 
     [Header("매니저")]
     public GameManager gameManager;
@@ -58,21 +55,34 @@ public class SelectManager : MonoBehaviour
         anim.SetBool("isSelect", true);
     }
 
-    //레벨 슬라이더 조정
-    public void LevelControl() 
+    //게임 난이도 조정
+
+    public Button[] levelButtonArr;
+    public void LevelControl(int selectedGameLevel) 
     {
+        //조절 효과음
         if(audioManager != null)
-            audioManager.PlaySfx(AudioManager.Sfx.LevelControlSfx);
+            audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
+
+        //버튼 비활성화와 활성화
+        for (int buttonIndex = 0; buttonIndex < levelButtonArr.Length; buttonIndex++)
+        {
+            levelButtonArr[buttonIndex].interactable = true;
+        }
+        levelButtonArr[selectedGameLevel - 1].interactable = false;
+
+        //난이도 조정
+        gameManager.gameLevel = selectedGameLevel;
     }
 
     #region 게임 시작, 진행 퍼센트 보여주기 힘듬
     [Header("애니메이션 후 전투씬으로 이동할 것인지, 초기화할 것인지")]
     public int index_Battle;//0: 기본, 1: 게임 시작, 2: 게임 초기화,
 
-    public void StartGame(int i)//선택창에서 시작 버튼 또는, 초기화 버튼 클릭
+    public void StartGame(int intoGameIndex)//선택창에서 시작 버튼 또는, 초기화 버튼 클릭
     {
         //애니메이션 후 시작할 지, 초기화 할지 설정
-        index_Battle = i;
+        index_Battle = intoGameIndex;
 
         //종이 넘기는 효과음
         audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
@@ -127,7 +137,6 @@ public class SelectManager : MonoBehaviour
         gameManager.RetryGame();
 
         // 게임 레벨 설정
-        gameManager.gameLevel = (int)levelSlider.value;
         if (gameManager.gameLevel == 1) 
         {
             curLevelText.text = "쉬움";
@@ -136,7 +145,7 @@ public class SelectManager : MonoBehaviour
         {
             curLevelText.text = "보통";
         }
-        else //if (gameManager.gameLevel == 3)
+        else
         {
             curLevelText.text = "어려움";
         }

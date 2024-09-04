@@ -301,7 +301,6 @@ public class FireManager : MonoBehaviour
             tmpText = leaderBoardArray.leaderBoardArr[levelIndex].ClearTime[orderIndex].ToString() + "초 ";//클리어 타임
             tmpText +=leaderBoardArray.leaderBoardArr[levelIndex].DateStr[orderIndex];//이름과 시간
 
-
             leaderBoardScoreTextArr[orderIndex].text = tmpText;
         }
     }
