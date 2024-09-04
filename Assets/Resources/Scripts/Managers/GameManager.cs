@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     public UIManager uiManager;
     public AudioManager audioManager;
     public FireManager fireManager;
+    public TipManager tipManager;
 
     #region 현재 스펠 그대로 게임을 '재시도'
     public void RetryGame()
@@ -93,9 +94,10 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    //기본 시간 배율
+    
+    [Header("기본 시간 배율")]
     public int defaultTimeScale = 1;
-    public void ResetGame()//게임을 '처음으로'
+    public void ResetGame()//게임을 처음 실행 할때로 돌아감
     {
         //시간 배속을 1로
         Time.timeScale = defaultTimeScale;
@@ -150,6 +152,9 @@ public class GameManager : MonoBehaviour
         }
         return isOnline;
     }
-    
-    
+
+    public void ShowPanel(int startPage)//팁 패널 올림
+    {
+        tipManager.PanelOn(startPage);
+    }
 }
