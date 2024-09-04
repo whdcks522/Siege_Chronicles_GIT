@@ -364,7 +364,7 @@ public class TowerManager : MonoBehaviour
     //[Header("사격을 위한 살아있는 적 크리쳐 리스트")]
     List<GameObject> gunList = new List<GameObject>();
     Coroutine Tower_Gun_Cor;
-    int maxBulletCount = 6;
+    readonly int maxBulletCount = 6;//미니건의 발사 수
 
     IEnumerator Tower_Gun() 
     {

@@ -97,17 +97,10 @@ public class SpellButton : MonoBehaviour
             if (spellData.spellType == SpellData.SpellType.Creature)//크리쳐인 경우
             {
                 tmpSpellBtn.spellBtnIcon.color = Color.white;
-
-                //스펠버튼 매터리얼 변화
-                //tmpSpellBtn.spellBtnShader.material = gameManager.SpellCreatureMat;
             }
-            else //if (spellData.spellType == SpellData.SpellType.Weapon) //주술인 경우
+            else//주술인 경우
             {
                 tmpSpellBtn.spellBtnIcon.color = Color.black;
-
-                //스펠 버튼 매터리얼 변화
-                //spellBtnShader.material = gameManager.
-                //tmpSpellBtn.spellBtnShader.material = gameManager.SpellWeaponMat;
             }
         }
         else if (tmpSpellBtn.spellData == null)//스펠 데이터가 없다면

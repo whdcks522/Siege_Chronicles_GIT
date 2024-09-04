@@ -181,9 +181,11 @@ public class Creature : MonoBehaviour
     public Transform bulletStartPoint;//총알이 시작되는 곳
     public int yUp;//투사체 y축 소환 위치
     public int zUp;//투사체 z축 소환 위치, 투사체가 쪼개지는 정도로도 사용됨
-    readonly float split = 11.25f;
+   
     public GameObject useBullet;//사용하는 투사체
     public Vector3 targetVec;//목표 방향 벡터(원거리 공격용으로도 사용)
+
+    readonly float split = 11.25f;//화생방셩의 투사체가 꺽이는 정도
 
     public void AgentAction_1()
     {
@@ -242,7 +244,7 @@ public class Creature : MonoBehaviour
     int slashCount = 0;
 
     //공격 사거리 확인
-    private void Update()//Update: 매 프레임(일정하지 않음)
+    private void FixedUpdate()//Update: 매 프레임(일정하지 않음)
     {
         //가속 초기화
         rigid.velocity = Vector3.zero;
@@ -311,7 +313,7 @@ public class Creature : MonoBehaviour
     #region 크리쳐별 카메라 회전
     Vector3 cameraVec;
     Quaternion cameraRotation;
-    float upFloat = 5;
+    readonly float upFloat = 5;
 
     void CanvasSpin()//현재 체력 캔버스 회전
     {
@@ -500,6 +502,7 @@ public class Creature : MonoBehaviour
         StopCoroutine(Dissolve(true));
         StartCoroutine(Dissolve(false));
     }
+
     IEnumerator Dissolve(bool InVisible)//왜곡장 1.5초간
     {
         //피격당하지 않도록, 레이어 변경

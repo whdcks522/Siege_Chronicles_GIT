@@ -18,18 +18,18 @@ public class ObjectManager : MonoBehaviour
     public Transform redCreatureFolder;
 
     //적 리스트
-    string[] creatureNames = { "Infantry", "Shooter", "Shielder", "Accountant" };
+    readonly string[] creatureNames = { "Infantry", "Shooter", "Shielder", "Accountant" };
     //적 주소가 저장될 곳
     List<GameObject>[] creaturePools;
 
     //총알 리스트
-    string[] bulletNames = { "Infantry_Effect", "Shooter_Tracer", "Shooter_Tracer_Effect", "Shielder_Effect", "Accountant_Tracer", "Accountant_Tracer_Effect",
+    readonly string[] bulletNames = { "Infantry_Effect", "Shooter_Tracer", "Shooter_Tracer_Effect", "Shielder_Effect", "Accountant_Tracer", "Accountant_Tracer_Effect",
         "Tower_Gun", "Tower_Gun_Effect", "Tower_Flame", "Tower_Flame_Effect","Tower_GrandCure", "Tower_CorpseExplosion"};
     //총알 주소가 저장될 곳
     List<GameObject>[] bulletPools;
 
     //데미지 폰트 리스트
-    string[] damageFontNames = { "BlueDamageFont", "RedDamageFont", "PinkDamageFont" };
+    readonly string[] damageFontNames = { "BlueDamageFont", "RedDamageFont", "PinkDamageFont" };
     //데미지 폰트가 저장될 곳
     List<GameObject>[] damageFontPools;
 
@@ -63,6 +63,9 @@ public class ObjectManager : MonoBehaviour
     string[] tmpNames = null;//게임오브젝트 목록
     List<GameObject>[] tmpPools;//게임오브젝트 별 리스트
     string path = "";//폴더의 경로
+    readonly string bulletPath = "Bullet/";
+    readonly string creaturePath = "Creature/";
+    readonly string damageFontPath = "DamageFont/";
 
     public GameObject CreateObj(string _name, PoolTypes poolTypes) //있으면 적 부르고, 없으면 생성
     {
@@ -104,17 +107,17 @@ public class ObjectManager : MonoBehaviour
             switch (poolTypes)//--------수정 필요한 부분 2
             {
                 case PoolTypes.BulletPool:
-                    path = "Bullet/" + tmpNames[index]; // 서브 폴더명을 포함하여 경로 설정
+                    path = bulletPath + tmpNames[index]; // 서브 폴더명을 포함하여 경로 설정
                     tmpGameObject = Instantiate(Resources.Load<GameObject>(path), Vector3.zero, Quaternion.identity);
                     tmpGameObject.transform.parent = bulletFolder;
                     break;
                 case PoolTypes.CreaturePool:
-                    path = "Creature/" + tmpNames[index]; // 서브 폴더명을 포함하여 경로 설정
+                    path = creaturePath + tmpNames[index]; // 서브 폴더명을 포함하여 경로 설정
                     tmpGameObject = Instantiate(Resources.Load<GameObject>(path), Vector3.zero, Quaternion.identity);
                     tmpGameObject.transform.parent = grayCreatureFolder;
                     break;
                 case PoolTypes.DamageFontPool:
-                    path = "DamageFont/" + tmpNames[index]; // 서브 폴더명을 포함하여 경로 설정
+                    path = damageFontPath + tmpNames[index]; // 서브 폴더명을 포함하여 경로 설정
                     tmpGameObject = Instantiate(Resources.Load<GameObject>(path), Vector3.zero, Quaternion.identity);
                     tmpGameObject.transform.parent = damageFontFolder;
                     break;

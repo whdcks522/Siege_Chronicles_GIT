@@ -414,7 +414,7 @@ public class UIManager : MonoBehaviour
     public void SettingControl(bool isOpen)//세팅 활성화 관리
     {
         if(isOpen)//포커스 초기화
-            FocusOff(true);
+            FocusOff(false);
 
         //이미지 조절
         settingBackground.SetActive(isOpen);
@@ -488,6 +488,7 @@ public class UIManager : MonoBehaviour
                     curSpellData = null;
                 }
             }
+
             //무기 영역 비활성화
             clickSphere.gameObject.SetActive(false);
             //빛 활성화

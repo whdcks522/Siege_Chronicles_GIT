@@ -213,7 +213,6 @@ public class FireManager : MonoBehaviour
 
     //랭킹에 이름을 넣기 위함
     
-
     IEnumerator UpdateCoroutine()
     {
         //와이파이 이미지 활성화
@@ -232,7 +231,7 @@ public class FireManager : MonoBehaviour
                         CheckJson(gameManager.gameLevel, gameManager.uiManager.curPlayTime, true);
 
                         //보여주고
-                        ShowJson(gameManager.gameLevel);
+                        ShowJson(gameManager.gameLevel - 1);
 
                         //저장하고
                         SaveJson();
@@ -288,8 +287,6 @@ public class FireManager : MonoBehaviour
         //패널 보이도록
         leaderBoardPanel.SetActive(true);
 
-        levelIndex -= 1;
-
         for (int buttonIndex = 0; buttonIndex < leaderBoardScoreButtonArr.Length; buttonIndex++) 
         {
             leaderBoardScoreButtonArr[buttonIndex].interactable = true;
@@ -337,10 +334,11 @@ public class FireManager : MonoBehaviour
     #endregion
 
     #region 시간 배율 초기화
-    [ContextMenu("TimeReset")]
-    private void TimeReset()
+    [ContextMenu("Reset_TimeScale")]
+    
+    private void Reset_TimeScale()
     {
-        Time.timeScale = 1;
+        Time.timeScale = gameManager.defaultTimeScale;
     }
     #endregion
 }

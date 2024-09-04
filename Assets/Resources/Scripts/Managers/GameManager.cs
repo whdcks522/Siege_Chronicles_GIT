@@ -92,12 +92,13 @@ public class GameManager : MonoBehaviour
         fireManager.StopCor();
     }
     #endregion
-    
 
+    //기본 시간 배율
+    public int defaultTimeScale = 1;
     public void ResetGame()//게임을 '처음으로'
     {
         //시간 배속을 1로
-        Time.timeScale = 1;
+        Time.timeScale = defaultTimeScale;
 
         //화면을 처음 화면으로
         SceneManager.LoadScene(0);
@@ -116,13 +117,15 @@ public class GameManager : MonoBehaviour
             uiManager.SettingControl(true);
         }
     }
+
+    readonly string totalStoreUrl = "https://play.google.com/store/apps/developer?id=%EC%9D%B4%EC%82%AD";
     public void OpenWebSite() //웹 사이트 열기
     {
         //개별 사이트: 
         //Application.OpenURL("https://play.google.com/store/apps/details?id=com.IssacCompany.Siege_Chronicle");
 
         //전체 사이트
-        Application.OpenURL("https://play.google.com/store/apps/developer?id=%EC%9D%B4%EC%82%AD");
+        Application.OpenURL(totalStoreUrl);
     }
 
     //선언 자체 만으로 멈춰버림
