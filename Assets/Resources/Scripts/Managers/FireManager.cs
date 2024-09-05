@@ -202,12 +202,12 @@ public class FireManager : MonoBehaviour
 
         if (FireCor != null)
         {
-            Debug.Log("파이어 코루틴이 진행중이라면 종료 시킴");
+            //Debug.Log("파이어 코루틴이 진행중이라면 종료 시킴");
             StopCoroutine(FireCor);
         }
         else 
         {
-            Debug.Log("파이어 코루틴이 이미 종료됨");
+            //Debug.Log("파이어 코루틴이 이미 종료됨");
         }
     }
 
@@ -279,7 +279,7 @@ public class FireManager : MonoBehaviour
     public Button[] leaderBoardScoreButtonArr;
     public void ShowJson(int levelIndex) 
     {
-        Debug.Log(levelIndex + ": JSON 보여주기");
+        //Debug.Log(levelIndex + ": JSON 보여주기");
 
         //종이 넘기는 효과음
         gameManager.audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);

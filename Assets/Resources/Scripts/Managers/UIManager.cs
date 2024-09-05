@@ -414,7 +414,22 @@ public class UIManager : MonoBehaviour
     public void SettingControl(bool isOpen)//세팅 활성화 관리
     {
         if(isOpen)//포커스 초기화
-            FocusOff(false);
+        {
+            if (curSpellData != null)//포커스 예정이라면
+            {
+                //자원 반환
+                blueTowerManager.curTowerResource += curSpellData.spellValue;
+                curSpellData = null;
+
+                //무기 영역 비활성화
+                clickSphere.gameObject.SetActive(false);
+                //빛 활성화
+                worldLight.color = brightColor;
+            }
+            else 
+
+            FocusOff(false); //원래는 이거 하나
+        }
 
         //이미지 조절
         settingBackground.SetActive(isOpen);
@@ -424,7 +439,7 @@ public class UIManager : MonoBehaviour
         {
             Time.timeScale = 0.001f;
         }
-        else// if (!isOpen)//닫은 경우 시간 배율 초기화
+        else //닫은 경우 시간 배율 초기화
         {
             SpeedControl(false);
             SpeedControl(false);

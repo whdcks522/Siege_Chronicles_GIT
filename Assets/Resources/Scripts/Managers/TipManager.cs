@@ -14,9 +14,11 @@ public class TipManager : MonoBehaviour
     public class PanelPageInfo
     {
         public Sprite pageSprite;
-        [TextArea]
+        [TextArea(4, 10)]
         public string pageStr;
     }
+
+
     [Header("패널 디스플레이의 정보 배열")]
     public PanelPageInfo[] panelPageInfoArray;
 

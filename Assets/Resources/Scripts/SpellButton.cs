@@ -188,7 +188,7 @@ public class SpellButton : MonoBehaviour
                 selectManager.selectedSpellTypeImage.color = selectManager.spellTypeImageArr[1].color;
 
                 //스펠 타입 텍스트 변경
-                selectManager.selectedSpellTypeText.text = "타워";
+                selectManager.selectedSpellTypeText.text = "대포";
 
                 //스펠 정보 바꾸기(체력, 강도:피해량: 이동속도, 포커스 여부, 사거리)
                 Bullet spellWeaponBullet = spellData.spellPrefab.GetComponent<Bullet>();
@@ -219,11 +219,10 @@ public class SpellButton : MonoBehaviour
                 else
                     selectManager.selectedSpellInfo.text += "다중(<color=#770077>" + spellWeaponBulletRad + "</color>)\n";
 
-                selectManager.selectedSpellInfo.text += "<color=#406BFF>위치 설정 여부</color>: ";
+                selectManager.selectedSpellInfo.text += "<color=#406BFF>드래그 여부</color>: ";
                 if (spellData.isFocus)
                 {
-                    selectManager.selectedSpellInfo.text += "O";
-
+                    selectManager.selectedSpellInfo.text += "<color=#AA0000>O</color>";
                 }
                 else 
                 {
