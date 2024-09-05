@@ -12,13 +12,18 @@ public class SpellButton : MonoBehaviour
     [Header("스펠 버튼의 비용 텍스트")]
     public Text spellBtnValue;
 
+    [Header("스펠 버튼의 포커스 여부 체크")]
+    public Image spellBtnFocus;
+
+
+
     [Header("스펠 버튼의 쉐이더")]
     public Image spellBtnShader;
 
     [Header("스펠 버튼의 아이콘 이미지")]
     public Image spellBtnIcon;
 
-    [Header("스펠 버튼의 체크")]
+    [Header("스펠 버튼의 초록색 체크")]
     public GameObject spellBtnCheck;
 
     [Header("스펠 스크립타블 객체")]
@@ -26,6 +31,8 @@ public class SpellButton : MonoBehaviour
 
     [Header("버튼의 부모")]
     public SpellButton originSpellBtn;
+
+
 
     [Header("매니저")]
     public GameManager gameManager;
@@ -67,6 +74,9 @@ public class SpellButton : MonoBehaviour
 
             //아이콘 이미지 삭제
             Destroy(spellBtnIcon.gameObject);
+
+            //포커스 이미지 삭제
+            Destroy(spellBtnFocus.gameObject);
         }
         else //비활성화 하는 경우
         {
@@ -85,6 +95,9 @@ public class SpellButton : MonoBehaviour
     #region 아이콘 이미지 갱신
     public void IconChange(SpellButton tmpSpellBtn)//전투에서는 안씀
     {
+        //포커스 이미지 활성화
+        tmpSpellBtn.spellBtnFocus.gameObject.SetActive(false);
+
         if (tmpSpellBtn.spellData != null) //스펠 데이터가 있다면
         {
             //비용 텍스트 관리
@@ -94,6 +107,7 @@ public class SpellButton : MonoBehaviour
             //아이콘 이미지 관리
             tmpSpellBtn.spellBtnIcon.sprite = spellData.spellIcon;
 
+
             if (spellData.spellType == SpellData.SpellType.Creature)//크리쳐인 경우
             {
                 tmpSpellBtn.spellBtnIcon.color = Color.white;
@@ -101,6 +115,12 @@ public class SpellButton : MonoBehaviour
             else//주술인 경우
             {
                 tmpSpellBtn.spellBtnIcon.color = Color.black;
+
+                if (tmpSpellBtn.spellData.isFocus) 
+                {
+                    //포커스 이미지 활성화
+                    tmpSpellBtn.spellBtnFocus.gameObject.SetActive(true);
+                }
             }
         }
         else if (tmpSpellBtn.spellData == null)//스펠 데이터가 없다면
@@ -115,7 +135,7 @@ public class SpellButton : MonoBehaviour
     }
     #endregion
 
-    #region 스펠 버튼 클릭
+    #region 우측에서 선택한 스펠에 대한 정보 보여줌
     public void OnClick()
     {
         if (curSpellBtnEnum != SpellBtnEnum.BattleBtn)
@@ -143,7 +163,7 @@ public class SpellButton : MonoBehaviour
                 selectManager.selectedSpellTypeImage.color = selectManager.spellTypeImageArr[0].color;
 
                 //스펠 타입 텍스트 변경
-                selectManager.selectedSpellTypeText.text = "크리쳐";
+                selectManager.selectedSpellTypeText.text = "캐릭터";
 
                 //스펠 정보 바꾸기(체력, 강도:피해량: 이동속도, 포커스 여부, 사거리)
                 Creature spellCreature = spellData.spellPrefab.GetComponent<Creature>();
@@ -168,7 +188,7 @@ public class SpellButton : MonoBehaviour
                 selectManager.selectedSpellTypeImage.color = selectManager.spellTypeImageArr[1].color;
 
                 //스펠 타입 텍스트 변경
-                selectManager.selectedSpellTypeText.text = "주술";
+                selectManager.selectedSpellTypeText.text = "타워";
 
                 //스펠 정보 바꾸기(체력, 강도:피해량: 이동속도, 포커스 여부, 사거리)
                 Bullet spellWeaponBullet = spellData.spellPrefab.GetComponent<Bullet>();
@@ -203,6 +223,7 @@ public class SpellButton : MonoBehaviour
                 if (spellData.isFocus)
                 {
                     selectManager.selectedSpellInfo.text += "O";
+
                 }
                 else 
                 {
