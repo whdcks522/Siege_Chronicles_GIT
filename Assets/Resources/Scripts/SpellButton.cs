@@ -13,7 +13,7 @@ public class SpellButton : MonoBehaviour
     public Text spellBtnValue;
 
     [Header("스펠 버튼의 포커스 여부 체크")]
-    public Image spellBtnFocus;
+    public GameObject spellBtnFocus;
 
 
 
@@ -76,7 +76,7 @@ public class SpellButton : MonoBehaviour
             Destroy(spellBtnIcon.gameObject);
 
             //포커스 이미지 삭제
-            Destroy(spellBtnFocus.gameObject);
+            Destroy(spellBtnFocus);
         }
         else //비활성화 하는 경우
         {
@@ -96,7 +96,7 @@ public class SpellButton : MonoBehaviour
     public void IconChange(SpellButton tmpSpellBtn)//전투에서는 안씀
     {
         //포커스 이미지 활성화
-        tmpSpellBtn.spellBtnFocus.gameObject.SetActive(false);
+        tmpSpellBtn.spellBtnFocus.SetActive(false);
 
         if (tmpSpellBtn.spellData != null) //스펠 데이터가 있다면
         {
@@ -119,7 +119,7 @@ public class SpellButton : MonoBehaviour
                 if (tmpSpellBtn.spellData.isFocus) 
                 {
                     //포커스 이미지 활성화
-                    tmpSpellBtn.spellBtnFocus.gameObject.SetActive(true);
+                    tmpSpellBtn.spellBtnFocus.SetActive(true);
                 }
             }
         }

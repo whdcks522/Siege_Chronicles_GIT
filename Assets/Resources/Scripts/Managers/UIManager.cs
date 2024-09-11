@@ -537,4 +537,13 @@ public class UIManager : MonoBehaviour
         blueTowerManager.RadarControl(clickSphere.position);
     }
     #endregion
+
+    #region 종료 될 때, 매터리얼 색 고정(깃 허브를 위함)
+
+    private void OnDisable()
+    {
+        Debug.LogError("매터리얼 색 변경");
+        clickMat.SetColor("_AlphaColor", textYellow);
+    }
+    #endregion
 }
