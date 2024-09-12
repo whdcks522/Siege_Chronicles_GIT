@@ -103,7 +103,6 @@ GameObject:
   - component: {fileID: 5663150844693100204}
   - component: {fileID: 1544490059379958511}
   - component: {fileID: 6268449777973402233}
-  - component: {fileID: 7562802034341481994}
   m_Layer: 5
   m_Name: SpellBtnFocus
   m_TagString: Untagged
@@ -161,10 +160,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 94ed9335dd4c6c648b672583ebd48ebc, type: 3}
-    m_FontSize: 75
-    m_FontStyle: 3
+    m_FontSize: 80
+    m_FontStyle: 1
     m_BestFit: 0
-    m_MinSize: 1
+    m_MinSize: 0
     m_MaxSize: 300
     m_Alignment: 2
     m_AlignByGeometry: 0
@@ -173,21 +172,6 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uB4DC\uB798\uADF8"
---- !u!114 &7562802034341481994
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 674256291016806717}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
-  m_EffectDistance: {x: 6, y: 6}
-  m_UseGraphicAlpha: 1
 --- !u!1 &1091691304888104334
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,7 +449,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curSpellBtnEnum: 0
   spellBtnValue: {fileID: 5353312735597383467}
-  spellBtnFocus: {fileID: 674256291016806717}
+  spellBtnFocus: {fileID: 6268449777973402233}
   spellBtnShader: {fileID: 0}
   spellBtnIcon: {fileID: 7688239999973509402}
   spellBtnCheck: {fileID: 659270692131195105}

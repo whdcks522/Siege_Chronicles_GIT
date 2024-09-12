@@ -13,7 +13,7 @@ public class SpellButton : MonoBehaviour
     public Text spellBtnValue;
 
     [Header("스펠 버튼의 포커스 여부 체크")]
-    public GameObject spellBtnFocus;
+    public Text spellBtnFocus;
 
 
 
@@ -93,10 +93,11 @@ public class SpellButton : MonoBehaviour
     }
 
     #region 아이콘 이미지 갱신
+    readonly int battleFontSize = 60;
     public void IconChange(SpellButton tmpSpellBtn)//전투에서는 안씀
     {
         //포커스 이미지 활성화
-        tmpSpellBtn.spellBtnFocus.SetActive(false);
+        tmpSpellBtn.spellBtnFocus.gameObject.SetActive(false);
 
         if (tmpSpellBtn.spellData != null) //스펠 데이터가 있다면
         {
@@ -118,8 +119,21 @@ public class SpellButton : MonoBehaviour
 
                 if (tmpSpellBtn.spellData.isFocus) 
                 {
-                    //포커스 이미지 활성화
-                    tmpSpellBtn.spellBtnFocus.SetActive(true);
+                    //포커스 텍스트 활성화
+                    tmpSpellBtn.spellBtnFocus.gameObject.SetActive(true);
+
+                    //포커스 텍스트 색 조정
+                    Color focusTextColor = spellData.focusColor;
+                    focusTextColor.a = 1;
+
+                    tmpSpellBtn.spellBtnFocus.color = focusTextColor;
+
+                    
+                    if (curSpellBtnEnum == SpellBtnEnum.BattleBtn)//포커스 텍스트의 사용 환경에 따른 크기 조정 
+                    {
+                        //tmpSpellBtn.spellBtnFocus.fontSize = battleFontSize;
+                    }
+                    
                 }
             }
         }

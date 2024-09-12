@@ -196,6 +196,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5316267316043917884, guid: 635e715c63b5fb44991045f256ef3baf,
         type: 3}
+      propertyPath: spellBtnFocus
+      value: 
+      objectReference: {fileID: 1044800049903451532}
+    - target: {fileID: 5316267316043917884, guid: 635e715c63b5fb44991045f256ef3baf,
+        type: 3}
       propertyPath: spellBtnShader
       value: 
       objectReference: {fileID: 4177254021117583096}
@@ -203,6 +208,11 @@ PrefabInstance:
         type: 3}
       propertyPath: curSpellBtnEnum
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5663150844693100204, guid: 635e715c63b5fb44991045f256ef3baf,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 6240710764568626255, guid: 635e715c63b5fb44991045f256ef3baf,
         type: 3}
@@ -218,6 +228,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6268449777973402233, guid: 635e715c63b5fb44991045f256ef3baf,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 6339285633867472857, guid: 635e715c63b5fb44991045f256ef3baf,
         type: 3}
@@ -267,6 +282,18 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2054404052075488242}
   m_SourcePrefab: {fileID: 100100000, guid: 635e715c63b5fb44991045f256ef3baf, type: 3}
+--- !u!114 &1044800049903451532 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6268449777973402233, guid: 635e715c63b5fb44991045f256ef3baf,
+    type: 3}
+  m_PrefabInstance: {fileID: 6377626764762753013}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3560544715179920870 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7631482941616728595, guid: 635e715c63b5fb44991045f256ef3baf,
