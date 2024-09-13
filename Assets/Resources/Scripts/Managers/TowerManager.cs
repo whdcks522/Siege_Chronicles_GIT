@@ -73,6 +73,7 @@ public class TowerManager : MonoBehaviour
     public SpellData futureSpellData;
 
     WaitForSeconds waitSec = new WaitForSeconds(0.05f);
+    public int creatureSpawnIndex = 0;
     IEnumerator UpdateCoroutine()
     {
         while (true)
@@ -119,6 +120,7 @@ public class TowerManager : MonoBehaviour
                     }
                     else if (futureSpellData == null)//소환할 것이 정해지지 않았다면, 어떤 크리쳐를 소환할 지 무작위로 정함
                     {
+                        /*
                         int createIndex = UnityEngine.Random.Range(0, gameManager.creatureSpellDataArr.Length - 1);
 
                         //0, 1, 2중에서 맞았고 2가 나온 경우만 소환
@@ -126,22 +128,22 @@ public class TowerManager : MonoBehaviour
                         if (!recentHit && createIndex == 2) //쉴더는 가까울 때만 소환해야 하므로
                         {
                             createIndex = 0;
-
-                            /*
-                            //Debug.LogWarning(createIndex + "가 나올 위기임");
-                            while (createIndex == 2)
-                            {
-                                createIndex = UnityEngine.Random.Range(0, gameManager.creatureSpellDataArr.Length - 1);
-
-                                //Debug.LogWarning(createIndex + "이거를 소환할 까?");
-                            }
-                            */
                         }
-                        //Debug.Log(createIndex + "을 소환할 예정임");
 
                         futureSpellData = gameManager.creatureSpellDataArr[createIndex];
-
                         recentHit = false;
+                        */
+
+                        if (recentHit)//최근에 맞았으면 
+                        {
+                            futureSpellData = gameManager.creatureSpellDataArr[2];
+                            recentHit = false;
+                        }
+                        else //안맞았으면, 개구락지 - 노랑이 번갈아 소환
+                        {
+                            creatureSpawnIndex = (creatureSpawnIndex + 1) % 2;
+                            futureSpellData = gameManager.creatureSpellDataArr[creatureSpawnIndex];
+                        }
                     }
                 }
             }
@@ -174,6 +176,7 @@ public class TowerManager : MonoBehaviour
         //소환 목록 초기화
         recentHit = false;
         futureSpellData = null;
+        creatureSpawnIndex = 0;
     }
     #endregion
 
