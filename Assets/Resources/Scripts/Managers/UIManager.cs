@@ -410,7 +410,10 @@ public class UIManager : MonoBehaviour
     public GameObject settingBackground;//설정 창 배경
     public GameObject victoryTitle;//승리 시 나올 텍스트
     public GameObject defeatTitle;//패배 시 나올 텍스트
+
     public Button startBtn;//이어하기 버튼(게임 종료 시, 비활성화)
+    public Animator setBtnAnim;//세팅 버튼 플래시 애니메이션
+    
     public void SettingControl(bool isOpen)//세팅 활성화 관리
     {
         if(isOpen)//포커스 초기화
@@ -438,6 +441,9 @@ public class UIManager : MonoBehaviour
         if (isOpen)
         {
             Time.timeScale = 0.001f;
+
+            //세팅 텍스트 플래시 애니메이션 재생
+            setBtnAnim.SetBool("isFlash", true);
         }
         else //닫은 경우 시간 배율 초기화
         {
@@ -445,6 +451,20 @@ public class UIManager : MonoBehaviour
             SpeedControl(false);
         }
     }
+
+    #region 세팅 화면의 버튼 애니메이션 재생
+    public Animator[] setBtnAnimArr;//세팅에서 사용할 버튼들의 애니메이션 
+    public void setBtnControl(int startIndex) //0은 그냥 세팅 버튼, 1은 승리나 패배
+    {
+        //세팅 버튼 애니메이션 재생
+        for (int index = startIndex; index <= 4; index++)
+        {
+            setBtnAnimArr[index].SetTrigger("isActivate");
+
+            Debug.LogError("세팅 애니메이션 실행: " + index);
+        }
+    }
+    #endregion
 
     public void playSfxPaper()//세팅 버튼 눌렀을 시, 효과음을 위함
     {
@@ -542,7 +562,6 @@ public class UIManager : MonoBehaviour
 
     private void OnDisable()
     {
-        Debug.LogError("매터리얼 색 변경");
         clickMat.SetColor("_AlphaColor", textYellow);
     }
     #endregion

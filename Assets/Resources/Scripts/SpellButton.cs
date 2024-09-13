@@ -93,7 +93,6 @@ public class SpellButton : MonoBehaviour
     }
 
     #region 아이콘 이미지 갱신
-    readonly int battleFontSize = 60;
     public void IconChange(SpellButton tmpSpellBtn)//전투에서는 안씀
     {
         //포커스 이미지 활성화
@@ -127,13 +126,6 @@ public class SpellButton : MonoBehaviour
                     focusTextColor.a = 1;
 
                     tmpSpellBtn.spellBtnFocus.color = focusTextColor;
-
-                    
-                    if (curSpellBtnEnum == SpellBtnEnum.BattleBtn)//포커스 텍스트의 사용 환경에 따른 크기 조정 
-                    {
-                        //tmpSpellBtn.spellBtnFocus.fontSize = battleFontSize;
-                    }
-                    
                 }
             }
         }

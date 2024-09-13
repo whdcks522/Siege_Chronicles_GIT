@@ -84,8 +84,10 @@ public class GameManager : MonoBehaviour
         //UI 초기화
         uiManager.resetUI();
 
-        //설정 화면의 글자 초기화
+        //이어하기 버튼 상호작용 활성화
         uiManager.startBtn.interactable = true;
+
+        //설정 화면의 글자 초기화
         uiManager.victoryTitle.SetActive(false);
         uiManager.defeatTitle.SetActive(false);
 

@@ -282,7 +282,7 @@ public class TowerManager : MonoBehaviour
 
         //Debug.LogWarning("여기는?");
 
-        if (curHealth > 0)
+        if (curHealth > 0)//타워가 공격받는 중
         {
             if (damage != 0)
                 audioManager.PlaySfx(AudioManager.Sfx.TowerCrashSfx);
@@ -292,9 +292,6 @@ public class TowerManager : MonoBehaviour
             Debug.LogWarning("여러번 호출되나?");
 
             curHealth = 0;
-
-            //설정 화면의 시작 버튼 비활성화
-            UiManager.startBtn.interactable = false;
 
             if (curTeamEnum == Creature.TeamEnum.Red)//빨간 팀이 진 경우
             {
@@ -321,6 +318,10 @@ public class TowerManager : MonoBehaviour
             }
             //게임 종료를 위해 정지 시키기
             UiManager.SettingControl(true);
+
+            //설정 화면의 시작 버튼 비활성화
+            UiManager.startBtn.interactable = false;
+            UiManager.setBtnControl(1);
         }
     }
     #endregion
