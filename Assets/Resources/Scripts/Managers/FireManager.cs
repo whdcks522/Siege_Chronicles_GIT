@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
 using Firebase;
 using Firebase.Database;
 using Firebase.Extensions;
@@ -151,16 +150,6 @@ public class FireManager : MonoBehaviour
     }
     #endregion
 
-    #region 이름 입력
-    public void NameInput()
-    {
-        //종이 넘기는 효과음
-        gameManager.audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
-
-        playerName = inputField.GetComponent<InputField>().text;
-    }
-    #endregion
-
     public float timing;
     public GameManager gameManager;
 
@@ -198,7 +187,7 @@ public class FireManager : MonoBehaviour
         playerName = "";
 
         //와이파이 아이콘 초기화
-        wifiImage.enabled = false;
+        wifiObj.SetActive(false);
 
         if (FireCor != null)
         {
@@ -216,7 +205,14 @@ public class FireManager : MonoBehaviour
     IEnumerator UpdateCoroutine()
     {
         //와이파이 이미지 활성화
-        wifiImage.enabled = true;
+        wifiObj.SetActive(true);
+
+        wifiObj.GetComponent<Image>().sprite = wifiSpriteArr[0];
+        wifiObj.transform.GetChild(0).GetComponent<Animator>().SetBool("isFlash", true);
+
+        wifiObj.transform.GetChild(0).GetComponent<Text>().text = "Offline";
+        wifiObj.transform.GetChild(0).GetComponent<Text>().color = gameManager.uiManager.textYellow;
+
 
         while (true)
         {
@@ -225,7 +221,7 @@ public class FireManager : MonoBehaviour
                 //랭킹 변화가 있으면
                 if (CheckJson(gameManager.gameLevel, gameManager.uiManager.curPlayTime, false))//여기서 이름 인풋 필드 활성화
                 {
-                    if (gameManager.OnlineCheck() && playerName != "")//그리고 온라인이면
+                    if (gameManager.OnlineCheck() && playerName != "")//그리고 온라인이면(인풋 필드로 이름 삽입)
                     {
                         //바꾸고
                         CheckJson(gameManager.gameLevel, gameManager.uiManager.curPlayTime, true);
@@ -236,41 +232,59 @@ public class FireManager : MonoBehaviour
                         //저장하고
                         SaveJson();
 
-                        leaderBoardArray.isLoad = false;
+                        leaderBoardArray.isLoad = false;//savejSon아래 있어야 할 듯
                         playerName = "";
 
-                        wifiImage.enabled = false;
+                        wifiObj.SetActive(false);
 
                         yield break;
                     }
                 }
-                else 
+                else //랭킹 변화가 없으면
                 {
                     //보여주기
                     ShowJson(gameManager.gameLevel);
 
                     leaderBoardArray.isLoad = false;
 
-                    wifiImage.enabled = false;
+                    wifiObj.SetActive(false);
 
                     yield break;
                 }
-            }
+
+            }//로드를 했으면(인터넷이 연결돼야 불러옴)
 
             //와이파이 아이콘 변경
-            if (gameManager.OnlineCheck())
+            if (gameManager.OnlineCheck())//인터넷에 연결된 경우
             {
-                wifiImage.sprite = wifiSpriteArr[1];
+                if (wifiObj.GetComponent<Image>().sprite != wifiSpriteArr[1])//막 여기로 바뀐 경우, 애니메이션 재생 
+                {
+                    wifiObj.transform.GetChild(0).GetComponent<Animator>().SetBool("isFlash", true);
+                }
+
+                wifiObj.GetComponent<Image>().sprite = wifiSpriteArr[1];
+
+                wifiObj.transform.GetChild(0).GetComponent<Text>().text = "Online";
+                wifiObj.transform.GetChild(0).GetComponent<Text>().color = gameManager.uiManager.textGreen;
             }
-            else 
+            else //인터넷에 연결되지 않은 경우
             {
-                wifiImage.sprite = wifiSpriteArr[0];
+                if (wifiObj.GetComponent<Image>().sprite != wifiSpriteArr[0])//막 여기로 바뀐 경우, 애니메이션 재생 
+                {
+                    wifiObj.transform.GetChild(0).GetComponent<Animator>().SetBool("isFlash", true);
+                }
+
+                wifiObj.GetComponent<Image>().sprite = wifiSpriteArr[0];
+
+                wifiObj.transform.GetChild(0).GetComponent<Text>().text = "Offline";
+                wifiObj.transform.GetChild(0).GetComponent<Text>().color = gameManager.uiManager.textYellow;
             }
 
             yield return waitSec;
-        }
+        
+        }//while
     }
-    public Image wifiImage;
+    public GameObject wifiObj;
     public Sprite[] wifiSpriteArr;
     #endregion
 
@@ -306,6 +320,16 @@ public class FireManager : MonoBehaviour
     }
     #endregion
 
+    #region 이름 입력
+    public void NameInput()
+    {
+        //종이 넘기는 효과음
+        gameManager.audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
+
+        playerName = inputField.GetComponent<InputField>().text;
+    }
+    #endregion
+
     #region 게임 랭킹 초기화(인스펙터에서 사용)
     [ContextMenu("ClearJson")]
     private void ClearJson()//Json 초기화, 인스펙터 창에서 확인
@@ -323,7 +347,7 @@ public class FireManager : MonoBehaviour
     }
     #endregion
 
-    #region 빨강 타워 날려버림(랭킹 실험용)
+    #region 빨강 타워 날려버림(인스펙터에서 사용)
     [ContextMenu("DeleteRedTower")]
     private void DeleteRedTower()
     {
@@ -332,7 +356,7 @@ public class FireManager : MonoBehaviour
     }
     #endregion
 
-    #region 시간 배율 초기화
+    #region 시간 배율 초기화(인스펙터에서 사용)
     [ContextMenu("Reset_TimeScale")]
     
     private void Reset_TimeScale()

@@ -175,8 +175,8 @@ public class TowerManager : MonoBehaviour
 
         //소환 목록 초기화
         recentHit = false;
-        futureSpellData = null;
         creatureSpawnIndex = 0;
+        futureSpellData = null;
     }
     #endregion
 

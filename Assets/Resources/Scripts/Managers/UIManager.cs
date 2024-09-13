@@ -204,6 +204,9 @@ public class UIManager : MonoBehaviour
         //카메라 회전 초기화
         curRot = -160;
         CameraControl();
+
+        //세팅 화면 비활성화
+        SettingControl(false);
     }
     #endregion
 
@@ -460,8 +463,6 @@ public class UIManager : MonoBehaviour
         for (int index = startIndex; index <= 4; index++)
         {
             setBtnAnimArr[index].SetTrigger("isActivate");
-
-            Debug.LogError("세팅 애니메이션 실행: " + index);
         }
     }
     #endregion

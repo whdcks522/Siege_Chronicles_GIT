@@ -119,6 +119,8 @@ public class GameManager : MonoBehaviour
         {
             //일시정지
             uiManager.SettingControl(true);
+
+            uiManager.setBtnControl(0);
         }
     }
 
