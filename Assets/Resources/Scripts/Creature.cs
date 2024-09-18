@@ -304,6 +304,11 @@ public class Creature : MonoBehaviour
             miniHealth.fillAmount = curHealth / maxHealth;
         }
 
+        
+    }
+
+    private void LateUpdate()
+    {
         //캔버스 회전
         CanvasSpin();
     }

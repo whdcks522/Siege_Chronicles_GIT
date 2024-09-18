@@ -292,7 +292,7 @@ public class TowerManager : MonoBehaviour
         }
         else if (curHealth <= 0 && !UiManager.settingBackground.activeSelf) //게임 종료
         {
-            Debug.LogWarning("여러번 호출되나?");
+            //Debug.LogWarning("여러번 호출되나?");
 
             curHealth = 0;
 

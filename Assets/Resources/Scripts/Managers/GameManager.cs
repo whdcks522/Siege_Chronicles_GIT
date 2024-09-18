@@ -124,6 +124,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //전체 사이트 링크
     readonly string totalStoreUrl = "https://play.google.com/store/apps/developer?id=%EC%9D%B4%EC%82%AD";
     public void OpenWebSite() //웹 사이트 열기
     {
