@@ -16,8 +16,7 @@ public class FireManager : MonoBehaviour
         public static string GetCurrentDateTimeString()
         {
             DateTime now = DateTime.Now;
-            //return now.ToString("yyMMdd HH:mm");
-            return now.ToString("yy-MM-dd HH:mm");
+            return now.ToString("yy-MM-dd HH:mm");//return now.ToString("yyMMdd HH:mm");
         }
     }
     #endregion
@@ -34,7 +33,7 @@ public class FireManager : MonoBehaviour
     public class LeaderBoardArray
     {
         public LeaderBoard[] leaderBoardArr = new LeaderBoard[3];//난이도마다 한개씩 존재
-        public bool isLoad = false;
+        public bool isLoad = false;//0은 아직 안불림, 1은 갱신한 것 확인, 2는 새로 저장함(기록 없어질수도 있음)
 
         public LeaderBoardArray()
         {
@@ -48,6 +47,8 @@ public class FireManager : MonoBehaviour
     public LeaderBoardArray leaderBoardArray = new LeaderBoardArray();
     #endregion
 
+    private void Start()=> waitSec = new WaitForSeconds(timing);
+
     #region 데이터 순위 바꾸기
     float RoundToDecimalPlace(float value, int decimalPlaces)
     {
@@ -57,7 +58,7 @@ public class FireManager : MonoBehaviour
 
     public bool CheckJson(int gameLevel, float clearTime, bool isSave) 
     {
-        Debug.Log("JSON 내용 바꾸기");
+        Debug.Log("JSON 내용 바꾸기");//확인중..
 
         clearTime = RoundToDecimalPlace(clearTime, 1);
 
@@ -73,10 +74,11 @@ public class FireManager : MonoBehaviour
 
         for(int i = 0; i < 3; i++)
         {
-            if (clearTime < leaderBoardArray.leaderBoardArr[gameLevel].ClearTime[i]) //0일수록 빨리 끝낸 것
+            if (clearTime < leaderBoardArray.leaderBoardArr[gameLevel].ClearTime[i]) //변화가 일어난 경우
             {
                 isRankChange = true;
-                if (isSave)//변화를 허용함
+
+                if (isSave)//리더보드 변화를 허용함
                 {
                     //기존의 것을 일단 저장함
                     tmpTime = leaderBoardArray.leaderBoardArr[gameLevel].ClearTime[i];
@@ -86,10 +88,11 @@ public class FireManager : MonoBehaviour
                     leaderBoardArray.leaderBoardArr[gameLevel].ClearTime[i] = clearTime;
                     leaderBoardArray.leaderBoardArr[gameLevel].DateStr[i] = dateStr;
 
+                    //한칸씩 밀기
                     clearTime = tmpTime;
                     dateStr = tmpStr;
                 }
-                else //변화를 허용하지 않음
+                else //리더보드 변화를 허용하지 않음
                 {
                     //이름 입력 활성화
                     inputField.SetActive(true);
@@ -102,7 +105,7 @@ public class FireManager : MonoBehaviour
     #endregion
 
     #region 데이터 저장하기
-    string userId = "veHlMdhxfhVKn3scykFjU9fzeEf2";
+    string userId = "veHlMdhxfhVKn3scykFjU9fzeEf2";//리더보드 내용을 저장할 내 아이디
     public void SaveJson() 
     {
         Debug.Log("JSON 저장하기");
@@ -115,12 +118,12 @@ public class FireManager : MonoBehaviour
     #endregion
 
     #region 데이터 불러오기
-    public void LoadJson()
+    public void LoadJson()//작동될때까지 기다리더라
     {
         DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
 
         //유저 ID를 통해 업적 데이터에 대한 참조 획득
-        DatabaseReference achievementsRef = reference.Child("LeaderBoardArray").Child(userId);//playerId
+        DatabaseReference achievementsRef = reference.Child("LeaderBoardArray").Child(userId);
 
         //데이터베이스로부터 데이터를 읽어옴
         achievementsRef.GetValueAsync().ContinueWith(task =>
@@ -160,21 +163,18 @@ public class FireManager : MonoBehaviour
     #region 코루틴
     WaitForSeconds waitSec;
     Coroutine FireCor;
-    private void Start()
-    {
-        waitSec = new WaitForSeconds(timing);
-    }
 
-    public void StartCor() 
+    public void StartCor() //승리 하는 경우 호출됨
     {
-        //불러오고
+        //불러오고(오프라인 후 온라인 으로 바꿔도 인식 되나?)
         gameManager.fireManager.LoadJson();
 
         //불러오기 완료 까지의 코루틴
         FireCor = StartCoroutine(UpdateCoroutine());
     }
-    
-    public void StopCor() //전투 초기화 할 때마다 수행
+
+    #region 파이어베이스 설정 초기화(전투 초기화 할 때마다 수행)
+    public void StopCor()
     {
         //리더보드 비활성화
         leaderBoardPanel.SetActive(false);
@@ -199,9 +199,10 @@ public class FireManager : MonoBehaviour
             //Debug.Log("파이어 코루틴이 이미 종료됨");
         }
     }
+    #endregion
 
     //랭킹에 이름을 넣기 위함
-    
+
     IEnumerator UpdateCoroutine()
     {
         //와이파이 이미지 활성화
@@ -219,7 +220,7 @@ public class FireManager : MonoBehaviour
             if (leaderBoardArray.isLoad)//로드를 했으면(인터넷이 연결돼야 불러옴)
             {
                 //랭킹 변화가 있으면
-                if (CheckJson(gameManager.gameLevel, gameManager.uiManager.curPlayTime, false))//여기서 이름 인풋 필드 활성화
+                if (CheckJson(gameManager.gameLevel, gameManager.uiManager.curPlayTime, false))//여기서 이름 인풋 필드 활성화(변화를 허용하지 않음, 변화 여부만 확인)
                 {
                     if (gameManager.OnlineCheck() && playerName != "")//그리고 온라인이면(인풋 필드로 이름 삽입)
                     {
@@ -291,7 +292,7 @@ public class FireManager : MonoBehaviour
     #region JSON 보여주기
     public Text[] leaderBoardScoreTextArr;
     public Button[] leaderBoardScoreButtonArr;
-    public void ShowJson(int levelIndex) 
+    public void ShowJson(int levelIndex) //어떤 단계의 리더 보드 내용을 보여줄지
     {
         //Debug.Log(levelIndex + ": JSON 보여주기");
 
@@ -301,10 +302,9 @@ public class FireManager : MonoBehaviour
         //패널 보이도록
         leaderBoardPanel.SetActive(true);
 
+        //난이도 버튼 상호작용 관리
         for (int buttonIndex = 0; buttonIndex < leaderBoardScoreButtonArr.Length; buttonIndex++) 
-        {
             leaderBoardScoreButtonArr[buttonIndex].interactable = true;
-        }
         leaderBoardScoreButtonArr[levelIndex].interactable = false;
 
         //리더보드 텍스트 변경
