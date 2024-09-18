@@ -19022,16 +19022,16 @@ MonoBehaviour:
   gameManager: {fileID: 7248791031402223488}
   panelPageInfoArray:
   - pageSprite: {fileID: 21300000, guid: e12215734816f5441ad3d0b1953f8abc, type: 3}
-    pageStr: "\uBC84\uD2BC \uC88C\uCE21 \uC0C1\uB2E8\uC5D0 \uC788\uB294 <color=#00AAFF>\uC22B\uC790</color>\uB294\n<color=#FFDF94>\uCE90\uB9AD\uD130</color>\uB97C
+    pageStr: "\uBC84\uD2BC \uC88C\uCE21 \uC0C1\uB2E8\uC5D0 \uC788\uB294 <color=#00AAFF>\uC22B\uC790</color>\uB294\n<color=#00AAFF>\uCE90\uB9AD\uD130</color>\uB97C
       <color=#00AAFF>\uC18C\uD658</color>\uD558\uAC70\uB098 <color=#C7BAFF>\uB300\uD3EC</color>\uB97C
       <color=#00AAFF>\uC0AC\uC6A9</color>\uD560 \uB54C <color=#00AAFF>\uC18C\uBAA8</color>\uB418\uB294
       <color=#AA0000>\uC790\uC6D0\uB7C9</color>\uC785\uB2C8\uB2E4."
   - pageSprite: {fileID: 21300000, guid: f194eb2aea7005c4b9c9af9115203e96, type: 3}
-    pageStr: "<color=#FFDF94>\uCE90\uB9AD\uD130</color>\uB098 <color=#C7BAFF>\uB300\uD3EC</color>\uB97C
+    pageStr: "<color=#00AAFF>\uCE90\uB9AD\uD130</color>\uB098 <color=#C7BAFF>\uB300\uD3EC</color>\uB97C
       \uD074\uB9AD\uD558\uBA74 <color=#00AAFF>\uC120\uD0DD</color>\uB418\uACE0, \uB2E4\uC2DC
       \uD074\uB9AD\uD558\uBA74 <color=#00AAFF>\uCDE8\uC18C</color>\uB429\uB2C8\uB2E4."
   - pageSprite: {fileID: 21300000, guid: 84c9b54f16f59244597e5f47f651ae15, type: 3}
-    pageStr: "<color=#FFDF94>\uCE90\uB9AD\uD130</color>\uB098 <color=#C7BAFF>\uB300\uD3EC</color>\uB97C
+    pageStr: "<color=#00AAFF>\uCE90\uB9AD\uD130</color>\uB098 <color=#C7BAFF>\uB300\uD3EC</color>\uB97C
       \uD074\uB9AD\uD558\uBA74 <color=#00AAFF>\uC124\uBA85</color>\uC774 <color=#00AAFF>\uD45C\uC2DC</color>\uB429\uB2C8\uB2E4."
   - pageSprite: {fileID: 21300000, guid: 9578ad6852863f942bf8f2a68e94eebb, type: 3}
     pageStr: "<color=#DD00DD>\uC2AC\uB77C\uC774\uB4DC</color>\uB85C <color=#CC7700>\uB09C\uC774\uB3C4</color>\uB97C
@@ -19066,7 +19066,7 @@ MonoBehaviour:
       <color=#FFFFFF>0</color>\uC774 \uB418\uBA74 <color=#00AAFF>\uC2B9\uB9AC</color>\uD569\uB2C8\uB2E4.<color=#0000FF>\uC790\uAE30
       \uD0C0\uC6CC</color>\uC758 <color=#AA0000>\uCCB4\uB825</color>\uC774 <color=#FFFFFF>0</color>\uC774
       \uB418\uBA74 <color=#AA0000>\uD328\uBC30</color>\uD569\uB2C8\uB2E4. <color=#770077>\uD0C0\uC6CC</color>\uC758
-      <color=#AA0000>\uCCB4\uB825</color>\uC740 <color=#FFFFFF>500</color>\uC785\uB2C8\uB2E4."
+      <color=#AA0000>\uCCB4\uB825</color>\uC740 <color=#00AAFF>500</color>\uC785\uB2C8\uB2E4."
   - pageSprite: {fileID: 21300000, guid: 5d061c126021063458dafd1f8d5b4b7e, type: 3}
     pageStr: "<color=#4E9D61>\uC778\uD130\uB137</color>\uC5D0 <color=#4E9D61>\uC5F0\uACB0</color>\uB41C
       \uCC44\uB85C, <color=#00AAFF>\uC2B9\uB9AC</color>\uD558\uACE0 <color=#4E9D61>\uAE30\uB85D</color>\uC744
