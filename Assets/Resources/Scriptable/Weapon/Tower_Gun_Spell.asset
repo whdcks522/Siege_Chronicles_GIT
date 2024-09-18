@@ -19,7 +19,7 @@ MonoBehaviour:
   spellName: "\uC0AC\uACA9"
   spellType: 1
   spellValue: 3
-  spellDesc: "<color=#FF0000>\uC801\uAD70</color> <color=#FFDF94>\uD06C\uB9AC\uCCD0</color>\uC5D0\uAC8C
-    <color=#00AAFF>6</color>\uBC88 <color=#00AAFF>\uB098\uB204\uC5B4 \uC0AC\uACA9</color>\uD569\uB2C8\uB2E4."
+  spellDesc: "<color=#00AAFF>\uC801 \uCE90\uB9AD\uD130</color>\uB97C <color=#00AAFF>6</color>\uBC88
+    <color=#00AAFF>\uB098\uB204\uC5B4 \uC0AC\uACA9</color>\uD569\uB2C8\uB2E4."
   spellPrefab: {fileID: 1795072395756124, guid: 5135a03674bb17e4aae98e805b20d536,
     type: 3}

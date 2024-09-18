@@ -19,8 +19,7 @@ MonoBehaviour:
   spellName: "\uB300\uD68C\uBCF5"
   spellType: 1
   spellValue: 7
-  spellDesc: "<color=#00AAFF>\uC120\uD0DD\uD55C \uC601\uC5ED</color>\uC5D0 \uC874\uC7AC\uD558\uB294
-    <color=#0000FF>\uC544\uAD70</color> <color=#FFDF94>\uD06C\uB9AC\uCCD0</color>\uC758
-    \uCCB4\uB825\uC744 \uC77C\uC815\uCE58 <color=#DD00DD>\uD68C\uBCF5</color>\uC2DC\uD0B5\uB2C8\uB2E4."
+  spellDesc: "<color=#00AAFF>\uB4DC\uB798\uADF8</color>\uD55C <color=#00AAFF>\uC601\uC5ED</color>\uC758
+    <color=#00AAFF>\uC544\uAD70 \uCE90\uB9AD\uD130</color>\uB97C <color=#00AAFF>\uD68C\uBCF5</color>\uC2DC\uD0B5\uB2C8\uB2E4."
   spellPrefab: {fileID: 1498152551406518, guid: 408af7a30a0f3e54eb56d985a4471da0,
     type: 3}

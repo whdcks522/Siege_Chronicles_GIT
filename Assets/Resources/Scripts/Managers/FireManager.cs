@@ -327,6 +327,9 @@ public class FireManager : MonoBehaviour
         gameManager.audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
 
         playerName = inputField.GetComponent<InputField>().text;
+
+        //와이파이 아이콘 플래시 애니메이션 재생
+        wifiObj.transform.GetChild(0).GetComponent<Animator>().SetBool("isFlash", true);
     }
     #endregion
 

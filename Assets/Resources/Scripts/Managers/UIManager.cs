@@ -65,6 +65,11 @@ public class UIManager : MonoBehaviour
 
         //플레이어 자원 텍스트를 위함
         textWhite = PlayerResourceText.color;
+
+        if (settingBackground.activeSelf) 
+        {
+            settingBackground.SetActive(false);
+        }
     }
 
     [Header("스펠 버튼 비용 애니메이션")]
