@@ -10,25 +10,14 @@ public class TipManager : MonoBehaviour
     public GameManager gameManager;
     AudioManager audioManager;
 
-    [Serializable]//필요하더라
-    public class PanelPageInfo
-    {
-        public Sprite pageSprite;
-        [TextArea(4, 10)]
-        public string pageStr;
-    }
-
-
-    [Header("패널 디스플레이의 정보 배열")]
-    public PanelPageInfo[] panelPageInfoArray;
+    [Header("패널 디스플레이의 스프라이트 배열")]
+    public Sprite[] pageSpriteArr;
 
     [Header("팁 패널 오브젝트")]
     public GameObject tipPanel;
 
     [Header("팁 패널의 디스플레이")]
     public Image tipPanelDisplay;
-    [Header("팁 패널의 설명")]
-    public Text tipPanelDesc;
 
     [Header("팁 패널의 페이지 텍스트")]
     public Text tipPanelPageText;
@@ -45,10 +34,7 @@ public class TipManager : MonoBehaviour
     [Header("팁 패널의 텍스트 애니메이션")]
     public Animator pageAnim;
 
-    private void Start()
-    {
-        audioManager = gameManager.audioManager;
-    }
+    private void Start()=> audioManager = gameManager.audioManager;
 
     public void PanelOn(int startPage) //패널 활성, 비활성 관리
     {
@@ -79,7 +65,6 @@ public class TipManager : MonoBehaviour
         //종이 넘기는 효과음
         audioManager.PlaySfx(AudioManager.Sfx.PaperSfx);
 
-
         //페이지 수 조작
         curPageindex += pageIndex;
 
@@ -95,22 +80,21 @@ public class TipManager : MonoBehaviour
             curPageindex = 0;
             tipPanelPageLeftBtn.interactable = false;//좌측 방향 비활성화
         }
-        else if (curPageindex >= panelPageInfoArray.Length - 1)//마지막 페이지인 경우
+        else if (curPageindex >= pageSpriteArr.Length - 1)//마지막 페이지인 경우
         {
-            curPageindex = panelPageInfoArray.Length - 1;
+            curPageindex = pageSpriteArr.Length - 1;
             tipPanelPageRightBtn.interactable = false;//우측 방향 비활성화
 
             tipPanelPageText.color = gameManager.uiManager.textGreen;
         }
 
         //해당 페이지 정보 받아오기
-        tipPanelDisplay.sprite = panelPageInfoArray[curPageindex].pageSprite;
-        tipPanelDesc.text = panelPageInfoArray[curPageindex].pageStr;
+        tipPanelDisplay.sprite = pageSpriteArr[curPageindex];
 
         //현재 페이지 알려주기
-        tipPanelPageText.text = (curPageindex + 1) + "/" + panelPageInfoArray.Length;
+        tipPanelPageText.text = (curPageindex + 1) + "/" + pageSpriteArr.Length;
 
-        //페이지 텍스트 애니메이션
+        //페이지 텍스트 플래시 애니메이션
         pageAnim.SetBool("isFlash", true);
     }
 }
