@@ -1,0 +1,24 @@
+버튼 좌측 상단에 있는 <color=#00AAFF>숫자</color>는
+<color=#00AAFF>캐릭터</color>를 <color=#00AAFF>소환</color>하거나 <color=#C7BAFF>대포</color>를 <color=#00AAFF>사용</color>할 때 <color=#00AAFF>소모</color>되는 <color=#AA0000>자원량</color>입니다.
+------------------------------------------------------------------------------------------------------
+<color=#00AAFF>캐릭터</color>나 <color=#C7BAFF>대포</color>를 클릭하면 <color=#00AAFF>선택</color>되고, 다시 클릭하면 <color=#00AAFF>취소</color>됩니다.
+------------------------------------------------------------------------------------------------------
+<color=#00AAFF>캐릭터</color>나 <color=#C7BAFF>대포</color>를 클릭하면 <color=#00AAFF>설명</color>이 <color=#00AAFF>표시</color>됩니다.
+------------------------------------------------------------------------------------------------------
+<color=#DD00DD>슬라이드</color>로 <color=#CC7700>난이도</color>를 <color=#00AAFF>설정</color>합니다.
+------------------------------------------------------------------------------------------------------
+<color=#FFDF94>캐릭터</color>나 <color=#C7BAFF>대포</color>를 최대 <color=#FFFFFF>4</color>개까지 <color=#00AAFF>선택</color>한 뒤, <color=#0000FF>입장 버튼</color>으로 게임을 <color=#0000FF>시작</color>하거나, <color=#FF0000>퇴장 버튼</color>으로 <color=#FF0000>초기 화면</color>으로 돌아갑니다.
+------------------------------------------------------------------------------------------------------
+<color=#AA0000>은행</color>은 <color=#AA0000>자원</color>을 일정치 <color=#00AAFF>소비</color>해, <color=#AA0000>자원 획득량</color>을 <color=#00AAFF>증가</color>시킵니다.
+------------------------------------------------------------------------------------------------------
+<color=#4E9D61>위치 설정</color>이 가능한 <color=#C7BAFF>대포</color>는 <color=#00AAFF>드래그</color> 후 <color=#4E9D61>맵</color>에서 <color=#CC5500>손</color>을 떼면, 뗀 위치에 <color=#C7BAFF>대포</color>를 <color=#00AAFF>사용</color>하고, <color=#770077>대포 버튼</color> 위에서 <color=#CC5500>손</color>을 떼면 <color=#AA0000>자원</color> 반환 후, <color=#C7BAFF>대포</color>를 <color=#00AAFF>취소</color>합니다.
+------------------------------------------------------------------------------------------------------
+우측 상단에 있는 <color=#DD00DD>환경 설정</color>에서 
+'<color=#FF7070>이어하기</color>', '<color=#4E9D61>재시도</color>', '<color=#B684FF>처음으로</color>', '<color=#406BFF>종료하기</color>' 가 가능합니다.
+------------------------------------------------------------------------------------------------------
+<color=#FF0000>상대 타워</color>의 <color=#AA0000>체력</color>이 <color=#FFFFFF>0</color>이 되면 <color=#00AAFF>승리</color>합니다.<color=#0000FF>자기 타워</color>의 <color=#AA0000>체력</color>이 <color=#FFFFFF>0</color>이 되면 <color=#AA0000>패배</color>합니다. <color=#770077>타워</color>의 <color=#AA0000>체력</color>은 <color=#00AAFF>500</color>입니다.
+------------------------------------------------------------------------------------------------------
+<color=#4E9D61>인터넷</color>에 <color=#4E9D61>연결</color>된 채로, <color=#00AAFF>승리</color>하고 <color=#4E9D61>기록</color>을 <color=#00AAFF>갱신</color>한 경우, <color=#4E9D61>이름</color>을 <color=#00AAFF>입력</color>합니다.
+------------------------------------------------------------------------------------------------------
+<color=#00AAFF>승리</color> 시 <color=#4E9D61>리더보드</color>가 <color=#00AAFF>활성화</color>되는데, 
+<color=#FFFDC2>쉬움</color>, <color=#FFC753>보통</color>, <color=#E55151>어려움</color> <color=#CC7700>난이도</color> 별 <color=#4E9D61>랭킹</color>을 <color=#00AAFF>게시</color>합니다.

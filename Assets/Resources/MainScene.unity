@@ -29537,7 +29537,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -35998,11 +35998,10 @@ MonoBehaviour:
       - 9999
       - 9999
       - 9999
-    isLoad: 1
-  timing: 0.0004
   gameManager: {fileID: 7248791031402223488}
   leaderBoardPanel: {fileID: 9051775827557838608}
   inputField: {fileID: 1240200474}
+  isLoad: -1
   wifiObj: {fileID: 43505810}
   wifiSpriteArr:
   - {fileID: 21300000, guid: 824de0330a7dd4dc6968aa1846001f72, type: 3}
@@ -41436,7 +41435,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -43644,7 +43643,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

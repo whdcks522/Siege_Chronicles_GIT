@@ -67,9 +67,6 @@ public class FireManager : MonoBehaviour
 
         string dateStr = playerName + "(" + DateTimeUtils.GetCurrentDateTimeString() + ")";
 
-        //등급 갱신이 됐는지 여부
-        bool isRankChange = false;
-
         float tmpTime;
         string tmpStr;
 
@@ -77,8 +74,6 @@ public class FireManager : MonoBehaviour
         {
             if (clearTime < leaderBoardArray.leaderBoardArr[gameLevel].ClearTime[i]) //변화가 일어난 경우
             {
-                isRankChange = true;
-
                 if (isSave)//리더보드 변화를 허용함
                 {
                     //기존의 것을 일단 저장함
@@ -103,8 +98,6 @@ public class FireManager : MonoBehaviour
                 }
             }
         }
-
-        //return isRankChange;
     }
     #endregion
 
