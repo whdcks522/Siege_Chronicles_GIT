@@ -290,7 +290,7 @@ public class TowerManager : MonoBehaviour
             if (damage != 0)
                 audioManager.PlaySfx(AudioManager.Sfx.TowerCrashSfx);
         }
-        else if (curHealth <= 0 && !UiManager.settingBackground.activeSelf) //게임 종료
+        else if (curHealth <= 0 && !UiManager.settingBackground.activeSelf) //타워의 체력이 0이며, 설정 화면이 꺼져 있는 경우
         {
             //Debug.LogWarning("여러번 호출되나?");
 
