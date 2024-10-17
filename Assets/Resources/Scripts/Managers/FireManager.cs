@@ -223,6 +223,8 @@ public class FireManager : MonoBehaviour
     4: 1번만 데이터 불러오기 + 변화 있는 경우
     */
     public int isLoad = -1;//0은 아직 안불림, 1은 갱신한 것 확인, 2는 새로 저장함(기록 없어질수도 있음)
+    readonly string offLineStr = "Offline";
+    readonly string onLineStr = "Online";
     IEnumerator UpdateCoroutine()
     {
         //와이파이 이미지 활성화
@@ -231,7 +233,7 @@ public class FireManager : MonoBehaviour
         wifiObj.GetComponent<Image>().sprite = wifiSpriteArr[0];
         wifiObj.transform.GetChild(0).GetComponent<Animator>().SetBool("isFlash", true);
 
-        wifiObj.transform.GetChild(0).GetComponent<Text>().text = "Offline";
+        wifiObj.transform.GetChild(0).GetComponent<Text>().text = offLineStr;
         wifiObj.transform.GetChild(0).GetComponent<Text>().color = gameManager.uiManager.textYellow;
 
 
@@ -304,7 +306,7 @@ public class FireManager : MonoBehaviour
 
                 wifiObj.GetComponent<Image>().sprite = wifiSpriteArr[1];
 
-                wifiObj.transform.GetChild(0).GetComponent<Text>().text = "Online";
+                wifiObj.transform.GetChild(0).GetComponent<Text>().text = onLineStr;
                 wifiObj.transform.GetChild(0).GetComponent<Text>().color = gameManager.uiManager.textGreen;
             }
             else //인터넷에 연결되지 않은 경우
@@ -316,7 +318,7 @@ public class FireManager : MonoBehaviour
 
                 wifiObj.GetComponent<Image>().sprite = wifiSpriteArr[0];
 
-                wifiObj.transform.GetChild(0).GetComponent<Text>().text = "Offline";
+                wifiObj.transform.GetChild(0).GetComponent<Text>().text = offLineStr;
                 wifiObj.transform.GetChild(0).GetComponent<Text>().color = gameManager.uiManager.textYellow;
             }
 

@@ -419,9 +419,9 @@ public class UIManager : MonoBehaviour
     public GameObject victoryTitle;//승리 시 나올 텍스트
     public GameObject defeatTitle;//패배 시 나올 텍스트
 
-    public Button startBtn;//이어하기 버튼(게임 종료 시, 비활성화)
+    public Button setBtn;//이어하기 버튼(게임 종료 시, 비활성화)
     public Animator setBtnAnim;//세팅 버튼 플래시 애니메이션
-    
+    public Animator[] setBtnAnimArr;//세팅에서 사용할 버튼들의 애니메이션 
     public void SettingControl(bool isOpen)//세팅 활성화 관리
     {
         if(isOpen)//포커스 초기화
@@ -450,25 +450,33 @@ public class UIManager : MonoBehaviour
         {
             Time.timeScale = 0.001f;
 
-            //세팅 텍스트 플래시 애니메이션 재생
-            setBtnAnim.SetBool("isFlash", true);
+            //세팅 버튼 애니메이션 재생(버튼 상호작용 관리)
+            for (int index = 0; index <= 3; index++)
+                setBtnAnimArr[index].SetTrigger("isActivate");
         }
         else //닫은 경우 시간 배율 초기화
         {
             SpeedControl(false);
             SpeedControl(false);
         }
+
+        //세팅 텍스트 플래시 애니메이션 재생
+        setBtnAnim.SetBool("isFlash", true);
     }
 
-    #region 세팅 화면의 버튼 애니메이션 재생
-    public Animator[] setBtnAnimArr;//세팅에서 사용할 버튼들의 애니메이션 
-    public void setBtnControl(int startIndex) //0은 그냥 세팅 버튼, 1은 승리나 패배
+    #region 세팅 화면 버튼 클릭
+    public void SettingBtnClick() 
     {
-        //세팅 버튼 애니메이션 재생
-        for (int index = startIndex; index <= 4; index++)
+        if (settingBackground.activeSelf)//세팅 화면이 켜진 상태라면 
         {
-            setBtnAnimArr[index].SetTrigger("isActivate");
+            SettingControl(false);
         }
+        else //세팅 화면이 꺼진 상태에서 눌렀다면
+        {
+            SettingControl(true);
+        }
+        //종이 효과음 출력
+        playSfxPaper();
     }
     #endregion
 

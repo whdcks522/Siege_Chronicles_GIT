@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -85,7 +86,8 @@ public class GameManager : MonoBehaviour
         uiManager.resetUI();
 
         //이어하기 버튼 상호작용 활성화
-        uiManager.startBtn.interactable = true;
+        uiManager.setBtn.interactable = true;
+        uiManager.setBtn.transform.GetChild(0).GetComponent<Text>().color = uiManager.textYellow;
 
         //설정 화면의 글자 초기화
         uiManager.victoryTitle.SetActive(false);
@@ -119,8 +121,6 @@ public class GameManager : MonoBehaviour
         {
             //일시정지
             uiManager.SettingControl(true);
-
-            uiManager.setBtnControl(0);
         }
     }
 

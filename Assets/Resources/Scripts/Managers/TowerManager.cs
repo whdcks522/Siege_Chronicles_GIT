@@ -323,8 +323,8 @@ public class TowerManager : MonoBehaviour
             UiManager.SettingControl(true);
 
             //설정 화면의 시작 버튼 비활성화
-            UiManager.startBtn.interactable = false;
-            UiManager.setBtnControl(1);
+            UiManager.setBtn.interactable = false;
+            UiManager.setBtn.transform.GetChild(0).GetComponent<Text>().color = UiManager.textRed;
         }
     }
     #endregion
