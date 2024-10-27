@@ -15,11 +15,8 @@ URP 설정 변경(안티 앨리어싱 비활성화, 그림자 해상도 조절, 
 Fixed 간격 조정
 Update를 코루틴으로 수정
 ------------------------------------------------------------------------------------------------------------
-Siege_Chronicles TA 가이드(24/05/24)
-	https://docs.google.com/document/d/1NbT4R3fhqVMCp31x84nJRKvtELgGfmKQvJ0-rvpdtNc/edit
-------------------------------------------------------------------------------------------------------------
 유니티 신버전 lightMap
-https://chulin28ho.tistory.com/446
+<https://chulin28ho.tistory.com/446>
 
 라이트맵의 PC와 모바일 차이
-https://darkcatgame.tistory.com/91
+<https://darkcatgame.tistory.com/91>

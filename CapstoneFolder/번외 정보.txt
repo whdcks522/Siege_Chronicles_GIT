@@ -20,7 +20,3 @@ https://dhy948.tistory.com/16
     ".write": "now < 1721919600000",  // 2024-7-26
   }
 }
-
-
-https://gall.dcinside.com/mgallery/board/view/?id=gamejob&no=18114
-코테 c++하자
