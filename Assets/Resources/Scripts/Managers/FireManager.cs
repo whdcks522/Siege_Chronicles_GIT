@@ -57,9 +57,9 @@ public class FireManager : MonoBehaviour
         return Mathf.Round(value * factor) / factor;
     }
 
-    public void CheckJson(int gameLevel, float clearTime, bool isSave) 
+    public void CheckJson(int gameLevel, float clearTime, bool isSave)
     {
-        Debug.Log("JSON 내용 바꾸기");//확인중..
+        Debug.Log("리더보드 갱신 여부 확인");//확인중..
 
         clearTime = RoundToDecimalPlace(clearTime, 1);
 
@@ -105,7 +105,7 @@ public class FireManager : MonoBehaviour
     string userId = "veHlMdhxfhVKn3scykFjU9fzeEf2";//리더보드 내용을 저장할 내 아이디
     public void SaveJson() 
     {
-        Debug.Log("JSON 저장하기");
+        Debug.Log("리더보드 저장하기");
 
         string json = JsonUtility.ToJson(leaderBoardArray);
 
@@ -125,11 +125,11 @@ public class FireManager : MonoBehaviour
         //데이터베이스로부터 데이터를 읽어옴
         achievementsRef.GetValueAsync().ContinueWith(task =>
         {
-            Debug.Log("데이터 불러오는 중...");
+            Debug.Log("리더보드 불러오는 중...");
 
             if (isLoad == -1) // 로딩을 취소할 수 있는 플래그 확인(온라인에서만 중지 가능하더라(중첩됨))
             {
-                Debug.Log("데이터 로딩 취소");
+                Debug.Log("리더보드 로딩 취소");
                 return;
             }
 
@@ -149,7 +149,7 @@ public class FireManager : MonoBehaviour
                     leaderBoardArray = JsonUtility.FromJson<LeaderBoardArray>(json);
                     isLoad += 1;
 
-                    Debug.Log("데이터 불러옴(단계): " + isLoad);
+                    Debug.Log("리더보드 불러옴(isLoad): " + isLoad);
                 }
                 else
                 {
@@ -220,6 +220,7 @@ public class FireManager : MonoBehaviour
     0: 막 클리어
     1: 데이터 불러오기 성공
     2: 랭킹 변화가 있음
+    3: 랭킹 변화가 있는 경우, 다시 로딩 기다리느라
     4: 1번만 데이터 불러오기 + 변화 있는 경우
     */
     public int isLoad = -1;//0은 아직 안불림, 1은 갱신한 것 확인, 2는 새로 저장함(기록 없어질수도 있음)
@@ -250,7 +251,7 @@ public class FireManager : MonoBehaviour
                     if (gameManager.OnlineCheck() && playerName != "")//그리고 온라인이면(인풋 필드로 이름 삽입)
                     {
                         //랭킹 새로 불러오기
-                        if (isLoad == 2)
+                        if (isLoad == 2)//로딩하는데 시간이 걸려서
                         {
                             isLoad += 1;
                             LoadJson();

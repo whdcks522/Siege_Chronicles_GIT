@@ -195,7 +195,7 @@ public class UIManager : MonoBehaviour
         //스펠 버튼 애니메이션 수행
         for (int i = 0; i < spellBtnArr.Length; i++) 
         {
-            if (spellBtnArr[i].spellData != null) 
+            if (spellBtnArr[i].spellData != null)
             {
                 //스펠 버튼 애니메이션 작동
                 spellBtnAnim[i].SetBool("isFlash", true);
@@ -344,6 +344,10 @@ public class UIManager : MonoBehaviour
 
     public void OnClick(int _index) //전투 화면에서 밑의 4개의 버튼 중 1개를 클릭함
     {
+        //데이터가 비었으면 사용 안함
+        if (spellBtnArr[_index].spellData == null)
+            return;
+
         //애니메이션 작동
         spellBtnAnim[_index].SetBool("isFlash", true);
 
@@ -373,7 +377,7 @@ public class UIManager : MonoBehaviour
                     audioManager.PlaySfx(AudioManager.Sfx.SpellFailSfx);
                 }
             }
-            else //if(spellData.spellType == SpellData.SpellType.Weapon) //주술을 누른 경우
+            else 
             {
                 //스펠 성공 효과음
                 audioManager.PlaySfx(AudioManager.Sfx.SpellSuccessSfx);

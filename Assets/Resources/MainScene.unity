@@ -18836,21 +18836,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 7248791031402223488}
   pageSpriteArr:
-  - {fileID: 21300000, guid: 8b24440fdd42ff94f86fe6224289abbc, type: 3}
   - {fileID: 21300000, guid: 82bf72c3d2626994e9f31545f65cc070, type: 3}
   - {fileID: 21300000, guid: efb2fe3821eb7db42be21f051f9cdae7, type: 3}
   - {fileID: 21300000, guid: 1c6a92222c9287d4ebdd171494b7a28d, type: 3}
   - {fileID: 21300000, guid: 52fc92ebe2156d44a98191e16fb38086, type: 3}
   - {fileID: 21300000, guid: 871d98c3bfc8d434080898245bb7c216, type: 3}
-  - {fileID: 21300000, guid: 8c507f2f5c882ca4f9062354b4178016, type: 3}
-  - {fileID: 21300000, guid: a51209c2857eaaf49b3940f312ea155b, type: 3}
-  - {fileID: 21300000, guid: e7070c26931766d48bb529702b8a787f, type: 3}
-  - {fileID: 21300000, guid: d46e79bceaf2a9e4cb6ba89de12dc52d, type: 3}
-  - {fileID: 21300000, guid: 0b33c60b0fdac6042afd698ae64da48b, type: 3}
-  - {fileID: 21300000, guid: 7446cc9dbc00d9448ab823e3b2a06f14, type: 3}
-  - {fileID: 21300000, guid: ea869493edf62da41ba675526e2b4954, type: 3}
-  - {fileID: 21300000, guid: 60adac6f56ad604478a451d70cb18e4d, type: 3}
-  - {fileID: 21300000, guid: 505672a6b2a33244b8f8c08febd721c8, type: 3}
   tipPanel: {fileID: 541896258}
   tipPanelDisplay: {fileID: 1674843806}
   tipPanelPageText: {fileID: 1638337792}
@@ -38046,7 +38036,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 6
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
