@@ -4,33 +4,18 @@
 URP 설정 변경(안티 앨리어싱 비활성화(높은 해상도의 신호를 낮은 해상도에서 나타낼 때 생기는 계단 현상(깨진 패턴)을 최소화하는 방법),
 		그림자 해상도 조절,
 		render 스캐일 조정)
+오브젝트 풀링 설정
+FixedUpdate 간격 조정
 
-오브젝트 풀링
-Fixed 간격 조정
-Update를 코루틴으로 수정
-
-
-
-빛 굽기
-------------------------------------------------------------------------------------------------------------
-<<컴파일 속도 최적화>>
-Project Settings => Editor => Enter Play Mode Options 체크 (활성화)
-Reload Domain 체크 해제 (비활성화)
-<https://virtualdever.tistory.com/298>
-
-오토 리프레쉬 비활성화
-Preference - General - Auto Refresh 를 선택 해제
-<https://virtualdever.tistory.com/101>
-------------------------------------------------------------------------------------------------------------
-유니티 신버전 lightMap
-<https://chulin28ho.tistory.com/446>
-
-라이트맵의 PC와 모바일 차이
-<https://darkcatgame.tistory.com/91>
-
-https://dhy948.tistory.com/16
-	코루틴으로 update 대체
+Update를 코루틴으로 수정(https://dhy948.tistory.com/16)
 	disable시, 코드로 정지 해야함
 		1. 복잡한 조건이 필요 없이 계속 사용하는 반복 함수는 굳이 코루틴 쓰지말고 Update에 넣자
 		2. 똑같은 조건으로 반복되는 코루틴에서 Wait문을 꼭 캐싱해서 사용하자
 		3. 코루틴을 수시로 시작하고 종료하는 짓은 절대 하지말자
+
+Light Bake 설정
+	유니티 신버전 lightMap
+	<https://chulin28ho.tistory.com/446>
+
+	라이트맵의 PC와 모바일 차이
+	<https://darkcatgame.tistory.com/91>
